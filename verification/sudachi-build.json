@@ -1,0 +1,24 @@
+{
+  "sourceCommit": "20ccaedee7459d2c5be9366efabfe407ec48ca5e",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "files": [
+    {
+      "path": "sudachi_wasm.js",
+      "bytes": 12340,
+      "sha256": "6b24147410e1c880be4ac21177bda9e310ce255a355dcb8222397c47dd614772",
+      "matchesMeasuredBuild": true
+    },
+    {
+      "path": "sudachi_wasm_bg.wasm",
+      "bytes": 2115006,
+      "sha256": "a2e36af556428056e15e362ff26e034a5175c1f0fead17bbe5bfe48155531e09",
+      "matchesMeasuredBuild": false
+    },
+    {
+      "path": "system-small.dic",
+      "bytes": 122949387,
+      "sha256": "edd7e6521ccc2c2e674dd5f4cccb9e87456cf12507b8f8448973f4602b545317",
+      "matchesMeasuredBuild": true
+    }
+  ]
+}

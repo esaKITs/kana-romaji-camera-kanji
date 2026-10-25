@@ -1,0 +1,67 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test
+> node --test tests/*.test.mjs
+
+✔ only the three fixed modes, including Han extension characters (3.134667ms)
+✔ source offsets survive spaces and astral Han; mismatches never get fake boxes (0.677189ms)
+✔ okurigana stays kana in Han-only alignment; opaque mixed words defer (1.044482ms)
+✔ unknown, named and ambiguous kanji remain review candidates (0.266243ms)
+✔ cache is bounded, copies results, rejects excessive lines and clears (0.55555ms)
+✔ Sudachi package schema refuses unrecognized ABI (0.403766ms)
+✔ existing kanji ruby romanization: がっこう (1.797483ms)
+✔ existing kanji ruby romanization: としょかん (0.329156ms)
+✔ existing kanji ruby romanization: しんぶん (0.205933ms)
+✔ existing kanji ruby romanization: れんあい (0.266553ms)
+✔ existing kanji ruby romanization: せんせい (0.222108ms)
+✔ existing kana exceptions preserved (0.296447ms)
+✔ particle pronunciation selection remains separate from spelling (0.234836ms)
+✔ all existing golden kana spellings agree in both vowel styles (2.604695ms)
+✔ sokuon at analyzer boundary is pronounced with following te (6.833256ms)
+✔ past and negative auxiliaries form complete readable groups (0.676588ms)
+✔ honorific prefix and verbal suffix stay with their verb (0.232823ms)
+✔ lexical 十分に passes display review without enabling ten minutes (0.344619ms)
+✔ Han-only mode, ruby spans, proper names, and gaps are not merged (0.406409ms)
+✔ 100 reviewed ordinary probes exclude identity and dictionary-coverage probes (0.865427ms)
+✔ multiple valid readings and metric denominators are distinct (6.184458ms)
+✔ modern Sudachi code-point offsets are checked against UTF-16 source (0.639304ms)
+✔ verified grouped ruby overrides different analyzer boundaries without duplicates (1.930319ms)
+✔ uncertain candidate ruby stays unconverted and does not create duplicate labels (0.436354ms)
+✔ Han-only and katakana/Han preserve okurigana; all-script mode can cover the word (2.788066ms)
+✔ partial ruby, competing bodies and invalid glyph boxes do not fabricate a match (0.466037ms)
+✔ adjacent words share free row space, preserve order, and do not collide (2.308357ms)
+✔ digits and non-target kana remain protected in every mode (0.558324ms)
+✔ long label wraps into two rows with a readable font (0.454571ms)
+✔ nearby ruby and other lines cannot be painted over (0.525686ms)
+✔ impossible width is explicitly withheld, never over-compressed (0.303538ms)
+✔ allocation is repeatable and input is immutable (1.796472ms)
+✔ overlapping OCR bounds are clipped to preserved neighboring glyphs (0.252322ms)
+✔ tight canvases and uneven words never produce out-of-bounds rectangles (1.196076ms)
+✔ kanji/ASCII/fullwidth parsing rejects malformed and ambiguous digit strings (2.33032ms)
+✔ productive pronunciation 三本 (0.773682ms)
+✔ productive pronunciation 二十六本 (0.368053ms)
+✔ productive pronunciation 百八杯 (0.214927ms)
+✔ productive pronunciation 三千匹 (0.226434ms)
+✔ productive pronunciation 二十四人 (0.394883ms)
+✔ productive pronunciation 十八冊 (0.252723ms)
+✔ productive pronunciation 十三階 (0.221627ms)
+✔ productive pronunciation 三分待つ (0.887029ms)
+✔ calendar first day and one-day durations differ; twenty days does not switch to nijuu-nichi (1.173633ms)
+✔ calendar limits, leap years and ambiguous lexical/minute uses are guarded (0.700554ms)
+✔ merges actual token spans, preserves offsets and leaves input untouched (1.281502ms)
+✔ proper names and overlapping lexical words never get split to fit a numeric rule (0.568489ms)
+✔ Still preserves Arabic digits and puts the counter allomorph only on the Han box in every mode (3.987837ms)
+✔ verified ruby retains priority over the numeric rule (1.096308ms)
+✔ whole-day duration supplies the juu suffix without rewriting a following word (0.336176ms)
+✔ source word edges are erased independently of shorter label width (5.211712ms)
+✔ source mask preserves every pixel of an overlapping digit box (10.140998ms)
+✔ two-dimensional mask subtraction conserves unprotected area (0.299622ms)
+✔ separated words stay at their own source centers (1.037862ms)
+ℹ tests 54
+ℹ suites 0
+ℹ pass 54
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 478.743259

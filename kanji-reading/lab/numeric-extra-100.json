@@ -1,0 +1,885 @@
+{
+  "version": "2026-10-24-v1",
+  "scope": "80 additional positive probes with values/spellings not in original 100; 20 guard probes. Authored gold, no independent second annotator. Not a random sample or claim of held-out rule learning.",
+  "positive": [
+    {
+      "id": "N001",
+      "text": "ペンを11本並べます。",
+      "target": "11本",
+      "acceptedReadings": [
+        "ジュウイッポン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N002",
+      "text": "ペンを12本並べます。",
+      "target": "12本",
+      "acceptedReadings": [
+        "ジュウニホン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N003",
+      "text": "ペンを13本並べます。",
+      "target": "13本",
+      "acceptedReadings": [
+        "ジュウサンボン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N004",
+      "text": "ペンを16本並べます。",
+      "target": "16本",
+      "acceptedReadings": [
+        "ジュウロッポン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N005",
+      "text": "ペンを18本並べます。",
+      "target": "18本",
+      "acceptedReadings": [
+        "ジュウハッポン",
+        "ジュウハチホン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N006",
+      "text": "ペンを20本並べます。",
+      "target": "20本",
+      "acceptedReadings": [
+        "ニジュッポン",
+        "ニジッポン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N007",
+      "text": "ペンを21本並べます。",
+      "target": "21本",
+      "acceptedReadings": [
+        "ニジュウイッポン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N008",
+      "text": "ペンを23本並べます。",
+      "target": "23本",
+      "acceptedReadings": [
+        "ニジュウサンボン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N009",
+      "text": "ペンを26本並べます。",
+      "target": "26本",
+      "acceptedReadings": [
+        "ニジュウロッポン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N010",
+      "text": "ペンを28本並べます。",
+      "target": "28本",
+      "acceptedReadings": [
+        "ニジュウハッポン",
+        "ニジュウハチホン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N011",
+      "text": "水を11杯用意します。",
+      "target": "11杯",
+      "acceptedReadings": [
+        "ジュウイッパイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N012",
+      "text": "水を12杯用意します。",
+      "target": "12杯",
+      "acceptedReadings": [
+        "ジュウニハイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N013",
+      "text": "水を13杯用意します。",
+      "target": "13杯",
+      "acceptedReadings": [
+        "ジュウサンバイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N014",
+      "text": "水を16杯用意します。",
+      "target": "16杯",
+      "acceptedReadings": [
+        "ジュウロッパイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N015",
+      "text": "水を18杯用意します。",
+      "target": "18杯",
+      "acceptedReadings": [
+        "ジュウハッパイ",
+        "ジュウハチハイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N016",
+      "text": "水を20杯用意します。",
+      "target": "20杯",
+      "acceptedReadings": [
+        "ニジュッパイ",
+        "ニジッパイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N017",
+      "text": "猫が11匹います。",
+      "target": "11匹",
+      "acceptedReadings": [
+        "ジュウイッピキ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N018",
+      "text": "猫が13匹います。",
+      "target": "13匹",
+      "acceptedReadings": [
+        "ジュウサンビキ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N019",
+      "text": "猫が16匹います。",
+      "target": "16匹",
+      "acceptedReadings": [
+        "ジュウロッピキ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N020",
+      "text": "猫が18匹います。",
+      "target": "18匹",
+      "acceptedReadings": [
+        "ジュウハッピキ",
+        "ジュウハチヒキ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N021",
+      "text": "猫が20匹います。",
+      "target": "20匹",
+      "acceptedReadings": [
+        "ニジュッピキ",
+        "ニジッピキ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N022",
+      "text": "学生が11人集まりました。",
+      "target": "11人",
+      "acceptedReadings": [
+        "ジュウイチニン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N023",
+      "text": "学生が12人集まりました。",
+      "target": "12人",
+      "acceptedReadings": [
+        "ジュウニニン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N024",
+      "text": "学生が14人集まりました。",
+      "target": "14人",
+      "acceptedReadings": [
+        "ジュウヨニン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N025",
+      "text": "学生が21人集まりました。",
+      "target": "21人",
+      "acceptedReadings": [
+        "ニジュウイチニン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N026",
+      "text": "学生が24人集まりました。",
+      "target": "24人",
+      "acceptedReadings": [
+        "ニジュウヨニン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N027",
+      "text": "学生が27人集まりました。",
+      "target": "27人",
+      "acceptedReadings": [
+        "ニジュウナナニン",
+        "ニジュウシチニン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N028",
+      "text": "会場は11階です。",
+      "target": "11階",
+      "acceptedReadings": [
+        "ジュウイッカイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N029",
+      "text": "会場は13階です。",
+      "target": "13階",
+      "acceptedReadings": [
+        "ジュウサンガイ",
+        "ジュウサンカイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N030",
+      "text": "会場は16階です。",
+      "target": "16階",
+      "acceptedReadings": [
+        "ジュウロッカイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N031",
+      "text": "会場は18階です。",
+      "target": "18階",
+      "acceptedReadings": [
+        "ジュウハッカイ",
+        "ジュウハチカイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N032",
+      "text": "会場は23階です。",
+      "target": "23階",
+      "acceptedReadings": [
+        "ニジュウサンガイ",
+        "ニジュウサンカイ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N033",
+      "text": "本を11冊借りました。",
+      "target": "11冊",
+      "acceptedReadings": [
+        "ジュウイッサツ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N034",
+      "text": "本を18冊借りました。",
+      "target": "18冊",
+      "acceptedReadings": [
+        "ジュウハッサツ",
+        "ジュウハチサツ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N035",
+      "text": "本を20冊借りました。",
+      "target": "20冊",
+      "acceptedReadings": [
+        "ニジュッサツ",
+        "ニジッサツ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N036",
+      "text": "本を21冊借りました。",
+      "target": "21冊",
+      "acceptedReadings": [
+        "ニジュウイッサツ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N037",
+      "text": "本を28冊借りました。",
+      "target": "28冊",
+      "acceptedReadings": [
+        "ニジュウハッサツ",
+        "ニジュウハチサツ"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N038",
+      "text": "あと11分待ってください。",
+      "target": "11分",
+      "acceptedReadings": [
+        "ジュウイップン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N039",
+      "text": "あと13分待ってください。",
+      "target": "13分",
+      "acceptedReadings": [
+        "ジュウサンプン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N040",
+      "text": "あと16分待ってください。",
+      "target": "16分",
+      "acceptedReadings": [
+        "ジュウロップン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N041",
+      "text": "あと18分待ってください。",
+      "target": "18分",
+      "acceptedReadings": [
+        "ジュウハップン",
+        "ジュウハチフン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N042",
+      "text": "あと20分待ってください。",
+      "target": "20分",
+      "acceptedReadings": [
+        "ニジュップン",
+        "ニジップン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N043",
+      "text": "あと24分待ってください。",
+      "target": "24分",
+      "acceptedReadings": [
+        "ニジュウヨンプン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N044",
+      "text": "あと100分待ってください。",
+      "target": "100分",
+      "acceptedReadings": [
+        "ヒャップン"
+      ],
+      "category": "counter"
+    },
+    {
+      "id": "N045",
+      "text": "五月2日に会います。",
+      "target": "2日",
+      "acceptedReadings": [
+        "フツカ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N046",
+      "text": "5月1日に始めます。",
+      "target": "1日",
+      "acceptedReadings": [
+        "ツイタチ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N047",
+      "text": "5月31日です。",
+      "target": "31日",
+      "acceptedReadings": [
+        "サンジュウイチニチ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N048",
+      "text": "2日間休みます。",
+      "target": "2日間",
+      "acceptedReadings": [
+        "フツカカン"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N049",
+      "text": "20日間滞在します。",
+      "target": "20日間",
+      "acceptedReadings": [
+        "ハツカカン"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N050",
+      "text": "24日間休みます。",
+      "target": "24日間",
+      "acceptedReadings": [
+        "ニジュウヨッカカン"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N051",
+      "text": "1日間だけです。",
+      "target": "1日間",
+      "acceptedReadings": [
+        "イチニチカン"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N052",
+      "text": "旅の1日目です。",
+      "target": "1日目",
+      "acceptedReadings": [
+        "イチニチメ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N053",
+      "text": "1日で完成します。",
+      "target": "1日",
+      "acceptedReadings": [
+        "イチニチ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N054",
+      "text": "32日間の研修です。",
+      "target": "32日間",
+      "acceptedReadings": [
+        "サンジュウニニチカン"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N055",
+      "text": "7月に帰ります。",
+      "target": "7月",
+      "acceptedReadings": [
+        "シチガツ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N056",
+      "text": "12月に帰ります。",
+      "target": "12月",
+      "acceptedReadings": [
+        "ジュウニガツ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N057",
+      "text": "11月です。",
+      "target": "11月",
+      "acceptedReadings": [
+        "ジュウイチガツ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N058",
+      "text": "14時に会います。",
+      "target": "14時",
+      "acceptedReadings": [
+        "ジュウヨジ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N059",
+      "text": "17時に出発します。",
+      "target": "17時",
+      "acceptedReadings": [
+        "ジュウシチジ"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N060",
+      "text": "24時間かかります。",
+      "target": "24時間",
+      "acceptedReadings": [
+        "ニジュウヨジカン"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N061",
+      "text": "12時間かかります。",
+      "target": "12時間",
+      "acceptedReadings": [
+        "ジュウニジカン"
+      ],
+      "category": "date-time"
+    },
+    {
+      "id": "N062",
+      "text": "数量は十三本です。",
+      "target": "十三本",
+      "acceptedReadings": [
+        "ジュウサンボン"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N063",
+      "text": "数量は二十六本です。",
+      "target": "二十六本",
+      "acceptedReadings": [
+        "ニジュウロッポン"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N064",
+      "text": "数量は三百本です。",
+      "target": "三百本",
+      "acceptedReadings": [
+        "サンビャッポン"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N065",
+      "text": "数量は六百匹です。",
+      "target": "六百匹",
+      "acceptedReadings": [
+        "ロッピャッピキ"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N066",
+      "text": "数量は千本です。",
+      "target": "千本",
+      "acceptedReadings": [
+        "センボン"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N067",
+      "text": "数量は二千杯です。",
+      "target": "二千杯",
+      "acceptedReadings": [
+        "ニセンバイ"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N068",
+      "text": "数量は三千匹です。",
+      "target": "三千匹",
+      "acceptedReadings": [
+        "サンゼンビキ"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N069",
+      "text": "数量は百冊です。",
+      "target": "百冊",
+      "acceptedReadings": [
+        "ヒャクサツ"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N070",
+      "text": "数量は百三本です。",
+      "target": "百三本",
+      "acceptedReadings": [
+        "ヒャクサンボン"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N071",
+      "text": "数量は百八杯です。",
+      "target": "百八杯",
+      "acceptedReadings": [
+        "ヒャクハッパイ",
+        "ヒャクハチハイ"
+      ],
+      "category": "compound-number"
+    },
+    {
+      "id": "N072",
+      "text": "ペンは１３本です。",
+      "target": "１３本",
+      "acceptedReadings": [
+        "ジュウサンボン"
+      ],
+      "category": "fullwidth"
+    },
+    {
+      "id": "N073",
+      "text": "水は２３杯です。",
+      "target": "２３杯",
+      "acceptedReadings": [
+        "ニジュウサンバイ"
+      ],
+      "category": "fullwidth"
+    },
+    {
+      "id": "N074",
+      "text": "３４人集まりました。",
+      "target": "３４人",
+      "acceptedReadings": [
+        "サンジュウヨニン"
+      ],
+      "category": "fullwidth"
+    },
+    {
+      "id": "N075",
+      "text": "１７時に会います。",
+      "target": "１７時",
+      "acceptedReadings": [
+        "ジュウシチジ"
+      ],
+      "category": "fullwidth"
+    },
+    {
+      "id": "N076",
+      "text": "７月に帰ります。",
+      "target": "７月",
+      "acceptedReadings": [
+        "シチガツ"
+      ],
+      "category": "fullwidth"
+    },
+    {
+      "id": "N077",
+      "text": "２０日間休みます。",
+      "target": "２０日間",
+      "acceptedReadings": [
+        "ハツカカン"
+      ],
+      "category": "fullwidth"
+    },
+    {
+      "id": "N078",
+      "text": "ペンは３本です。",
+      "target": "３本",
+      "acceptedReadings": [
+        "サンボン"
+      ],
+      "category": "fullwidth"
+    },
+    {
+      "id": "N079",
+      "text": "𠮷という字の横に23本と書きました。",
+      "target": "23本",
+      "acceptedReadings": [
+        "ニジュウサンボン"
+      ],
+      "category": "offset"
+    },
+    {
+      "id": "N080",
+      "text": "こちらは12本、別の箱は13本です。",
+      "target": "13本",
+      "acceptedReadings": [
+        "ジュウサンボン"
+      ],
+      "category": "multiple"
+    }
+  ],
+  "guards": [
+    {
+      "id": "G001",
+      "text": "一日",
+      "target": "一日",
+      "category": "ambiguous-day",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G002",
+      "text": "1日",
+      "target": "1日",
+      "category": "ambiguous-day",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G003",
+      "text": "一月待ちます。",
+      "target": "一月",
+      "category": "duration-month",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G004",
+      "text": "十分です。",
+      "target": "十分",
+      "category": "lexical-jubun",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G005",
+      "text": "十分に注意します。",
+      "target": "十分",
+      "category": "lexical-jubun",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G006",
+      "text": "三分の一です。",
+      "target": "三分",
+      "category": "fraction",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G007",
+      "text": "3分の1です。",
+      "target": "3分",
+      "category": "fraction",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G008",
+      "text": "3.5本です。",
+      "target": "3.5本",
+      "category": "decimal",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G009",
+      "text": "３．５本です。",
+      "target": "３．５本",
+      "category": "decimal",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G010",
+      "text": "-3本です。",
+      "target": "-3本",
+      "category": "negative",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G011",
+      "text": "3〜5本です。",
+      "target": "3〜5本",
+      "category": "range",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G012",
+      "text": "AB3本というコードです。",
+      "target": "AB3本",
+      "category": "identifier",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G013",
+      "text": "第3本です。",
+      "target": "3本",
+      "category": "ordinal",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G014",
+      "text": "01本です。",
+      "target": "01本",
+      "category": "leading-zero",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G015",
+      "text": "0本です。",
+      "target": "0本",
+      "category": "zero",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G016",
+      "text": "10000本です。",
+      "target": "10000本",
+      "category": "out-of-scope",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G017",
+      "text": "5月32日です。",
+      "target": "32日",
+      "category": "invalid-date",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G018",
+      "text": "4月31日です。",
+      "target": "31日",
+      "category": "invalid-date",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G019",
+      "text": "2025年2月29日です。",
+      "target": "29日",
+      "category": "invalid-date",
+      "expectedRuleAction": "do-not-resolve"
+    },
+    {
+      "id": "G020",
+      "text": "13月です。",
+      "target": "13月",
+      "category": "invalid-month",
+      "expectedRuleAction": "do-not-resolve"
+    }
+  ]
+}

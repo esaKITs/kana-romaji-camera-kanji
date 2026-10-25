@@ -1,0 +1,1425 @@
+{
+  "version": "2026-10-21-v2.1",
+  "scope": "100 authored phrase-reading probes; gold reviewed before analyzer execution; not an independently annotated corpus",
+  "categories": {
+    "basic": 30,
+    "inflection": 12,
+    "compound": 12,
+    "reading-variants": 12,
+    "counter": 24,
+    "date-time": 10
+  },
+  "cases": [
+    {
+      "id": "E001",
+      "category": "basic",
+      "text": "学校について話します。",
+      "target": "学校",
+      "acceptedReadings": [
+        "ガッコウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E002",
+      "category": "basic",
+      "text": "図書館について話します。",
+      "target": "図書館",
+      "acceptedReadings": [
+        "トショカン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E003",
+      "category": "basic",
+      "text": "学生について話します。",
+      "target": "学生",
+      "acceptedReadings": [
+        "ガクセイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E004",
+      "category": "basic",
+      "text": "先生について話します。",
+      "target": "先生",
+      "acceptedReadings": [
+        "センセイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E005",
+      "category": "basic",
+      "text": "大学について話します。",
+      "target": "大学",
+      "acceptedReadings": [
+        "ダイガク"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E006",
+      "category": "basic",
+      "text": "教室について話します。",
+      "target": "教室",
+      "acceptedReadings": [
+        "キョウシツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E007",
+      "category": "basic",
+      "text": "勉強について話します。",
+      "target": "勉強",
+      "acceptedReadings": [
+        "ベンキョウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E008",
+      "category": "basic",
+      "text": "授業について話します。",
+      "target": "授業",
+      "acceptedReadings": [
+        "ジュギョウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E009",
+      "category": "basic",
+      "text": "宿題について話します。",
+      "target": "宿題",
+      "acceptedReadings": [
+        "シュクダイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E010",
+      "category": "basic",
+      "text": "試験について話します。",
+      "target": "試験",
+      "acceptedReadings": [
+        "シケン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E011",
+      "category": "basic",
+      "text": "新聞について話します。",
+      "target": "新聞",
+      "acceptedReadings": [
+        "シンブン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E012",
+      "category": "basic",
+      "text": "銀行について話します。",
+      "target": "銀行",
+      "acceptedReadings": [
+        "ギンコウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E013",
+      "category": "basic",
+      "text": "病院について話します。",
+      "target": "病院",
+      "acceptedReadings": [
+        "ビョウイン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E014",
+      "category": "basic",
+      "text": "会社について話します。",
+      "target": "会社",
+      "acceptedReadings": [
+        "カイシャ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E015",
+      "category": "basic",
+      "text": "電車について話します。",
+      "target": "電車",
+      "acceptedReadings": [
+        "デンシャ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E016",
+      "category": "basic",
+      "text": "自転車について話します。",
+      "target": "自転車",
+      "acceptedReadings": [
+        "ジテンシャ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E017",
+      "category": "basic",
+      "text": "電話について話します。",
+      "target": "電話",
+      "acceptedReadings": [
+        "デンワ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E018",
+      "category": "basic",
+      "text": "番号について話します。",
+      "target": "番号",
+      "acceptedReadings": [
+        "バンゴウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E019",
+      "category": "basic",
+      "text": "料理について話します。",
+      "target": "料理",
+      "acceptedReadings": [
+        "リョウリ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E020",
+      "category": "basic",
+      "text": "野菜について話します。",
+      "target": "野菜",
+      "acceptedReadings": [
+        "ヤサイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E021",
+      "category": "basic",
+      "text": "果物について話します。",
+      "target": "果物",
+      "acceptedReadings": [
+        "クダモノ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E022",
+      "category": "basic",
+      "text": "魚について話します。",
+      "target": "魚",
+      "acceptedReadings": [
+        "サカナ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E023",
+      "category": "basic",
+      "text": "肉について話します。",
+      "target": "肉",
+      "acceptedReadings": [
+        "ニク"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E024",
+      "category": "basic",
+      "text": "牛乳について話します。",
+      "target": "牛乳",
+      "acceptedReadings": [
+        "ギュウニュウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E025",
+      "category": "basic",
+      "text": "水について話します。",
+      "target": "水",
+      "acceptedReadings": [
+        "ミズ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E026",
+      "category": "basic",
+      "text": "天気について話します。",
+      "target": "天気",
+      "acceptedReadings": [
+        "テンキ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E027",
+      "category": "basic",
+      "text": "雨について話します。",
+      "target": "雨",
+      "acceptedReadings": [
+        "アメ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E028",
+      "category": "basic",
+      "text": "雪について話します。",
+      "target": "雪",
+      "acceptedReadings": [
+        "ユキ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E029",
+      "category": "basic",
+      "text": "時間について話します。",
+      "target": "時間",
+      "acceptedReadings": [
+        "ジカン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E030",
+      "category": "basic",
+      "text": "友達について話します。",
+      "target": "友達",
+      "acceptedReadings": [
+        "トモダチ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E031",
+      "category": "inflection",
+      "text": "ご飯を食べました。",
+      "target": "食べました",
+      "acceptedReadings": [
+        "タベマシタ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E032",
+      "category": "inflection",
+      "text": "本を読みました。",
+      "target": "読みました",
+      "acceptedReadings": [
+        "ヨミマシタ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E033",
+      "category": "inflection",
+      "text": "名前を書きます。",
+      "target": "書きます",
+      "acceptedReadings": [
+        "カキマス"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E034",
+      "category": "inflection",
+      "text": "音楽を聞いています。",
+      "target": "聞いています",
+      "acceptedReadings": [
+        "キイテイマス"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E035",
+      "category": "inflection",
+      "text": "水を飲みます。",
+      "target": "飲みます",
+      "acceptedReadings": [
+        "ノミマス"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E036",
+      "category": "inflection",
+      "text": "学校に行きました。",
+      "target": "行きました",
+      "acceptedReadings": [
+        "イキマシタ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E037",
+      "category": "inflection",
+      "text": "家に帰ります。",
+      "target": "帰ります",
+      "acceptedReadings": [
+        "カエリマス"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E038",
+      "category": "inflection",
+      "text": "明日は休みます。",
+      "target": "休みます",
+      "acceptedReadings": [
+        "ヤスミマス"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E039",
+      "category": "inflection",
+      "text": "ここで待ってください。",
+      "target": "待ってください",
+      "acceptedReadings": [
+        "マッテクダサイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E040",
+      "category": "inflection",
+      "text": "窓を開けます。",
+      "target": "開けます",
+      "acceptedReadings": [
+        "アケマス"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E041",
+      "category": "inflection",
+      "text": "ドアを閉めます。",
+      "target": "閉めます",
+      "acceptedReadings": [
+        "シメマス"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E042",
+      "category": "inflection",
+      "text": "ゆっくり歩きます。",
+      "target": "歩きます",
+      "acceptedReadings": [
+        "アルキマス"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "活用・送り仮名を含む表層語句全体の読み。"
+      }
+    },
+    {
+      "id": "E043",
+      "category": "compound",
+      "text": "留学生について説明します。",
+      "target": "留学生",
+      "acceptedReadings": [
+        "リュウガクセイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E044",
+      "category": "compound",
+      "text": "大学院生について説明します。",
+      "target": "大学院生",
+      "acceptedReadings": [
+        "ダイガクインセイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E045",
+      "category": "compound",
+      "text": "食堂について説明します。",
+      "target": "食堂",
+      "acceptedReadings": [
+        "ショクドウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "独立辞書での照合が明確な複合語へ変更。日本語の許容読み複数登録は別例で維持。"
+      }
+    },
+    {
+      "id": "E046",
+      "category": "compound",
+      "text": "国際交流について説明します。",
+      "target": "国際交流",
+      "acceptedReadings": [
+        "コクサイコウリュウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E047",
+      "category": "compound",
+      "text": "研究室について説明します。",
+      "target": "研究室",
+      "acceptedReadings": [
+        "ケンキュウシツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E048",
+      "category": "compound",
+      "text": "図書館員について説明します。",
+      "target": "図書館員",
+      "acceptedReadings": [
+        "トショカンイン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E049",
+      "category": "compound",
+      "text": "電話番号について説明します。",
+      "target": "電話番号",
+      "acceptedReadings": [
+        "デンワバンゴウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E050",
+      "category": "compound",
+      "text": "自動販売機について説明します。",
+      "target": "自動販売機",
+      "acceptedReadings": [
+        "ジドウハンバイキ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E051",
+      "category": "compound",
+      "text": "入学試験について説明します。",
+      "target": "入学試験",
+      "acceptedReadings": [
+        "ニュウガクシケン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E052",
+      "category": "compound",
+      "text": "教科書について説明します。",
+      "target": "教科書",
+      "acceptedReadings": [
+        "キョウカショ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E053",
+      "category": "compound",
+      "text": "駐車場について説明します。",
+      "target": "駐車場",
+      "acceptedReadings": [
+        "チュウシャジョウ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E054",
+      "category": "compound",
+      "text": "地下鉄について説明します。",
+      "target": "地下鉄",
+      "acceptedReadings": [
+        "チカテツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "標準的な語の読みを文中で確認。"
+      }
+    },
+    {
+      "id": "E055",
+      "category": "reading-variants",
+      "text": "日本語を勉強します。",
+      "target": "日本語",
+      "acceptedReadings": [
+        "ニホンゴ",
+        "ニッポンゴ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "日本の読みの違いを許容。どちらかを直ちに誤答にしない。"
+      }
+    },
+    {
+      "id": "E056",
+      "category": "reading-variants",
+      "text": "明日は休みです。",
+      "target": "明日",
+      "acceptedReadings": [
+        "アシタ",
+        "アス",
+        "ミョウニチ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "語調・場面が指定されていないため三つの辞書読みを許容。"
+      }
+    },
+    {
+      "id": "E057",
+      "category": "reading-variants",
+      "text": "今日は晴れです。",
+      "target": "今日",
+      "acceptedReadings": [
+        "キョウ",
+        "コンニチ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "今日=きょうが自然。こんにちも日付を指す語義があり単一解に限定しない。"
+      }
+    },
+    {
+      "id": "E058",
+      "category": "reading-variants",
+      "text": "一日中勉強しました。",
+      "target": "一日",
+      "acceptedReadings": [
+        "イチニチ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "期間一日。日付ついたちは不可。"
+      }
+    },
+    {
+      "id": "E059",
+      "category": "reading-variants",
+      "text": "五月一日は休みです。",
+      "target": "一日",
+      "acceptedReadings": [
+        "ツイタチ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日を明示した日付。"
+      }
+    },
+    {
+      "id": "E060",
+      "category": "reading-variants",
+      "text": "生物学の授業を受けます。",
+      "target": "生物学",
+      "acceptedReadings": [
+        "セイブツガク"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "生物単独の意味曖昧性を避け、学問名を使用。"
+      }
+    },
+    {
+      "id": "E061",
+      "category": "reading-variants",
+      "text": "生物は冷蔵庫に入れてください。",
+      "target": "生物",
+      "acceptedReadings": [
+        "ナマモノ",
+        "セイブツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "冷蔵庫だけでは生物=いきものを完全排除できない。両解を許容し、意味の読み分け成功とは数えない。"
+      }
+    },
+    {
+      "id": "E062",
+      "category": "reading-variants",
+      "text": "人気の店に行きます。",
+      "target": "人気",
+      "acceptedReadings": [
+        "ニンキ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "店の評判の意味。"
+      }
+    },
+    {
+      "id": "E063",
+      "category": "reading-variants",
+      "text": "人通りがなく、人気のない道です。",
+      "target": "人気",
+      "acceptedReadings": [
+        "ヒトケ",
+        "ニンキ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "人の気配の意味が自然だが評判の解釈も成立し得るため両解を許容。"
+      }
+    },
+    {
+      "id": "E064",
+      "category": "reading-variants",
+      "text": "この絵は上手です。",
+      "target": "上手",
+      "acceptedReadings": [
+        "ジョウズ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "技能評価の述語。"
+      }
+    },
+    {
+      "id": "E065",
+      "category": "reading-variants",
+      "text": "舞台の右側を上手と呼びます。",
+      "target": "上手",
+      "acceptedReadings": [
+        "カミテ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "舞台の側を名称として指定。"
+      }
+    },
+    {
+      "id": "E066",
+      "category": "reading-variants",
+      "text": "切手を買います。",
+      "target": "切手",
+      "acceptedReadings": [
+        "キッテ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "促音を含む語。"
+      }
+    },
+    {
+      "id": "E067",
+      "category": "counter",
+      "text": "ペンが一本あります。",
+      "target": "一本",
+      "acceptedReadings": [
+        "イッポン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E068",
+      "category": "counter",
+      "text": "ペンが二本あります。",
+      "target": "二本",
+      "acceptedReadings": [
+        "ニホン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E069",
+      "category": "counter",
+      "text": "ペンが三本あります。",
+      "target": "三本",
+      "acceptedReadings": [
+        "サンボン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E070",
+      "category": "counter",
+      "text": "ペンが四本あります。",
+      "target": "四本",
+      "acceptedReadings": [
+        "ヨンホン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E071",
+      "category": "counter",
+      "text": "ペンが五本あります。",
+      "target": "五本",
+      "acceptedReadings": [
+        "ゴホン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E072",
+      "category": "counter",
+      "text": "ペンが六本あります。",
+      "target": "六本",
+      "acceptedReadings": [
+        "ロッポン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E073",
+      "category": "counter",
+      "text": "ペンが八本あります。",
+      "target": "八本",
+      "acceptedReadings": [
+        "ハッポン",
+        "ハチホン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E074",
+      "category": "counter",
+      "text": "ペンが十本あります。",
+      "target": "十本",
+      "acceptedReadings": [
+        "ジュッポン",
+        "ジッポン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E075",
+      "category": "counter",
+      "text": "水が一杯あります。",
+      "target": "一杯",
+      "acceptedReadings": [
+        "イッパイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E076",
+      "category": "counter",
+      "text": "水が三杯あります。",
+      "target": "三杯",
+      "acceptedReadings": [
+        "サンバイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E077",
+      "category": "counter",
+      "text": "水が六杯あります。",
+      "target": "六杯",
+      "acceptedReadings": [
+        "ロッパイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E078",
+      "category": "counter",
+      "text": "水が十杯あります。",
+      "target": "十杯",
+      "acceptedReadings": [
+        "ジュッパイ",
+        "ジッパイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E079",
+      "category": "counter",
+      "text": "猫が一匹います。",
+      "target": "一匹",
+      "acceptedReadings": [
+        "イッピキ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E080",
+      "category": "counter",
+      "text": "猫が三匹います。",
+      "target": "三匹",
+      "acceptedReadings": [
+        "サンビキ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E081",
+      "category": "counter",
+      "text": "猫が六匹います。",
+      "target": "六匹",
+      "acceptedReadings": [
+        "ロッピキ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E082",
+      "category": "counter",
+      "text": "猫が十匹います。",
+      "target": "十匹",
+      "acceptedReadings": [
+        "ジュッピキ",
+        "ジッピキ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E083",
+      "category": "counter",
+      "text": "学生が一人います。",
+      "target": "一人",
+      "acceptedReadings": [
+        "ヒトリ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E084",
+      "category": "counter",
+      "text": "学生が二人います。",
+      "target": "二人",
+      "acceptedReadings": [
+        "フタリ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E085",
+      "category": "counter",
+      "text": "学生が四人います。",
+      "target": "四人",
+      "acceptedReadings": [
+        "ヨニン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E086",
+      "category": "counter",
+      "text": "部屋は一階にあります。",
+      "target": "一階",
+      "acceptedReadings": [
+        "イッカイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E087",
+      "category": "counter",
+      "text": "部屋は三階にあります。",
+      "target": "三階",
+      "acceptedReadings": [
+        "サンガイ",
+        "サンカイ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E088",
+      "category": "counter",
+      "text": "本が一冊あります。",
+      "target": "一冊",
+      "acceptedReadings": [
+        "イッサツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E089",
+      "category": "counter",
+      "text": "本が三冊あります。",
+      "target": "三冊",
+      "acceptedReadings": [
+        "サンサツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E090",
+      "category": "counter",
+      "text": "本が六冊あります。",
+      "target": "六冊",
+      "acceptedReadings": [
+        "ロクサツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "助数詞の連濁・促音・慣用読み。十=ジュッ/ジッ等の成立する異形を許容。"
+      }
+    },
+    {
+      "id": "E091",
+      "category": "date-time",
+      "text": "四月に入学します。",
+      "target": "四月",
+      "acceptedReadings": [
+        "シガツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    },
+    {
+      "id": "E092",
+      "category": "date-time",
+      "text": "七月に帰ります。",
+      "target": "七月",
+      "acceptedReadings": [
+        "シチガツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    },
+    {
+      "id": "E093",
+      "category": "date-time",
+      "text": "九月は暑いです。",
+      "target": "九月",
+      "acceptedReadings": [
+        "クガツ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    },
+    {
+      "id": "E094",
+      "category": "date-time",
+      "text": "今日は五月二十日です。",
+      "target": "二十日",
+      "acceptedReadings": [
+        "ハツカ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    },
+    {
+      "id": "E095",
+      "category": "date-time",
+      "text": "誕生日は五月十四日です。",
+      "target": "十四日",
+      "acceptedReadings": [
+        "ジュウヨッカ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    },
+    {
+      "id": "E096",
+      "category": "date-time",
+      "text": "誕生日は五月二十四日です。",
+      "target": "二十四日",
+      "acceptedReadings": [
+        "ニジュウヨッカ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    },
+    {
+      "id": "E097",
+      "category": "date-time",
+      "text": "四時に会います。",
+      "target": "四時",
+      "acceptedReadings": [
+        "ヨジ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    },
+    {
+      "id": "E098",
+      "category": "date-time",
+      "text": "九時に始まります。",
+      "target": "九時",
+      "acceptedReadings": [
+        "クジ"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    },
+    {
+      "id": "E099",
+      "category": "date-time",
+      "text": "一分待ってください。",
+      "target": "一分",
+      "acceptedReadings": [
+        "イップン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    },
+    {
+      "id": "E100",
+      "category": "date-time",
+      "text": "三分待ってください。",
+      "target": "三分",
+      "acceptedReadings": [
+        "サンプン"
+      ],
+      "review": {
+        "status": "reviewed-v1",
+        "method": "human-authored linguistic review; category references; no analyzer output used as gold",
+        "note": "月日・時刻・時間長を文で指定。"
+      }
+    }
+  ]
+}

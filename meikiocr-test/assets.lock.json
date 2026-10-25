@@ -1,0 +1,26 @@
+[
+  {
+    "path": "public/vendor/opencv.js",
+    "url": "https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.11.0-release.1/dist/opencv.js",
+    "sha256": "5ad229d2666fce6803a3af4a569121bd6da8d09d5c164dbafb0d7f758460c25e",
+    "byteLength": 11386540
+  },
+  {
+    "path": "public/vendor/shimage.js",
+    "url": "https://cdn.jsdelivr.net/gh/davidchatting/shimage@ef0e15ee536afd1d98e0f540e3ba30fef3a1c80d/shimage.js",
+    "sha256": "e8affd6e7e71203f3c9d802d4d16fabd7df674a5f7268fb84ee44463a4939e61",
+    "byteLength": 9478
+  },
+  {
+    "path": "public/vendor/opencv-featurematch-js.min.js",
+    "url": "https://cdn.jsdelivr.net/gh/davidchatting/opencv-featurematch-js@ec4ed436a96ada5f33599f4953fe9c7c43d32d9b/opencv-featurematch-js.min.js",
+    "sha256": "5ccbb96123c485ac932bd15cfa41874442d73206d2e121fbe98d478bfb377cea",
+    "byteLength": 9614
+  },
+  {
+    "path": "public/source/meikiocr-web-0431493cfc59534bdf9e48be95a9e43c21a206be.tar.gz",
+    "url": "https://codeload.github.com/bee-san/meikiocr-web/tar.gz/0431493cfc59534bdf9e48be95a9e43c21a206be",
+    "sha256": "15d3b6b74d74179d6f67bc6d0f8a50dfc1e8db5605ad48ae031c1de8552cd8e5",
+    "byteLength": 638894
+  }
+]

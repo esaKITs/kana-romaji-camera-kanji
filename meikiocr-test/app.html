@@ -1,0 +1,1859 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Kana → Romaji Camera | esaKITs</title><meta name="theme-color" content="#C45A35"><link rel="icon" type="image/png" href="./apple-touch-icon.png"><link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="Kana→Romaji"><link rel="manifest" href="./manifest.webmanifest"><style>body{font:16px system-ui,-apple-system,sans-serif;margin:0;background:#101820;color:#fff}header{padding:14px 16px}h1{font-size:20px;margin:0 0 6px}.note{font-size:13px;color:#d2dae4;margin:0}.stage{position:relative;width:100%;background:#000;overflow:hidden}.live-scanning-hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;white-space:nowrap;padding:9px 15px;border-radius:7px;background:rgba(17,27,34,.74);color:#fff;font:600 14px system-ui,-apple-system,sans-serif;letter-spacing:.09em;animation:liveHintPulse 2s ease-in-out infinite}.live-scanning-hint[hidden]{display:none!important}@keyframes liveHintPulse{0%,100%{opacity:.62}50%{opacity:1}}@media(prefers-reduced-motion:reduce){.live-scanning-hint{animation:none}}video{display:block;width:100%;height:auto;object-fit:contain} #progress{position:absolute;top:62px;left:50%;transform:translateX(-50%);z-index:3;background:rgba(16,24,32,.82);color:#fff;border-radius:14px;padding:5px 11px;font-size:12px;white-space:normal;text-align:center;max-width:calc(100% - 30px);box-sizing:border-box;pointer-events:none}#progress[hidden]{display:none}canvas.still-frame{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:none;pointer-events:none}canvas.still-frame.visible{display:block}canvas.overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}section{padding:14px 16px}.actions{display:flex;flex-direction:column;gap:10px}.primary-actions{display:flex;gap:9px}.primary-actions button{min-height:46px}#start{flex:1}#stop{min-width:94px}.secondary-actions{display:flex;justify-content:space-between;gap:12px;align-items:center}.secondary-actions button{background:transparent;color:#d2dae4;font-size:13px;font-weight:500;padding:9px 5px;min-height:38px;border-radius:6px}.secondary-actions button:disabled{opacity:.4}#debug[aria-pressed="true"]{color:#f3b393;text-decoration:underline}#start[hidden],#stop[hidden]{display:none!important}button{border:0;border-radius:9px;padding:12px 16px;font-size:16px;font-weight:650;background:#C45A35;color:#fff}#stop,#scan,#debug{background:#E8EBEF;color:#344052}button:disabled{opacity:.45}#status{padding:10px 0;min-height:28px}#recognized{white-space:pre-wrap;overflow-wrap:anywhere;background:#22313c;padding:12px;border-radius:8px;min-height:36px}details{font-size:13px;color:#d3dfeb}a{color:#eeb69c}.topbar{display:flex;align-items:center;gap:9px}.topbar img{width:34px;height:34px;flex:none}.topbar h1{font-size:17px;margin:0;min-width:0}.brand{margin-left:auto;font-weight:700;color:#f2e9df;font-size:14px}.intro{margin-top:14px}.about{margin-top:14px}.about details{margin:12px 0 0 12px}footer{padding:20px 12px 28px;text-align:center;color:#d2dae4;font-size:12px}footer a{display:inline-block;margin-top:5px}.scan-float{position:absolute;top:12px;right:12px;z-index:5;width:44px;height:44px;min-height:44px;padding:0;display:grid;place-items:center;border-radius:50%;background:rgba(232,235,239,.94)!important;color:#253344!important;box-shadow:0 2px 9px rgba(0,0,0,.25);touch-action:manipulation}.focus-marker{position:absolute;z-index:4;border:2px solid #ffbc65;border-radius:10px;box-shadow:0 0 0 3px rgba(0,0,0,.4);pointer-events:none;display:none}.focus-marker.active{display:block}.scan-float:disabled{opacity:.45}.scan-float.rescanning{background:#C45A35!important;color:white!important;box-shadow:0 0 0 4px rgba(196,90,53,.3)}.scan-float.rescanning svg{animation:scan-pulse .75s ease-in-out infinite alternate}@keyframes scan-pulse{from{opacity:1;transform:scale(1)}to{opacity:.55;transform:scale(.83)}}.scan-float:focus-visible{outline:3px solid #f3b393;outline-offset:2px}.zoom-layer{position:relative;width:100%;transform-origin:center center;will-change:transform;touch-action:none}.stage{overflow:hidden;touch-action:none}.scan-indicator{position:absolute;z-index:8;top:14px;left:50%;transform:translateX(-50%);height:40px;max-width:calc(100% - 235px);padding:0 9px;border-radius:20px;display:flex;align-items:center;justify-content:center;gap:5px;background:rgba(20,30,40,.86);color:#fff;pointer-events:none;font-size:17px;white-space:nowrap}.scan-indicator #scan-label{font-size:11px;font-weight:600}.scan-indicator #scan-symbol{display:inline-flex;align-items:center;justify-content:center;width:20px;height:22px;flex:none}.scan-indicator[hidden]{display:none!important}.scan-indicator.working #scan-symbol{display:block;animation:ocr-sweep 1.4s ease-in-out infinite}.scan-indicator.updated{background:#276c52}.scan-indicator.finished{background:#425564}.scan-indicator.paused{background:#425564}@keyframes ocr-sweep{0%,100%{transform:rotate(-24deg) scale(.92);opacity:.7}50%{transform:rotate(24deg) scale(1.12);opacity:1}}@keyframes ocr-pop{0%{transform:scale(.75)}65%{transform:scale(1.15)}100%{transform:scale(1)}}.pause-scan{position:absolute;z-index:9;right:12px;top:12px;border:0;border-radius:50%;width:44px;height:44px;background:#f4f4f4;color:#28323a;display:grid;place-items:center;padding:0;box-shadow:0 2px 10px #0005}.pause-scan svg{display:block;width:22px;height:22px;overflow:visible}.live-return{position:absolute;z-index:9;top:12px;left:12px;border:0;border-radius:20px;padding:10px 12px;background:#f4f4f4;color:#28323a;font-weight:700;font-size:13px;min-height:44px}.zoom-layer video,.zoom-layer .still-frame,.zoom-layer .overlay{touch-action:none}
+/* Camera controls stay reachable even with portrait video and Safari chrome. */
+.secondary-actions{justify-content:center}
+#debug,#torch{width:46px;height:46px;min-height:46px;padding:10px;display:grid;place-items:center;border-radius:10px;touch-action:manipulation}
+#debug svg,#torch svg{width:26px;height:26px;display:block}
+#debug[aria-pressed="true"]{color:#344052;text-decoration:none;box-shadow:inset 0 0 0 2px #c45a35}
+#debug[aria-pressed="true"] .guides-off,#torch[aria-pressed="true"] .torch-off{display:none}
+#torch{background:#E8EBEF;color:#344052}
+#torch[aria-pressed="true"]{background:#ffe19a;color:#654800}
+#torch[hidden]{display:none!important}
+#debug:focus-visible,#torch:focus-visible,#stop:focus-visible{outline:3px solid #f3b393;outline-offset:3px}
+body.camera-active{padding-bottom:calc(94px + env(safe-area-inset-bottom,0px))}
+body.camera-active .actions{position:fixed;left:0;right:0;bottom:var(--camera-viewport-bottom,0px);z-index:20;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;box-sizing:border-box;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(16,24,32,.97);box-shadow:0 -2px 12px #0004}
+body.camera-active .primary-actions{grid-column:1;justify-self:start}
+body.camera-active .secondary-actions{display:contents}
+body.camera-active #debug{grid-column:2;justify-self:center}
+.torch-float{position:absolute;top:12px;right:68px;z-index:9;border-radius:50%!important;box-shadow:0 2px 9px rgba(0,0,0,.25)}
+#long-vowels{width:46px;height:46px;min-width:46px;min-height:46px;padding:7px!important;display:grid;place-items:center;border-radius:10px;background:#E8EBEF;color:#344052;font-size:20px;font-weight:700;touch-action:manipulation}
+#long-vowels[aria-pressed="true"]{box-shadow:inset 0 0 0 2px #c45a35}
+#long-vowels:focus-visible{outline:3px solid #f3b393;outline-offset:3px}
+body.camera-active #long-vowels{grid-column:3;justify-self:end}
+
+/* Lens-inspired camera controls. Behavior and OCR pipeline are unchanged. */
+.camera-options{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:4px 14px 10px;background:#101820}
+body.camera-active .camera-options{display:flex}
+.camera-options #debug,.camera-options #kana-mode,.camera-options #long-vowels,.camera-options #torch{position:static;display:grid;place-items:center;width:44px;height:44px;min-width:44px;min-height:44px;border-radius:12px!important;background:#E8EBEF!important;color:#263445!important;padding:8px!important;box-shadow:none!important;flex:none}
+.camera-options #torch{border-radius:50%!important}
+.camera-options #torch[hidden]{display:none!important}
+.camera-options #debug[aria-pressed="true"],.camera-options #kana-mode[aria-pressed="true"],.camera-options #long-vowels[aria-pressed="true"]{box-shadow:inset 0 0 0 2px #C45A35!important}
+.camera-options #torch[aria-pressed="true"]{background:#C45A35!important;color:#fff!important}
+.camera-options #torch[aria-pressed="true"] .torch-bolt{fill:currentColor}
+.camera-options #long-vowels{font-size:20px;font-weight:700}
+body.camera-active .actions{min-height:98px;display:flex;justify-content:center;align-items:center;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+body.camera-active .primary-actions{position:absolute;left:16px;top:50%;transform:translateY(-50%);display:flex}
+body.camera-active #stop{background:#E8EBEF;color:#263445;min-width:82px;min-height:44px}
+body.camera-active #scan.scan-float{position:relative;top:auto;right:auto;left:auto;bottom:auto;transform:none;width:72px;height:72px;min-height:72px;border-radius:50%!important;background:#C45A35!important;color:#fff!important;border:3px solid #F3E7E0;box-shadow:0 0 0 3px #C45A35;display:grid;place-items:center;padding:0}
+.shutter-core{display:block;width:52px;height:52px;background:#fff;border-radius:50%}
+body:not(.camera-active) #scan{display:none!important}
+body.camera-active.camera-still .actions{display:none}
+body.camera-still{padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+.still-progress-group{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:9;display:flex;align-items:center;gap:6px}
+.still-progress-group #scan-indicator{position:relative;top:auto;left:auto;transform:none;max-width:none;min-height:42px;padding:0 10px;border-radius:22px}
+.still-progress-group .pause-scan{position:relative;top:auto;right:auto;flex:none;background:#E8EBEF;color:#263445;width:42px;height:42px;box-shadow:none}
+.still-progress-group .pause-scan[hidden],.still-progress-group #scan-indicator[hidden]{display:none!important}
+.live-return{top:12px;left:12px;width:44px;height:44px;min-height:44px;border-radius:50%;padding:0;font-size:30px;line-height:1;font-weight:300;background:#E8EBEF;color:#263445}
+.live-return[hidden]{display:none!important}
+#scan[hidden]{display:none!important}
+.camera-options button:focus-visible,.scan-float:focus-visible,.pause-scan:focus-visible,.live-return:focus-visible{outline:3px solid #F3B393;outline-offset:3px}
+@media(max-width:380px){.camera-options{gap:7px;padding-right:12px}.still-progress-group{left:53%}.still-progress-group #scan-indicator{font-size:14px;padding:0 7px}.still-progress-group #scan-label{font-size:10px}}
+
+/* Full-bleed camera: controls float over the same camera pixels as the OCR overlay.
+   Keep video, captured Still and canvas overlay on the same center-cropped geometry. */
+body.camera-active{padding-bottom:0}
+body.camera-active header{position:fixed;top:0;left:0;right:0;z-index:14;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 8px;background:transparent;pointer-events:none}
+body.camera-active header .topbar{min-height:40px;text-shadow:0 1px 5px #000b}
+body.camera-active header .topbar h1,body.camera-active header .brand{filter:drop-shadow(0 1px 2px #000a)}
+body.camera-active header .camera-options{background:transparent;padding:10px 0 0;pointer-events:auto}
+body.camera-active header .camera-options button{box-shadow:0 1px 6px #0007!important}
+body.camera-active header .camera-options #debug[aria-pressed="true"],
+body.camera-active header .camera-options #kana-mode[aria-pressed="true"],
+body.camera-active header .camera-options #long-vowels[aria-pressed="true"]{box-shadow:inset 0 0 0 2px #C45A35,0 1px 6px #0007!important}
+body.camera-active .stage{
+ height:calc(100dvh - var(--camera-viewport-bottom,0px));
+ min-height:320px;
+ background:#000;
+}
+body.camera-active .zoom-layer{height:100%;width:100%}
+body.camera-active #video{height:100%;width:100%;object-fit:cover}
+body.camera-active #still-frame{height:100%;width:100%;object-fit:cover}
+body.camera-active #overlay{height:100%;width:100%;object-fit:cover}
+body.camera-active .actions{
+ background:transparent;box-shadow:none;
+ min-height:90px;left:0;right:0;
+ padding:8px 16px calc(12px + env(safe-area-inset-bottom,0px));
+ pointer-events:none;
+}
+body.camera-active .actions button,body.camera-active .actions .primary-actions{pointer-events:auto}
+body.camera-active #stop{box-shadow:0 2px 10px #0009}
+body.camera-active #scan.scan-float{box-shadow:0 0 0 3px #C45A35,0 2px 14px #000a}
+body.camera-active.camera-still .actions{display:none}
+/* Still has three rows: brand, close/status with adjacent retry, then options. */
+body.camera-still header .topbar{visibility:visible;margin-top:0}
+body.camera-still header .topbar #stop{display:none!important}
+body.camera-still header .camera-options{margin-top:64px;padding-top:6px}
+body.camera-still .live-return{top:calc(64px + env(safe-area-inset-top,0px))}
+body.camera-still .still-progress-group{top:calc(64px + env(safe-area-inset-top,0px))}
+
+/* Back navigation takes the place of the old bottom Stop button. */
+body.camera-active header .topbar{gap:8px}
+body.camera-active header .topbar #stop{
+ display:grid!important;place-items:center;pointer-events:auto;
+ width:44px;height:44px;min-width:44px;min-height:44px;
+ padding:0;border-radius:0;background:transparent;
+ color:#fff;border:0;
+ filter:drop-shadow(0 1px 3px #000b);
+}
+body.camera-active header .topbar #stop:disabled{opacity:.45}
+body.camera-active header .topbar img{display:none}
+body.camera-active header .topbar .brand{display:block;flex:none;margin-left:auto;white-space:nowrap;color:#f2e9df}
+body.camera-active header .topbar h1{font-size:clamp(13px,3.7vw,17px);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.camera-active .actions .primary-actions{display:none}
+body.camera-active #scan.scan-float{margin:0 auto}
+body.camera-active.camera-still header .topbar #stop{visibility:hidden}
+body.camera-active #focus-marker.tap-focus{
+ border:2px solid #fff;
+ border-radius:12px;
+ box-shadow:0 0 0 1px rgba(0,0,0,.5),0 1px 10px #0006;
+ transform-origin:center;
+ animation:tap-focus-pulse .9s ease-out both;
+}
+@keyframes tap-focus-pulse{
+ 0%{transform:scale(1.35);opacity:.15}
+ 23%{transform:scale(1);opacity:1}
+ 63%{transform:scale(.92);opacity:1}
+ 100%{transform:scale(.92);opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+ body.camera-active #focus-marker.tap-focus{animation:none}
+}
+
+/* Final top-option polish: geometric centering of aa/ā without changing romanization. */
+.camera-options #long-vowels{
+ padding:0!important;
+ display:flex!important;
+ justify-content:center!important;
+ align-items:center!important;
+ text-align:center;
+ line-height:1!important;
+ letter-spacing:0;
+ font-size:23px;
+ font-variant-ligatures:none;
+ font-feature-settings:"kern" 0;
+}
+body.camera-active header .camera-options #long-vowels{padding:0!important;line-height:1!important}
+.camera-options #debug svg,.camera-options #torch svg{width:23px;height:23px}
+/* Visually smaller buttons with accessible 44px hit targets. */
+.camera-options #debug,.camera-options #kana-mode,.camera-options #long-vowels,.camera-options #torch{border:2px solid transparent!important;background-clip:padding-box!important}
+.camera-options #kana-mode{padding:0!important;font-size:19px;font-weight:700;line-height:1!important}
+.camera-options #long-vowels{font-size:20px}
+.camera-options #torch .torch-bolt{fill:#263445}
+.camera-options #torch[aria-pressed="true"] .torch-bolt{fill:#fff}
+.home-screen-tip{margin:10px 0 0;padding:11px 13px;border-radius:10px;background:rgba(232,235,239,.09);color:#e3eaf0;line-height:1.5}
+.home-screen-tip strong{color:#fff}
+body.camera-active .home-screen-tip{display:none}
+</style><header><div class="topbar"><button id="stop" type="button" disabled hidden aria-label="Stop camera and return" title="Stop camera and return"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 4-8 8 8 8"/></svg></button><img src="./apple-touch-icon.png" alt="" width="34" height="34"><h1>Kana → Romaji Camera</h1><span class="brand">esaKITs</span></div><div id="camera-options" class="camera-options" aria-label="Camera options"><button id="debug" aria-pressed="false" aria-label="Show position guides" title="Show position guides"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><rect x="4" y="4" width="16" height="16" rx="1"/><path class="guides-off" d="M3 21L21 3" stroke="#d83b3b" stroke-width="2.5" stroke-linecap="round"/></svg></button><button id="kana-mode" type="button" aria-pressed="false" aria-label="Kana: Hiragana and Katakana. Switch to Katakana only" title="Kana: Hiragana + Katakana">あア</button><button id="long-vowels" type="button" aria-pressed="false" aria-label="Long vowels: double vowels (aa). Switch to macron (ā)" title="Long vowels: aa / ā">aa</button><button id="torch" class="torch-float" disabled hidden aria-pressed="false" aria-label="Light not supported by this camera" title="Light not supported by this camera"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="torch-bolt" d="M14.2 2.2 7.1 13h5.25L9.8 21.8 17.5 10.6h-5.2Z" fill="currentColor" stroke="none"/><path class="torch-off" d="M4.5 4.5L19.5 19.5" stroke="#C45A35" stroke-width="2" stroke-linecap="round"/></svg></button></div></header><div class="stage" id="stage"><div id="zoom-layer" class="zoom-layer"><video id="video" autoplay muted playsinline></video><canvas id="still-frame" class="still-frame" aria-hidden="true"></canvas><canvas class="overlay" id="overlay"></canvas></div><div id="live-scanning-hint" class="live-scanning-hint" hidden aria-hidden="true">LIVE SCANNING...</div><div id="focus-marker" class="focus-marker" aria-hidden="true"></div><div class="still-progress-group"><div id="scan-indicator" class="scan-indicator" hidden role="status" aria-live="polite"><span id="scan-symbol" aria-hidden="true">⌕</span><span id="scan-label">Scanning</span></div><button id="pause-scan" class="pause-scan" hidden aria-label="Pause analysis" title="Pause analysis"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg></button></div><button id="live-return" class="live-return" hidden aria-label="Close Still and return to Live" title="Return to Live">×</button><div id="progress" role="status" aria-live="polite" hidden></div></div><section><div class="actions"><div class="primary-actions"><button id="start">◉ Start Camera</button></div><button id="scan" class="scan-float" disabled aria-label="Scan now" title="Scan now"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4"/><path d="M7 12h10"/></svg></button></div><div id="status" role="status">Ready to start camera.</div><p class="note intro">Free, ad-free, and no sign-up required. A live camera tool that shows Japanese kana in large, readable romaji.</p><p class="note home-screen-tip"><strong>Tip: Full-screen view on iPhone</strong> — In Safari, tap Share → Add to Home Screen, turn on “Open as Web App,” then launch from your Home Screen. Landscape mode gives the camera more room.</p><details><summary>Position guides and recognition notes</summary><p class="note">Position guides: green = detected kana area; orange = romaji label area. Turn guides on to diagnose alignment. Kanji is covered only when separately detected furigana is confirmed by magnified OCR.</p></details><details><summary>View recognition details</summary><div id="recognized"></div></details><details class="about"><summary>About, Privacy &amp; Licenses</summary><p class="note">Designed for beginner Japanese textbooks, including thin print and word spacing. Romaji stays large even for long kana sequences; longer labels may wrap. Recognition is experimental: small furigana, complex backgrounds, and some characters may be missed or misread. Experimental ruby detection requires a separately recognized small kana line above kanji.</p><details><summary>Privacy and technology</summary><p><strong>No generative AI.</strong> Text recognition uses Tesseract OCR, a machine-learning-based recognition engine, running in your browser. No cloud AI service is used for image recognition.</p><p><strong>Camera images stay on your device.</strong> This app does not upload or save camera images, OCR text, or recognition results to a server. Processing is performed locally in browser memory.</p><p><strong>No training or improvement use.</strong> This app does not collect your images or recognition data to train or improve AI models or the app. No account, advertising, or app analytics is built in.</p><p>The OCR software and Japanese language data are downloaded from external hosting services when needed. Standard web hosting and network services may process ordinary connection information, such as IP addresses.</p></details><details><summary>Dictionary credits and license</summary><p>Long vowels: aa / ā switches between double vowels and macrons. Pronunciation is shared by both modes. Unknown or ambiguous readings retain their vowel sequence; this is not a complete morphological analyzer.</p><p>A read-only index of 38,289 unambiguous kana pronunciation entries and a curated set of 212 katakana nouns are based on UniDic Lite 1.0.8 (UniDic Consortium, © 2011–2017), under the modified BSD license.</p><p><a href="./licenses/UniDic-LICENSE.txt">Full UniDic BSD notice</a> · <a href="https://github.com/polm/unidic-lite" target="_blank" rel="noopener">UniDic Lite</a> · <a href="https://opensource.org/license/bsd-3-clause" target="_blank" rel="noopener">BSD 3-Clause License</a></p><p>Copyright (c) 2011-2017, The UniDic Consortium. All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the copyright notice, conditions, and disclaimer are retained. Neither the name of the UniDic Consortium nor contributors may be used to endorse derived products without permission. THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTIES OF ANY KIND. THE COPYRIGHT HOLDERS AND CONTRIBUTORS DISCLAIM LIABILITY FOR DAMAGES ARISING FROM USE.</p></details><details><summary>Japanese OCR model credits and license</summary><p>Japanese OCR uses Tesseract language data (<code>jpn.traineddata</code>) and an optional locally processed Klee One fine-tuned model (<code>klee_jpn.traineddata</code>). The optional model is derived from the Tesseract Japanese model and trained using Klee One fonts (SIL Open Font License 1.1). The official Tesseract tessdata_fast Japanese model is distributed under Apache License 2.0. Tesseract.js automatically downloads its OCR language data; the runtime model source has not been explicitly pinned in this build.</p><p><a href="https://github.com/tesseract-ocr/tessdata_fast/blob/main/jpn.traineddata" target="_blank" rel="noopener">Official Japanese OCR data</a> · <a href="https://github.com/tesseract-ocr/tessdata_fast/blob/main/LICENSE" target="_blank" rel="noopener">Model license (Apache 2.0)</a></p></details><details><summary>Image alignment credits and licenses</summary><p>opencv-featurematch-js (commit ec4ed436a96a) and shimage (commit ef0e15ee536a): Copyright © 2026 David Chatting, MIT License. OpenCV.js: OpenCV contributors, Apache License 2.0. See the linked original license notices; all image matching runs locally in the browser.</p><p><a href="https://github.com/davidchatting/opencv-featurematch-js/blob/main/LICENSE">Feature matching MIT license</a> · <a href="https://github.com/davidchatting/shimage/blob/main/LICENSE">shimage MIT license</a> · <a href="https://opencv.org/license/">OpenCV license</a></p></details><p class="note" style="margin-top:18px">Technology and licenses: Tesseract.js 5 (Apache 2.0); OpenCV.js 4.11.0-release.1 (Apache 2.0); opencv-featurematch-js and shimage (MIT; pinned commits); Tesseract Japanese language data (Apache 2.0; baseline runtime source not pinned), optional Klee One model (Apache 2.0) and training fonts (SIL OFL 1.1); UniDic Lite 1.0.8 (modified BSD). Details and original license links are provided above. Newly added libraries will be credited here.</p></details></section><footer>© 2026 Tetsuya Esaki / esaKITs — Enhanced Smart AI Kits<br><a href="./LICENSE">MIT License</a></footer><script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@techstark/opencv-js@4.11.0-release.1/dist/opencv.js"></script><script src="https://cdn.jsdelivr.net/gh/davidchatting/shimage@ef0e15ee536afd1d98e0f540e3ba30fef3a1c80d/shimage.js"></script><script src="https://cdn.jsdelivr.net/gh/davidchatting/opencv-featurematch-js@ec4ed436a96ada5f33599f4953fe9c7c43d32d9b/opencv-featurematch-js.min.js"></script><script>
+const $=id=>document.getElementById(id),video=$('video'),overlay=$('overlay'),ctx=overlay.getContext('2d'),stage=$('stage');let stream=null,worker=null,kleeWorker=null,kleeUnavailable=false,kleeScanCount=0,active=false,busy=false,runId=0;const work=document.createElement('canvas');const wc=work.getContext('2d',{willReadFrequently:true});const map={あ:'a',い:'i',う:'u',え:'e',お:'o',か:'ka',き:'ki',く:'ku',け:'ke',こ:'ko',さ:'sa',し:'shi',す:'su',せ:'se',そ:'so',た:'ta',ち:'chi',つ:'tsu',て:'te',と:'to',な:'na',に:'ni',ぬ:'nu',ね:'ne',の:'no',は:'ha',ひ:'hi',ふ:'fu',へ:'he',ほ:'ho',ま:'ma',み:'mi',む:'mu',め:'me',も:'mo',や:'ya',ゆ:'yu',よ:'yo',ら:'ra',り:'ri',る:'ru',れ:'re',ろ:'ro',わ:'wa',を:'o',ん:'n',が:'ga',ぎ:'gi',ぐ:'gu',げ:'ge',ご:'go',ざ:'za',じ:'ji',ず:'zu',ぜ:'ze',ぞ:'zo',だ:'da',ぢ:'ji',づ:'zu',で:'de',ど:'do',ば:'ba',び:'bi',ぶ:'be',べ:'be',ぼ:'bo',ぱ:'pa',ぴ:'pi',ぷ:'pu',ぺ:'pe',ぽ:'po'};map['ぶ']='bu';const pairs={きゃ:'kya',きゅ:'kyu',きょ:'kyo',しゃ:'sha',しゅ:'shu',しょ:'sho',ちゃ:'cha',ちゅ:'chu',ちょ:'cho',にゃ:'nya',にゅ:'nyu',にょ:'nyo',ひゃ:'hya',ひゅ:'hyu',ひょ:'hyo',みゃ:'mya',みゅ:'myu',みょ:'myo',りゃ:'rya',りゅ:'ryu',りょ:'ryo',ぎゃ:'gya',ぎゅ:'gyu',ぎょ:'gyo',じゃ:'ja',じゅ:'ju',じょ:'jo',びゃ:'bya',びゅ:'byu',びょ:'byo',ぴゃ:'pya',ぴゅ:'pyu',ぴょ:'pyo'};
+Object.assign(pairs,{ふぁ:'fa',ふぃ:'fi',ふぇ:'fe',ふぉ:'fo',てぃ:'ti',でぃ:'di',とぅ:'tu',どぅ:'du',うぃ:'wi',うぇ:'we',うぉ:'wo',しぇ:'she',じぇ:'je',ちぇ:'che',つぁ:'tsa',つぃ:'tsi',つぇ:'tse',つぉ:'tso',すぃ:'si',ずぃ:'zi',てゅ:'tyu',でゅ:'dyu',ふゅ:'fyu',ゔぁ:'va',ゔぃ:'vi',ゔぇ:'ve',ゔぉ:'vo',ゔゅ:'vyu'});
+/* ROMANIZATION_CONTROLLER */
+// Conservative particle-aware romanization for kana fragments.
+// OCR can split kanji from following kana: a standalone は/へ is usually a particle.
+// Do not globally replace ha/he inside words (e.g. はは, はじめ, へや).
+// Verified conversational expressions from the supplied textbook Word chapters (4, 7–12).
+const textbookFixedExpressions=new Map([["そうですね","soo desu ne"],["そうですか","soo desu ka"],["そうです","soo desu"],["ああそうですか","aa soo desu ka"],["いいですね","ii desu ne"],["いいですよ","ii desu yo"],["わかりました","wakarimashita"],["どうしたんですか","doo shitan desu ka"],["こちらはいかがですか","kochira wa ikaga desu ka"],["どちらも","dochira mo"],["ところで","tokoro de"],["またきます","mata kimasu"],["おまたせしました","omatase shimashita"],["いらっしゃいませ","irasshaimase"],["すみません","sumimasen"],["もうしわけありません","mooshiwake arimasen"],["しょうしょうおまちください","shooshoo omachi kudasai"],["はいどうぞ","hai doozo"],["どうもありがとうございます","doomo arigatoo gozaimasu"],["ありがとうございます","arigatoo gozaimasu"],["ありがとうございました","arigatoo gozaimashita"],["よろしくおねがいします","yoroshiku onegai shimasu"],["どうぞよろしくおねがいします","doozo yoroshiku onegai shimasu"],["もしもし","moshi moshi"],["まあまあです","maamaa desu"],["ぜんぶで","zenbu de"],["いくらですか","ikura desu ka"],["これをください","kore o kudasai"],["それをください","sore o kudasai"],["どこがいたいんですか","doko ga itain desu ka"],["どこへいきたいですか","doko e ikitai desu ka"],["なにがほしいですか","nani ga hoshii desu ka"],["いいえ","iie"],["はい","hai"],["あのう","anoo"],["じゃあ","jaa"],["ええ","ee"],["どうも","doomo"],["そうですねえ","soo desu nee"]]);
+const textbookGrammarPatterns=[{"pattern":"(?:これ|それ|あれ|ここ|そこ|あそこ|わたし|あなた|ぼく|きょう|あした|きのう)は","from":"は","to":"わ"},{"pattern":"(?:こちら|そちら|あちら|どちら|この|その|あの|どの|なん|なに|だれ|どこ|いつ|いくら|どれ|どんな|どっち|みんな|だれか|なにか|どこか)は","from":"は","to":"わ"},{"pattern":"(?:[ぁ-んー]{2,})(?:には|では|とは|からは|までは|よりは)","from":"は","to":"わ"},{"pattern":"(?:[ぁ-んー]{2,})(?:へ|への)(?=[ぁ-んー]*$)","from":"へ","to":"え"},{"pattern":"(?:[ぁ-んー]{2,})を(?=[ぁ-んー]*$)","from":"を","to":"お"}].map(r=>({re:new RegExp(r.pattern,'g'),from:r.from,to:r.to}));
+function contextualRomaji(text){
+ const fixedKey=text.replace(/[\s　。、！？!?…・]/g,'').replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96));
+ if(textbookFixedExpressions.has(fixedKey))return verifiedExpressionRomaji(textbookFixedExpressions.get(fixedKey));
+ const hiragana=text.replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96));
+ let t=hiragana;
+ for(const rule of textbookGrammarPatterns)t=t.replace(rule.re,m=>m.slice(0,-1)+rule.to);
+ if(t==='は')t='わ';
+ else if(t==='へ')t='え';
+ else if(t==='を')t='お';
+ else {
+  // Particle へ followed by genitive の, including fragments after kanji.
+  t=t.replace(/への/g,'えの');
+  // Frequently occurring clause-final topic particle sequences.
+  t=t.replace(/(これ|それ|あれ|ここ|そこ|あそこ|わたし|あなた|ぼく|きょう|あした|きのう|こんにちは|こんばんは|では|には|とは|のは|ても|で|に|と|の)は(?=$|[。、！？\s])/g,(m,p)=>p+'わ');
+  t=t.replace(/(こんにちは|こんばんは)$/g,m=>m.slice(0,-1)+'わ');
+  // A final は following an identifiable particle sequence.
+  t=t.replace(/(に|で|と|の|から|まで|より)は$/g,'$1わ');
+ }
+ return romaji(t);
+}
+const kanaOnly=/^[ぁ-ゖァ-ヺー・\s]+$/;
+const kanaModeStorageKey='esakits.kana-romaji.kana-mode.v1';
+let kanaMode='both';
+try{if(window.localStorage?.getItem(kanaModeStorageKey)==='katakana')kanaMode='katakana'}catch{}
+function renderKanaMode(){const b=$('kana-mode');b.textContent=kanaMode==='both'?'あア':'ア';b.setAttribute('aria-pressed',String(kanaMode==='katakana'));b.setAttribute('aria-label',kanaMode==='both'?'Kana: Hiragana and Katakana. Switch to Katakana only':'Kana: Katakana only. Switch to Hiragana and Katakana');b.title=kanaMode==='both'?'Kana: Hiragana + Katakana':'Kana: Katakana only'}
+function setKanaMode(mode){if(!['both','katakana'].includes(mode))return;kanaMode=mode;try{window.localStorage?.setItem(kanaModeStorageKey,mode)}catch{}renderKanaMode();paint(stillMode?stillItems:tracks);if(lastRecognitionDetails)renderRecognitionDetails()}
+$('kana-mode').addEventListener('click',()=>setKanaMode(kanaMode==='both'?'katakana':'both'));
+renderKanaMode();
+let showPositionGuides=false;
+let previousItems=[];
+const samples=['こちらをご確認ください','ご利用ありがとうございます','お子様が含まれています','管理してください','忘れないようにしてください','気をつけてください','日本語を勉強しています','よろしくおねがいします','お待ちしております','これから始めます','ご協力をお願いします','こちらで確認できます','もう一度お試しください','ここには何がありますか','ご覧いただきありがとうございます'];const ngrams=new Map();for(const sentence of samples){for(let n=2;n<=3;n++)for(let i=0;i<=sentence.length-n;i++){const k=sentence.slice(i,i+n);ngrams.set(k,(ngrams.get(k)||0)+1)}}function languageScore(t){let score=0;for(let n=2;n<=3;n++)for(let i=0;i<=t.length-n;i++)score+=Math.log1p(ngrams.get(t.slice(i,i+n))||0);return score}
+
+// UniDic Lite 1.0.8: verified katakana common-noun entries extracted from sys.dic.
+// Curated classroom subset; dictionary attribution and BSD notice below.
+const katakanaLexicon=new Set(["コーヒー","スーパー","パーティー","テレビ","ラジオ","カメラ","パソコン","コンピューター","タクシー","バス","ホテル","レストラン","カフェ","コンビニ","デパート","エレベーター","エスカレーター","トイレ","シャワー","ベッド","テーブル","イス","チェア","ドア","ノート","ペン","カード","チケット","パスポート","ビザ","バッグ","スーツケース","リュック","サンダル","シャツ","セーター","コート","ジャケット","ズボン","スカート","ネクタイ","スーツ","ワイシャツ","ジーンズ","パンツ","シューズ","サッカー","テニス","バスケットボール","バレーボール","スポーツ","プール","ジム","ゲーム","アニメ","マンガ","ニュース","メール","インターネット","ウェブサイト","アプリ","ダウンロード","アップロード","ファイル","フォルダー","プリンター","コピー","スキャン","メニュー","ランチ","ディナー","パン","サンドイッチ","ハンバーガー","ピザ","パスタ","スパゲッティ","カレー","サラダ","スープ","ステーキ","チキン","ビーフ","ポーク","ハム","ソーセージ","チーズ","バター","ミルク","ヨーグルト","アイス","チョコレート","ケーキ","クッキー","ジュース","コーラ","ビール","ワイン","シャンパン","ウイスキー","レモン","オレンジ","バナナ","リンゴ","メロン","イチゴ","トマト","キャベツ","レタス","ジャガイモ","タマネギ","ニンジン","エビ","カニ","イカ","タコ","マグロ","サケ","サーモン","アルバイト","パート","サービス","セール","バーゲン","サイズ","センチ","メートル","キロ","グラム","リットル","ドル","ユーロ","クラス","テスト","レポート","キャンパス","センター","エアコン","ストーブ","スイッチ","リモコン","カレンダー","スケジュール","ミーティング","プレゼント","クリスマス","デート","パートナー","グループ","チーム","クラブ","コンサート","ライブ","カラオケ","ギター","ピアノ","バイオリン","ドラム","ダンス","ジャズ","ロック","クラシック","ポスター","カタログ","パンフレット","ガイド","マップ","ポイント","クーポン","レシート","レジ","カウンター","オフィス","ビル","アパート","マンション","ベランダ","キッチン","バスルーム","リビング","ルーム","フロント","ロビー","チェックアウト","キャンセル","エラー","スタート","ストップ","ボタン","スクリーン","モニター","キーボード","マウス","タッチ","タップ","クリック","コード","パスワード","アカウント","ネットワーク","データ","システム","プログラム","ソフトウェア","ハードウェア","デザイン","イメージ","チャンス","タイミング","トラブル","アドバイス","コミュニケーション"]);
+
+// Lesson 1–12 vocabulary: exact Japanese surface-to-reading matches from the user-supplied chapter index.
+// Readings are kana; romanization is performed by the existing romaji() function.
+const textbookReadings=new Map([["研究室で","けんきゅうしつで"],["先生","せんせい"],["工学部","こうがくぶ"],["学部","がくぶ"],["研究生","けんきゅうせい"],["から来ました","からきました"],["専門","せんもん"],["練習","れんしゅう"],["例","れい"],["中国","ちゅうごく"],["看護","かんご"],["医学","いがく"],["教育","きょういく"],["自己紹介","じこしょうかい"],["学生","がくせい"],["会社員","かいしゃいん"],["お名前","おなまえ"],["山梨大学","やまなしだいがく"],["留学生","りゅうがくせい"],["私","わたし"],["大学院生","だいがくいんせい"],["研究員","けんきゅういん"],["研修生","けんしゅうせい"],["医者","いしゃ"],["鈴木研究室","すずきけんきゅうしつ"],["図書館","としょかん"],["案内","あんない"],["案内しましょう","あんないしましょう"],["生協","せいきょう"],["保健管理センター","ほけんかんりセンター"],["国際交流会館","こくさいこうりゅうかいかん"],["体育館","たいいくかん"],["留学生相談室","りゅうがくせいそうだんしつ"],["駐車場","ちゅうしゃじょう"],["学食","がくしょく"],["駐輪場","ちゅうりんじょう"],["部屋","へや"],["訪問","ほうもん"],["入口","いりぐち"],["受付","うけつけ"],["階段","かいだん"],["お手洗い","おてあらい"],["号室","ごうしつ"],["号館","ごうかん"],["国際交流室","こくさいこうりゅうしつ"],["話しましょう","はなしましょう"],["私の","わたしの"],["何ですか","なんですか"],["何にしますか","なんにしますか"],["天ぷら","てんぷら"],["定食","ていしょく"],["牛丼","ぎゅうどん"],["みそ汁","みそしる"],["塩","しお"],["席","せき"],["先輩","せんぱい"],["皿","さら"],["机","つくえ"],["下","した"],["犬","いぬ"],["上","うえ"],["前","まえ"],["後","うしろ"],["左","ひだり"],["右","みぎ"],["箱","はこ"],["中","なか"],["間","あいだ"],["本","ほん"],["本棚","ほんだな"],["電話","でんわ"],["ごみ箱","ごみばこ"],["屋根","やね"],["鳥","とり"],["木","き"],["車","くるま"],["店員","てんいん"],["個","こ"],["円","えん"],["お茶","おちゃ"],["お弁当","おべんとう"],["絵はがき","えはがき"],["枚","まい"],["消しゴム","けしゴム"],["花","はな"],["冊","さつ"],["ファストフード店","ファストフードてん"],["ウーロン茶","ウーロンちゃ"],["紅茶","こうちゃ"],["神戸","こうべ"],["先週","せんしゅう"],["来ました","きました"],["今日","きょう"],["新幹線","しんかんせん"],["帰ります","かえります"],["気をつけて","きをつけて"],["毎日","まいにち"],["日曜日","にちようび"],["友だち","ともだち"],["飛行機","ひこうき"],["新宿","しんじゅく"],["行き","いき"],["何時","なんじ"],["案内所","あんないじょ"],["係りの人","かかりのひと"],["次","つぎ"],["時","じ"],["乗り場","のりば"],["行きます","いきます"],["運転手","うんてんしゅ"],["３番","さんばん"],["番","ばん"],["今","いま"],["大阪","おおさか"],["半","はん"],["成田空港","なりたくうこう"],["京都","きょうと"],["昇仙峡","しょうせんきょう"],["甲府駅","こうふえき"],["何番線","なんばんせん"],["２番線","にばんせん"],["線","せん"],["松本","まつもと"],["高尾","たかお"],["静岡","しずおか"],["電車","でんしゃ"],["八王子","はちおうじ"],["ご専門","ごせんもん"],["お住まいは","おすまいは"],["自転車","じてんしゃ"],["歩いて","あるいて"],["午前","ごぜん"],["午後","ごご"],["来週","らいしゅう"],["日本語","にほんご"],["家族","かぞく"],["一人で","ひとりで"],["土曜日","どようび"],["羽田空港","はねだくうこう"],["高速バス","こうそくバス"],["行ってらっしゃい","いってらっしゃい"],["秋葉原","あきはばら"],["夕べ","ゆうべ"],["作りました","つくりました"],["料理","りょうり"],["掃除","そうじ"],["洗濯","せんたく"],["飲みます","のみます"],["食べます","たべます"],["お酒","おさけ"],["行きました","いきました"],["買いました","かいました"],["とり肉","とりにく"],["牛肉","ぎゅうにく"],["ひき肉","ひきにく"],["発表します","はっぴょうします"],["買い物します","かいものします"],["準備","じゅんび"],["実験します","じっけんします"],["論文","ろんぶん"],["読みます","よみます"],["食事します","しょくじします"],["映画","えいが"],["見ます","みます"],["書きます","かきます"],["授業","じゅぎょう"],["６時ごろ","ろくじごろ"],["川田電気","かわだでんき"],["行きましょう","いきましょう"],["会いましょう","あいましょう"],["誘います","さそいます"],["散歩します","さんぽします"],["晩ごはん","ばんごはん"],["今夜","こんや"],["国際交流","こくさいこうりゅう"],["決めます","きめます"],["申しわけありません","もうしわけありません"],["夜","よる"],["電話をかけます","でんわをかけます"],["在宅","ざいたく"],["場合","ばあい"],["弟","おとうと"],["少し","すこし"],["不在","ふざい"],["妹","いもうと"],["留守番電話","るすばんでんわ"],["ただ今","ただいま"],["ピーという音","ピーというおと"],["後に","あとに"],["ご用件","ごようけん"],["痛い","いたい"],["病院","びょういん"],["看護師","かんごし"],["熱","ねつ"],["お大事に","おだいじに"],["頭","あたま"],["胃","い"],["歯","は"],["目","め"],["気分がわるい","きぶんがわるい"],["診ましょうか","みましょうか"],["卵","たまご"],["欠席","けっせき"],["知らせます","しらせます"],["休みます","やすみます"],["原因","げんいん"],["理由","りゆう"],["結果","けっか"],["遅刻します","ちこくします"],["早く","はやく"],["旅行","りょこう"],["夏休み","なつやすみ"],["金閣寺","きんかくじ"],["舞妓","まいこ"],["写真","しゃしん"],["写真をとります","しゃしんをとります"],["借ります","かります"],["お寺","おてら"],["庭","にわ"],["新聞","しんぶん"],["事務所","じむしょ"],["学割","がくわり"],["自動発行機","じどうはっこうき"],["奨学金","しょうがくきん"],["単位","たんい"],["学位","がくい"],["書類","しょるい"],["資料","しりょう"],["資格外活動許可","しかくがいかつどうきょか"],["申請書","しんせいしょ"],["在学証明書","ざいがくしょうめいしょ"],["成績証明書","せいせきしょうめいしょ"],["お水","おみず"],["少々","しょうしょう"],["領収書","りょうしゅうしょ"],["靴","くつ"],["音楽","おんがく"],["北海道","ほっかいどう"],["に会います","にあいます"],["両親","りょうしん"],["学生証","がくせいしょう"],["安いの","やすいの"],["安い","やすい"],["白い","しろい"],["高い","たかい"],["小さい","ちいさい"],["大きい","おおきい"],["細い","ほそい"],["軽い","かるい"],["重い","おもい"],["長い","ながい"],["お客さま","おきゃくさま"],["甘い","あまい"],["辛い","からい"],["便利〔な〕","べんり"],["掃除機","そうじき"],["住んでいます","すんでいます"],["近い","ちかい"],["周り","まわり"],["近くに","ちかくに"],["明るい","あかるい"],["時計","とけい"],["古い","ふるい"],["新しい","あたらしい"],["寒い","さむい"],["夏","なつ"],["暑い","あつい"],["冬","ふゆ"],["清水寺","きよみずでら"],["度","ど"],["平均気温","へいきんきおん"],["速い","はやい"],["本屋","ほんや"],["祇園","ぎおん"],["日本料理","にほんりょうり"],["果物","くだもの"],["勉強","べんきょう"],["難しい","むずかしい"],["海","うみ"],["山","やま"],["春","はる"],["秋","あき"],["紹介します","しょうかいします"],["父","ちち"],["母","はは"],["歳","さい"],["得意","とくい"],["以上","いじょう"],["祖父母","そふぼ"]]);
+for(const [surface,reading] of [["よろしくお願いします","よろしくおねがいします"],["いくらですか","いくらですか"],["何ですか","なんですか"],["何時ですか","なんじですか"],["何にしますか","なににしますか"],["行きませんか","いきませんか"],["行きましょう","いきましょう"],["どうしましたか","どうしましたか"],["どうされましたか","どうされましたか"],["痛いんです","いたいんです"],["欲しいです","ほしいです"],["ほしいんですが","ほしいんですが"],["行きたいです","いきたいです"],["安いのはありませんか","やすいのはありませんか"],["どちらが寒いですか","どちらがさむいですか"],["どちらも有名です","どちらもゆうめいです"],["一人で行きます","ひとりでいきます"],["新宿行きのバス","しんじゅくいきのばす"],["神戸と大阪へ行きます","こうべとおおさかへいきます"],["金閣寺をいちばん見たいです","きんかくじをいちばんみたいです"]])textbookReadings.set(surface,reading);
+const textbookKanaVocabulary=new Set(["けんきゅうしつで","せんせい","こちら","はじめまして","こうがくぶ","がくぶ","けんきゅうせい","みなさん","おはようございます","ドイツ","せんもん","れんしゅう","アメリカ","ちゅうごく","かんご","いがく","きょういく","じこしょうかい","パーティーで","あのう","がくせい","いいえ","かいしゃいん","すみません","やまなしだいがく","りゅうがくせい","そうですか","わたし","だいがくいんせい","けんきゅういん","けんしゅうせい","いしゃ","すずきけんきゅうしつ","まとめ","としょかん","キャンパス","あんない","じゃあ","あんないしましょう","おねがいします","せいきょう","あそこ","ほけんかんりセンター","コンビニ","こくさいこうりゅうかいかん","たいいくかん","どうも","りゅうがくせいそうだんしつ","ちゅうしゃじょう","がくしょく","ラウンジ","ちゅうりんじょう","ほうもん","いりぐち","うけつけ","エレベーター","かいだん","おてあらい","こくさいこうりゅうしつ","はなしましょう","わたしの","なんですか","たくさん","います","なんにしますか","てんぷら","ていしょく","うどん","ぎゅうどん","みそしる","さしみ","しょうゆ","こしょう","ソース","あります","せんぱい","ことば","くだもの","チキン","サラダ","ビール","ジュース","ワイン","アイスクリーム","つくえ","かばん","うしろ","ひだり","あいだ","ほんだな","パソコン","でんわ","ごみばこ","テーブル","くるま","いくら","おにぎり","てんいん","おちゃ","ぜんぶで","おつり","えはがき","けしゴム","ノート","りんご","ファストフードてん","コーヒー","ホット","アイス","アップルパイ","おまたせしました","ウーロンちゃ","こうちゃ","レモンティー","ミルクティー","いらっしゃいませ","スープ","コーラ","ポテト","ホットドッグ","こうべ","ホーム","せんしゅう","きました","きょう","どちらへ","しんかんせん","そして","あさって","かえります","きをつけて","あした","スーパー","プール","まいにち","にちようび","デパート","ともだち","ひこうき","しんじゅく","なんじ","あんないじょ","かかりのひと","ええと","のりば","いきます","うんてんしゅ","さんばん","おおさか","なりたくうこう","きょうと","しょうせんきょう","こうふえき","なんばんせん","にばんせん","まつもと","たかお","しずおか","でんしゃ","はちおうじ","ごせんもん","おすまいは","じてんしゃ","あるいて","ごぜん","いつも","らいしゅう","にほんご","クラス","だれと","かぞく","ひとりで","どようび","はねだくうこう","こうそくバス","いってらっしゃい","あきはばら","ゆうべ","カレー","つくりました","レストラン","スパゲッティ","おいしい","ハンバーグ","まあまあ","りょうり","します","そうじ","せんたく","のみます","たべます","きのう","いきました","かいました","とりにく","たまねぎ","じゃがいも","ぎゅうにく","はくさい","すきやき","トマト","ひきにく","きゅうり","とても","チャーハン","ラーメン","はっぴょうします","がんばってください","かいものします","じゅんび","じっけんします","ろんぶん","よみます","しょくじします","えいが","みます","かきます","ミーティング","じゅぎょう","ろくじごろ","もしもし","かわだでんき","いっしょに","いいですね","いきましょう","あいましょう","さそいます","サッカー","さんぽします","ばんごはん","こんや","カラオケ","こくさいこうりゅう","きめます","もうしわけありません","わかりました","ざいたく","ばあい","おたく","おとうと","すこし","ふざい","いもうと","るすばんでんわ","ただいま","ピーというおと","あとに","いたい","びょういん","かんごし","おだいじに","あたま","おなか","きぶんがわるい","だるい","みましょうか","アレルギー","たまご","けっせき","しらせます","やすみます","げんいん","りゆう","けっか","ちこくします","はやく","りょこう","ほしい","もうすぐ","なつやすみ","みんなで","きんかくじ","まいこ","しゃしん","ガイドブック","かります","しんぶん","コーナー","じむしょ","カウンター","がくわり","じどうはっこうき","カメラ","しょうがくきん","たんい","がくい","パンフレット","しょるい","ホームステイ","しりょう","しかくがいかつどうきょか","しんせいしょ","ざいがくしょうめいしょ","せいせきしょうめいしょ","しょうしょう","メニュー","りょうしゅうしょ","おんがく","アニメ","ほっかいどう","りょうしん","がくせいしょう","ちょっと","もっと","やすいの","やすい","しろい","ジャケット","いかがですか","たかい","ちいさい","ズボン","ブラウス","かわいい","パーカー","かっこいい","スーツ","おおきい","カバン","ほそい","ネクタイ","かるい","スカート","スカーフ","おもい","バッグ","ベルト","ながい","おきゃくさま","ぬいぐるみ","あまり","みかん","あまい","キムチ","からい","いちご","ポケット","べんり","スーツケース","そうじき","おもちゃ","アイロン","すんでいます","ちかい","まわり","ちかくに","あかるい","せまい","ベッド","とけい","ふるい","あたらしい","さむい","どちら","あつい","ところで","いちばん","きよみずでら","どちらも","へいきんきおん","はやい","ほんや","ちょうし","ううん","たのしい","ぎおん","にほんりょうり","スポーツ","ぶどう","べんきょう","むずかしい","しょうかいします","エンジニア","やさしい","とくい","いじょう","そふぼ"]);
+const proposedVocabulary13to30=new Map([["書く","かく"],["読む","よむ"],["待つ","まつ"],["持つ","もつ"],["取る","とる"],["立つ","たつ"],["座る","すわる"],["開ける","あける"],["閉める","しめる"],["消す","けす"],["見せる","みせる"],["教える","おしえる"],["手伝う","てつだう"],["名前","なまえ"],["住所","じゅうしょ"],["電話番号","でんわばんごう"],["紙","かみ"],["漢字","かんじ"],["質問","しつもん"],["答え","こたえ"],["写真","しゃしん"],["撮る","とる"],["触る","さわる"],["入る","はいる"],["使う","つかう"],["吸う","すう"],["捨てる","すてる"],["置く","おく"],["借りる","かりる"],["貸す","かす"],["返す","かえす"],["携帯電話","けいたいでんわ"],["撮影","さつえい"],["禁止","きんし"],["出口","でぐち"],["喫煙","きつえん"],["注意","ちゅうい"],["自由","じゆう"],["許可","きょか"],["今","いま"],["勉強する","べんきょうする"],["働く","はたらく"],["話す","はなす"],["聞く","きく"],["食べる","たべる"],["飲む","のむ"],["歩く","あるく"],["走る","はしる"],["泳ぐ","およぐ"],["歌う","うたう"],["踊る","おどる"],["料理する","りょうりする"],["掃除する","そうじする"],["洗濯する","せんたくする"],["練習する","れんしゅうする"],["運転する","うんてんする"],["電話する","でんわする"],["音楽","おんがく"],["途中","とちゅう"],["住む","すむ"],["知る","しる"],["結婚する","けっこんする"],["勤める","つとめる"],["通う","かよう"],["習う","ならう"],["続ける","つづける"],["覚える","おぼえる"],["忘れる","わすれる"],["家族","かぞく"],["両親","りょうしん"],["兄","あに"],["姉","あね"],["弟","おとうと"],["妹","いもうと"],["独身","どくしん"],["会社","かいしゃ"],["仕事","しごと"],["毎週","まいしゅう"],["普段","ふだん"],["最近","さいきん"],["起きる","おきる"],["寝る","ねる"],["浴びる","あびる"],["洗う","あらう"],["磨く","みがく"],["着る","きる"],["履く","はく"],["出かける","でかける"],["帰宅する","きたくする"],["準備する","じゅんびする"],["片づける","かたづける"],["朝ごはん","あさごはん"],["昼ごはん","ひるごはん"],["晩ごはん","ばんごはん"],["歯","は"],["服","ふく"],["靴","くつ"],["先に","さきに"],["それから","それから"],["最後に","さいごに"],["順番","じゅんばん"],["泊まる","とまる"],["登る","のぼる"],["訪ねる","たずねる"],["見学する","けんがくする"],["旅行する","りょこうする"],["経験する","けいけんする"],["参加する","さんかする"],["乗る","のる"],["降りる","おりる"],["飛ぶ","とぶ"],["海外","かいがい"],["国内","こくない"],["旅館","りょかん"],["温泉","おんせん"],["神社","じんじゃ"],["お寺","おてら"],["景色","けしき"],["祭り","まつり"],["飛行機","ひこうき"],["船","ふね"],["一度","いちど"],["休みの日","やすみのひ"],["散歩する","さんぽする"],["買い物する","かいものする"],["映画","えいが"],["映画館","えいがかん"],["美術館","びじゅつかん"],["博物館","はくぶつかん"],["公園","こうえん"],["山","やま"],["川","かわ"],["海","うみ"],["釣り","つり"],["読書","どくしょ"],["昼寝","ひるね"],["週末","しゅうまつ"],["時々","ときどき"],["たいてい","たいてい"],["いろいろ","いろいろ"],["例えば","たとえば"],["宿題","しゅくだい"],["試験","しけん"],["復習","ふくしゅう"],["予習","よしゅう"],["提出する","ていしゅつする"],["終わる","おわる"],["始める","はじめる"],["調べる","しらべる"],["確認する","かくにんする"],["直す","なおす"],["間違える","まちがえる"],["間違い","まちがい"],["答え合わせ","こたえあわせ"],["成績","せいせき"],["締切","しめきり"],["相談する","そうだんする"],["早めに","はやめに"],["すぐ","すぐ"],["あとで","あとで"],["必ず","かならず"],["無理","むり"],["大切","たいせつ"],["できる","できる"],["弾く","ひく"],["作る","つくる"],["修理する","しゅうりする"],["予約する","よやくする"],["説明する","せつめいする"],["紹介する","しょうかいする"],["翻訳する","ほんやくする"],["通訳する","つうやくする"],["運転","うんてん"],["水泳","すいえい"],["料理","りょうり"],["楽器","がっき"],["外国語","がいこくご"],["英語","えいご"],["中国語","ちゅうごくご"],["日本語","にほんご"],["上手","じょうず"],["下手","へた"],["得意","とくい"],["前","まえ"],["後","あと"],["時","とき"],["子ども","こども"],["小学生","しょうがくせい"],["高校生","こうこうせい"],["大学生","だいがくせい"],["卒業する","そつぎょうする"],["入学する","にゅうがくする"],["引っ越す","ひっこす"],["生まれる","うまれる"],["育つ","そだつ"],["出発する","しゅっぱつする"],["到着する","とうちゃくする"],["出発","しゅっぱつ"],["到着","とうちゃく"],["空港","くうこう"],["駅","えき"],["昔","むかし"],["初めて","はじめて"],["先月","せんげつ"],["来月","らいげつ"],["つもり","つもり"],["予定","よてい"],["計画","けいかく"],["決める","きめる"],["考える","かんがえる"],["探す","さがす"],["申し込む","もうしこむ"],["応募する","おうぼする"],["留学する","りゅうがくする"],["就職する","しゅうしょくする"],["研究する","けんきゅうする"],["旅行","りょこう"],["休暇","きゅうか"],["面接","めんせつ"],["将来","しょうらい"],["来年","らいねん"],["来週","らいしゅう"],["多分","たぶん"],["きっと","きっと"],["まだ決めていません","まだきめていません"],["趣味","しゅみ"],["特技","とくぎ"],["興味","きょうみ"],["好き","すき"],["嫌い","きらい"],["集める","あつめる"],["描く","かく"],["撮影する","さつえいする"],["育てる","そだてる"],["作曲する","さっきょくする"],["演奏する","えんそうする"],["運動する","うんどうする"],["絵","え"],["花","はな"],["植物","しょくぶつ"],["小説","しょうせつ"],["毎日","まいにち"],["一番","いちばん"],["押す","おす"],["引く","ひく"],["開く","あく"],["閉まる","しまる"],["動く","うごく"],["止まる","とまる"],["曲がる","まがる"],["進む","すすむ"],["光る","ひかる"],["鳴る","なる"],["出る","でる"],["変わる","かわる"],["自動","じどう"],["機械","きかい"],["信号","しんごう"],["右","みぎ"],["左","ひだり"],["まっすぐ","まっすぐ"],["交差点","こうさてん"],["騒ぐ","さわぐ"],["なくす","なくす"],["壊す","こわす"],["遅れる","おくれる"],["持ち込む","もちこむ"],["近づく","ちかづく"],["危険","きけん"],["安全","あんぜん"],["立入禁止","たちいりきんし"],["禁煙","きんえん"],["非常口","ひじょうぐち"],["ごみ","ごみ"],["迷惑","めいわ"],["約束","やくそく"],["規則","きそく"],["絶対に","ぜったいに"],["気をつける","きをつける"],["出す","だす"],["払う","はらう"],["守る","まもる"],["登録する","とうろくする"],["連絡する","れんらくする"],["提出","ていしゅつ"],["申請","しんせい"],["書類","しょるい"],["学生証","がくせいしょう"],["在留カード","ざいりゅうカード"],["保険","ほけん"],["保険証","ほけんしょう"],["授業料","じゅぎょうりょう"],["期限","きげん"],["必要","ひつよう"],["義務","ぎむ"],["受付","うけつけ"],["事務室","じむしつ"],["担当者","たんとうしゃ"],["今週中","こんしゅうじゅう"],["忘れずに","わすれずに"],["休む","やすむ"],["来る","くる"],["行く","いく"],["持ってくる","もってくる"],["欠席する","けっせきする"],["出席","しゅっせき"],["欠席","けっせき"],["任意","にんい"],["無料","むりょう"],["有料","ゆうりょう"],["料金","りょうきん"],["変更","へんこう"],["都合","つごう"],["必要ない","ひつようない"],["大丈夫","だいじょうぶ"],["もちろん","もちろん"],["薬","くすり"],["無理する","むりする"],["食べすぎる","たべすぎる"],["飲みすぎる","のみすぎる"],["疲れる","つかれる"],["治る","なおる"],["痛む","いたむ"],["熱","ねつ"],["せき","せき"],["風邪","かぜ"],["頭痛","ずつう"],["腹痛","ふくつう"],["病院","びょういん"],["医者","いしゃ"],["看護師","かんごし"],["睡眠","すいみん"],["健康","けんこう"],["十分","じゅうぶん"],["お大事に","おだいじに"],["慣れる","なれる"],["成長する","せいちょうする"],["上達する","じょうたつする"],["増える","ふえる"],["減る","へる"],["続く","つづく"],["変化する","へんかする"],["振り返る","ふりかえる"],["生活","せいかつ"],["習慣","しゅうかん"],["文化","ぶんか"],["経験","けいけん"],["目標","もくひょう"],["思い出","おもいで"],["困る","こまる"],["助ける","たすける"],["安心する","あんしんする"],["心配する","しんぱいする"],["これから","これから"],["以前","いぜん"],["少しずつ","すこしずつ"],["つける","つける"],["ページ","ページ"],["カメラ","カメラ"],["テレビ","テレビ"],["インターネット","インターネット"],["シャワー","シャワー"],["キャンプ","キャンプ"],["ハイキング","ハイキング"],["ゲーム","ゲーム"],["ピアノ","ピアノ"],["ギター","ギター"],["アルバイト","アルバイト"],["インターンシップ","インターンシップ"],["スポーツ","スポーツ"],["ボタン","ボタン"],["スイッチ","スイッチ"],["ドア","ドア"],["キャンセル","キャンセル"],["入口","いりぐち"],["駐車場","ちゅうしゃじょう"],["まだ","まだ"]]);
+for(const [written,reading] of proposedVocabulary13to30){if(!textbookReadings.has(written)&&written!==reading)textbookReadings.set(written,reading);textbookKanaVocabulary.add(reading);}
+// Generated adjective and nominal predicate forms (supplementary, not claims about textbook attestation).
+const adjectiveInflectionBase={
+ i:["たかい","やすい","おおきい","ちいさい","あたらしい","ふるい","あつい","さむい","あたたかい","すずしい","おいしい","まずい","いそがしい","たのしい","おもしろい","むずかしい","やさしい","はやい","おそい","ながい","みじかい","おもい","かるい","ひろい","せまい","ちかい","とおい","わかい","つよい","よわい","あかるい","くらい","いたい","ねむい","ほしい","かわいい","いい","よい","ない"],
+ na:["しずか","にぎやか","べんり","ふべん","きれい","げんき","ひま","すき","きらい","じょうず","へた","とくい","たいせつ","だいじょうぶ","しんせつ","ゆうめい","かんたん","たいへん","あんぜん","きけん","ひつよう","むり"]
+};
+const generatedGrammarForms=new Set();
+function registerGrammarForm(form){generatedGrammarForms.add(form);textbookKanaVocabulary.add(form);}
+for(const adjective of adjectiveInflectionBase.i){
+ const stem=(adjective==="いい"||adjective==="よい")?"よ":adjective==="ない"?"な":adjective.slice(0,-1);
+ for(const ending of ["くて","くても","くない","くないです","くありません","くなかった","くなかったです","くありませんでした","かった","かったです","くなくて","くなくても"])registerGrammarForm(stem+ending);
+}
+for(const adjective of adjectiveInflectionBase.na){
+ for(const ending of ["で","でも","じゃありません","ではありません","じゃないです","ではないです","じゃなかったです","ではありませんでした","じゃなくて","ではなくて","だった","でした"])registerGrammarForm(adjective+ending);
+}
+for(const noun of ["がくせい","せんせい","りゅうがくせい","だいがくせい","かいしゃいん","にほんじん","ともだち","やすみ","しごと","びょうき"]){
+ for(const ending of ["で","でも","じゃありません","ではありません","じゃないです","ではないです","じゃなかったです","ではありませんでした","じゃなくて","ではなくて","でした"])registerGrammarForm(noun+ending);
+}
+// Verb morphology: five-grade endings, ichidan, and irregular verbs.
+// Candidate forms are supplemental; original textbook entries retain priority.
+const verbExceptionsGodan=new Set(["かえる","はいる","はしる","きる","しる","いる","すべる","しゃべる","にぎる","ける","まいる","さわる","のぼる","とる","おくる","うる","つくる","なおる","のこる","あがる","さがる","まがる","わたる","おわる","はじまる","かかる"]);
+const verbExceptionsIchidan=new Set(["たべる","みる","おきる","ねる","あびる","かりる","おりる","できる","いる","きる","あける","しめる","みせる","おしえる","わすれる","つづける","かんがえる","しらべる","はじめる","でかける","うまれる","そだてる","あつめる","きめる","つける","でる","おぼえる","つかれる","なれる","ふえる","へる","かえる","かんじる","しんじる","おちる","たてる","いれる","やめる","すてる","ねむれる"]);
+const godanRows={う:["わ","い","え","お"],く:["か","き","け","こ"],ぐ:["が","ぎ","げ","ご"],す:["さ","し","せ","そ"],つ:["た","ち","て","と"],ぬ:["な","に","ね","の"],ぶ:["ば","び","べ","ぼ"],む:["ま","み","め","も"],る:["ら","り","れ","ろ"]};
+const teTaEnding={う:["って","った"],つ:["って","った"],る:["って","った"],む:["んで","んだ"],ぶ:["んで","んだ"],ぬ:["んで","んだ"],く:["いて","いた"],ぐ:["いで","いだ"],す:["して","した"]};
+function verbStemForms(v,written=''){
+ if(v==="する")return {stem:"し",masu:"し",nai:"しない",te:"して",ta:"した",dict:v,vol:"しよう",ba:"すれば",pot:"できる",pass:"される",cause:"させる",imperative:"しろ"};
+ if(v==="くる")return {stem:"き",masu:"き",nai:"こない",te:"きて",ta:"きた",dict:v,vol:"こよう",ba:"くれば",pot:"こられる",pass:"こられる",cause:"こさせる",imperative:"こい"};
+ if(v.endsWith("する")&&v.length>2){const p=v.slice(0,-2);const x=verbStemForms("する");return Object.fromEntries(Object.entries(x).map(([k,val])=>[k,p+val]));}
+ if(!/[うくぐすつぬぶむる]$/.test(v))return null;
+ const knownGodan=/^(帰る|切る|入る|走る|知る|要る|減る|滑る|喋る|握る|蹴る|参る|売る|取る|撮る|乗る|登る|触る|作る|治る|通る|送る|終わる|始まる|曲がる|渡る)$/.test(written);
+ const knownIchidan=/^(変える|替える|着る|居る|寝る|経る|見る|起きる|食べる|借りる|降りる|開ける|閉める|教える|忘れる|考える|調べる|出る|捨てる|疲れる|慣れる|増える)$/.test(written);
+ const ichidan=v.endsWith("る")&&(knownIchidan||(!knownGodan&&(verbExceptionsIchidan.has(v)||(!verbExceptionsGodan.has(v)&&/[いきしちにひみりえけせてねへめれ]る$/.test(v)))));
+ if(ichidan){const p=v.slice(0,-1);return {stem:p,masu:p,nai:p+"ない",te:p+"て",ta:p+"た",dict:v,vol:p+"よう",ba:p+"れば",pot:p+"られる",pass:p+"られる",cause:p+"させる",imperative:p+"ろ"};}
+ const end=v.slice(-1),p=v.slice(0,-1),row=godanRows[end],tt=teTaEnding[end];if(!row)return null;
+ return {stem:p+row[1],masu:p+row[1],nai:p+row[0]+"ない",te:v==="いく"?"いって":p+tt[0],ta:v==="いく"?"いった":p+tt[1],dict:v,vol:p+row[3]+"う",ba:p+row[2]+"ば",pot:p+row[2]+"る",pass:p+row[0]+"れる",cause:p+row[0]+"せる",imperative:p+row[2]};
+}
+const verbGrammarSuffixes={
+ masu:["ます","ません","ました","ませんでした","ましょう","ましょうか","ませんか","たい","たいです","たくない","たくないです","たかった","たかったです","たくなかった","たくなかったです","ながら","にいく","にくる","はじめる","おわる","つづける","なおす","すぎる","やすい","にくい"],
+ te:["ください","くださいませんか","もいい","もいいですか","はいけません","はいけない","いる","います","いません","いました","いませんでした","から","みる","みます","みたい","しまう","しまいます","おく","おきます","ある","あります","あげる","くれる","もらう","いただく","くださる","も","いく","くる"],
+ ta:["ことがある","ことがあります","ことがない","ことがありません","り","りします","あとで","ほうがいい","ほうがいいです","ら","らどうですか","とき","ばかり","まま","ところ","んです","んですが"],
+ dict:["ことができる","ことができます","ことができない","ことができません","こと","の","まえに","とき","つもり","つもりです","よてい","よていです","とおもう","とおもいます","と","ために","まで","かもしれない","かもしれません","でしょう","はずです","べきです","ことにする","ことになる","ようにする","ようになる","ひつようがある","ところです","なら","ので","から","そうです"],
+ nai:["です","でください","で","でいる","でくださいませんか","ほうがいい","ほうがいいです","つもり","つもりです","ことにする","ようにする","ようにしてください","といけない","とだめ","とおもう","とおもいます","ことはない","わけではない"],
+ vol:["とおもう","とおもいます","とする","としている"],
+ ba:["いい","よかった","いいのに"]
+};
+const generatedVerbForms=new Set();
+function registerVerbForm(w,r){if(!w||!r)return;generatedVerbForms.add(w);textbookKanaVocabulary.add(r);if(w!==r&&!textbookReadings.has(w))textbookReadings.set(w,r);}
+const sourceVerbEntries=[...proposedVocabulary13to30,...textbookReadings].filter(([w,r])=>/^[ぁ-ゖ]+$/.test(r)&&(/(?:する|[うくぐすつぬぶむる])$/.test(r))&&(/(?:する|[うくぐすつぬぶむる])$/.test(w)));
+for(const [written,reading] of sourceVerbEntries){
+ const f=verbStemForms(reading,written);if(!f)continue;
+ const writtenStem=written.endsWith("する")?written.slice(0,-2):written.slice(0,-1);
+ const readingStem=reading.endsWith("する")?reading.slice(0,-2):reading.slice(0,-1);
+ const asWritten=kanaForm=>{
+  if(written==="来る"&&reading==="くる"){
+   if(kanaForm.startsWith("き"))return "来"+kanaForm.slice(1);
+   if(kanaForm.startsWith("こ"))return "来"+kanaForm.slice(1);
+   if(kanaForm.startsWith("く"))return "来"+kanaForm.slice(1);
+  }
+  return kanaForm.startsWith(readingStem)?writtenStem+kanaForm.slice(readingStem.length):kanaForm;
+ };
+ const addForm=kanaForm=>registerVerbForm(asWritten(kanaForm),kanaForm);
+ // Preserve kanji stems where possible, but always register exact kana forms.
+ for(const [kind,base] of Object.entries(f)){
+  if(kind==="stem")continue;
+  addForm(base);
+  const endings=verbGrammarSuffixes[kind]||[];
+  for(const ending of endings)addForm(base+ending);
+ }
+ const naiStem=f.nai.slice(0,-2);
+ for(const ending of ["なかった","なかったです","なければ","なければなりません","なくてもいい","なくてもいいです","なくてはいけません","なくなる","なくなります","なかったら"])addForm(naiStem+ending);
+ for(const derived of [f.pot,f.pass,f.cause]){
+  const df=verbStemForms(derived);if(!df)continue;
+  for(const kind of ["dict","nai","te","ta","masu"])addForm(df[kind]);
+  for(const ending of ["ます","ません","ました","ませんでした"])addForm(df.masu+ending);
+ }
+}
+const textbookKatakana=new Set([...textbookReadings.keys(),...textbookKanaVocabulary].filter(k=>/^[ァ-ヺー]+$/.test(k)));
+function editDistance(a,b){const prev=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let last=prev[0];prev[0]=i;for(let j=1;j<=b.length;j++){const old=prev[j];prev[j]=Math.min(prev[j]+1,prev[j-1]+1,last+(a[i-1]===b[j-1]?0:1));last=old}}return prev[b.length]}
+function dictionaryCandidate(t){
+ if(!/^[ァ-ヺー]{3,}$/.test(t)||katakanaLexicon.has(t)||textbookKatakana.has(t))return t;
+ let best=null,bestScore=0,runner=0;
+ for(const w of new Set([...katakanaLexicon,...textbookKatakana])){
+  if(Math.abs(w.length-t.length)>1||w.length<3)continue;
+  const d=editDistance(t,w);
+  if(d>1)continue;
+  const score=1-d/Math.max(w.length,t.length);
+  if(score>bestScore){runner=bestScore;bestScore=score;best=w}else if(score>runner)runner=score;
+ }
+ // No speculative completion of short OCR fragments or tied candidates.
+ return best&&t.length>=4&&bestScore>=.8&&bestScore-runner>=.12?best:t
+}
+function diagnoseKanaExtraction(data,finalItems){
+ const lines=(data.blocks||[]).flatMap(b=>(b.paragraphs||[]).flatMap(p=>p.lines||[]));
+ const words=lines.flatMap(l=>l.words||[]).filter(w=>w.text&&w.bbox);
+ const kana=/[ぁ-ゖァ-ヺー]/,mixed=words.filter(w=>kana.test(w.text)&&[...w.text].some(c=>!kana.test(c)));
+ const missingSymbols=mixed.filter(w=>!(w.symbols||[]).some(z=>z.bbox&&z.text));
+ const oneChar=words.filter(w=>[...w.text].length===1&&kana.test(w.text));
+ const lowSingle=oneChar.filter(w=>(Number.isFinite(w.confidence)?w.confidence:50)<65);
+ const relevant=words.filter(w=>w.text.includes('ま')||w.text.includes('マ')||w.text.includes('含')||w.text.includes('で'));
+ const fmt=w=>{
+  const b=w.bbox,sy=(w.symbols||[]).filter(z=>z.text&&z.bbox);
+  return JSON.stringify(w.text)+' conf='+Math.round(w.confidence??50)+' bbox=['+[b.x0,b.y0,b.x1,b.y1].map(Math.round).join(',')+'] symbols='+ (sy.length?sy.map(z=>z.text).join('|'):'none');
+ };
+ const displayed=finalItems.filter(it=>/[まマ]/.test(it.text));
+ return 'OCR diagnostic (raw primary pass; display unchanged):\n'
+  +'Words: '+words.length+'; mixed kanji/kana: '+mixed.length+'; mixed without symbol boxes: '+missingSymbols.length+'; low-confidence single kana: '+lowSingle.length+'\n'
+  +'Mixed words without symbol boxes (excluded by extraction):\n'+(missingSymbols.slice(0,16).map(fmt).join('\n')||'(none)')+'\n'
+  +'Single kana below confidence 65 (excluded by extraction):\n'+(lowSingle.slice(0,16).map(fmt).join('\n')||'(none)')+'\n'
+  +'Raw words containing ま / マ / 含 / で:\n'+(relevant.slice(0,25).map(fmt).join('\n')||'(none)')+'\n'
+  +'Final displayed ま/マ regions: '+(displayed.map(it=>JSON.stringify(it.text)+' conf='+Math.round(it.confidence??50)).join(', ')||'(none)')+'\n'
+  +'Note: later OCR retries may replace the primary results; compare the final Kana list above.';
+}
+let extractionSerial=0;
+function extract(data,image=work){
+ const extractionId=++extractionSerial;let lineNumber=0;
+ const lines=(data.blocks||[]).flatMap(b=>(b.paragraphs||[]).flatMap(p=>p.lines||[])),out=[];
+ const kana=/[ぁ-ゖァ-ヺー]/,runs=/[ぁ-ゖァ-ヺー]+/g;
+ const union=(a,b)=>({x0:Math.min(a.x0,b.x0),y0:Math.min(a.y0,b.y0),x1:Math.max(a.x1,b.x1),y1:Math.max(a.y1,b.y1)});
+ for(const line of lines){
+  let chain=0;const rowKey=extractionId+":"+(lineNumber++);
+  const originalWords=(line.words||[]).filter(w=>w.bbox&&w.text);
+  const words=[...originalWords].sort((a,b)=>a.bbox.x0-b.bbox.x0),parts=[];
+  // Tesseract can return correct line text with overlapping or oversized word
+  // boxes. Preserve its reading order and actual line box in that case.
+  const lineText=(line.text??originalWords.map(w=>w.text).join('')).trim();
+  const ambiguous=words.some(w=>(w.bbox.x1-w.bbox.x0)>Math.max(1,w.bbox.y1-w.bbox.y0)*Math.max(1,[...w.text].length)*1.65)||words.some((w,i)=>i&&overlap(words[i-1].bbox,w.bbox)>.10);
+  if(ambiguous&&line.bbox&&/^[ぁ-ゖァ-ヺー\s]+$/.test(lineText)){
+   out.push({text:lineText,box:{...line.bbox},confidence:Math.min(...words.map(w=>w.confidence??50)),joinGroup:rowKey+':line'});continue;
+  }
+  for(let wi=0;wi<words.length;wi++){
+   const w=words[wi],t=w.text||'',b=w.bbox;
+   // Kanji and dictionary readings are intentionally excluded; kana only.
+   if(!kana.test(t)){chain++;continue;}
+   const confidence=Number.isFinite(w.confidence)?w.confidence:50;
+   if(confidence<22)continue;
+   const symbols=(w.symbols||[]).filter(z=>z.bbox&&z.text);
+   if(symbols.length){
+    let run=null;
+    const flush=()=>{if(run){parts.push({...run,confidence});run=null}};
+    for(const z of symbols){
+     if(/^[ぁ-ゖァ-ヺー]+$/.test(z.text)){
+      if(!run)run={text:z.text,box:{...z.bbox},word:wi,confidence,joinGroup:rowKey+":"+chain,kanaGlyphs:[{text:z.text,box:{...z.bbox}}]};
+      else{run.text+=z.text;run.box=union(run.box,z.bbox);run.kanaGlyphs.push({text:z.text,box:{...z.bbox}})}
+     }else{flush();chain++}
+    }
+    flush();
+   }else{
+    // A mixed kanji/kana word without symbol boxes has no trustworthy kana x-position.
+    // Do not invent a per-character start coordinate from equal-width division.
+    if([...t].some(ch=>!kana.test(ch))){chain++;continue;}
+    for(const m of t.matchAll(runs)){
+     const n=[...t].length,st=[...t.slice(0,m.index)].length,len=[...m[0]].length;
+     if(!n||!len)continue;
+     parts.push({text:m[0],box:{x0:b.x0+(b.x1-b.x0)*st/n,y0:b.y0,x1:b.x0+(b.x1-b.x0)*(st+len)/n,y1:b.y1},word:wi,confidence,joinGroup:rowKey+":"+chain})
+    }
+   }
+  }
+  // Estimate the text baseline from OCR line metadata, falling back to character centers.
+  const baseline=line.baseline;
+  let slope=Array.isArray(baseline)&&Number.isFinite(baseline[0])?baseline[0]:null;
+  if(slope===null&&parts.length>=3){
+   const centers=parts.map(p=>({x:(p.box.x0+p.box.x1)/2,y:(p.box.y0+p.box.y1)/2}));
+   const mx=centers.reduce((a,p)=>a+p.x,0)/centers.length,my=centers.reduce((a,p)=>a+p.y,0)/centers.length;
+   const den=centers.reduce((a,p)=>a+(p.x-mx)**2,0);
+   slope=den>1?centers.reduce((a,p)=>a+(p.x-mx)*(p.y-my),0)/den:0;
+  }
+  slope=Math.max(-1.2,Math.min(1.2,slope||0));
+  const theta=Math.atan(slope),ux=Math.cos(theta),uy=Math.sin(theta);
+  const projected=p=>{const b=p.box,cx=(b.x0+b.x1)/2,cy=(b.y0+b.y1)/2;return {along:cx*ux+cy*uy,cross:-cx*uy+cy*ux,extent:(b.x1-b.x0)*Math.abs(ux)+(b.y1-b.y0)*Math.abs(uy),thickness:(b.y1-b.y0)*Math.abs(ux)+(b.x1-b.x0)*Math.abs(uy)}};
+  parts.sort((a,b)=>projected(a).along-projected(b).along);
+  const groups=[];
+  for(const part of parts){
+   const p=groups[groups.length-1];
+   if(p){
+    const a=p.box,b=part.box,ha=a.y1-a.y0,hb=b.y1-b.y0,ratio=Math.min(ha,hb)/Math.max(ha,hb),overY=Math.max(0,Math.min(a.y1,b.y1)-Math.max(a.y0,b.y0))/Math.min(ha,hb);
+    const gap=b.x0-a.x1,unit=Math.min(ha,hb),intervening=words.some((w,i)=>i>p.lastWord&&i<part.word&&/[一-龯々〆ヵヶA-Za-z0-9]/.test(w.text||''));
+    const sameWord=p.lastWord===part.word;
+    const extender=/^[ーぁぃぅぇぉゃゅょっァィゥェォャュョッヮヵヶ]/.test(part.text);
+    const precedingExtender=/[ーぁぃぅぇぉゃゅょっァィゥェォャュョッヮヵヶ]$/.test(p.text);
+    const nearbyHeight=Math.max(ha,hb),centerDelta=Math.abs((a.y0+a.y1-b.y0-b.y1)/2);
+    const compatible=extender||precedingExtender?(ratio>=.24&&centerDelta<=nearbyHeight*.5&&gap>=-nearbyHeight*.4&&gap<=nearbyHeight*.8):(ratio>=.67&&overY>=.58&&gap>=-unit*.25&&gap<=nearbyHeight*.65);
+    const pa=projected(p),pb=projected(part),alongGap=pb.along-pa.along-(pa.extent+pb.extent)/2;
+    const crossGap=Math.abs(pb.cross-pa.cross),lineUnit=Math.max(6,Math.min(pa.thickness,pb.thickness));
+    const slantedCompatible=Math.abs(theta)>.12&&crossGap<=lineUnit*.55&&alongGap>=-lineUnit*.35&&alongGap<=lineUnit*.65;
+    // Preserve textbook word spacing: do not join across a visible full-character gap.
+    const charWidthA=(a.x1-a.x0)/Math.max(1,[...p.text].length),charWidthB=(b.x1-b.x0)/Math.max(1,[...part.text].length);
+    const spacingUnit=Math.max(5,Math.min(charWidthA,charWidthB));
+    const wordSpace=part.word!==p.lastWord&&alongGap>Math.max(nearbyHeight*.65,spacingUnit*.8);
+    const separated=words.some((w,i)=>i>=p.lastWord&&i<=part.word&&i!==p.lastWord&&i!==part.word&&/[^ぁ-ゖァ-ヺー\s]/.test(w.text||''));
+    if(p.joinGroup===part.joinGroup&&(compatible||slantedCompatible)&&!wordSpace&&!intervening&&!separated&&(sameWord||extender||precedingExtender||slantedCompatible||gap<=nearbyHeight*.65)){
+     p.text+=part.text;p.box=union(p.box,b);p.lastWord=part.word;p.confidence=Math.min(p.confidence??50,part.confidence??50);p.kanaGlyphs=p.kanaGlyphs&&part.kanaGlyphs?p.kanaGlyphs.concat(part.kanaGlyphs):null;continue
+    }
+   }
+   groups.push({text:part.text,box:{...part.box},lastWord:part.word,confidence:part.confidence,joinGroup:part.joinGroup,kanaGlyphs:part.kanaGlyphs||null})
+  }
+  for(const g of groups){const len=[...g.text].length,conf=g.confidence||0;if((len===1&&conf<65)||(len===2&&conf<38))continue;out.push({text:dictionaryCandidate(g.text),box:g.box,angle:0,confidence:conf,joinGroup:g.joinGroup,kanaGlyphs:g.kanaGlyphs?.map(z=>({text:z.text,x0:(z.box.x0-g.box.x0)/(g.box.x1-g.box.x0),x1:(z.box.x1-g.box.x0)/(g.box.x1-g.box.x0),y0:(z.box.y0-g.box.y0)/(g.box.y1-g.box.y0),y1:(z.box.y1-g.box.y0)/(g.box.y1-g.box.y0)}))})}
+ }
+ return out.filter(p=>{const b=p.box,w=b.x1-b.x0,h=b.y1-b.y0;return h>=8&&w>=5&&w/h>.18&&w/h<24&&p.box.x0>=0&&p.box.y0>=0&&p.box.x1<=image.width&&p.box.y1<=image.height&&p.box.x1-p.box.x0>=3})
+}
+function backgroundAt(x,y,w,h){const pts=[[x-3,y+h/2],[x+w+3,y+h/2],[x+w/2,y-3],[x+w/2,y+h+3]];const colors=[];for(const [px,py] of pts){if(px<0||py<0||px>=work.width||py>=work.height)continue;const d=wc.getImageData(Math.round(px),Math.round(py),1,1).data;colors.push([d[0],d[1],d[2]])}if(!colors.length)return [240,240,240];return [0,1,2].map(i=>Math.round(colors.reduce((s,c)=>s+c[i],0)/colors.length))}
+
+// Experimental ruby-to-kanji matching: only OCR-visible furigana, never dictionary guesses.
+// Limit extra OCR work to two candidates per scan on the existing Japanese worker.
+async function detectRubyKanji(data,myId){
+ const lines=(data.blocks||[]).flatMap(b=>(b.paragraphs||[]).flatMap(p=>p.lines||[]));
+ const words=lines.flatMap(l=>l.words||[]).filter(w=>w.bbox&&w.text);
+ const kanji=/[一-龯々〆]/,kana=/^[ぁ-ゖー]{2,12}$/;
+ const bodies=words.filter(w=>kanji.test(w.text)&&w.bbox.x1>w.bbox.x0&&w.bbox.y1>w.bbox.y0)
+  .sort((a,b)=>b.bbox.y1-b.bbox.y0-(a.bbox.y1-a.bbox.y0)).slice(0,12);
+ const found=[];
+ for(const word of bodies){
+  if(found.length>=2||!active||myId!==runId)break;
+  const b=word.bbox,h=b.y1-b.y0,w=b.x1-b.x0;
+  if(h<13||w<9)continue;
+  // Require a separately OCR-detected, significantly smaller kana word directly above.
+  const nearby=words.filter(v=>{
+   if(v===word||!kana.test(v.text))return false;
+   const q=v.bbox,vh=q.y1-q.y0,overlap=Math.max(0,Math.min(b.x1,q.x1)-Math.max(b.x0,q.x0));
+   return vh>=4&&vh<h*.76&&q.y1<=b.y0+2&&b.y0-q.y1<=h*.75&&overlap>=Math.min(w,q.x1-q.x0)*.45;
+  }).sort((a,b)=>Math.abs((a.bbox.x0+a.bbox.x1)-(b.x0+b.x1))-Math.abs((b.bbox.x0+b.bbox.x1)-(a.bbox.x0+a.bbox.x1)));
+  if(!nearby.length)continue;
+  const q=nearby[0].bbox;
+  const x0=Math.max(0,Math.floor(q.x0-3)),y0=Math.max(0,Math.floor(q.y0-3));
+  const x1=Math.min(work.width,Math.ceil(q.x1+3)),y1=Math.min(work.height,Math.ceil(q.y1+3));
+  if(x1-x0<7||y1-y0<6)continue;
+  const crop=document.createElement('canvas');crop.width=(x1-x0)*4;crop.height=(y1-y0)*4;
+  crop.getContext('2d').drawImage(work,x0,y0,x1-x0,y1-y0,0,0,crop.width,crop.height);
+  let reading=null;
+  try{
+   await worker.setParameters({tessedit_pageseg_mode:'7'});
+   const res=await worker.recognize(crop,{}, {text:true,blocks:true});
+   const candidate=(res.data.text||'').replace(/[\s　]/g,'');
+   // Cross-check against the original independently detected ruby.
+   if(kana.test(candidate)&&candidate===nearby[0].text)reading=candidate;
+  }catch(e){console.warn('Ruby OCR retry:',e)}
+  finally{await worker.setParameters({tessedit_pageseg_mode:'11'})}
+  if(reading&&active&&myId===runId)found.push({text:reading,box:{...b},rubyBox:{...q},confidence:nearby[0].confidence||50,rubyKanji:true});
+ }
+ return found;
+}
+
+
+const progress=$('progress');let hasShownLabels=false;let liveHintDismissed=false;
+function updateLiveScanningHint(){const hint=$('live-scanning-hint');hint.hidden=!active||stillMode||liveHintDismissed}
+function beginLiveScanningHint(){liveHintDismissed=false;updateLiveScanningHint()}
+function dismissLiveScanningHint(){if(liveHintDismissed)return;liveHintDismissed=true;updateLiveScanningHint()}
+
+function progressStep(message){if(hasShownLabels){progress.hidden=true;return}progress.textContent=message;progress.hidden=!message}
+function lineAligned(items){
+ // Display-only grouping: never reject OCR items or change their recognized text.
+ // OCR glyph boxes vary in height, especially around kanji and small kana.
+ const unit=(stillMode&&stillSource?stillSource.width:work.width)/Math.max(1,stage.getBoundingClientRect().width);
+ const maxHeight=21*unit*1.55;
+ const median=values=>{const v=[...values].sort((a,b)=>a-b);return v[Math.floor(v.length/2)]};
+ const valid=items.filter(it=>it.box&&it.box.y1>it.box.y0);
+ const ordered=[...valid].sort((a,b)=>(a.box.y0+a.box.y1-b.box.y0-b.box.y1)/2);
+ const rows=[];
+ for(const item of ordered){
+  const box=item.box,cy=(box.y0+box.y1)/2,h=box.y1-box.y0;
+  let best=null,bestScore=Infinity;
+  for(const row of rows){
+   const gap=Math.max(0,Math.max(box.y0,row.top)-Math.min(box.y1,row.bottom));
+   const centerDistance=Math.abs(cy-row.cy);
+   const scale=Math.max(8,Math.min(h,row.h));
+   // Prefer a common text-line center. Allow shorter kana boxes to sit within
+   // taller neighbors, without allowing two vertically separated lines to merge.
+   const tolerance=Math.max(7,Math.min(Math.max(h,row.h)*.58,scale*.95));
+   if(gap>scale*.12||centerDistance>tolerance)continue;
+   const score=centerDistance/Math.max(8,row.h)+gap/scale;
+   if(score<bestScore){best=row;bestScore=score}
+  }
+  if(!best){best={items:[],cy,h,top:box.y0,bottom:box.y1};rows.push(best)}
+  best.items.push(item);
+  best.cy=median(best.items.map(it=>(it.box.y0+it.box.y1)/2));
+  best.h=median(best.items.map(it=>it.box.y1-it.box.y0));
+  best.top=Math.min(...best.items.map(it=>it.box.y0));
+  best.bottom=Math.max(...best.items.map(it=>it.box.y1));
+ }
+ // Revisit groups after their center/height has stabilized: otherwise an early
+ // short kana can form a separate row before a later, taller neighbor arrives.
+ let changed=true;
+ for(let pass=0;pass<2&&changed;pass++){
+  changed=false;
+  for(let i=0;i<rows.length;i++)for(let j=i+1;j<rows.length;j++){
+   const a=rows[i],b=rows[j],gap=Math.max(0,Math.max(a.top,b.top)-Math.min(a.bottom,b.bottom));
+   const scale=Math.max(8,Math.min(a.h,b.h));
+   if(gap>scale*.1||Math.abs(a.cy-b.cy)>Math.max(7,scale*.65))continue;
+   a.items.push(...b.items);
+   a.cy=median(a.items.map(it=>(it.box.y0+it.box.y1)/2));
+   a.h=median(a.items.map(it=>it.box.y1-it.box.y0));
+   a.top=Math.min(...a.items.map(it=>it.box.y0));
+   a.bottom=Math.max(...a.items.map(it=>it.box.y1));
+   rows.splice(j,1);j--;changed=true;
+  }
+ }
+ const aligned=rows.flatMap(row=>{
+  const height=Math.min(row.h,maxHeight);
+  const orderedRow=[...row.items].sort((a,b)=>(a.box.x0+a.box.x1-b.box.x0-b.box.x1)/2);
+  const xs=orderedRow.map(it=>(it.box.x0+it.box.x1)/2);
+  const ys=orderedRow.map(it=>(it.box.y0+it.box.y1)/2);
+  let slope=0;
+  if(xs.length>=3){
+   const slopes=[];
+   for(let i=0;i<xs.length;i++)for(let j=i+1;j<xs.length;j++){
+    const dx=xs[j]-xs[i];
+    if(Math.abs(dx)>height*1.5)slopes.push((ys[j]-ys[i])/dx);
+   }
+   if(slopes.length)slope=Math.max(-.20,Math.min(.20,median(slopes)));
+  }
+  const intercept=median(xs.map((x,i)=>ys[i]-slope*x));
+  return row.items.map(it=>{
+   const boxHeight=Math.min(height,it.box.y1-it.box.y0),cy=(it.box.y0+it.box.y1)/2;
+   return {...it,displayBox:{x0:it.box.x0,x1:it.box.x1,y0:cy-boxHeight/2,y1:cy+boxHeight/2}};
+  });
+ });
+ return aligned.concat(items.filter(it=>!valid.includes(it)));
+}
+
+// Sample only the original text region. Whole RGB samples preserve the
+// actual paper color; per-channel quantiles can mix unrelated ink colors.
+function sampledPaperColor(b,image=work){
+ if(!image.width||!image.height)return [245,245,245];
+ const x0=Math.max(0,Math.floor(b.x0)),x1=Math.min(image.width,Math.ceil(b.x1));
+ const y0=Math.max(0,Math.floor(b.y0)),y1=Math.min(image.height,Math.ceil(b.y1));
+ if(x1<=x0||y1<=y0)return [245,245,245];
+ const pixels=image.getContext('2d',{willReadFrequently:true}).getImageData(x0,y0,x1-x0,y1-y0).data;
+ const w=x1-x0,h=y1-y0,samples=[],bins=new Map();
+ for(let row=0;row<Math.min(16,h);row++)for(let col=0;col<Math.min(40,w);col++){
+  const y=Math.min(h-1,Math.floor((row+.5)*h/Math.min(16,h))),x=Math.min(w-1,Math.floor((col+.5)*w/Math.min(40,w)));
+  const k=(y*w+x)*4;if(pixels[k+3]<128)continue;
+  const rgb=[pixels[k],pixels[k+1],pixels[k+2]],key=rgb.map(v=>v>>5).join(',');
+  samples.push(rgb);const bin=bins.get(key)||{count:0,sum:[0,0,0]};
+  bin.count++;rgb.forEach((v,c)=>bin.sum[c]+=v);bins.set(key,bin);
+ }
+ if(!samples.length)return [245,245,245];
+ let paper=[];
+ for(const bin of [...bins.values()].sort((a,b)=>b.count-a.count).slice(0,8)){
+  const center=bin.sum.map(v=>v/bin.count);
+  const cluster=samples.filter(rgb=>rgb.reduce((v,c,i)=>v+(c-center[i])**2,0)<35**2);
+  if(cluster.length>paper.length)paper=cluster;
+ }
+ return [0,1,2].map(c=>Math.round(paper.reduce((sum,rgb)=>sum+rgb[c],0)/Math.max(1,paper.length)));
+}
+// At most three stable paper tones per document. Preserve white separately
+// from pink/orange; exposure differences within one family share a tone.
+let documentLabelPalette={epoch:-1,papers:null};
+function paperFamily(rgb){
+ const [r,g,b]=rgb,spread=Math.max(r,g,b)-Math.min(r,g,b);
+ if(Math.min(r,g,b)>=208&&spread<=30)return 'white';
+ if(r>g*1.07&&r>b*1.12&&r-g>=18)return 'warm';
+ return 'other';
+}
+function paperDistance(a,b){return Math.sqrt(a.reduce((sum,v,i)=>sum+(v-b[i])**2,0))}
+function unifiedLabelPaper(accepted,image,scaleX,scaleY,freshCapture=false){
+ const cached=documentLabelPalette.epoch===objectEpoch&&documentLabelPalette.papers;
+ if(cached&&!freshCapture)return cached;
+ const samples=accepted.map(c=>{
+  const b=c.source;
+  const rgb=sampledPaperColor({x0:b.x0*scaleX,y0:b.y0*scaleY,x1:b.x1*scaleX,y1:b.y1*scaleY},image);
+  return {rgb,family:paperFamily(rgb),weight:Math.min(5,Math.max(1,Math.sqrt(Math.max(1,(b.x1-b.x0)*(b.y1-b.y0)))/30))};
+ });
+ if(!samples.length)return cached||[[245,245,245]];
+ const groups=[];
+ for(const sample of samples){
+  let match=groups.find(g=>g.family===sample.family&&(sample.family!=='other'||paperDistance(g.rgb,sample.rgb)<58));
+  if(!match){match={family:sample.family,rgb:[...sample.rgb],weight:0};groups.push(match)}
+  const weight=match.weight+sample.weight;
+  match.rgb=match.rgb.map((v,i)=>(v*match.weight+sample.rgb[i]*sample.weight)/weight);
+  match.weight=weight;
+ }
+ // A white and a warm paper group are protected from being displaced by
+ // two shades of pink; the remaining slot is the strongest distinct color.
+ const ranked=groups.sort((a,b)=>b.weight-a.weight);
+ const selected=[];
+ for(const family of ['white','warm']){
+  const match=ranked.find(g=>g.family===family);
+  if(match)selected.push(match);
+ }
+ for(const group of ranked)if(selected.length<3&&!selected.includes(group))selected.push(group);
+ const papers=selected.map(g=>g.rgb.map(Math.round));
+ if(cached&&cached.length===papers.length&&papers.every((p,i)=>paperDistance(p,cached[i])<35))return cached;
+ documentLabelPalette={epoch:objectEpoch,papers};
+ return papers;
+}
+function labelPaperFor(rgb,palette){
+ const family=paperFamily(rgb);
+ const matching=palette.filter(p=>paperFamily(p)===family);
+ const choices=matching.length?matching:palette;
+ return choices.reduce((best,p)=>paperDistance(rgb,p)<paperDistance(rgb,best)?p:best,choices[0]);
+}
+const labelColorImage=document.createElement('canvas');
+function currentLabelImage(image){
+ // Live boxes have already been projected into the CURRENT frame. Sampling
+ // the OCR work image at these coordinates would sample a different location.
+ const source=stillMode&&stillSource?stillSource:video;
+ const scale=Math.min(1,640/Math.max(image.width,image.height));
+ labelColorImage.width=Math.max(1,Math.round(image.width*scale));
+ labelColorImage.height=Math.max(1,Math.round(image.height*scale));
+ labelColorImage.getContext('2d').drawImage(source,0,0,labelColorImage.width,labelColorImage.height);
+ return labelColorImage;
+}
+
+function romajiLayout(output,width,height,unit,fontCap=Infinity){
+ const minimum=Math.min(10*unit,height*.72),maximum=Math.min(21*unit,height*.78,fontCap),padding=Math.min(3*unit,width*.08);
+ const fit=font=>{
+  ctx.font='700 '+font+'px system-ui';const lines=[];let line='';
+  for(const ch of output){
+   if(ctx.measureText(line+ch).width>width-padding*2){
+    if(!line)return null;lines.push(line);line=ch;
+   }else line+=ch;
+  }
+  if(line)lines.push(line);
+  return lines.length<=2&&lines.length*font*1.05<=height?lines:null;
+ };
+ for(let font=maximum;font>=minimum-.01;font-=Math.max(.25,unit*.25)){
+  const lines=fit(font);if(lines)return {font,lines};
+ }
+ return null;
+}
+
+// Presentation state is separate from OCR evidence and image registration.
+// Normalize by image width so a new analysis resolution cannot move a label.
+let liveDisplayState={epoch:-1,aspect:0,at:0,entries:[]};
+function clearLiveDisplay(){liveDisplayState={epoch:-1,aspect:0,at:0,entries:[]}}
+function stabilizeLiveDisplay(items,image){
+ if(stillMode||!active){clearLiveDisplay();return items}
+ const now=performance.now(),W=image.width,aspect=image.height/Math.max(1,W);
+ const previous=liveDisplayState;
+ const valid=previous.epoch===objectEpoch&&Math.abs(previous.aspect-aspect)<.001&&now-previous.at<400;
+ const dt=Math.max(.016,Math.min(.25,(now-previous.at)/1000)),cssW=Math.max(1,stage.getBoundingClientRect().width);
+ const used=new Set(),entries=[];
+ const result=items.map(item=>{
+  const b=item.displayBox||item.box;
+  const raw=[(b.x0+b.x1)/2/W,(b.y0+b.y1)/2/W,(b.x1-b.x0)/W,(b.y1-b.y0)/W];
+  let match=null,best=Infinity;
+  if(valid)for(const entry of previous.entries){
+   if(used.has(entry)||entry.text!==item.text||entry.ruby!==!!item.rubyKanji)continue;
+   const distance=Math.hypot(raw[0]-entry.raw[0],raw[1]-entry.raw[1]);
+   if(distance<Math.max(.04,raw[3]*2)&&distance<best){match=entry;best=distance}
+  }
+  let filtered=[...raw],velocity=[0,0];
+  if(match){
+   used.add(match);
+   const derivativeAlpha=1-Math.exp(-2*Math.PI*dt);
+   velocity=raw.slice(0,2).map((v,i)=>match.velocity[i]+derivativeAlpha*((v-match.raw[i])*cssW/dt-match.velocity[i]));
+   const jump=Math.hypot(raw[0]-match.raw[0],raw[1]-match.raw[1])*cssW;
+   const resized=Math.max(...raw.slice(2).map((v,i)=>Math.abs(v-match.raw[i+2])*cssW));
+   // Real movement/zoom must follow immediately; do not smooth a scene jump.
+   if(jump<Math.max(8,raw[3]*cssW*.6)&&resized<4){
+    const speed=Math.hypot(...velocity),alpha=1-Math.exp(-2*Math.PI*(1.25+.012*speed)*dt);
+    const sizeAlpha=1-Math.exp(-2*Math.PI*1.5*dt);
+    filtered=raw.map((v,i)=>match.filtered[i]+(i<2?alpha:sizeAlpha)*(v-match.filtered[i]));
+    // Bound any display lag to 4 CSS pixels and 20% of the text height.
+    const limit=Math.min(4,raw[3]*cssW*.2)/cssW;
+    for(let i=0;i<2;i++)filtered[i]=Math.max(raw[i]-limit,Math.min(raw[i]+limit,filtered[i]));
+   }
+  }
+  entries.push({text:item.text,ruby:!!item.rubyKanji,raw,filtered,velocity});
+  const [x,y,w,h]=filtered.map(v=>v*W);
+  return {...item,displayBox:{x0:Math.max(0,x-w/2),y0:Math.max(0,y-h/2),x1:Math.min(W,x+w/2),y1:Math.min(image.height,y+h/2)}};
+ });
+ liveDisplayState={epoch:objectEpoch,aspect,at:now,entries};return result;
+}
+
+// Keep one label per verified ruby/kanji pair. Ruby glyphs supply the reading,
+// while the kanji box is the sole output position.
+function suppressRubyDuplicates(items){
+ const rubies=items.filter(it=>it.rubyKanji&&it.rubyBox&&it.box);
+ if(!rubies.length)return items;
+ const intersection=(a,b)=>Math.max(0,Math.min(a.x1,b.x1)-Math.max(a.x0,b.x0))*Math.max(0,Math.min(a.y1,b.y1)-Math.max(a.y0,b.y0));
+ const area=b=>Math.max(1,(b.x1-b.x0)*(b.y1-b.y0));
+ return items.filter(it=>{
+  if(it.rubyKanji)return true;
+  const box=it.box;
+  if(!box||!/^[ぁ-ゖー]+$/.test(it.text))return true;
+  // OCR may split a verified ruby into several kana runs. Suppress only
+  // kana wholly inside its verified ruby box, not neighboring body text.
+  return !rubies.some(r=>intersection(box,r.rubyBox)/area(box)>=.75&&area(box)<=area(r.rubyBox)*1.15);
+ });
+}
+// Filter display labels using actual OCR glyph geometry, not inferred character widths.
+function katakanaDisplayItems(items){
+ const result=[];
+ for(const item of items){
+  if(item.rubyKanji)continue;
+  if(/^[ァ-ヺー・\s]+$/.test(item.text)){result.push(item);continue}
+  const glyphs=item.kanaGlyphs;
+  if(!glyphs?.length||glyphs.map(g=>g.text).join('')!==item.text)continue;
+  const display=item.displayBox||item.box;
+  if(display.x1<=display.x0||display.y1<=display.y0)continue;
+  let run=[];
+  const flush=()=>{
+   if(!run.length)return;
+   const b={x0:Math.min(...run.map(g=>g.x0)),y0:Math.min(...run.map(g=>g.y0)),x1:Math.max(...run.map(g=>g.x1)),y1:Math.max(...run.map(g=>g.y1))};
+   const mapBox={x0:display.x0+b.x0*(display.x1-display.x0),y0:display.y0+b.y0*(display.y1-display.y0),x1:display.x0+b.x1*(display.x1-display.x0),y1:display.y0+b.y1*(display.y1-display.y0)};
+   const text=run.map(g=>g.text).join('');
+   if(mapBox.x1>mapBox.x0&&mapBox.y1>mapBox.y0)result.push({...item,text,box:mapBox,displayBox:mapBox,joinGroup:null,kanaGlyphs:null});
+   run=[];
+  };
+  for(const glyph of glyphs){if(/^[ァ-ヺー・]+$/.test(glyph.text))run.push(glyph);else flush()}
+  flush();
+ }
+ return result;
+}
+function paint(items){
+ if(items.length){hasShownLabels=true;if(!stillMode)progress.hidden=true}
+ const image=stillMode&&stillSource?stillSource:work;
+ items=suppressRubyDuplicates(stabilizeLiveDisplay(lineAligned(items),image));
+  if(kanaMode==='katakana')items=katakanaDisplayItems(items);
+ overlay.width=image.width;overlay.height=image.height;
+ ctx.clearRect(0,0,overlay.width,overlay.height);
+ ctx.textBaseline='middle';
+ const unit=overlay.width/Math.max(1,stage.getBoundingClientRect().width);
+ const desiredFont=21*unit,pad=4*unit;
+ const candidates=[];
+ const romanized=labelRomaji(items);
+ for(const item of items){
+  // Retain weak observations in diagnostics/evidence, but do not paint them
+  // as though they were reliable text. Explicit focus remains available.
+  if(!item.focused&&item.state!=='confirmed'&&(item.confidence??0)<55)continue;
+  // Verified ruby pairs always use the kanji box, as in 電話番号.
+  // The ruby above the kanji remains visible; only the kanji is covered.
+  const b=item.rubyKanji?item.box:(item.displayBox||item.box),w=b.x1-b.x0,h=b.y1-b.y0;
+  // OCR boxes spanning implausibly wide character cells can conceal kanji.
+  const glyphCount=[...item.text].length;
+  // For ruby pairs item.text is the *reading*, not the kanji glyph count.
+  // Do not reject short kanji (e.g. 塩) because its reading has more kana.
+  if(!item.rubyKanji&&!item.focused&&glyphCount&&w/Math.max(1,h*glyphCount)>1.75)continue;
+  if(w<3||h<4){if(item.focused)console.debug('[Label skipped: tiny box]',item);continue;}
+  if(!kanaOnly.test(item.text)){if(item.focused)console.debug('[Label skipped: non-kana]',item);continue;}
+  const output=romanized.get(item);
+  if(!output||/[^a-zāīūēō’' -]/i.test(output))continue;
+  const layout=romajiLayout(output,w,h,unit);
+  if(!layout)continue;
+  const {font,lines}=layout;
+  const bandW=w,bandH=h;
+  const cx=(b.x0+b.x1)/2,cy=(b.y0+b.y1)/2;
+  candidates.push({output,font,lines,bandW,bandH,cx,cy,source:b,score:(item.focused?10000:0)+item.text.length*3+(item.locked?8:0)+(item.rubyKanji?100:0)+(item.confidence||0)*.03});
+ }
+ const rows=[];
+ for(const candidate of candidates){
+  let row=rows.find(row=>Math.abs(row.cy-candidate.cy)<Math.min(row.h,candidate.bandH)*.4&&Math.min(row.h,candidate.bandH)/Math.max(row.h,candidate.bandH)>.8);
+  if(!row){row={cy:candidate.cy,h:candidate.bandH,items:[]};rows.push(row)}
+  row.items.push(candidate);
+ }
+ for(const row of rows){
+  const font=Math.min(...row.items.map(c=>c.font));
+  for(const c of row.items){const layout=romajiLayout(c.output,c.bandW,c.bandH,unit,font);if(layout){c.font=layout.font;c.lines=layout.lines}}
+ }
+ candidates.sort((a,b)=>b.score-a.score);
+ const accepted=[];
+ const overlap=(a,b)=>Math.max(0,Math.min(a.x1,b.x1)-Math.max(a.x0,b.x0))*Math.max(0,Math.min(a.y1,b.y1)-Math.max(a.y0,b.y0));
+ for(const c of candidates){
+  // Never move a recognized label away from its glyphs or draw it outside the frame.
+  if(c.cx-c.bandW/2<0||c.cx+c.bandW/2>overlay.width||c.cy-c.bandH/2<0||c.cy+c.bandH/2>overlay.height)continue;
+  const x=c.cx;
+  const y=c.cy;
+  const rect={x0:x-c.bandW/2,y0:y-c.bandH/2,x1:x+c.bandW/2,y1:y+c.bandH/2};
+  const obstruction=accepted.reduce((sum,p)=>sum+overlap(rect,p.rect),0);
+  if(obstruction>c.bandW*c.bandH*.08){console.debug('[Label skipped: overlap]',c.output);continue;}
+  accepted.push({...c,x,y,rect});
+ }
+ if(accepted.length&&!stillMode)dismissLiveScanningHint();
+ const colorImage=accepted.length?currentLabelImage(image):null;
+ const colorScaleX=colorImage?colorImage.width/image.width:1,colorScaleY=colorImage?colorImage.height/image.height:1;
+ const unifiedPaper=colorImage?unifiedLabelPaper(accepted,colorImage,colorScaleX,colorScaleY):null;
+ for(const c of accepted){
+  ctx.save();ctx.translate(c.x,c.y);
+  ctx.font='700 '+c.font+'px system-ui';
+  const localPaper=sampledPaperColor({x0:c.source.x0*colorScaleX,y0:c.source.y0*colorScaleY,x1:c.source.x1*colorScaleX,y1:c.source.y1*colorScaleY},colorImage);const paper=labelPaperFor(localPaper,unifiedPaper);ctx.fillStyle='rgb('+paper.join(',')+')';
+  ctx.fillRect(-c.bandW/2,-c.bandH/2,c.bandW,c.bandH);
+  const brightness=(paper[0]*.299+paper[1]*.587+paper[2]*.114);ctx.fillStyle=brightness>145?'#15212a':'#ffffff';ctx.textAlign='center';
+  c.lines.forEach((line,i)=>ctx.fillText(line,0,(i-(c.lines.length-1)/2)*c.font*1.05));
+  ctx.restore();
+  if(showPositionGuides){
+   ctx.save();ctx.lineWidth=Math.max(1,unit*1.5);
+   ctx.strokeStyle='#28e887';ctx.strokeRect(c.source.x0,c.source.y0,c.source.x1-c.source.x0,c.source.y1-c.source.y0);
+   ctx.strokeStyle='#ffb020';ctx.strokeRect(c.rect.x0,c.rect.y0,c.rect.x1-c.rect.x0,c.rect.y1-c.rect.y0);
+   ctx.restore();
+  }
+ }
+}
+
+$('debug').addEventListener('click',()=>{showPositionGuides=!showPositionGuides;$('debug').setAttribute('aria-pressed',String(showPositionGuides));$('debug').title=showPositionGuides?'Hide position guides':'Show position guides';$('debug').setAttribute('aria-label',$('debug').title);paint(stillMode?stillItems:tracks)});
+function alignOverlay(){overlay.style.left='0px';overlay.style.top='0px';overlay.style.width='100%';overlay.style.height='100%'}
+let tracks=[],lastFrame=null,frameChanged=false;
+function imageSignature(){const c=document.createElement('canvas');c.width=16;c.height=12;const q=c.getContext('2d',{willReadFrequently:true});q.drawImage(work,0,0,16,12);const d=q.getImageData(0,0,16,12).data;const out=[];for(let i=0;i<d.length;i+=4)out.push((d[i]*.299+d[i+1]*.587+d[i+2]*.114));return out}
+function motionLevel(next){if(!lastFrame)return 0;let diff=0;for(let i=0;i<next.length;i++)diff+=Math.abs(next[i]-lastFrame[i]);return diff/next.length}
+function overlap(a,b){return Math.max(0,Math.min(a.x1,b.x1)-Math.max(a.x0,b.x0))*Math.max(0,Math.min(a.y1,b.y1)-Math.max(a.y0,b.y0))/Math.max(1,Math.min((a.x1-a.x0)*(a.y1-a.y0),(b.x1-b.x0)*(b.y1-b.y0)))}
+function updateTracks(items){const now=performance.now(),used=new Set();for(const it of items){let best=-1,score=0;for(let i=0;i<tracks.length;i++){if(used.has(i))continue;const p=tracks[i].box,b=it.box,h=Math.max(8,b.y1-b.y0,p.y1-p.y0),d=Math.hypot((b.x0+b.x1-p.x0-p.x1)/2,(b.y0+b.y1-p.y0-p.y1)/2),ov=overlap(p,b);const v=ov>.25?ov+1:d<h*.7?1-d/(h*.7):0;if(v>score){score=v;best=i}}if(best>=0&&score>.2){const t=tracks[best];used.add(best);t.lastSeen=now;t.misses=0;if(t.text===it.text){t.votes++;if(t.votes>=2)t.locked=true}else if(t.text.includes(it.text)&&t.text.length>it.text.length){t.votes=Math.max(1,t.votes-1)}else if(it.text.includes(t.text)&&it.text.length>t.text.length){if(!t.locked){t.text=it.text;t.votes=1}}else if(!t.locked){t.text=it.text;t.votes=1}const alpha=t.locked?.12:.4;for(const k of ['x0','y0','x1','y1'])t.box[k]=t.box[k]*(1-alpha)+it.box[k]*alpha}else{tracks.push({...it,box:{...it.box},lastSeen:now,misses:0,votes:1,locked:false});used.add(tracks.length-1)}}tracks=tracks.filter((t,i)=>{if(!used.has(i))t.misses++;return now-t.lastSeen<(t.locked?1600:850)&&t.misses<(t.locked?4:2)});tracks=tracks.filter((t,i)=>!tracks.some((q,j)=>j!==i&&overlap(t.box,q.box)>.58&&(q.locked&&!t.locked||q.locked===t.locked&&q.lastSeen>t.lastSeen)));return tracks}
+// Lightweight on-device block matching. Coordinates are in OCR canvas pixels.
+let trackingTimer=null,trackPrev=null,trackingRevision=0,trackingFailures=0;
+const trackCanvas=document.createElement('canvas');trackCanvas.width=160;trackCanvas.height=120;const trackCtx=trackCanvas.getContext('2d',{willReadFrequently:true});
+function trackingFrame(source=video){if(!active||!video.videoWidth)return null;trackCtx.drawImage(source,0,0,160,120);const rgba=trackCtx.getImageData(0,0,160,120).data,gray=new Uint8Array(160*120);for(let i=0;i<gray.length;i++)gray[i]=(.299*rgba[i*4]+.587*rgba[i*4+1]+.114*rgba[i*4+2])|0;return gray}
+// Refit all agreeing correspondences instead of retaining a noisy two-point
+// hypothesis. The image verifier still decides whether this is the same page.
+function fitTrackedSimilarity(points){
+ if(points.length<3)return null;
+ const mean=key=>points.reduce((sum,p)=>sum+p[key],0)/points.length;
+ const x=mean('x'),y=mean('y'),u=mean('u'),v=mean('v');
+ let den=0,a=0,b=0;
+ for(const p of points){const dx=p.x-x,dy=p.y-y,du=p.u-u,dv=p.v-v;den+=dx*dx+dy*dy;a+=dx*du+dy*dv;b+=dx*dv-dy*du}
+ if(den<1)return null;
+ const A=a/den,B=b/den,tx=u-A*x+B*y,ty=v-B*x-A*y;
+ if(![A,B,tx,ty].every(Number.isFinite)||Math.hypot(A,B)<.8||Math.hypot(A,B)>1.2)return null;
+ return {A,B,tx,ty};
+}
+function normalizeTrackingExposure(reference,current){
+ if(reference.length!==current.length||!reference.length)return current;
+ let a=0,b=0,aa=0,bb=0;
+ for(let i=0;i<reference.length;i++){a+=reference[i];b+=current[i];aa+=reference[i]*reference[i];bb+=current[i]*current[i]}
+ const n=reference.length,ma=a/n,mb=b/n,sa=Math.sqrt(Math.max(0,aa/n-ma*ma)),sb=Math.sqrt(Math.max(0,bb/n-mb*mb));
+ if(sa<10||sb<10)return current;
+ const gain=sa/sb;if(gain<.25||gain>4||Math.abs(ma-mb)<20&&Math.abs(gain-1)<.35)return current;
+ const corrected=new Uint8Array(n);
+ for(let i=0;i<n;i++)corrected[i]=Math.max(0,Math.min(255,Math.round((current[i]-mb)*gain+ma)));
+ return corrected;
+}
+function blockMotion(prev,cur){cur=normalizeTrackingExposure(prev,cur);const pts=[];for(let y=20;y<=100;y+=20)for(let x=20;x<=140;x+=20){let mean=0,v=0;for(let yy=-4;yy<=4;yy+=2)for(let xx=-4;xx<=4;xx+=2)mean+=prev[(y+yy)*160+x+xx];mean/=25;for(let yy=-4;yy<=4;yy+=2)for(let xx=-4;xx<=4;xx+=2)v+=(prev[(y+yy)*160+x+xx]-mean)**2;if(v/25<110)continue;let best=Infinity,bx=0,by=0;for(let dy=-7;dy<=7;dy++)for(let dx=-7;dx<=7;dx++){let err=0;for(let yy=-4;yy<=4;yy+=2)for(let xx=-4;xx<=4;xx+=2)err+=Math.abs(prev[(y+yy)*160+x+xx]-cur[(y+yy+dy)*160+x+xx+dx]);if(err<best){best=err;bx=dx;by=dy}}if(best/25<33)pts.push({x,y,u:x+bx,v:y+by})}if(pts.length<4)return null;let best=null,count=0;for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const p=pts[i],q=pts[j],dx=q.x-p.x,dy=q.y-p.y,den=dx*dx+dy*dy;if(den<300)continue;const du=q.u-p.u,dv=q.v-p.v,A=(dx*du+dy*dv)/den,B=(dx*dv-dy*du)/den,tx=p.u-A*p.x+B*p.y,ty=p.v-B*p.x-A*p.y;if(Math.hypot(A,B)<.8||Math.hypot(A,B)>1.2)continue;const n=pts.filter(t=>Math.hypot(A*t.x-B*t.y+tx-t.u,B*t.x+A*t.y+ty-t.v)<2.5).length;if(n>count){count=n;best={A,B,tx,ty}}}if(count<Math.max(4,Math.ceil(pts.length*.55)))return null;for(let pass=0;pass<2;pass++){const agreeing=pts.filter(t=>Math.hypot(best.A*t.x-best.B*t.y+best.tx-t.u,best.B*t.x+best.A*t.y+best.ty-t.v)<2.5);best=fitTrackedSimilarity(agreeing)||best}return best}
+function moveBox(b,m){const sx=work.width/160,sy=work.height/120,pts=[[b.x0,b.y0],[b.x1,b.y0],[b.x1,b.y1],[b.x0,b.y1]].map(([x,y])=>{const u=x/sx,v=y/sy;return [(m.A*u-m.B*v+m.tx)*sx,(m.B*u+m.A*v+m.ty)*sy]});return {x0:Math.min(...pts.map(p=>p[0])),y0:Math.min(...pts.map(p=>p[1])),x1:Math.max(...pts.map(p=>p[0])),y1:Math.max(...pts.map(p=>p[1]))}}
+// MIT-licensed feature matcher tracks the scanned page as one plane.
+let featureReady=false,featureFailure='',referenceCanvas=null,referenceItems=[],featureBusy=false;
+const referenceSmall=document.createElement('canvas'),liveSmall=document.createElement('canvas');
+(async()=>{try{await featurematchReady();featureReady=true}catch(e){featureFailure=String(e.message||e)}})();
+function resizeForMatch(source,target){target.width=640;target.height=Math.round(640*source.height/source.width);target.getContext('2d').drawImage(source,0,0,target.width,target.height)}
+function warpBox(box,m,refW,refH,outW,outH){
+ const points=[[box.x0,box.y0],[box.x1,box.y0],[box.x1,box.y1],[box.x0,box.y1]].map(([x,y])=>{
+  const u=x*referenceSmall.width/refW,v=y*referenceSmall.height/refH;
+  const d=m[3]*u+m[7]*v+m[15];if(Math.abs(d)<1e-8)return null;
+  return [(m[0]*u+m[4]*v+m[12])/d*outW/liveSmall.width,(m[1]*u+m[5]*v+m[13])/d*outH/liveSmall.height];
+ });
+ if(points.some(p=>!p||!p.every(Number.isFinite)))return null;
+ return {x0:Math.min(...points.map(p=>p[0])),y0:Math.min(...points.map(p=>p[1])),x1:Math.max(...points.map(p=>p[0])),y1:Math.max(...points.map(p=>p[1]))};
+}
+
+/* OpenCV optical-flow tracker. The tracker is the sole writer of labels
+   after OCR has supplied text and a capture-time reference frame. */
+const flowRef=document.createElement('canvas'),flowLive=document.createElement('canvas');
+let flowCache=null,flowFailures=0,flowLastSuccess=0,flowVersion=0;
+function flowReset(){flowCache=null;flowFailures=0;flowLastSuccess=0;flowVersion++}
+function flowPrepare(){
+ const cv=window.cv;
+ if(!cv||!cv.Mat||!referenceCanvas||!referenceItems.length)return false;
+ if(flowCache&&flowCache.version===flowVersion)return true;
+ const W=480,H=Math.max(100,Math.round(480*referenceCanvas.height/referenceCanvas.width));
+ flowRef.width=W;flowRef.height=H;flowRef.getContext('2d').drawImage(referenceCanvas,0,0,W,H);
+ let src=null,gray=null,corners=null;
+ try{
+  src=cv.imread(flowRef);gray=new cv.Mat();cv.cvtColor(src,gray,cv.COLOR_RGBA2GRAY);
+  corners=new cv.Mat();
+  cv.goodFeaturesToTrack(gray,corners,220,.012,7);
+  if(corners.rows<12)return false;
+  const coords=new Float32Array(corners.data32F);
+  flowCache={version:flowVersion,W,H,coords,grayPixels:new Uint8Array(gray.data)};
+  return true;
+ }finally{src?.delete();gray?.delete();corners?.delete()}
+}
+let lastRegistrationStatus='unavailable',objectEpoch=0;
+function cameraSnapshot(){
+ const image=document.createElement('canvas');image.width=work.width||video.videoWidth;image.height=work.height||video.videoHeight;
+ image.getContext('2d').drawImage(video,0,0,image.width,image.height);return image;
+}
+function verifyRegistration(source,target,transform){
+ const identity=transform.m.every((v,i)=>Math.abs(v-[1,0,0,0,1,0,0,0,1][i])<1e-9);
+ if(identity&&identicalImage(source,target))return {status:'verified',reason:'identical-pixels'};
+ const W=128,H=96,a=document.createElement('canvas'),b=document.createElement('canvas');a.width=b.width=W;a.height=b.height=H;
+ a.getContext('2d').drawImage(source,0,0,W,H);b.getContext('2d').drawImage(target,0,0,W,H);
+ const x=a.getContext('2d').getImageData(0,0,W,H).data,y=b.getContext('2d').getImageData(0,0,W,H).data;
+ const {m,W:tw,H:th}=transform;
+ const gray=(data,u,v)=>{const i=(v*W+u)*4;return .299*data[i]+.587*data[i+1]+.114*data[i+2]};
+ const sample=(data,u,v)=>{
+  const x=Math.floor(u),y=Math.floor(v),dx=u-x,dy=v-y;
+  return gray(data,x,y)*(1-dx)*(1-dy)+gray(data,x+1,y)*dx*(1-dy)+gray(data,x,y+1)*(1-dx)*dy+gray(data,x+1,y+1)*dx*dy;
+ };
+ const errors=[],textureErrors=[],texturePairs=[],cells=new Set(),pairs=[];let inside=0,total=0;
+ for(let v=3;v<H-3;v+=3)for(let u=3;u<W-3;u+=3){
+  total++;const px=u/W*tw,py=v/H*th,d=m[6]*px+m[7]*py+m[8];
+  if(!Number.isFinite(d)||d<=.05)continue;
+  const qx=(m[0]*px+m[1]*py+m[2])/d/tw*W,qy=(m[3]*px+m[4]*py+m[5])/d/th*H;
+  if(qx<2||qy<2||qx>=W-2||qy>=H-2)continue;
+  inside++;let value=0,other=0;
+  // Compare a small area, rather than alias-prone individual edge pixels.
+  for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){value+=gray(x,u+dx,v+dy);other+=sample(y,qx+dx,qy+dy)}
+  value/=9;other/=9;const error=Math.abs(value-other);errors.push(error);pairs.push([value,other]);
+  const neighbors=[gray(x,u,v),gray(x,u-1,v),gray(x,u+1,v),gray(x,u,v-1),gray(x,u,v+1)];
+  if(Math.max(...neighbors)-Math.min(...neighbors)>35){textureErrors.push(error);texturePairs.push([value,other]);cells.add(Math.floor(u/32)+':'+Math.floor(v/24))}
+ }
+ if(inside<total*.35)return {status:'uncertain',reason:'insufficient-overlap'};
+ const mean=errors.reduce((a,b)=>a+b,0)/Math.max(1,errors.length);
+ const matched=textureErrors.filter(e=>e<50).length/Math.max(1,textureErrors.length);
+ const mx=pairs.reduce((s,p)=>s+p[0],0)/pairs.length,my=pairs.reduce((s,p)=>s+p[1],0)/pairs.length;
+ let xx=0,yy=0,xy=0;for(const [a,b] of pairs){xx+=(a-mx)**2;yy+=(b-my)**2;xy+=(a-mx)*(b-my)}
+ const correlation=xy/Math.max(1,Math.sqrt(xx*yy));
+ // Torch/auto-exposure changes can exceed the absolute-difference threshold
+ // while the page is unchanged. Accept a positive photometric gain ONLY with
+ // strong, spatially distributed structural correspondence after registration.
+ const gain=xy/Math.max(1,xx),offset=my-gain*mx;
+ if(window.meikiMetrics)window.meikiMetrics.lastRegistration={mean,correlation,gain,sourceStd:Math.sqrt(xx/pairs.length),targetStd:Math.sqrt(yy/pairs.length),texture:texturePairs.length,cells:cells.size};
+ if(texturePairs.length>=24&&cells.size>=6&&correlation>=.94&&gain>=.25&&gain<=4&&Math.sqrt(xx/pairs.length)>=4&&Math.sqrt(yy/pairs.length)>=4){
+  const normalized=([a,b])=>Math.abs(b-(gain*a+offset))/gain;
+  const residual=pairs.reduce((sum,p)=>sum+normalized(p),0)/pairs.length;
+  const matchedExposure=texturePairs.filter(p=>normalized(p)<18).length/texturePairs.length;
+  if(residual<12&&matchedExposure>=.85)return {status:'verified',reason:'exposure-adjusted',mean,correlation,gain,offset,residual,matched:matchedExposure};
+ }
+ if(mean>85){const sa=Math.sqrt(xx/pairs.length),sb=Math.sqrt(yy/pairs.length);return {status:'mismatch',reason:'appearance-change',mean,correlation,gain,exposureCandidate:sa>=4&&sb>=4&&sb/sa>=.25&&sb/sa<=4}}
+ if(textureErrors.length>=24&&cells.size>=4){
+  if(matched<.30)return {status:'mismatch',reason:'texture-change',mean,matched};
+  if(mean<35&&matched>=.50&&correlation>=.80)return {status:'verified',mean,matched,correlation};
+ }
+ return {status:'uncertain',reason:'weak-correspondence',mean,matched,correlation};
+}
+function motionRegistration(source,target,motion){
+ const m=motion||{A:1,B:0,tx:0,ty:0},W=160,H=120;
+ return verifyRegistration(source,target,{m:[m.A,-m.B,m.tx,m.B,m.A,m.ty,0,0,1],W,H});
+}
+function resetObjectState(){
+ clearLiveDisplay();objectEpoch++;runId++;cancelPendingFreeze();clearFocus();lastRecognitionDetails=null;$('recognized').textContent='';
+ sharedRecognition={canvas:null,items:[],source:'',capturedAt:0,signature:null};
+ protectedKana=[];kanaHistory=[];historyLastVerified=0;referenceCanvas=null;referenceItems=[];tracks=[];previousItems=[];lastFrame=null;
+ flowReset();ctx.clearRect(0,0,overlay.width,overlay.height);
+ if(!stillMode){stillFrame.classList.remove('visible');stillFrame.getContext('2d').clearRect(0,0,stillFrame.width,stillFrame.height)}
+}
+function flowLocate(target=video){
+ lastRegistrationStatus='unavailable';
+ let appearanceMismatch=false;
+ if(referenceCanvas){
+  const appearance=verifyRegistration(referenceCanvas,target,{m:[1,0,0,0,1,0,0,0,1],W:referenceCanvas.width,H:referenceCanvas.height});
+  // A separately verified stationary correspondence is stronger than a noisy
+  // optical-flow proposal during exposure recovery. This is pixel evidence,
+  // not a timeout or unconditional reuse of old coordinates.
+  if(appearance.status==='verified'&&appearance.reason==='exposure-adjusted'){
+   lastRegistrationStatus='verified';return {m:[1,0,0,0,1,0,0,0,1],W:referenceCanvas.width,H:referenceCanvas.height,refW:referenceCanvas.width,refH:referenceCanvas.height};
+  }
+  if(appearance.status==='mismatch'&&appearance.reason==='appearance-change'){
+   appearanceMismatch=true;lastRegistrationStatus='mismatch';
+   if(!appearance.exposureCandidate)return null;
+  }
+ }
+ if(!flowPrepare()){
+  if(referenceCanvas){
+   const check=verifyRegistration(referenceCanvas,target,{m:[1,0,0,0,1,0,0,0,1],W:referenceCanvas.width,H:referenceCanvas.height});
+   if(check.status==='mismatch'&&check.reason==='appearance-change')lastRegistrationStatus='mismatch';
+  }
+  return null;
+ }
+ const cv=window.cv,{W,H,coords,grayPixels}=flowCache;
+ flowLive.width=W;flowLive.height=H;flowLive.getContext('2d').drawImage(target,0,0,W,H);
+ let ref=null,rgba=null,live=null,prevPts=null,nextPts=null,status=null,errors=null,srcPts=null,dstPts=null,Hmat=null,mask=null;
+ try{
+  ref=new cv.Mat(H,W,cv.CV_8UC1);ref.data.set(grayPixels);
+  rgba=cv.imread(flowLive);live=new cv.Mat();cv.cvtColor(rgba,live,cv.COLOR_RGBA2GRAY);live.data.set(normalizeTrackingExposure(grayPixels,live.data));
+  prevPts=cv.matFromArray(coords.length/2,1,cv.CV_32FC2,Array.from(coords));
+  nextPts=new cv.Mat();status=new cv.Mat();errors=new cv.Mat();
+  cv.calcOpticalFlowPyrLK(ref,live,prevPts,nextPts,status,errors,new cv.Size(25,25),4);
+  const goodA=[],goodB=[];
+  for(let i=0;i<coords.length/2;i++)if(status.data[i]){
+   const x=coords[i*2],y=coords[i*2+1],u=nextPts.data32F[i*2],v=nextPts.data32F[i*2+1];
+   if(Number.isFinite(u)&&Number.isFinite(v)&&u>=0&&u<W&&v>=0&&v<H){goodA.push(x,y);goodB.push(u,v)}
+  }
+  if(goodA.length<18)return null;
+  srcPts=cv.matFromArray(goodA.length/2,1,cv.CV_32FC2,goodA);
+  dstPts=cv.matFromArray(goodB.length/2,1,cv.CV_32FC2,goodB);
+  mask=new cv.Mat();
+  Hmat=cv.findHomography(srcPts,dstPts,cv.RANSAC,3,mask);
+  if(Hmat.empty())return null;
+  let inliers=0;for(const v of mask.data)inliers+=v?1:0;
+  if(inliers<12||inliers<goodA.length/2*.60)return null;
+  const a=Hmat.data64F.length?Hmat.data64F:Hmat.data32F;
+  const m=Array.from(a);
+  if(m.some(v=>!Number.isFinite(v)))return null;
+  const center=m[6]*W/2+m[7]*H/2+m[8];
+  if(Math.abs(center)<.15)return null;
+  const agreeing=[];
+  for(let i=0;i<mask.data.length;i++)if(mask.data[i])agreeing.push({x:goodA[i*2],y:goodA[i*2+1],u:goodB[i*2],v:goodB[i*2+1]});
+  const similarity=fitTrackedSimilarity(agreeing);
+  if(similarity){
+   const {A,B,tx,ty}=similarity;
+   const stable={m:[A,-B,tx,B,A,ty,0,0,1],W,H,refW:referenceCanvas.width,refH:referenceCanvas.height};
+   if(verifyRegistration(referenceCanvas,target,stable).status==='verified'){lastRegistrationStatus='verified';return stable}
+  }
+  const transform={m,W,H,refW:referenceCanvas.width,refH:referenceCanvas.height};
+  const validation=verifyRegistration(referenceCanvas,target,transform);lastRegistrationStatus=appearanceMismatch&&validation.status!=='verified'?'mismatch':validation.status;
+  return validation.status==='verified'?transform:null;
+ }finally{for(const x of [ref,rgba,live,prevPts,nextPts,status,errors,srcPts,dstPts,Hmat,mask])x?.delete()}
+}
+function flowWarpBox(b,t,output=work){
+ const {m,W,H,refW=referenceCanvas.width,refH=referenceCanvas.height}=t;
+ const corners=[[b.x0,b.y0],[b.x1,b.y0],[b.x1,b.y1],[b.x0,b.y1]];
+ const pts=corners.map(([x,y])=>{
+  const u=x*W/refW,v=y*H/refH,d=m[6]*u+m[7]*v+m[8];
+  if(Math.abs(d)<.05)return null;
+  return [(m[0]*u+m[1]*v+m[2])/d*output.width/W,(m[3]*u+m[4]*v+m[5])/d*output.height/H];
+ });
+ if(pts.some(p=>!p||!p.every(Number.isFinite)))return null;
+ return {x0:Math.min(...pts.map(p=>p[0])),y0:Math.min(...pts.map(p=>p[1])),x1:Math.max(...pts.map(p=>p[0])),y1:Math.max(...pts.map(p=>p[1]))};
+}
+
+// Sparse optical flow can temporarily lose its corners even on the same text.
+// Recover only from a separately fitted, pixel-verified image correspondence;
+// never keep stale labels merely because an OCR request is still in flight.
+function recoverLiveRegistration(){
+ if(!referenceCanvas||stillMode)return null;
+ const target=cameraSnapshot(),before=trackingFrame(referenceCanvas),after=trackingFrame(target);
+ const motion=before&&after?blockMotion(before,after):null;
+ if(!motion)return null;
+ const validation=motionRegistration(referenceCanvas,target,motion);
+ if(validation.status!=='verified')return null;
+ const {A,B,tx,ty}=motion;
+ return {m:[A,-B,tx,B,A,ty,0,0,1],W:160,H:120,refW:referenceCanvas.width,refH:referenceCanvas.height};
+}
+async function trackTick(){
+ if(!active||document.hidden)return;
+ if(stillMode){if(active)trackingTimer=setTimeout(trackTick,80);return}
+ if(referenceCanvas&&referenceItems.length&&!featureBusy){
+  featureBusy=true;
+  try{
+   let located=null;
+   try{located=flowLocate()}catch(e){featureFailure=String(e.message||e);lastRegistrationStatus='unavailable'}
+   if(!located){
+    located=recoverLiveRegistration();
+    if(located)lastRegistrationStatus='verified';
+   }
+   if(located){
+    const moved=referenceItems.map(it=>({...cloneRecognitionItem(it),box:flowWarpBox(it.box,located),rubyBox:it.rubyBox?flowWarpBox(it.rubyBox,located):undefined})).filter(it=>it.box&&(!it.rubyKanji||it.rubyBox));
+    if(moved.length){tracks=moved;paint(moved);flowFailures=0;flowLastSuccess=performance.now()}
+   }else if(lastRegistrationStatus==='mismatch'){resetObjectState()}else{flowFailures++; if(flowFailures>=2){tracks=[];ctx.clearRect(0,0,overlay.width,overlay.height);}}
+  }catch(e){featureFailure=String(e.message||e);flowFailures++;if(flowFailures>=2){tracks=[];ctx.clearRect(0,0,overlay.width,overlay.height)}}
+  finally{featureBusy=false}
+ }
+ if(active)trackingTimer=setTimeout(trackTick,65);
+}
+function displayItemsPresent(){return tracks.length>0}
+function resetTracking(){clearLiveDisplay();flowReset();if(trackingTimer!==null)clearTimeout(trackingTimer);trackingTimer=null;trackPrev=null;trackingRevision++;trackingFailures=0}
+function resumeTracking(){resetTracking();if(active&&!stillMode)trackTick()}
+const enhanced=document.createElement('canvas'),ec=enhanced.getContext('2d',{willReadFrequently:true});
+function averageBrightness(){const w=work.width,h=work.height;const d=wc.getImageData(0,0,w,h).data;let sum=0,n=0;for(let y=0;y<h;y+=12)for(let x=0;x<w;x+=12){let k=(y*w+x)*4;sum+=.2126*d[k]+.7152*d[k+1]+.0722*d[k+2];n++}return sum/Math.max(n,1)}
+function prepareEnhanced(invert){const factor=1.5;enhanced.width=Math.round(work.width*factor);enhanced.height=Math.round(work.height*factor);ec.imageSmoothingEnabled=true;ec.imageSmoothingQuality='high';ec.drawImage(work,0,0,enhanced.width,enhanced.height);if(invert){const img=ec.getImageData(0,0,enhanced.width,enhanced.height);for(let i=0;i<img.data.length;i+=4){img.data[i]=255-img.data[i];img.data[i+1]=255-img.data[i+1];img.data[i+2]=255-img.data[i+2]}ec.putImageData(img,0,0)}}
+function normalizeItems(items,factor){return items.map(it=>({...it,box:{x0:it.box.x0/factor,y0:it.box.y0/factor,x1:it.box.x1/factor,y1:it.box.y1/factor}}))}
+function scoreItems(items){return items.reduce((sum,it)=>{const n=[...it.text].length;return sum+Math.min(n,24)*(n>=3?1.25:1)*(it.box.x1-it.box.x0>=8?1:0.5)},0)}
+const rotated=document.createElement('canvas'),rc=rotated.getContext('2d');
+function rotateImage(degrees){const a=degrees*Math.PI/180,c=Math.cos(a),s=Math.sin(a),w=work.width,h=work.height;rotated.width=Math.ceil(Math.abs(w*c)+Math.abs(h*s));rotated.height=Math.ceil(Math.abs(w*s)+Math.abs(h*c));rc.setTransform(1,0,0,1,0,0);rc.clearRect(0,0,rotated.width,rotated.height);rc.translate(rotated.width/2,rotated.height/2);rc.rotate(a);rc.drawImage(work,-w/2,-h/2);rc.setTransform(1,0,0,1,0,0);return {angle:a,cx:rotated.width/2,cy:rotated.height/2}}
+function unrotateBox(b,meta){const c=Math.cos(meta.angle),s=Math.sin(meta.angle);const pts=[[b.x0,b.y0],[b.x1,b.y0],[b.x1,b.y1],[b.x0,b.y1]].map(([x,y])=>{const dx=x-meta.cx,dy=y-meta.cy;return {x:c*dx+s*dy+work.width/2,y:-s*dx+c*dy+work.height/2}});return {x0:Math.min(...pts.map(p=>p.x)),y0:Math.min(...pts.map(p=>p.y)),x1:Math.max(...pts.map(p=>p.x)),y1:Math.max(...pts.map(p=>p.y))}}
+
+// Mild local contrast enhancement for fine textbook strokes. Preserve the original
+// pixels and avoid binarization or dilation that can destroy dakuten/handakuten.
+const fineCanvas=document.createElement('canvas'),fineCtx=fineCanvas.getContext('2d',{willReadFrequently:true});
+function fineTextImage(){
+ const w=work.width,h=work.height;fineCanvas.width=w;fineCanvas.height=h;
+ fineCtx.drawImage(work,0,0);const img=fineCtx.getImageData(0,0,w,h),d=img.data;
+ const gray=new Uint8Array(w*h);
+ for(let i=0,j=0;i<d.length;i+=4,j++)gray[j]=Math.round(.299*d[i]+.587*d[i+1]+.114*d[i+2]);
+ // 3x3 blur used only as a reference for a gentle unsharp mask.
+ for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){
+  const p=y*w+x,i=p*4;let avg=0;
+  for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)avg+=gray[p+dy*w+dx];
+  avg/=9;const value=Math.max(0,Math.min(255,128+(gray[p]-128)*1.12+(gray[p]-avg)*.42));
+  d[i]=d[i+1]=d[i+2]=value;
+ }
+ fineCtx.putImageData(img,0,0);return fineCanvas;
+}
+let scanNumber=0;
+
+// Rebuild kana runs across OCR line boundaries when geometry strongly indicates
+// the same printed row. Leave a full character of whitespace as a word boundary.
+function rebuildRows(items){
+ const sorted=[...items].sort((a,b)=>(a.box.y0+a.box.y1-b.box.y0-b.box.y1)/2||a.box.x0-b.box.x0),rows=[];
+ for(const it of sorted){
+  const cy=(it.box.y0+it.box.y1)/2,h=it.box.y1-it.box.y0;
+  let row=rows.find(r=>Math.abs(r.cy-cy)<Math.min(r.h,h)*.36);
+  if(!row){row={cy,h,items:[]};rows.push(row)}
+  row.items.push(it);row.cy=(row.cy*(row.items.length-1)+cy)/row.items.length;
+ }
+ const output=[];
+ for(const row of rows){
+  const a=row.items.sort((x,y)=>x.box.x0-y.box.x0),merged=[];
+  for(const it of a){
+   const prev=merged[merged.length-1];
+   if(prev){
+    const h=Math.min(prev.box.y1-prev.box.y0,it.box.y1-it.box.y0);
+    const gap=it.box.x0-prev.box.x1;
+    const unit=Math.min((prev.box.x1-prev.box.x0)/Math.max(1,[...prev.text].length),(it.box.x1-it.box.x0)/Math.max(1,[...it.text].length));
+    const overlapY=Math.max(0,Math.min(prev.box.y1,it.box.y1)-Math.max(prev.box.y0,it.box.y0))/Math.max(1,h);
+    // Do not bridge separate OCR regions merely because their rectangles are close.
+    // Require nearly touching boxes, comparable glyph sizes and strong baseline agreement.
+    const ph=prev.box.y1-prev.box.y0,ih=it.box.y1-it.box.y0;
+    const sameScale=Math.min(ph,ih)/Math.max(ph,ih)>.82;
+    const sameBaseline=Math.abs(prev.box.y1-it.box.y1)<h*.16;
+    const tightGap=gap>=-h*.10&&gap<=Math.min(h*.10,unit*.16);
+    if((!prev.joinGroup&&!it.joinGroup||prev.joinGroup===it.joinGroup)&&tightGap&&sameScale&&sameBaseline&&overlapY>.82&&prev.text.length+it.text.length<=16){
+     prev.text+=it.text;prev.box={x0:Math.min(prev.box.x0,it.box.x0),y0:Math.min(prev.box.y0,it.box.y0),x1:Math.max(prev.box.x1,it.box.x1),y1:Math.max(prev.box.y1,it.box.y1)};
+     prev.confidence=Math.min(prev.confidence??50,it.confidence??50);continue;
+    }
+   }
+   merged.push({...it,box:{...it.box}});
+  }
+  output.push(...merged);
+ }
+ return output;
+}
+// Conservative optional second opinion: preserve baseline unless candidate is clearly better.
+// Only reconsider existing kana regions; never introduce readings for kanji.
+async function selectiveKleeRetry(items,myId){
+ if(kleeUnavailable||!items.length||!active||myId!==runId)return items;
+ const uncertain=items.filter(it=>(it.confidence??50)<65);
+ if(!uncertain.length||++kleeScanCount%3!==1)return items;
+ try{
+  if(!kleeWorker){
+   const modelBase='https://esakits.github.io/japanese-flashcards/kana-camera-overlay-30/models/';
+   kleeWorker=await Tesseract.createWorker('klee_jpn',1,{langPath:modelBase,gzip:false});
+   await kleeWorker.setParameters({tessedit_pageseg_mode:'11'});
+  }
+  if(!active||myId!==runId)return items;
+  const candidate=await kleeWorker.recognize(work,{}, {text:true,blocks:true});
+  if(!active||myId!==runId)return items;
+  const alternatives=rebuildRows(extract(candidate.data));
+  return items.map(original=>{
+   if((original.confidence??50)>=65)return original;
+   const b=original.box,cx=(b.x0+b.x1)/2,cy=(b.y0+b.y1)/2;
+   const match=alternatives.filter(a=>{
+    const q=a.box,x=(q.x0+q.x1)/2,y=(q.y0+q.y1)/2;
+    return x>=b.x0&&x<=b.x1&&y>=b.y0&&y<=b.y1&&Math.abs(x-cx)<(b.x1-b.x0)*.4&&Math.abs(y-cy)<(b.y1-b.y0)*.4;
+   }).sort((a,b)=>(b.confidence||0)-(a.confidence||0))[0];
+   if(!match||!kanaOnly.test(match.text)||!kanaOnly.test(original.text))return original;
+   // Confidence is not a calibrated accuracy probability across models.
+   // Demand a large margin, similar text length, and tight spatial agreement.
+   if((match.confidence||0)<85||(match.confidence||0)-(original.confidence||0)<25)return original;
+   if(Math.abs([...match.text].length-[...original.text].length)>1)return original;
+   return {...original,text:match.text,confidence:match.confidence,source:'klee'};
+  });
+ }catch(e){
+  console.warn('Optional Klee OCR unavailable; baseline retained:',e);
+  kleeUnavailable=true;
+  if(kleeWorker){try{await kleeWorker.terminate()}catch(_){}kleeWorker=null}
+  return items;
+ }
+}
+// Optional PSM 7 line retry: compare OCR only inside a detected line's original box.
+async function retryLargeLines(data,items){
+ const lines=(data.blocks||[]).flatMap(b=>(b.paragraphs||[]).flatMap(p=>p.lines||[]));
+ const candidates=lines.filter(l=>l.bbox&&l.bbox.x1-l.bbox.x0>90&&l.bbox.y1-l.bbox.y0>24)
+  .sort((a,b)=>(b.bbox.y1-b.bbox.y0)-(a.bbox.y1-a.bbox.y0)).slice(0,2);
+ if(!candidates.length)return items;
+ let best=[...items];
+ try{
+  await worker.setParameters({tessedit_pageseg_mode:'7'});
+  for(const line of candidates){
+   if(!active||stillMode)return items;
+   const b=line.bbox,margin=Math.max(4,Math.round((b.y1-b.y0)*.16));
+   const x=Math.max(0,Math.floor(b.x0-margin)),y=Math.max(0,Math.floor(b.y0-margin));
+   const right=Math.min(work.width,Math.ceil(b.x1+margin)),bottom=Math.min(work.height,Math.ceil(b.y1+margin));
+   if(right-x<20||bottom-y<12)continue;
+   const crop=document.createElement('canvas');crop.width=right-x;crop.height=bottom-y;
+   crop.getContext('2d').drawImage(work,x,y,crop.width,crop.height,0,0,crop.width,crop.height);
+   const res=await worker.recognize(crop,{}, {text:true,blocks:true});
+   const fresh=rebuildRows(extract(res.data,crop)).map(it=>({...it,box:{x0:it.box.x0+x,y0:it.box.y0+y,x1:it.box.x1+x,y1:it.box.y1+y}}));
+   const inside=it=>{const cy=(it.box.y0+it.box.y1)/2,cx=(it.box.x0+it.box.x1)/2;return cx>=x&&cx<=right&&cy>=y&&cy<=bottom};
+   const old=best.filter(inside),replacement=fresh.filter(inside);
+   // Accept only meaningful improvements, preserving the baseline otherwise.
+   if(scoreItems(replacement)>scoreItems(old)*1.25&&scoreItems(replacement)>scoreItems(old)+2){
+    best=best.filter(it=>!inside(it)).concat(replacement);
+   }
+  }
+ }catch(e){console.warn('Line retry unavailable:',e)}
+ finally{await worker.setParameters({tessedit_pageseg_mode:'11'})}
+ return best;
+}
+// Independently inspect large-print bands even when smaller text was found.
+// OCR only supplies kana actually present in the returned symbol/word boxes.
+let largeBandScanCount=0;
+async function retryIndependentLargeKana(items,myId){
+ if(!active||myId!==runId||++largeBandScanCount%2!==1)return items;
+ const w=work.width,h=work.height;
+ if(w<100||h<120)return items;
+ const bandH=Math.round(h*.38),positions=[Math.round(h*.10),Math.round(h*.48)];
+ const fresh=[];
+ try{
+  await worker.setParameters({tessedit_pageseg_mode:'6'});
+  for(const top of positions){
+   if(!active||myId!==runId)return items;
+   const y=Math.min(h-bandH,Math.max(0,top));
+   const crop=document.createElement('canvas');crop.width=w;crop.height=bandH;
+   crop.getContext('2d').drawImage(work,0,y,w,bandH,0,0,w,bandH);
+   const result=await worker.recognize(crop,{}, {text:true,blocks:true});
+   if(!active||myId!==runId)return items;
+   for(const it of rebuildRows(extract(result.data,crop))){
+    const b=it.box,height=b.y1-b.y0;
+    if(height<Math.max(28,h*.045)||(it.confidence??0)<45)continue;
+    const mapped={...it,box:{x0:b.x0,x1:b.x1,y0:b.y0+y,y1:b.y1+y}};
+    const q=mapped.box,cx=(q.x0+q.x1)/2,cy=(q.y0+q.y1)/2;
+    const overlap=[...items,...fresh].some(existing=>{
+     const e=existing.box;
+     const ix=Math.max(0,Math.min(q.x1,e.x1)-Math.max(q.x0,e.x0));
+     const iy=Math.max(0,Math.min(q.y1,e.y1)-Math.max(q.y0,e.y0));
+     return ix*iy>Math.min((q.x1-q.x0)*(q.y1-q.y0),(e.x1-e.x0)*(e.y1-e.y0))*.3 ||
+      (cx>=e.x0&&cx<=e.x1&&cy>=e.y0&&cy<=e.y1);
+    });
+    if(!overlap)fresh.push(mapped);
+   }
+  }
+ }catch(e){console.warn('Independent large kana OCR unavailable:',e)}
+ finally{await worker.setParameters({tessedit_pageseg_mode:'11'})}
+ return items.concat(fresh);
+}
+// Progressive OCR stabilization. Stored boxes are always in the latest verified scan frame.
+let protectedKana=[];
+let historyLastVerified=0;
+const HISTORY_TTL_MS=12000;
+function kanaThreshold(it){
+ const n=[...it.text].length,c=it.confidence??0;
+ return n>=10&&c>=85?1:n>=6&&c>=80?2:n>=3&&c>=85?2:n<=2&&c>=90?3:Infinity;
+}
+function sameKanaRegion(a,b){
+ const p=a.box,q=b.box;
+ const ix=Math.max(0,Math.min(p.x1,q.x1)-Math.max(p.x0,q.x0));
+ const iy=Math.max(0,Math.min(p.y1,q.y1)-Math.max(p.y0,q.y0));
+ const smaller=Math.min((p.x1-p.x0)*(p.y1-p.y0),(q.x1-q.x0)*(q.y1-q.y0));
+ return smaller>0&&ix*iy/smaller>.48;
+}
+// A bounded evidence history: every observation must have a verified image location.
+// The lexicon is deliberately only a tie-breaker; it never invents unseen kana.
+const kanaLexicon=new Set(['ください','してください','しないで','したり','です','ます','でした','ません','ありがとう','こんにちは','こんばんは','おはよう','すみません','ジャスミン']);
+let kanaHistory=[];
+const kanaChars=t=>[...t].filter(ch=>/[ぁ-ゖァ-ヺー]/.test(ch));
+function kanaSimilarity(a,b){
+ const x=kanaChars(a),y=kanaChars(b),dp=Array.from({length:x.length+1},(_,i)=>i);
+ for(let j=1;j<=y.length;j++){let prev=dp[0];dp[0]=j;for(let i=1;i<=x.length;i++){const tmp=dp[i];dp[i]=Math.min(dp[i]+1,dp[i-1]+1,prev+(x[i-1]===y[j-1]?0:1));prev=tmp}}
+ return 1-dp[x.length]/Math.max(1,x.length,y.length);
+}
+function kanaEvidence(it){
+ const confidence=Math.max(0,Math.min(100,it.confidence??50))/100;
+ const text=it.text||'';
+ const lexical=[...kanaLexicon].some(w=>text.includes(w))?.025:0;
+ return confidence+lexical; // Dictionary evidence cannot outweigh a material OCR difference.
+}
+function mergeKanaEvidence(old,it){
+ const x=[...old.text],y=[...it.text];
+ if(old.text===it.text)return {...it,votes:(old.votes||1)+1,observations:Math.min(6,(old.observations||1)+1)};
+ // Accept complementary fragments only if their overlap also agrees spatially.
+ const charWidthOld=(old.box.x1-old.box.x0)/Math.max(1,x.length);
+ const charWidthNew=(it.box.x1-it.box.x0)/Math.max(1,y.length);
+ const unit=Math.max(1,(charWidthOld+charWidthNew)/2);
+ const baseline=Math.abs(old.box.y1-it.box.y1);
+ const h=Math.min(old.box.y1-old.box.y0,it.box.y1-it.box.y0);
+ if(baseline>h*.22||Math.abs(charWidthOld-charWidthNew)>unit*.35)return kanaEvidence(it)>kanaEvidence(old)+.14?{...it,votes:1}:old;
+ for(let overlap=Math.min(x.length,y.length)-1;overlap>=2;overlap--){
+  const append=x.slice(-overlap).join('')===y.slice(0,overlap).join('');
+  const prepend=y.slice(-overlap).join('')===x.slice(0,overlap).join('');
+  if(append&&Math.abs((old.box.x1-overlap*charWidthOld)-it.box.x0)<unit*1.25)
+   return {...old,text:old.text+y.slice(overlap).join(''),box:{x0:old.box.x0,y0:Math.min(old.box.y0,it.box.y0),x1:Math.max(old.box.x1,it.box.x1),y1:Math.max(old.box.y1,it.box.y1)},confidence:Math.min(old.confidence??50,it.confidence??50),votes:1,observations:2,state:'pending'};
+  if(prepend&&Math.abs((it.box.x1-overlap*charWidthNew)-old.box.x0)<unit*1.25)
+   return {...old,text:it.text+x.slice(overlap).join(''),box:{x0:Math.min(old.box.x0,it.box.x0),y0:Math.min(old.box.y0,it.box.y0),x1:old.box.x1,y1:Math.max(old.box.y1,it.box.y1)},confidence:Math.min(old.confidence??50,it.confidence??50),votes:1,observations:2,state:'pending'};
+ }
+ // Partial OCR must not erase a longer, well-supported observation.
+ if(old.text.includes(it.text)&&old.text.length>it.text.length)return old;
+ if(it.text.includes(old.text)&&it.text.length>old.text.length)return {...it,votes:1,observations:2,state:'pending'};
+ return kanaEvidence(it)>kanaEvidence(old)+.14?{...it,votes:1}:old;
+}
+function inverseMotion(m){
+ const det=m.A*m.A+m.B*m.B;
+ if(!Number.isFinite(det)||det<.0001)return null;
+ return {A:m.A/det,B:-m.B/det,tx:-(m.A*m.tx+m.B*m.ty)/det,ty:(m.B*m.tx-m.A*m.ty)/det};
+}
+function protectRecognized(items,oldProjected,group){
+ const result=oldProjected.map(cloneRecognitionItem);
+ stillMerge(result,items.filter(it=>!it.focused),group,false);
+ for(const candidate of items.filter(it=>it.focused))mergeFocused(result,[{...candidate,pass:0}],{id:candidate.focusId},group);
+ protectedKana=result.slice(0,80);
+ historyLastVerified=performance.now();
+ kanaHistory=protectedKana.map(cloneRecognitionItem);
+ return protectedKana;
+}
+let captureSerial=0;
+
+let scanRequested=false,reverseScanCount=0,manualScanPending=false,focusRequest=null,focusSerial=0;
+let stillMode=false,stillPending=false,stillBusy=false,stillItems=[],stillSource=null,stillGeneration=0;
+let stillPaused=false,stillPass=0,stillStale=0,stillImproved=0,stillUncertain=0;
+let scanVisual='working',scanVisualTimer=null,focusedScanning=false,stillError=false;
+function setScanVisual(state){scanVisual=state;const el=$('scan-indicator');el.hidden=!stillMode;el.className='scan-indicator '+state;const icon=$('scan-symbol');icon.textContent=state==='working'?'⌕':state==='focused'?'⌖':state==='updated'?'✦':state==='finished'?'■':state==='error'?'!':'Ⅱ';const label=state==='working'?'Scanning':state==='focused'?'Focused scan':state==='updated'?'Updated':state==='finished'?'Finished':state==='error'?'Error':'Paused';$('scan-label').textContent=label;el.setAttribute('aria-label',label)}
+function flashScanUpdate(){if(scanVisualTimer)clearTimeout(scanVisualTimer);setScanVisual('updated');scanVisualTimer=setTimeout(()=>{scanVisualTimer=null;if(stillMode)setScanVisual(stillError?'error':stillPaused?'paused':focusedScanning||focusRequest?'focused':stillBusy?'working':'finished')},850)}
+let zoom=1,zoomX=0,zoomY=0;const pointers=new Map();let pinchStart=null,dragStart=null,lastTapAt=0;
+// Torch uses the active camera track, with a generation guard for late results.
+let torchTrack=null,torchAvailable=false,torchOn=false,torchPending=false,torchSerial=0,torchError='';
+function renderTorchButton(){
+ const b=$('torch');b.hidden=!active;b.disabled=!torchAvailable||torchPending;
+ b.setAttribute('aria-pressed',String(torchOn));b.setAttribute('aria-busy',String(torchPending));
+ b.title=torchError||(!torchAvailable?'Light not supported by this camera':torchPending?'Changing light…':torchOn?'Turn light off':'Turn light on');
+ b.setAttribute('aria-label',b.title);
+}
+function resetTorch(){torchSerial++;torchTrack=null;torchAvailable=false;torchOn=false;torchPending=false;torchError='';renderTorchButton()}
+function configureTorch(){
+ resetTorch();const track=stream?.getVideoTracks?.()[0];if(!track)return;
+ let capabilities;try{capabilities=track.getCapabilities?.()}catch{return}
+ torchTrack=track;torchAvailable=typeof track.applyConstraints==='function'&&(capabilities?.torch===true||Array.isArray(capabilities?.torch)&&capabilities.torch.includes(true));
+ try{torchOn=track.getSettings?.().torch===true}catch{torchOn=false}
+ track.addEventListener?.('ended',()=>{if(torchTrack===track)resetTorch()});
+ track.addEventListener?.('unmute',()=>{if(torchTrack!==track)return;try{const value=track.getSettings?.().torch;if(typeof value==='boolean')torchOn=value}catch{}renderTorchButton()});
+ renderTorchButton();
+}
+async function toggleTorch(){
+ if(!active||!torchTrack||!torchAvailable||torchPending)return;
+ const track=torchTrack,serial=torchSerial,next=!torchOn;torchPending=true;torchError='';renderTorchButton();
+ try{
+  const current=track.getConstraints?.()||{};
+  const advanced=(current.advanced||[]).map(entry=>{const {torch,...rest}=entry;return rest}).filter(entry=>Object.keys(entry).length);
+  await track.applyConstraints({...current,torch:next,advanced:[...advanced,{torch:next}]});
+  if(serial!==torchSerial||track!==torchTrack||!active)return;
+  torchOn=next;
+ }catch(error){if(serial!==torchSerial||track!==torchTrack||!active)return;torchError='Unable to change light: '+String(error.message||error);$('status').textContent=torchError}
+ finally{if(serial===torchSerial&&track===torchTrack){torchPending=false;renderTorchButton()}}
+}
+$('torch').addEventListener('click',toggleTorch);
+function updateCameraViewport(){
+ const vp=window.visualViewport;
+ const inset=vp&&Number.isFinite(window.innerHeight)?Math.max(0,window.innerHeight-vp.height-vp.offsetTop):0;
+ document.documentElement?.style.setProperty?.('--camera-viewport-bottom',inset+'px');
+}
+function updateCameraInteraction(){
+ document.body?.classList.toggle('camera-active',active);document.body?.classList.toggle('camera-still',active&&stillMode);
+ const action=active&&!stillMode&&zoom===1?'pan-y':'none';
+ for(const element of [stage,$('zoom-layer'),video,$('still-frame'),overlay])element.style.touchAction=action;
+ renderTorchButton();
+}
+window.addEventListener?.('resize',updateCameraViewport);
+window.visualViewport?.addEventListener('resize',updateCameraViewport);
+window.visualViewport?.addEventListener('scroll',updateCameraViewport);
+function applyZoom(){const layer=$('zoom-layer');const r=stage.getBoundingClientRect();zoomX=Math.max(-r.width*(zoom-1)/2,Math.min(r.width*(zoom-1)/2,zoomX));zoomY=Math.max(-r.height*(zoom-1)/2,Math.min(r.height*(zoom-1)/2,zoomY));layer.style.transform='translate('+zoomX+'px,'+zoomY+'px) scale('+zoom+')';updateCameraInteraction()}
+function resetZoom(){zoom=1;zoomX=0;zoomY=0;applyZoom()}
+function zoomPoint(clientX,clientY){const r=stage.getBoundingClientRect();return {x:(clientX-r.left-r.width/2-zoomX)/zoom+r.width/2,y:(clientY-r.top-r.height/2-zoomY)/zoom+r.height/2}}
+function analysisControls(){updateCameraInteraction();const pause=$('pause-scan');pause.hidden=!stillMode;pause.style.display=stillMode?'':'none';$('live-return').hidden=!stillMode;$('live-return').style.display=stillMode?'':'none';const stopped=stillPaused||(!stillBusy&&!stillPending&&(stillStale>=6||stillPass>=18));pause.innerHTML=stopped?'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 8a8 8 0 1 0 1 7" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M19 3v5h-5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>';pause.title=stopped?'Restart OCR analysis':'Pause OCR analysis';pause.setAttribute('aria-label',pause.title);if(!stillMode){if(scanVisualTimer)clearTimeout(scanVisualTimer);$('scan-indicator').hidden=true}else if(scanVisual!=='updated')setScanVisual(stillError?'error':stillPaused?'paused':focusedScanning||focusRequest?'focused':stillBusy?'working':stopped?'finished':'working')}
+
+const stillFrame=$('still-frame');
+function stillStatus(message){$('status').textContent=message;if(stillMode){progress.hidden=true;progress.textContent=''}else{progress.hidden=!message;progress.textContent=message}}
+function stillButton(){const b=$('scan');b.hidden=stillMode;b.style.display=stillMode?'none':'';b.classList.toggle('rescanning',stillMode&&stillBusy);analysisControls();b.setAttribute('aria-label',stillMode?'Return to live camera':'Freeze and scan');b.title=stillMode?'Return to live camera':'Freeze and scan';b.innerHTML='<span class="shutter-core" aria-hidden="true"></span>'}
+
+function clearFocus(){focusRequest=null;$('focus-marker').classList.remove('active')}
+function focusCrop(image,request){
+ const w=image.width,h=image.height,x=request.x*w,y=request.y*h,sel=request.selection;
+ const cropW=sel?Math.min(w,Math.max(48,(sel.x1-sel.x0)*w+Math.max(30,w*.035))):Math.min(w,Math.max(w*.42,220));
+ const cropH=sel?Math.min(h,Math.max(48,(sel.y1-sel.y0)*h+Math.max(48,h*.085))):Math.min(h,Math.max(h*.13,65));
+ const centerX=sel?(sel.x0+sel.x1)*w/2:x,centerY=sel?(sel.y0+sel.y1)*h/2:y;
+ const x0=Math.max(0,Math.min(w-cropW,centerX-cropW/2)),y0=Math.max(0,Math.min(h-cropH,centerY-cropH/2));
+ const canvas=document.createElement('canvas');canvas.width=Math.round(cropW*2);canvas.height=Math.round(cropH*2);
+ canvas.getContext('2d').drawImage(image,x0,y0,cropW,cropH,0,0,canvas.width,canvas.height);
+ return {canvas,x0,y0,scale:2,scaleX:canvas.width/cropW,scaleY:canvas.height/cropH,region:{x0,y0,x1:x0+cropW,y1:y0+cropH}};
+}
+
+// Shared, session-only evidence. Never transfer boxes without matching the captured image.
+let sharedRecognition={canvas:null,items:[],source:'',capturedAt:0,signature:null};
+function imageFingerprint(canvas){
+ if(!canvas||!canvas.width||!canvas.height)return null;
+ const c=document.createElement('canvas');c.width=24;c.height=18;
+ const q=c.getContext('2d',{willReadFrequently:true});q.drawImage(canvas,0,0,24,18);
+ const d=q.getImageData(0,0,24,18).data,values=[];
+ for(let i=0;i<d.length;i+=4)values.push(.299*d[i]+.587*d[i+1]+.114*d[i+2]);
+ return values;
+}
+function imageMatches(a,b){
+ if(!a||!b||a.length!==b.length)return false;
+ let diff=0;for(let i=0;i<a.length;i++)diff+=Math.abs(a[i]-b[i]);
+ return diff/a.length<14;
+}
+function cloneRecognitionItem(it){
+ return {...it,box:{...it.box},rubyBox:it.rubyBox?{...it.rubyBox}:undefined,observedGroups:it.observedGroups?[...it.observedGroups]:undefined,support:it.support?Object.fromEntries(Object.entries(it.support).map(([key,v])=>[key,{...v,groups:[...v.groups]}])):undefined};
+}
+function validRecognitionItem(it,image){
+ const b=it.box;
+ return b&&[b.x0,b.y0,b.x1,b.y1].every(Number.isFinite)&&b.x1>b.x0&&b.y1>b.y0&&b.x0>=0&&b.y0>=0&&b.x1<=image.width&&b.y1<=image.height;
+}
+function rememberRecognition(canvas,items,source){
+ if(!canvas||!items.length)return;
+ const copy=document.createElement('canvas');copy.width=canvas.width;copy.height=canvas.height;copy.getContext('2d').drawImage(canvas,0,0);
+ const valid=items.filter(it=>validRecognitionItem(it,copy)).slice(0,100);
+ if(!valid.length)return;
+ unifiedLabelPaper(valid.map(it=>({source:it.box})),copy,1,1,true);
+ sharedRecognition={objectEpoch,canvas:copy,items:valid.map(cloneRecognitionItem),source,capturedAt:performance.now(),signature:imageFingerprint(copy)};
+}
+function identicalImage(a,b){
+ // A coarse page fingerprint is NOT evidence of coordinate correspondence.
+ if(!a||!b||a.width!==b.width||a.height!==b.height)return false;
+ const x=a.getContext('2d').getImageData(0,0,a.width,a.height).data;
+ const y=b.getContext('2d').getImageData(0,0,b.width,b.height).data;
+ for(let i=0;i<x.length;i++)if(x[i]!==y[i])return false;
+ return true;
+}
+function projectRecognition(previous,target){
+ if(!previous.canvas||!previous.items.length)return [];
+ if(identicalImage(previous.canvas,target)){lastRegistrationStatus='verified';return previous.items.map(cloneRecognitionItem)}
+ // Register directly to the immutable target capture. Never invert an AABB
+ // or approximate a rotation/perspective change by width/height scaling.
+ const saved={referenceCanvas,referenceItems,flowCache,flowVersion};
+ try{
+  referenceCanvas=previous.canvas;referenceItems=previous.items;flowCache=null;flowVersion++;
+  const transform=flowLocate(target);
+  if(!transform)return [];
+  const validation=verifyRegistration(previous.canvas,target,transform);lastRegistrationStatus=validation.status;
+  if(validation.status!=='verified')return [];
+  return previous.items.map(it=>({...cloneRecognitionItem(it),box:flowWarpBox(it.box,transform,target),rubyBox:it.rubyBox?flowWarpBox(it.rubyBox,transform,target):undefined}))
+   .filter(it=>validRecognitionItem(it,target)&&(!it.rubyKanji||it.rubyBox));
+ }catch(e){console.warn('Recognition registration unavailable:',e);return []}
+ finally{({referenceCanvas,referenceItems,flowCache,flowVersion}=saved)}
+}
+function transferToStill(canvas){
+ if(sharedRecognition.objectEpoch!==objectEpoch||performance.now()-sharedRecognition.capturedAt>HISTORY_TTL_MS)return [];
+ const projected=projectRecognition(sharedRecognition,canvas);
+ if(lastRegistrationStatus==='mismatch')resetObjectState();
+ return projected;
+}
+function candidateSupport(it){
+ const initial=it.support||{[it.text]:{text:it.text,groups:[it.source||'initial'],confidence:it.confidence??50}};
+ return Object.fromEntries(Object.entries(initial).map(([key,v])=>[key,{...v,groups:[...v.groups]}]));
+}
+function evidenceMerge(old,candidate,group){
+ // Partial/expanded boxes are not interchangeable. Keep a well-supported
+ // whole phrase until OCR supplies a comparable full region.
+ const area=b=>(b.x1-b.x0)*(b.y1-b.y0),ratio=area(candidate.box)/area(old.box);
+ if(old.text!==candidate.text&&(ratio<.65||ratio>1.55))return cloneRecognitionItem(old);
+ const support=candidateSupport(old),name=candidate.text;
+ const observedGroups=[...new Set([...(old.observedGroups||Object.values(support).flatMap(v=>v.groups)),group])].slice(-6);
+ for(const record of Object.values(support))record.groups=record.groups.filter(g=>observedGroups.includes(g));
+ if(!support[name])support[name]={text:name,groups:[],confidence:0};
+ const record=support[name];
+ if(!record.groups.includes(group))record.groups.push(group);
+ record.groups=record.groups.slice(-6);
+ record.confidence=Math.max(record.confidence,candidate.confidence??0);
+ const existing=support[old.text]||{groups:[],confidence:old.confidence??50};
+ const newEvidence=record.groups.length,oldEvidence=existing.groups.length;
+ const switchAllowed=name!==old.text&&newEvidence>=2&&newEvidence>oldEvidence&&record.confidence>=Math.max(40,existing.confidence-10);
+ // A tentative first reading can improve on the SAME frozen image, but
+ // repeated variants must never pretend to be independent confirmations.
+ const tentativeImprovement=name!==old.text&&old.state!=='confirmed'&&!old.focused&&oldEvidence===1&&record.confidence>=existing.confidence+15;
+ const chosen=switchAllowed||tentativeImprovement?{...candidate}:old.text===name?{...old,box:{...candidate.box},rubyBox:candidate.rubyBox?{...candidate.rubyBox}:old.rubyBox?{...old.rubyBox}:undefined,confidence:record.confidence}:old;
+ const winner=support[chosen.text],votes=winner.groups.length;
+ const required=kanaThreshold({...chosen,confidence:winner.confidence});
+ const bounded=Object.fromEntries(Object.entries(support).sort(([a,x],[b,y])=>(b===chosen.text)-(a===chosen.text)||y.groups.length-x.groups.length||y.confidence-x.confidence).slice(0,5));
+ return {...cloneRecognitionItem(chosen),support:bounded,observedGroups,votes,state:votes>=Math.max(2,required)||chosen.state==='confirmed'?'confirmed':'provisional'};
+}
+function stillMerge(items,newItems,group='still-frame',notify=true){
+ let updates=0;
+ for(const candidate of newItems){
+  if(!candidate.box||!kanaOnly.test(candidate.text)||(candidate.confidence??0)<24||(candidate.rubyKanji&&!candidate.rubyBox))continue;
+  const matches=items.filter(it=>!!it.rubyKanji===!!candidate.rubyKanji&&sameKanaRegion(it,candidate));
+  if(!matches.length){
+   items.push({...cloneRecognitionItem(candidate),support:{[candidate.text]:{text:candidate.text,groups:[group],confidence:candidate.confidence??50}},source:group,state:'provisional',votes:1});updates++;continue;
+  }
+  const best=matches.find(it=>it.focused)||matches.find(it=>it.state==='confirmed')||matches[0];
+  if(best.focused&&!candidate.focused&&group.startsWith('still-'))continue;
+  const next=evidenceMerge(best,candidate,group);
+  if(next.text!==best.text)updates++;
+  items.splice(items.indexOf(best),1,next);
+ }
+ if(notify){
+  if(updates&&stillMode)flashScanUpdate();
+  stillImproved+=updates;stillUncertain=items.filter(it=>it.state!=='confirmed').length;
+ }
+ return updates;
+}
+function mergeFocused(items,observations,request,group){
+ // Select after ALL variants, so a weak last pass cannot erase a good first.
+ const pool=[];
+ for(const candidate of observations){
+  if(!kanaOnly.test(candidate.text)||(candidate.confidence??0)<35)continue;
+  const found=pool.find(p=>p.text===candidate.text&&sameKanaRegion(p,candidate));
+  if(found){found.passes.add(candidate.pass);if(candidate.confidence>found.confidence){found.box={...candidate.box};found.confidence=candidate.confidence}}
+  else pool.push({...cloneRecognitionItem(candidate),passes:new Set([candidate.pass])});
+ }
+ pool.sort((a,b)=>b.passes.size-a.passes.size||b.confidence-a.confidence);
+ const accepted=[];
+ for(const candidate of pool){
+  if(accepted.some(it=>sameKanaRegion(it,candidate)))continue;
+  if(candidate.passes.size<2&&candidate.confidence<60)continue;
+  const conflicts=items.filter(it=>sameKanaRegion(it,candidate));
+  if(conflicts.some(it=>it.text.includes(candidate.text)&&it.text.length>candidate.text.length))continue;
+  if(conflicts.some(it=>it.focused&&it.text!==candidate.text&&candidate.passes.size<2))continue;
+  const same=conflicts.find(it=>it.text===candidate.text&&it.focusId===request.id);
+  if(same){accepted.push({...evidenceMerge(same,candidate,group),focused:true,focusId:request.id});continue}
+  const {passes,...reading}=candidate;
+  accepted.push({...reading,focused:true,state:'provisional',locked:true,focusId:request.id,source:group,support:{[candidate.text]:{text:candidate.text,groups:[group],confidence:candidate.confidence}},votes:1});
+ }
+ for(const candidate of accepted){
+  for(let i=items.length-1;i>=0;i--)if(sameKanaRegion(items[i],candidate))items.splice(i,1);
+  items.push(candidate);
+ }
+ return accepted.length;
+}
+
+function stillImageVariant(source,variant){
+ const c=document.createElement('canvas'),factor=variant%3===0?1:variant%3===1?1.6:2;
+ c.width=Math.round(source.width*factor);c.height=Math.round(source.height*factor);
+ const q=c.getContext('2d',{willReadFrequently:true});q.drawImage(source,0,0,c.width,c.height);
+ if(variant%3===2||variant%6===4){const d=q.getImageData(0,0,c.width,c.height);for(let i=0;i<d.data.length;i+=4){let v=.2126*d.data[i]+.7152*d.data[i+1]+.0722*d.data[i+2];if(variant%3===2)v=255-v;else v=v>128?255:0;d.data[i]=d.data[i+1]=d.data[i+2]=v}q.putImageData(d,0,0)}
+ return {canvas:c,factor};
+}
+async function stillScan(){
+ if(document.hidden||!active||!stillMode||stillPaused||busy||stillBusy||!stillSource)return;
+ stillPending=false;stillBusy=true;stillError=false;stillButton();
+ const generation=stillGeneration,source=stillSource;let focusedScanFailure=false;
+ work.width=source.width;work.height=source.height;wc.drawImage(source,0,0);
+ try{
+  if(!worker){stillStatus('Preparing Japanese OCR…');if(!window.Tesseract)throw Error('OCR library unavailable');worker=await Tesseract.createWorker('jpn',1)}
+  if(!stillMode||generation!==stillGeneration)return;
+  // A tap is handled before the next full-frame pass. The running OCR call cannot be interrupted.
+  while(!document.hidden&&stillMode&&!stillPaused&&generation===stillGeneration){
+   if(focusRequest){
+    const request=focusRequest;focusRequest=null;focusedScanning=true;setScanVisual('focused');
+    const crop=focusCrop(source,request);
+    let focusedFound=0;const observations=[];
+    const targetY=request.y*source.height;
+    const band=request.selection?(crop.region.y1-crop.region.y0):Math.max(18,(crop.region.y1-crop.region.y0)*.28);
+    for(let pass=0;pass<3;pass++){
+     if(!stillMode||stillPaused||generation!==stillGeneration||focusRequest)break;
+     stillStatus('Focused scan '+(pass+1)+'/3…');
+     const variant=stillImageVariant(crop.canvas,pass);
+     await worker.setParameters({tessedit_pageseg_mode:pass===0?'7':'6'});
+     const result=await worker.recognize(variant.canvas,{}, {text:true,blocks:true});
+     if(!stillMode||generation!==stillGeneration||stillPaused||focusRequest)break;
+     const scaleX=crop.scaleX*variant.canvas.width/crop.canvas.width,scaleY=crop.scaleY*variant.canvas.height/crop.canvas.height;
+     let raw=extract(result.data,variant.canvas);
+     const found=rebuildRows(raw).map(it=>({...it,box:{x0:crop.x0+it.box.x0/scaleX,y0:crop.y0+it.box.y0/scaleY,x1:crop.x0+it.box.x1/scaleX,y1:crop.y0+it.box.y1/scaleY}})).filter(it=>{
+      const cx=(it.box.x0+it.box.x1)/2,cy=(it.box.y0+it.box.y1)/2;
+      const sel=request.selection;
+      return cx>=crop.region.x0&&cx<=crop.region.x1&&Math.abs(cy-targetY)<=band/2&&(!sel||(cx>=sel.x0*source.width&&cx<=sel.x1*source.width&&cy>=sel.y0*source.height&&cy<=sel.y1*source.height));
+     });
+     observations.push(...found.map(it=>({...it,pass})));
+
+    }
+    if(stillMode&&generation===stillGeneration&&!stillPaused&&!focusRequest){
+     focusedFound=mergeFocused(stillItems,observations,request,'still-'+generation);
+     focusedScanFailure=!focusedFound;
+     if(focusedFound){rememberRecognition(source,stillItems,'still-frame');paint(stillItems);flashScanUpdate()}
+     else stillStatus('No reliable kana detected in selection · Try a wider selection');
+    }
+    focusedScanning=false;
+    if(!focusRequest)$('focus-marker').classList.remove('active');
+    if(stillMode&&generation===stillGeneration&&!stillPaused)setScanVisual(focusRequest?'focused':stillPass>=18||stillStale>=6?'finished':'working');
+    continue;
+   }
+   if(stillPass>=18||stillStale>=6)break;
+   const pass=stillPass++;
+   setScanVisual('working');
+   stillStatus('Refining recognition · Pass '+(pass+1)+'…');
+   const variant=stillImageVariant(source,pass);
+   await worker.setParameters({tessedit_pageseg_mode:pass%4===1?'6':pass%4===3?'7':'11'});
+   const result=await worker.recognize(variant.canvas,{}, {text:true,blocks:true});
+   if(!stillMode||generation!==stillGeneration||stillPaused)break;
+   // Preserve a pending focused tap: do not delay it for further full-frame passes.
+   const found=rebuildRows(extract(result.data,variant.canvas)).map(it=>({...it,box:{x0:it.box.x0*source.width/variant.canvas.width,y0:it.box.y0*source.height/variant.canvas.height,x1:it.box.x1*source.width/variant.canvas.width,y1:it.box.y1*source.height/variant.canvas.height}}));
+   const changed=stillMerge(stillItems,found,'still-'+generation);
+   stillStale=changed?0:stillStale+1;
+   rememberRecognition(source,stillItems,'still-frame');
+   paint(stillItems);
+  }
+  if(stillMode&&generation===stillGeneration){
+   stillStatus(stillPaused?'Analysis paused':focusedScanFailure?'No reliable kana detected in selection · Try a wider selection':stillStale>=6?'Automatic analysis finished (no new candidates)':'Automatic analysis finished');
+  }
+ }catch(e){if(stillMode&&generation===stillGeneration){stillError=true;stillStatus('Scan error: '+e.message)}}
+ finally{
+  focusedScanning=false;
+  try{if(worker)await worker.setParameters({tessedit_pageseg_mode:'11'})}catch(e){console.warn('OCR reset failed:',e);if(stillMode&&generation===stillGeneration){stillError=true;stillStatus('OCR reset error: '+e.message)}}
+  stillBusy=false;stillButton();
+  if(active&&!stillMode&&!busy)setTimeout(scan,0);
+  if(stillMode&&generation!==stillGeneration&&!busy&&!stillPaused)setTimeout(stillScan,0);
+  if(stillMode&&generation===stillGeneration){
+   setScanVisual(stillError?'error':stillPaused?'paused':focusRequest?'focused':'finished');
+   if(!stillPaused&&focusRequest)setTimeout(stillScan,0);
+  }
+ }
+}
+let pendingFreeze=null;
+function cancelPendingFreeze(){
+ const request=pendingFreeze;if(!request)return;
+ pendingFreeze=null;clearTimeout(request.timer);clearTimeout(request.poll);
+ if(request.callback!==null&&video.cancelVideoFrameCallback)video.cancelVideoFrameCallback(request.callback);
+ $('scan').disabled=!active;
+}
+function enterStill(){
+ if(!active||stillMode||pendingFreeze)return;
+ // A decoded frame may still belong to the previous object after returning
+ // from Still. Freeze only after the visible camera presents another frame.
+ video.style.visibility='visible';
+ const supportsCallback=typeof video.requestVideoFrameCallback==='function';
+ const initialTime=video.currentTime;
+ // Non-video sources used by the deterministic canvas harness have no clock.
+ if(!supportsCallback&&!Number.isFinite(initialTime)){freezeCurrentFrame();return}
+ const request={run:runId,callback:null,timer:null,poll:null};pendingFreeze=request;
+ $('scan').disabled=true;
+ const fail=message=>{
+  if(pendingFreeze!==request)return;
+  cancelPendingFreeze();if(active&&request.run===runId)$('status').textContent=message;
+ };
+ const ready=()=>{
+  if(pendingFreeze!==request)return;
+  const valid=active&&!stillMode&&request.run===runId;
+  cancelPendingFreeze();if(valid)freezeCurrentFrame();
+ };
+ request.timer=setTimeout(()=>fail('Camera frame not ready · Try scanning again'),2000);
+ if(supportsCallback)request.callback=video.requestVideoFrameCallback(ready);
+ else{
+  const poll=()=>{
+   if(pendingFreeze!==request)return;
+   if(video.currentTime>initialTime&&video.readyState>=2)ready();
+   else request.poll=setTimeout(poll,30);
+  };
+  request.poll=setTimeout(poll,30);
+ }
+ if(video.paused)video.play().catch(e=>fail('Unable to resume camera: '+e.message));
+}
+function freezeCurrentFrame(){
+ if(!active||stillMode)return;
+ stillMode=true;updateLiveScanningHint();stage.style.touchAction='none';stillGeneration++;runId++;stillPending=true;scanVisual='working';stillError=false;focusedScanning=false;stillPaused=false;stillPass=0;stillStale=0;stillImproved=0;stillUncertain=0;clearFocus();stillItems=[];analysisControls();
+ const scale=Math.min(1,1280/Math.max(video.videoWidth,video.videoHeight));
+ stillSource=document.createElement('canvas');stillSource.width=Math.round(video.videoWidth*scale);stillSource.height=Math.round(video.videoHeight*scale);
+ stillSource.getContext('2d').drawImage(video,0,0,stillSource.width,stillSource.height);
+ stillFrame.width=stillSource.width;stillFrame.height=stillSource.height;stillFrame.getContext('2d').drawImage(stillSource,0,0);
+ // Keep the camera playing underneath the frozen canvas; do not suspend the
+ // video by hiding it and then capture its old decoded frame on the next scan.
+ stillFrame.classList.add('visible');video.style.visibility='visible';
+ // Do not mutate the work canvas owned by an in-flight Live scan.
+ stillItems=transferToStill(stillSource);
+ resetTracking();referenceCanvas=null;referenceItems=[];tracks=[];ctx.clearRect(0,0,overlay.width,overlay.height);
+ if(stillItems.length)paint(stillItems);
+ stillStatus('Refining recognition…');stillButton();if(!busy&&!stillBusy)setTimeout(stillScan,0);
+}
+function exitStill(){
+ if(!stillMode)return;
+ if(stillSource&&stillItems.length)rememberRecognition(stillSource,stillItems,'still-frame');
+ stillMode=false;updateLiveScanningHint();stage.style.touchAction='manipulation';stillGeneration++;runId++;stillPending=false;stillPaused=false;focusedScanning=false;stillItems=[];stillSource=null;clearFocus();analysisControls();
+ stillFrame.classList.remove('visible');stillFrame.getContext('2d').clearRect(0,0,stillFrame.width,stillFrame.height);video.style.visibility='visible';stillStatus('');
+ protectedKana=[];kanaHistory=[];historyLastVerified=0;referenceCanvas=null;referenceItems=[];tracks=[];lastFrame=null;resetTracking();ctx.clearRect(0,0,overlay.width,overlay.height);
+ // Resume live tracking from the still image, but only after image registration succeeds.
+ if(sharedRecognition.objectEpoch===objectEpoch&&sharedRecognition.source==='still-frame'&&sharedRecognition.items.length){referenceCanvas=sharedRecognition.canvas;referenceItems=sharedRecognition.items.map(it=>({...it,box:{...it.box}}));protectedKana=referenceItems.map(it=>({...it,box:{...it.box}}));historyLastVerified=performance.now();flowReset();}
+ resumeTracking();stillButton();if(active&&!busy&&!stillBusy)setTimeout(scan,0);
+}
+let liveWorkerPromise=null;
+function ensureLiveWorker(){
+ if(worker)return Promise.resolve(worker);
+ if(liveWorkerPromise)return liveWorkerPromise;
+ if(!window.Tesseract)return Promise.reject(Error('OCR library could not be loaded'));
+ liveWorkerPromise=(async()=>{
+  const ready=await Tesseract.createWorker('jpn',1);
+  await ready.setParameters({tessedit_pageseg_mode:'11'});
+  worker=ready;return ready;
+ })().catch(e=>{liveWorkerPromise=null;throw e});
+ return liveWorkerPromise;
+}
+async function scan(){if(document.hidden||!active||stillMode||busy||stillBusy||!video.videoWidth)return;busy=true;scanRequested=false;manualScanPending=false;const myId=runId,evidenceGroup='live-'+(++captureSerial),requestedFocus=focusRequest;const started=performance.now();try{progressStep(worker?'Recognizing kana…':'Preparing Japanese OCR…');$('status').textContent=worker?'Recognizing…':'Preparing Japanese OCR…';if(!worker)await ensureLiveWorker()if(!active||myId!==runId)return;const scale=Math.min(1,(referenceItems.length?1280:960)/Math.max(video.videoWidth,video.videoHeight));work.width=Math.round(video.videoWidth*scale);work.height=Math.round(video.videoHeight*scale);wc.drawImage(video,0,0,work.width,work.height);const scanCapture=document.createElement('canvas');scanCapture.width=work.width;scanCapture.height=work.height;scanCapture.getContext('2d').drawImage(work,0,0);const captureFrame=trackingFrame(scanCapture);const frameSignature=imageSignature();const result=await worker.recognize(work,{}, {text:true,blocks:true});if(!active||myId!==runId)return;progressStep('Detecting text lines…');let items=rebuildRows(extract(result.data));
+ // Show the first usable kana without waiting for refinement.
+ if(items.length&&!stillMode&&!referenceItems.length){
+  const initial=items.filter(it=>it.box&&kanaOnly.test(it.text)).map(it=>({...it,state:'provisional',votes:1,source:evidenceGroup,support:{[it.text]:{text:it.text,groups:[evidenceGroup],confidence:it.confidence??50}}}));
+  if(initial.length){
+   const current=trackingFrame(),motion=captureFrame&&current?blockMotion(captureFrame,current):null;
+   const difference=captureFrame&&current?captureFrame.reduce((v,x,i)=>v+Math.abs(x-current[i]),0)/captureFrame.length:0;
+   const initialValidation=motionRegistration(scanCapture,cameraSnapshot(),motion);
+   if(initialValidation.status==='verified'){
+    referenceCanvas=scanCapture;referenceItems=initial.map(it=>({...it,box:{...it.box}}));flowReset();
+    tracks=motion?initial.map(it=>({...it,box:moveBox(it.box,motion)})):initial;
+    protectedKana=initial.map(it=>({...it,box:{...it.box}}));historyLastVerified=performance.now();
+    rememberRecognition(scanCapture,initial,'live-frame');alignOverlay();paint(tracks);
+   }
+  }
+ }
+ // A tap requests one extra high-resolution, single-line OCR pass on the selected band.
+ if(requestedFocus&&requestedFocus.run===myId){
+  const focus=focusCrop(scanCapture,requestedFocus);
+  try{
+   await worker.setParameters({tessedit_pageseg_mode:'7'});
+   const focused=await worker.recognize(focus.canvas,{}, {text:true,blocks:true});
+   if(!active||myId!==runId)return;
+   const candidates=rebuildRows(extract(focused.data,focus.canvas)).map(it=>({...it,box:{x0:focus.x0+it.box.x0/focus.scaleX,y0:focus.y0+it.box.y0/focus.scaleY,x1:focus.x0+it.box.x1/focus.scaleX,y1:focus.y0+it.box.y1/focus.scaleY}}));
+   const chosen=candidates.filter(it=>{const cy=(it.box.y0+it.box.y1)/2;return Math.abs(cy-requestedFocus.y*scanCapture.height)<focus.region.y1-focus.region.y0&&it.confidence>=35});
+   if(chosen.length)mergeFocused(items,chosen.map(it=>({...it,pass:0})),requestedFocus,evidenceGroup);
+  }catch(e){console.warn('Focused OCR:',e)}
+  finally{await worker.setParameters({tessedit_pageseg_mode:'11'});if(focusRequest?.id===requestedFocus.id){clearFocus();$('status').textContent='Focused scan complete'}}
+ }
+
+ if(!requestedFocus){
+ // Trial: re-recognize up to two larger lines without changing the baseline OCR result unless better.
+ if(active&&myId===runId)items=await retryLargeLines(result.data,items);
+ if(!active||myId!==runId)return;
+ // If the original image has poor coverage, retry once with fine-stroke enhancement.
+ // The alternate scan is performed on a separate canvas, leaving the camera frame intact.
+ if(scoreItems(items)<8&&active&&myId===runId){
+  const fine=fineTextImage();
+  const alternative=await worker.recognize(fine,{}, {text:true,blocks:true});
+  if(!active||myId!==runId)return;
+  const fineItems=rebuildRows(extract(alternative.data));
+  if(scoreItems(fineItems)>scoreItems(items))items=fineItems;
+ }
+ // Large isolated kana may be missed by sparse-text segmentation (PSM 11).
+ // Retry the same unmodified frame as a single text line; accept only a clear gain.
+ if(scoreItems(items)<8&&active&&myId===runId){
+  try{
+   await worker.setParameters({tessedit_pageseg_mode:'7'});
+   const largeResult=await worker.recognize(work,{}, {text:true,blocks:true});
+   if(!active||myId!==runId)return;
+   const largeItems=rebuildRows(extract(largeResult.data));
+   if(scoreItems(largeItems)>scoreItems(items)+2)items=largeItems;
+  }catch(e){console.warn('Large kana retry unavailable:',e)}
+  finally{await worker.setParameters({tessedit_pageseg_mode:'11'})}
+ }
+ // White kana on black packaging: Tesseract may miss reversed-polarity lines.
+ // On alternate scans, OCR an inverted copy and add only non-overlapping kana regions.
+ if(active&&myId===runId&&++reverseScanCount%3===1){
+  try{
+   const inverted=document.createElement('canvas');inverted.width=work.width;inverted.height=work.height;
+   const ic=inverted.getContext('2d',{willReadFrequently:true});
+   ic.drawImage(work,0,0);
+   const image=ic.getImageData(0,0,inverted.width,inverted.height);
+   for(let p=0;p<image.data.length;p+=4){image.data[p]=255-image.data[p];image.data[p+1]=255-image.data[p+1];image.data[p+2]=255-image.data[p+2]}
+   ic.putImageData(image,0,0);
+   const invertedResult=await worker.recognize(inverted,{}, {text:true,blocks:true});
+   if(!active||myId!==runId)return;
+   const reverseItems=rebuildRows(extract(invertedResult.data));
+   for(const candidate of reverseItems){
+    const b=candidate.box,cx=(b.x0+b.x1)/2,cy=(b.y0+b.y1)/2;
+    const overlaps=items.some(it=>{const q=it.box;return cx>=q.x0&&cx<=q.x1&&cy>=q.y0&&cy<=q.y1});
+    if(!overlaps&&candidate.confidence>=35)items.push(candidate);
+   }
+  }catch(e){console.warn('Reverse-polarity OCR unavailable:',e)}
+ }
+ // Independently search large-print bands, regardless of smaller OCR successes.
+ if(active&&myId===runId)items=await retryIndependentLargeKana(items,myId);
+ // One extra rotated OCR pass only when the primary scan finds little usable text.
+ // Alternate angles across scans to keep the iPhone workload bounded.
+ if(items.length<2&&active&&myId===runId){
+  const angle=[-25,25,-45,45][scanNumber++%4],meta=rotateImage(angle);
+  const originalWidth=work.width,originalHeight=work.height;
+  try{
+   const secondary=await worker.recognize(rotated,{}, {text:true,blocks:true});
+   if(!active||myId!==runId)return;
+   const extra=rebuildRows(extract(secondary.data,rotated)).map(it=>({...it,box:unrotateBox(it.box,meta)}))
+    .filter(it=>it.box.x0>=0&&it.box.y0>=0&&it.box.x1<=originalWidth&&it.box.y1<=originalHeight);
+   if(scoreItems(extra)>scoreItems(items))items=extra;
+  }finally{/* The immutable capture remains the source for every retry. */}
+ }
+ if(!active||myId!==runId)return;
+ items=await selectiveKleeRetry(items,myId);
+
+ }
+
+ if(active&&myId===runId){const ruby=await detectRubyKanji(result.data,myId);items=suppressRubyDuplicates(items.concat(ruby))}
+ if(!active||myId!==runId)return;
+ progressStep('Positioning labels…');const motion=motionLevel(frameSignature),largeMotion=motion>23;const currentFrame=trackingFrame();const elapsedMotion=captureFrame&&currentFrame?blockMotion(captureFrame,currentFrame):null;const frameDifference=captureFrame&&currentFrame?captureFrame.reduce((v,x,i)=>v+Math.abs(x-currentFrame[i]),0)/captureFrame.length:0;const placementTarget=cameraSnapshot();let placementMotion=elapsedMotion,captureValidation=motionRegistration(scanCapture,placementTarget,placementMotion);if(captureValidation.status!=='verified'){const stationary=motionRegistration(scanCapture,placementTarget,null);if(stationary.status==='verified'){placementMotion=null;captureValidation=stationary}}const aligned=placementMotion?items.map(it=>({...it,box:moveBox(it.box,placementMotion),rubyBox:it.rubyBox?moveBox(it.rubyBox,placementMotion):undefined})):items;if(window.meikiMetrics)window.meikiMetrics.lastCapturePlacement={validation:captureValidation,motion:placementMotion,frameDifference,items:items.length};const canPlace=captureValidation.status==='verified';const stable=canPlace?aligned:[];
+ // Reproject protected regions from the previous verified frame before replacing it.
+ // If tracking cannot establish correspondence, do not transplant labels to a new page.
+ let oldProjected=[];
+ const historyFresh=performance.now()-historyLastVerified<HISTORY_TTL_MS;
+ if(canPlace&&referenceCanvas&&protectedKana.length&&historyFresh){
+  oldProjected=projectRecognition({canvas:referenceCanvas,items:protectedKana},scanCapture);
+  if(lastRegistrationStatus==='mismatch'){resetObjectState();return}
+ }
+ if(captureValidation.status==='mismatch'){resetObjectState();return}
+ // Preserve the last verified reference on transient OCR or tracking failure.
+ // Never attach history to a different page without a verified image transform.
+ if((items.length||oldProjected.length)&&canPlace){
+  const captureItems=suppressRubyDuplicates(protectRecognized(items,oldProjected,evidenceGroup));
+   protectedKana=captureItems.map(cloneRecognitionItem);kanaHistory=protectedKana.map(cloneRecognitionItem);
+  referenceCanvas=scanCapture;
+  referenceItems=captureItems.map(it=>({...it,box:{...it.box}}));
+  rememberRecognition(scanCapture,captureItems,'live-frame');
+  flowReset();
+  tracks=placementMotion?captureItems.map(it=>({...it,box:moveBox(it.box,placementMotion),rubyBox:it.rubyBox?moveBox(it.rubyBox,placementMotion):undefined})):captureItems;
+  lastFrame=frameSignature;
+  alignOverlay();
+  paint(tracks);
+ }else{
+  lastFrame=frameSignature;
+  if(!historyFresh){protectedKana=[];kanaHistory=[]}
+ }
+ if(myId!==runId)return;progressStep('');lastRecognitionDetails={text:result.data.text,items:items.map(cloneRecognitionItem),diagnosis:diagnoseKanaExtraction(result.data,items)};renderRecognitionDetails();$('status').textContent='Detected: '+items.length+' regions / '+((performance.now()-started)/1000).toFixed(1)+' s';}catch(e){if(myId===runId){progressStep('');$('status').textContent='Recognition error: '+e.message}}finally{busy=false;if(active&&!document.hidden){if(stillMode){if(stillPending)setTimeout(stillScan,0)}else if(manualScanPending||myId!==runId){setTimeout(scan,0)}else{if($('scan').classList.contains('rescanning')){$('scan').classList.remove('rescanning');$('scan').setAttribute('aria-label','Scan now');$('scan').title='Scan now'}setTimeout(scan,focusRequest?0:200)}}}}
+// Safari app switching suspends timers and may stop a camera track. Do not
+// schedule repeated OCR work while hidden; reuse the existing session on return.
+document.addEventListener?.('visibilitychange',()=>{
+ if(!active)return;
+ if(document.hidden){
+  clearTimeout(trackingTimer);trackingTimer=null;
+  return;
+ }
+ if(stillMode){
+  if(!stillPaused&&!stillBusy){stillPending=true;setTimeout(stillScan,0)}
+  return;
+ }
+ if(stream?.getVideoTracks().some(t=>t.readyState==='ended')){
+  $('status').textContent='Camera was interrupted. Close and start the camera again.';
+  return;
+ }
+ resumeTracking();
+ if(!busy&&!stillBusy)setTimeout(scan,0);
+});
+$('start').onclick=async()=>{if(active)return;try{if(!navigator.mediaDevices?.getUserMedia)throw Error('Camera access requires HTTPS and a supported browser');const ocrWarmup=ensureLiveWorker();stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});video.srcObject=stream;await video.play();alignOverlay();active=true;stillMode=false;stillButton();resetZoom();analysisControls();configureTorch();updateCameraViewport();hasShownLabels=false;beginLiveScanningHint();documentLabelPalette={epoch:-1,papers:null};protectedKana=[];kanaHistory=[];historyLastVerified=0;clearFocus();runId++;resetTracking();trackTick();$('start').disabled=true;$('start').hidden=true;$('stop').hidden=false;$('stop').disabled=false;$('scan').disabled=false;scan()}catch(e){$('status').textContent='Unable to start camera: '+e.message}};
+$('stop').onclick=()=>{lastRecognitionDetails=null;if(stillMode)exitStill();resetZoom();active=false;updateLiveScanningHint();resetTorch();updateCameraInteraction();runId++;cancelPendingFreeze();manualScanPending=false;$('scan').classList.remove('rescanning');sharedRecognition={canvas:null,items:[],source:'',capturedAt:0,signature:null};documentLabelPalette={epoch:-1,papers:null};protectedKana=[];kanaHistory=[];resetTracking();referenceCanvas=null;referenceItems=[];previousItems=[];tracks=[];lastFrame=null;stream?.getTracks().forEach(t=>t.stop());stream=null;video.srcObject=null;ctx.clearRect(0,0,overlay.width,overlay.height);$('start').disabled=false;$('start').hidden=false;$('stop').disabled=true;$('stop').hidden=true;$('scan').disabled=true;$('status').textContent='Stopped'};let lastGestureAt=0;const pointerStarts=new Map();const pointerMoved=new Set();
+let swipeFocus=null;
+function focusImagePoint(clientX,clientY){
+ // The video, Still frame and OCR overlay are all rendered with object-fit:cover.
+ // Map pointer coordinates through that center crop and the existing pinch zoom.
+ const r=stage.getBoundingClientRect(),p=zoomPoint(clientX,clientY);
+ const frame=stillMode&&stillSource?stillSource:video;
+ const w=frame.width||frame.videoWidth||r.width,h=frame.height||frame.videoHeight||r.height;
+ const scale=Math.max(r.width/w,r.height/h);
+ const left=(r.width-w*scale)/2,top=(r.height-h*scale)/2;
+ return {x:Math.max(0,Math.min(1,(p.x-left)/(w*scale))),y:Math.max(0,Math.min(1,(p.y-top)/(h*scale)))};
+} 
+
+let focusMarkerTimeout=null,focusOpticalSerial=0;
+function showTapFocusMarker(clientX,clientY){
+ const marker=$('focus-marker'),r=stage.getBoundingClientRect();
+ if(focusMarkerTimeout!==null)clearTimeout(focusMarkerTimeout);
+ marker.classList.remove('active','tap-focus');
+ // Restart the CSS animation even when the user taps the same point twice.
+ void marker.offsetWidth;
+ marker.style.left=(clientX-r.left-27)+'px';marker.style.top=(clientY-r.top-27)+'px';
+ marker.style.width='54px';marker.style.height='54px';
+ marker.classList.add('active','tap-focus');
+ focusMarkerTimeout=setTimeout(()=>{marker.classList.remove('active','tap-focus');focusMarkerTimeout=null},950);
+}
+async function requestOpticalFocus(x,y){
+ // Optical focus is optional. Browsers not advertising point-of-interest control
+ // still get the visual reticle and focused OCR pass; never claim lens focus.
+ const track=stream?.getVideoTracks?.()[0];
+ if(!track||typeof track.applyConstraints!=='function')return false;
+ const serial=++focusOpticalSerial;
+ let supported,capabilities;
+ try{supported=navigator.mediaDevices?.getSupportedConstraints?.()||{};capabilities=track.getCapabilities?.()||{}}catch{return false}
+ if(!supported.pointsOfInterest||!Array.isArray(capabilities.focusMode)||!capabilities.focusMode.includes('single-shot'))return false;
+ try{
+  const existing=track.getConstraints?.()||{};
+  const advanced=(existing.advanced||[]).map(item=>{const {focusMode,pointsOfInterest,...other}=item;return other}).filter(item=>Object.keys(item).length);
+  await track.applyConstraints({...existing,advanced:[...advanced,{focusMode:'single-shot',pointsOfInterest:[{x,y}]}]});
+  return serial===focusOpticalSerial&&track.readyState==='live';
+ }catch{return false}
+}
+
+function focusSwipeVisual(a,b){const marker=$('focus-marker'),r=stage.getBoundingClientRect();const x0=Math.min(a.x,b.x)-r.left,x1=Math.max(a.x,b.x)-r.left,y0=Math.min(a.y,b.y)-r.top,y1=Math.max(a.y,b.y)-r.top;marker.style.left=x0+'px';marker.style.top=(y0-12)+'px';marker.style.width=Math.max(12,x1-x0)+'px';marker.style.height=Math.max(28,y1-y0+24)+'px';marker.classList.add('active')}
+stage.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;if(stillMode&&pointers.size===0)swipeFocus={id:e.pointerId,start:{x:e.clientX,y:e.clientY},end:{x:e.clientX,y:e.clientY}};else if(pointers.size===1)swipeFocus=null;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});pointerStarts.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===2){const a=[...pointers.values()];pinchStart={distance:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),zoom,zoomX,zoomY};dragStart=null;lastGestureAt=Date.now()}else if(pointers.size===1&&zoom>1)dragStart={x:e.clientX,y:e.clientY,zoomX,zoomY}});
+stage.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});const origin=pointerStarts.get(e.pointerId);if(origin&&Math.hypot(e.clientX-origin.x,e.clientY-origin.y)>9)pointerMoved.add(e.pointerId);if(stillMode&&swipeFocus&&swipeFocus.id===e.pointerId&&pointers.size===1){swipeFocus.end={x:e.clientX,y:e.clientY};if(Math.hypot(e.clientX-swipeFocus.start.x,e.clientY-swipeFocus.start.y)>12)focusSwipeVisual(swipeFocus.start,swipeFocus.end)}if(pointers.size===2&&pinchStart){const a=[...pointers.values()];zoom=Math.min(5,Math.max(1,pinchStart.zoom*Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)/Math.max(1,pinchStart.distance)));applyZoom();lastGestureAt=Date.now()}else if(pointers.size===1&&dragStart&&!swipeFocus){zoomX=dragStart.zoomX+e.clientX-dragStart.x;zoomY=dragStart.zoomY+e.clientY-dragStart.y;applyZoom();lastGestureAt=Date.now()}});
+stage.addEventListener('pointerup',e=>{if(pointers.size>1)lastGestureAt=Date.now();pointers.delete(e.pointerId);if(!pointers.size){pinchStart=null;dragStart=null}});
+stage.addEventListener('pointercancel',e=>{if(swipeFocus?.id===e.pointerId){swipeFocus=null;$('focus-marker').classList.remove('active')}pointers.delete(e.pointerId);pointerStarts.delete(e.pointerId);pointerMoved.delete(e.pointerId);pinchStart=null;dragStart=null});
+stage.addEventListener('dblclick',e=>{if(e.target.closest('button'))return;resetZoom();lastGestureAt=Date.now();e.preventDefault()});
+stage.addEventListener('pointerup',event=>{
+ if(!active||event.target.closest('button'))return;
+ const swipe=swipeFocus?.id===event.pointerId?swipeFocus:null;swipeFocus=null;
+ const wasDrag=pointerMoved.has(event.pointerId);pointerMoved.delete(event.pointerId);pointerStarts.delete(event.pointerId);
+ if(pointers.size>0||Date.now()-lastGestureAt<350){$('focus-marker').classList.remove('active');return}
+ if(wasDrag&&!swipe)return;
+ const r=video.getBoundingClientRect();
+ if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)return;
+ const point=focusImagePoint(event.clientX,event.clientY),x=point.x,y=point.y;
+ let selection=null;
+ if(stillMode&&swipe&&Math.hypot(event.clientX-swipe.start.x,event.clientY-swipe.start.y)>24){
+  const p=focusImagePoint(swipe.start.x,swipe.start.y),q=focusImagePoint(event.clientX,event.clientY);
+  selection={x0:Math.min(p.x,q.x),x1:Math.max(p.x,q.x),y0:Math.max(0,Math.min(p.y,q.y)-.022),y1:Math.min(1,Math.max(p.y,q.y)+.022)};
+  focusSwipeVisual(swipe.start,{x:event.clientX,y:event.clientY});
+ }else{
+  showTapFocusMarker(event.clientX,event.clientY);
+ }
+ if(!stillMode&&!selection)requestOpticalFocus(x,y);
+ focusRequest={x:selection?(selection.x0+selection.x1)/2:x,y:selection?(selection.y0+selection.y1)/2:y,selection,id:++focusSerial,run:runId};
+ $('status').textContent='Focused scan queued…';progressStep('Focused scan queued…');
+ if(stillMode){stillStale=0;stillError=false;if(!stillPaused){setScanVisual('focused');if(!stillBusy)setTimeout(stillScan,0)}}else if(!busy)setTimeout(scan,0);
+});
+$('pause-scan').onclick=()=>{if(!stillMode)return;const finished=!stillBusy&&!stillPending&&(stillStale>=6||stillPass>=18);stillPaused=finished?false:!stillPaused;if(!stillPaused&&finished){stillStale=0;stillPass=0}analysisControls();stillStatus(stillPaused?'Analysis paused':stillBusy?'Pause requested…':'Resuming analysis…');if(!stillPaused&&!stillBusy)setTimeout(stillScan,0);setScanVisual(stillPaused?'paused':focusRequest?'focused':'working')};
+$('live-return').onclick=()=>exitStill();
+$('scan').onclick=()=>{if(!active)return;if(stillMode)exitStill();else enterStill()};
+</script></html>

@@ -1,0 +1,1259 @@
+{
+  "method": "Manual transcription from user-supplied original photo; text-only analyzer checks, no photo OCR execution",
+  "results": [
+    {
+      "engine": "kuromoji",
+      "text": "お客様の声をお聞かせください",
+      "raw": [
+        [
+          "お客様",
+          "オキャクサマ"
+        ],
+        [
+          "の",
+          "ノ"
+        ],
+        [
+          "声",
+          "コエ"
+        ],
+        [
+          "を",
+          "ヲ"
+        ],
+        [
+          "お",
+          "オ"
+        ],
+        [
+          "聞か",
+          "キカ"
+        ],
+        [
+          "せ",
+          "セ"
+        ],
+        [
+          "ください",
+          "クダサイ"
+        ]
+      ],
+      "labels": [
+        {
+          "surface": "お客様",
+          "reading": "オキャクサマ",
+          "romaji": "okyakusama",
+          "review": null
+        },
+        {
+          "surface": "の",
+          "reading": "ノ",
+          "romaji": "no",
+          "review": null
+        },
+        {
+          "surface": "声",
+          "reading": "コエ",
+          "romaji": "koe",
+          "review": null
+        },
+        {
+          "surface": "を",
+          "reading": "ヲ",
+          "romaji": "o",
+          "review": null
+        },
+        {
+          "surface": "お聞かせください",
+          "reading": "オキカセクダサイ",
+          "romaji": "okikasekudasai",
+          "review": null
+        }
+      ]
+    },
+    {
+      "engine": "kuromoji",
+      "text": "本品は高温でやわらかくなった後、冷えて固まると表面が白くなることがあります。",
+      "raw": [
+        [
+          "本",
+          "ホン"
+        ],
+        [
+          "品",
+          "ヒン"
+        ],
+        [
+          "は",
+          "ハ"
+        ],
+        [
+          "高温",
+          "コウオン"
+        ],
+        [
+          "で",
+          "デ"
+        ],
+        [
+          "やわらかく",
+          "ヤワラカク"
+        ],
+        [
+          "なっ",
+          "ナッ"
+        ],
+        [
+          "た",
+          "タ"
+        ],
+        [
+          "後",
+          "ノチ"
+        ],
+        [
+          "、",
+          null
+        ],
+        [
+          "冷え",
+          "ヒエ"
+        ],
+        [
+          "て",
+          "テ"
+        ],
+        [
+          "固まる",
+          "カタマル"
+        ],
+        [
+          "と",
+          "ト"
+        ],
+        [
+          "表面",
+          "ヒョウメン"
+        ],
+        [
+          "が",
+          "ガ"
+        ],
+        [
+          "白く",
+          "シロク"
+        ],
+        [
+          "なる",
+          "ナル"
+        ],
+        [
+          "こと",
+          "コト"
+        ],
+        [
+          "が",
+          "ガ"
+        ],
+        [
+          "あり",
+          "アリ"
+        ],
+        [
+          "ます",
+          "マス"
+        ],
+        [
+          "。",
+          null
+        ]
+      ],
+      "labels": [
+        {
+          "surface": "本品",
+          "reading": "ホンヒン",
+          "romaji": "honhin",
+          "review": null
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "romaji": "wa",
+          "review": null
+        },
+        {
+          "surface": "高温",
+          "reading": "コウオン",
+          "romaji": "kooon",
+          "review": null
+        },
+        {
+          "surface": "で",
+          "reading": "デ",
+          "romaji": "de",
+          "review": null
+        },
+        {
+          "surface": "やわらかく",
+          "reading": "ヤワラカク",
+          "romaji": "yawarakaku",
+          "review": null
+        },
+        {
+          "surface": "なった",
+          "reading": "ナッタ",
+          "romaji": "natta",
+          "review": null
+        },
+        {
+          "surface": "後",
+          "reading": "ノチ",
+          "romaji": "nochi",
+          "review": null
+        },
+        {
+          "surface": "、",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        },
+        {
+          "surface": "冷えて",
+          "reading": "ヒエテ",
+          "romaji": "hiete",
+          "review": null
+        },
+        {
+          "surface": "固まる",
+          "reading": "カタマル",
+          "romaji": "katamaru",
+          "review": null
+        },
+        {
+          "surface": "と",
+          "reading": "ト",
+          "romaji": "to",
+          "review": null
+        },
+        {
+          "surface": "表面",
+          "reading": "ヒョウメン",
+          "romaji": "hyoomen",
+          "review": null
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "romaji": "ga",
+          "review": null
+        },
+        {
+          "surface": "白く",
+          "reading": "シロク",
+          "romaji": "shiroku",
+          "review": null
+        },
+        {
+          "surface": "なる",
+          "reading": "ナル",
+          "romaji": "naru",
+          "review": null
+        },
+        {
+          "surface": "こと",
+          "reading": "コト",
+          "romaji": "koto",
+          "review": null
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "romaji": "ga",
+          "review": null
+        },
+        {
+          "surface": "あります",
+          "reading": "アリマス",
+          "romaji": "arimasu",
+          "review": null
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        }
+      ]
+    },
+    {
+      "engine": "kuromoji",
+      "text": "これは油脂分が分離したもので、風味は劣りますが召し上がっても身体にさしさわりはありません。",
+      "raw": [
+        [
+          "これ",
+          "コレ"
+        ],
+        [
+          "は",
+          "ハ"
+        ],
+        [
+          "油脂",
+          "ユシ"
+        ],
+        [
+          "分",
+          "ブン"
+        ],
+        [
+          "が",
+          "ガ"
+        ],
+        [
+          "分離",
+          "ブンリ"
+        ],
+        [
+          "し",
+          "シ"
+        ],
+        [
+          "た",
+          "タ"
+        ],
+        [
+          "もの",
+          "モノ"
+        ],
+        [
+          "で",
+          "デ"
+        ],
+        [
+          "、",
+          null
+        ],
+        [
+          "風味",
+          "フウミ"
+        ],
+        [
+          "は",
+          "ハ"
+        ],
+        [
+          "劣り",
+          "オトリ"
+        ],
+        [
+          "ます",
+          "マス"
+        ],
+        [
+          "が",
+          "ガ"
+        ],
+        [
+          "召し上がっ",
+          "メシアガッ"
+        ],
+        [
+          "て",
+          "テ"
+        ],
+        [
+          "も",
+          "モ"
+        ],
+        [
+          "身体",
+          "シンタイ"
+        ],
+        [
+          "に",
+          "ニ"
+        ],
+        [
+          "さしさわり",
+          "サシサワリ"
+        ],
+        [
+          "は",
+          "ハ"
+        ],
+        [
+          "あり",
+          "アリ"
+        ],
+        [
+          "ませ",
+          "マセ"
+        ],
+        [
+          "ん",
+          "ン"
+        ],
+        [
+          "。",
+          null
+        ]
+      ],
+      "labels": [
+        {
+          "surface": "これ",
+          "reading": "コレ",
+          "romaji": "kore",
+          "review": null
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "romaji": "wa",
+          "review": null
+        },
+        {
+          "surface": "油脂分",
+          "reading": "ユシブン",
+          "romaji": "yushibun",
+          "review": null
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "romaji": "ga",
+          "review": null
+        },
+        {
+          "surface": "分離した",
+          "reading": "ブンリシタ",
+          "romaji": "bunrishita",
+          "review": null
+        },
+        {
+          "surface": "もの",
+          "reading": "モノ",
+          "romaji": "mono",
+          "review": null
+        },
+        {
+          "surface": "で",
+          "reading": "デ",
+          "romaji": "de",
+          "review": null
+        },
+        {
+          "surface": "、",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        },
+        {
+          "surface": "風味",
+          "reading": "フウミ",
+          "romaji": "fuumi",
+          "review": null
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "romaji": "wa",
+          "review": null
+        },
+        {
+          "surface": "劣ります",
+          "reading": "オトリマス",
+          "romaji": "otorimasu",
+          "review": null
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "romaji": "ga",
+          "review": null
+        },
+        {
+          "surface": "召し上がって",
+          "reading": "メシアガッテ",
+          "romaji": "meshiagatte",
+          "review": null
+        },
+        {
+          "surface": "も",
+          "reading": "モ",
+          "romaji": "mo",
+          "review": null
+        },
+        {
+          "surface": "身体",
+          "reading": "シンタイ",
+          "romaji": "shintai",
+          "review": null
+        },
+        {
+          "surface": "に",
+          "reading": "ニ",
+          "romaji": "ni",
+          "review": null
+        },
+        {
+          "surface": "さしさわり",
+          "reading": "サシサワリ",
+          "romaji": "sashisawari",
+          "review": null
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "romaji": "wa",
+          "review": null
+        },
+        {
+          "surface": "ありません",
+          "reading": "アリマセン",
+          "romaji": "arimasen",
+          "review": null
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        }
+      ]
+    },
+    {
+      "engine": "kuromoji",
+      "text": "十分に注意。十分待ちます。",
+      "raw": [
+        [
+          "十分",
+          "ジュウブン"
+        ],
+        [
+          "に",
+          "ニ"
+        ],
+        [
+          "注意",
+          "チュウイ"
+        ],
+        [
+          "。",
+          null
+        ],
+        [
+          "十分",
+          "ジュウブン"
+        ],
+        [
+          "待ち",
+          "マチ"
+        ],
+        [
+          "ます",
+          "マス"
+        ],
+        [
+          "。",
+          null
+        ]
+      ],
+      "labels": [
+        {
+          "surface": "十分",
+          "reading": "ジュウブン",
+          "romaji": "juubun",
+          "review": null
+        },
+        {
+          "surface": "に",
+          "reading": "ニ",
+          "romaji": "ni",
+          "review": null
+        },
+        {
+          "surface": "注意",
+          "reading": "チュウイ",
+          "romaji": "chuui",
+          "review": null
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        },
+        {
+          "surface": "十分",
+          "reading": "ジュップン",
+          "romaji": "juppun",
+          "review": null
+        },
+        {
+          "surface": "待ちます",
+          "reading": "マチマス",
+          "romaji": "machimasu",
+          "review": null
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        }
+      ]
+    },
+    {
+      "engine": "sudachi-small",
+      "text": "お客様の声をお聞かせください",
+      "raw": [
+        [
+          "お",
+          "オ"
+        ],
+        [
+          "客",
+          "キャク"
+        ],
+        [
+          "様",
+          "サマ"
+        ],
+        [
+          "の",
+          "ノ"
+        ],
+        [
+          "声",
+          "コエ"
+        ],
+        [
+          "を",
+          "ヲ"
+        ],
+        [
+          "お",
+          "オ"
+        ],
+        [
+          "聞か",
+          "キカ"
+        ],
+        [
+          "せ",
+          "セ"
+        ],
+        [
+          "ください",
+          "クダサイ"
+        ]
+      ],
+      "labels": [
+        {
+          "surface": "お",
+          "reading": "オ",
+          "romaji": "o",
+          "review": null
+        },
+        {
+          "surface": "客",
+          "reading": "キャク",
+          "romaji": "kyaku",
+          "review": null
+        },
+        {
+          "surface": "様",
+          "reading": "サマ",
+          "romaji": "sama",
+          "review": null
+        },
+        {
+          "surface": "の",
+          "reading": "ノ",
+          "romaji": "no",
+          "review": null
+        },
+        {
+          "surface": "声",
+          "reading": "コエ",
+          "romaji": "koe",
+          "review": null
+        },
+        {
+          "surface": "を",
+          "reading": "ヲ",
+          "romaji": "o",
+          "review": null
+        },
+        {
+          "surface": "お",
+          "reading": "オ",
+          "romaji": "o",
+          "review": null
+        },
+        {
+          "surface": "聞かせ",
+          "reading": "キカセ",
+          "romaji": "kikase",
+          "review": null
+        },
+        {
+          "surface": "ください",
+          "reading": "クダサイ",
+          "romaji": "kudasai",
+          "review": null
+        }
+      ]
+    },
+    {
+      "engine": "sudachi-small",
+      "text": "本品は高温でやわらかくなった後、冷えて固まると表面が白くなることがあります。",
+      "raw": [
+        [
+          "本",
+          "ホン"
+        ],
+        [
+          "品",
+          "ヒン"
+        ],
+        [
+          "は",
+          "ハ"
+        ],
+        [
+          "高温",
+          "コウオン"
+        ],
+        [
+          "で",
+          "デ"
+        ],
+        [
+          "やわらかく",
+          "ヤワラカク"
+        ],
+        [
+          "なっ",
+          "ナッ"
+        ],
+        [
+          "た",
+          "タ"
+        ],
+        [
+          "後",
+          "アト"
+        ],
+        [
+          "、",
+          null
+        ],
+        [
+          "冷え",
+          "ヒエ"
+        ],
+        [
+          "て",
+          "テ"
+        ],
+        [
+          "固まる",
+          "カタマル"
+        ],
+        [
+          "と",
+          "ト"
+        ],
+        [
+          "表面",
+          "ヒョウメン"
+        ],
+        [
+          "が",
+          "ガ"
+        ],
+        [
+          "白く",
+          "シロク"
+        ],
+        [
+          "なる",
+          "ナル"
+        ],
+        [
+          "こと",
+          "コト"
+        ],
+        [
+          "が",
+          "ガ"
+        ],
+        [
+          "あり",
+          "アリ"
+        ],
+        [
+          "ます",
+          "マス"
+        ],
+        [
+          "。",
+          null
+        ]
+      ],
+      "labels": [
+        {
+          "surface": "本",
+          "reading": "ホン",
+          "romaji": "hon",
+          "review": null
+        },
+        {
+          "surface": "品",
+          "reading": "ヒン",
+          "romaji": "hin",
+          "review": null
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "romaji": "wa",
+          "review": null
+        },
+        {
+          "surface": "高温",
+          "reading": "コウオン",
+          "romaji": "kooon",
+          "review": null
+        },
+        {
+          "surface": "で",
+          "reading": "デ",
+          "romaji": "de",
+          "review": null
+        },
+        {
+          "surface": "やわらかく",
+          "reading": "ヤワラカク",
+          "romaji": "yawarakaku",
+          "review": null
+        },
+        {
+          "surface": "なった",
+          "reading": "ナッタ",
+          "romaji": "natta",
+          "review": null
+        },
+        {
+          "surface": "後",
+          "reading": "アト",
+          "romaji": "ato",
+          "review": null
+        },
+        {
+          "surface": "、",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        },
+        {
+          "surface": "冷えて",
+          "reading": "ヒエテ",
+          "romaji": "hiete",
+          "review": null
+        },
+        {
+          "surface": "固まる",
+          "reading": "カタマル",
+          "romaji": "katamaru",
+          "review": null
+        },
+        {
+          "surface": "と",
+          "reading": "ト",
+          "romaji": "to",
+          "review": null
+        },
+        {
+          "surface": "表面",
+          "reading": "ヒョウメン",
+          "romaji": "hyoomen",
+          "review": null
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "romaji": "ga",
+          "review": null
+        },
+        {
+          "surface": "白く",
+          "reading": "シロク",
+          "romaji": "shiroku",
+          "review": null
+        },
+        {
+          "surface": "なる",
+          "reading": "ナル",
+          "romaji": "naru",
+          "review": null
+        },
+        {
+          "surface": "こと",
+          "reading": "コト",
+          "romaji": "koto",
+          "review": null
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "romaji": "ga",
+          "review": null
+        },
+        {
+          "surface": "あります",
+          "reading": "アリマス",
+          "romaji": "arimasu",
+          "review": null
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        }
+      ]
+    },
+    {
+      "engine": "sudachi-small",
+      "text": "これは油脂分が分離したもので、風味は劣りますが召し上がっても身体にさしさわりはありません。",
+      "raw": [
+        [
+          "これ",
+          "コレ"
+        ],
+        [
+          "は",
+          "ハ"
+        ],
+        [
+          "油脂",
+          "ユシ"
+        ],
+        [
+          "分",
+          "ブン"
+        ],
+        [
+          "が",
+          "ガ"
+        ],
+        [
+          "分離",
+          "ブンリ"
+        ],
+        [
+          "し",
+          "シ"
+        ],
+        [
+          "た",
+          "タ"
+        ],
+        [
+          "もの",
+          "モノ"
+        ],
+        [
+          "で",
+          "デ"
+        ],
+        [
+          "、",
+          null
+        ],
+        [
+          "風味",
+          "フウミ"
+        ],
+        [
+          "は",
+          "ハ"
+        ],
+        [
+          "劣り",
+          "オトリ"
+        ],
+        [
+          "ます",
+          "マス"
+        ],
+        [
+          "が",
+          "ガ"
+        ],
+        [
+          "召し上がっ",
+          "メシアガッ"
+        ],
+        [
+          "て",
+          "テ"
+        ],
+        [
+          "も",
+          "モ"
+        ],
+        [
+          "身体",
+          "シンタイ"
+        ],
+        [
+          "に",
+          "ニ"
+        ],
+        [
+          "さしさわり",
+          "サシサワリ"
+        ],
+        [
+          "は",
+          "ハ"
+        ],
+        [
+          "あり",
+          "アリ"
+        ],
+        [
+          "ませ",
+          "マセ"
+        ],
+        [
+          "ん",
+          "ン"
+        ],
+        [
+          "。",
+          null
+        ]
+      ],
+      "labels": [
+        {
+          "surface": "これ",
+          "reading": "コレ",
+          "romaji": "kore",
+          "review": null
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "romaji": "wa",
+          "review": null
+        },
+        {
+          "surface": "油脂",
+          "reading": "ユシ",
+          "romaji": "yushi",
+          "review": null
+        },
+        {
+          "surface": "分",
+          "reading": "ブン",
+          "romaji": "bun",
+          "review": null
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "romaji": "ga",
+          "review": null
+        },
+        {
+          "surface": "分離",
+          "reading": "ブンリ",
+          "romaji": "bunri",
+          "review": null
+        },
+        {
+          "surface": "した",
+          "reading": "シタ",
+          "romaji": "shita",
+          "review": null
+        },
+        {
+          "surface": "もの",
+          "reading": "モノ",
+          "romaji": "mono",
+          "review": null
+        },
+        {
+          "surface": "で",
+          "reading": "デ",
+          "romaji": "de",
+          "review": null
+        },
+        {
+          "surface": "、",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        },
+        {
+          "surface": "風味",
+          "reading": "フウミ",
+          "romaji": "fuumi",
+          "review": null
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "romaji": "wa",
+          "review": null
+        },
+        {
+          "surface": "劣ります",
+          "reading": "オトリマス",
+          "romaji": "otorimasu",
+          "review": null
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "romaji": "ga",
+          "review": null
+        },
+        {
+          "surface": "召し上がって",
+          "reading": "メシアガッテ",
+          "romaji": "meshiagatte",
+          "review": null
+        },
+        {
+          "surface": "も",
+          "reading": "モ",
+          "romaji": "mo",
+          "review": null
+        },
+        {
+          "surface": "身体",
+          "reading": "シンタイ",
+          "romaji": "shintai",
+          "review": null
+        },
+        {
+          "surface": "に",
+          "reading": "ニ",
+          "romaji": "ni",
+          "review": null
+        },
+        {
+          "surface": "さしさわり",
+          "reading": "サシサワリ",
+          "romaji": "sashisawari",
+          "review": null
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "romaji": "wa",
+          "review": null
+        },
+        {
+          "surface": "ありません",
+          "reading": "アリマセン",
+          "romaji": "arimasen",
+          "review": null
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        }
+      ]
+    },
+    {
+      "engine": "sudachi-small",
+      "text": "十分に注意。十分待ちます。",
+      "raw": [
+        [
+          "十分",
+          "ジュウブン"
+        ],
+        [
+          "に",
+          "ニ"
+        ],
+        [
+          "注意",
+          "チュウイ"
+        ],
+        [
+          "。",
+          null
+        ],
+        [
+          "十分",
+          "ジュウブン"
+        ],
+        [
+          "待ち",
+          "マチ"
+        ],
+        [
+          "ます",
+          "マス"
+        ],
+        [
+          "。",
+          null
+        ]
+      ],
+      "labels": [
+        {
+          "surface": "十分",
+          "reading": "ジュウブン",
+          "romaji": "juubun",
+          "review": null
+        },
+        {
+          "surface": "に",
+          "reading": "ニ",
+          "romaji": "ni",
+          "review": null
+        },
+        {
+          "surface": "注意",
+          "reading": "チュウイ",
+          "romaji": "chuui",
+          "review": null
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        },
+        {
+          "surface": "十分",
+          "reading": "ジュップン",
+          "romaji": "juppun",
+          "review": null
+        },
+        {
+          "surface": "待ちます",
+          "reading": "マチマス",
+          "romaji": "machimasu",
+          "review": null
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "romaji": null,
+          "review": null
+        }
+      ]
+    }
+  ]
+}

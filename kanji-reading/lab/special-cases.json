@@ -1,0 +1,19 @@
+[
+  {
+    "id": "S-name-esaki",
+    "text": "江崎先生に会います。",
+    "target": "江崎",
+    "kind": "identity-dependent-proper-name",
+    "identityReading": "エサキ",
+    "expectedBehavior": "withhold-unverified-name",
+    "note": "エザキも姓として存在するが、本人の読みを与えず正答を一意に決定できない。通常の正答率から除外。"
+  },
+  {
+    "id": "S-oov-han",
+    "text": "龘という字です。",
+    "target": "龘",
+    "kind": "dictionary-coverage",
+    "expectedBehavior": "withhold-if-no-dictionary-reading",
+    "note": "漢字に読みがないという意味ではない。今回の辞書で読めるかを記録し、未登録時の挙動を別枠で検証。"
+  }
+]

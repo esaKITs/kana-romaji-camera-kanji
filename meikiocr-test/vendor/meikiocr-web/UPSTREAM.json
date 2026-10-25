@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/bee-san/meikiocr-web",
+  "commit": "0431493cfc59534bdf9e48be95a9e43c21a206be",
+  "license": "GPL-3.0-only",
+  "files": {
+    "index.js.map": "90648c7ee1df8c363ef60e3b9a67b6336aecd3a364adb6a63454fec925a1d0c9",
+    "worker.js.map": "9e2e6b1d611a71e0013b63f72726830681d14284198e32651fe230cc39ed1155",
+    "worker.js": "23e46a9d3fe1e31947b7464b4ade848ede86ac545f7a45c9ded000b7768b6292",
+    "index.js": "5b319052613313bdb4f864adfb6ccd971bc3fd82d6e65978d9ea1083c7402c7f",
+    "models.lock.json": "23ea22e1b6b0a78480b4ae15fc227498e282f070f92f221bec3559a7036874f3"
+  }
+}

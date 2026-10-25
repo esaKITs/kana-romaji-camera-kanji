@@ -1,0 +1,51 @@
+name: Publish second edition (manual approval only)
+on:
+  workflow_dispatch:
+    inputs:
+      approval:
+        description: 'After owner approval, type PUBLISH_SECOND_EDITION'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: kanji-camera-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.repository == 'esaKITs/kana-romaji-camera-kanji' && inputs.approval == 'PUBLISH_SECOND_EDITION'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run deps
+      - run: |
+          rustup toolchain install 1.99.1 --profile minimal --target wasm32-unknown-unknown
+          rustup default 1.99.1
+      - run: python3 scripts/prepare-research-assets.py
+      - run: npm run prepare:assets
+      - run: npm run build
+      - run: npm test
+      - run: npm run verify:dist
+      - name: Browser integration
+        run: |
+          node meikiocr-test/node_modules/playwright/cli.js install --with-deps chromium
+          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:browser
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

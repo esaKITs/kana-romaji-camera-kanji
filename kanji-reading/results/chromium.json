@@ -1,0 +1,568 @@
+{
+  "environment": "Linux headless Chromium; reading-only workers; no OCR; not a phone or Safari",
+  "browser": "153.0.8010.0",
+  "results": [
+    {
+      "engine": "kuromoji",
+      "initMs": 901.7000000000698,
+      "passed": 21,
+      "cases": 30,
+      "rows": [
+        {
+          "text": "学校へ行きます。",
+          "target": "学校",
+          "expected": "ガッコウ",
+          "actual": "ガッコウ",
+          "pass": true,
+          "analysisAndFormattingMs": 68.69999999995343,
+          "roundTripMs": 981
+        },
+        {
+          "text": "図書館で本を読みます。",
+          "target": "図書館",
+          "expected": "トショカン",
+          "actual": "トショカン",
+          "pass": true,
+          "analysisAndFormattingMs": 0.7999999999301508,
+          "roundTripMs": 1
+        },
+        {
+          "text": "今日は晴れです。",
+          "target": "今日",
+          "expected": "キョウ",
+          "actual": "キョウ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.30000000004656613,
+          "roundTripMs": 0.5999999999767169
+        },
+        {
+          "text": "一日中勉強しました。",
+          "target": "一日",
+          "expected": "イチニチ",
+          "actual": "イチニチ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.8000000000465661,
+          "roundTripMs": 1
+        },
+        {
+          "text": "五月一日は休みです。",
+          "target": "一日",
+          "expected": "ツイタチ",
+          "actual": "イチニチ",
+          "pass": false,
+          "analysisAndFormattingMs": 0.5,
+          "roundTripMs": 0.6999999999534339
+        },
+        {
+          "text": "生物の授業があります。",
+          "target": "生物",
+          "expected": "セイブツ",
+          "actual": "セイブツ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.39999999990686774,
+          "roundTripMs": 0.7000000000698492
+        },
+        {
+          "text": "生物は冷蔵庫に入れてください。",
+          "target": "生物",
+          "expected": "ナマモノ",
+          "actual": "セイブツ",
+          "pass": false,
+          "analysisAndFormattingMs": 0.40000000002328306,
+          "roundTripMs": 0.5
+        },
+        {
+          "text": "人気の店です。",
+          "target": "人気",
+          "expected": "ニンキ",
+          "actual": "ニンキ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.09999999997671694,
+          "roundTripMs": 0.2999999999301508
+        },
+        {
+          "text": "人気のない道を歩きました。",
+          "target": "人気",
+          "expected": "ヒトケ",
+          "actual": "ニンキ",
+          "pass": false,
+          "analysisAndFormattingMs": 0.40000000002328306,
+          "roundTripMs": 0.40000000002328306
+        },
+        {
+          "text": "日本語を勉強します。",
+          "target": "日本語",
+          "expected": "ニホンゴ",
+          "actual": "ニホンゴ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.30000000004656613,
+          "roundTripMs": 0.40000000002328306
+        },
+        {
+          "text": "国際交流会館へ行きます。",
+          "target": "国際交流会館",
+          "expected": "コクサイコウリュウカイカン",
+          "actual": "コクサイコウリュウカイカン",
+          "pass": true,
+          "analysisAndFormattingMs": 0.2999999999301508,
+          "roundTripMs": 0.6999999999534339
+        },
+        {
+          "text": "東京都立大学に行きます。",
+          "target": "東京都立大学",
+          "expected": "トウキョウトリツダイガク",
+          "actual": "トウキョウトリツダイガク",
+          "pass": true,
+          "analysisAndFormattingMs": 0.30000000004656613,
+          "roundTripMs": 0.40000000002328306
+        },
+        {
+          "text": "食べる。",
+          "target": "食べる",
+          "expected": "タベル",
+          "actual": "タベル",
+          "pass": true,
+          "analysisAndFormattingMs": 0.09999999997671694,
+          "roundTripMs": 0.2000000000698492
+        },
+        {
+          "text": "昨日食べました。",
+          "target": "食べました",
+          "expected": "タベマシタ",
+          "actual": "タベマシタ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.5,
+          "roundTripMs": 0.6999999999534339
+        },
+        {
+          "text": "本を読みました。",
+          "target": "読みました",
+          "expected": "ヨミマシタ",
+          "actual": "ヨミマシタ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.5999999999767169,
+          "roundTripMs": 0.6999999999534339
+        },
+        {
+          "text": "山梨大学に留学しています。",
+          "target": "山梨大学",
+          "expected": "ヤマナシダイガク",
+          "actual": "ヤマナシダイガク",
+          "pass": true,
+          "analysisAndFormattingMs": 0.2000000000698492,
+          "roundTripMs": 0.30000000004656613
+        },
+        {
+          "text": "江崎先生に会います。",
+          "target": "江崎",
+          "expected": "エサキ",
+          "actual": "エザキ",
+          "pass": false,
+          "analysisAndFormattingMs": 0.19999999995343387,
+          "roundTripMs": 0.19999999995343387
+        },
+        {
+          "text": "甲府駅で待っています。",
+          "target": "甲府駅",
+          "expected": "コウフエキ",
+          "actual": "コウフエキ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.19999999995343387,
+          "roundTripMs": 0.2999999999301508
+        },
+        {
+          "text": "十月一日です。",
+          "target": "十月一日",
+          "expected": "ジュウガツツイタチ",
+          "actual": "ジュウガツイチニチ",
+          "pass": false,
+          "analysisAndFormattingMs": 0.2000000000698492,
+          "roundTripMs": 0.8000000000465661
+        },
+        {
+          "text": "三本のペンがあります。",
+          "target": "三本",
+          "expected": "サンボン",
+          "actual": "サンホン",
+          "pass": false,
+          "analysisAndFormattingMs": 0.19999999995343387,
+          "roundTripMs": 0.40000000002328306
+        },
+        {
+          "text": "一人で来ました。",
+          "target": "一人",
+          "expected": "ヒトリ",
+          "actual": "イチニン",
+          "pass": false,
+          "analysisAndFormattingMs": 0.09999999997671694,
+          "roundTripMs": 0.2999999999301508
+        },
+        {
+          "text": "二十歳です。",
+          "target": "二十歳",
+          "expected": "ハタチ",
+          "actual": "ニジュウサイ",
+          "pass": false,
+          "analysisAndFormattingMs": 0.09999999997671694,
+          "roundTripMs": 0.09999999997671694
+        },
+        {
+          "text": "銀行へ行きます。",
+          "target": "銀行",
+          "expected": "ギンコウ",
+          "actual": "ギンコウ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.19999999995343387,
+          "roundTripMs": 0.30000000004656613
+        },
+        {
+          "text": "新聞を読みます。",
+          "target": "新聞",
+          "expected": "シンブン",
+          "actual": "シンブン",
+          "pass": true,
+          "analysisAndFormattingMs": 0.09999999997671694,
+          "roundTripMs": 0.30000000004656613
+        },
+        {
+          "text": "恋愛の話です。",
+          "target": "恋愛",
+          "expected": "レンアイ",
+          "actual": "レンアイ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.09999999997671694,
+          "roundTripMs": 0.19999999995343387
+        },
+        {
+          "text": "先生です。",
+          "target": "先生",
+          "expected": "センセイ",
+          "actual": "センセイ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.09999999997671694,
+          "roundTripMs": 0.19999999995343387
+        },
+        {
+          "text": "明日は休みです。",
+          "target": "明日",
+          "expected": "アシタ",
+          "actual": "アシタ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.10000000009313226,
+          "roundTripMs": 0.30000000004656613
+        },
+        {
+          "text": "この絵は上手です。",
+          "target": "上手",
+          "expected": "ジョウズ",
+          "actual": "ジョウズ",
+          "pass": true,
+          "analysisAndFormattingMs": 0.2000000000698492,
+          "roundTripMs": 0.40000000002328306
+        },
+        {
+          "text": "舞台の上手に立ちます。",
+          "target": "上手",
+          "expected": "カミテ",
+          "actual": "ジョウズ",
+          "pass": false,
+          "analysisAndFormattingMs": 0.19999999995343387,
+          "roundTripMs": 0.2999999999301508
+        },
+        {
+          "text": "龘という字です。",
+          "target": "龘",
+          "expected": null,
+          "actual": null,
+          "pass": true,
+          "analysisAndFormattingMs": 0.30000000004656613,
+          "roundTripMs": 0.30000000004656613
+        }
+      ]
+    },
+    {
+      "engine": "sudachi",
+      "initMs": 6174.699999999953,
+      "passed": 23,
+      "cases": 30,
+      "rows": [
+        {
+          "text": "学校へ行きます。",
+          "target": "学校",
+          "expected": "ガッコウ",
+          "actual": "ガッコウ",
+          "pass": true,
+          "analysisAndFormattingMs": 207.20000000006985,
+          "roundTripMs": 6401.099999999977
+        },
+        {
+          "text": "図書館で本を読みます。",
+          "target": "図書館",
+          "expected": "トショカン",
+          "actual": "トショカン",
+          "pass": true,
+          "analysisAndFormattingMs": 174.40000000002328,
+          "roundTripMs": 174.59999999997672
+        },
+        {
+          "text": "今日は晴れです。",
+          "target": "今日",
+          "expected": "キョウ",
+          "actual": "キョウ",
+          "pass": true,
+          "analysisAndFormattingMs": 161.79999999993015,
+          "roundTripMs": 162.09999999997672
+        },
+        {
+          "text": "一日中勉強しました。",
+          "target": "一日",
+          "expected": "イチニチ",
+          "actual": "イチニチ",
+          "pass": true,
+          "analysisAndFormattingMs": 166.90000000002328,
+          "roundTripMs": 167
+        },
+        {
+          "text": "五月一日は休みです。",
+          "target": "一日",
+          "expected": "ツイタチ",
+          "actual": "ツイタチ",
+          "pass": true,
+          "analysisAndFormattingMs": 159.59999999997672,
+          "roundTripMs": 159.79999999993015
+        },
+        {
+          "text": "生物の授業があります。",
+          "target": "生物",
+          "expected": "セイブツ",
+          "actual": "セイブツ",
+          "pass": true,
+          "analysisAndFormattingMs": 161.09999999997672,
+          "roundTripMs": 161.30000000004657
+        },
+        {
+          "text": "生物は冷蔵庫に入れてください。",
+          "target": "生物",
+          "expected": "ナマモノ",
+          "actual": "セイブツ",
+          "pass": false,
+          "analysisAndFormattingMs": 158.20000000006985,
+          "roundTripMs": 158.5
+        },
+        {
+          "text": "人気の店です。",
+          "target": "人気",
+          "expected": "ニンキ",
+          "actual": "ニンキ",
+          "pass": true,
+          "analysisAndFormattingMs": 160.59999999997672,
+          "roundTripMs": 160.69999999995343
+        },
+        {
+          "text": "人気のない道を歩きました。",
+          "target": "人気",
+          "expected": "ヒトケ",
+          "actual": "ニンキ",
+          "pass": false,
+          "analysisAndFormattingMs": 160.60000000009313,
+          "roundTripMs": 160.70000000006985
+        },
+        {
+          "text": "日本語を勉強します。",
+          "target": "日本語",
+          "expected": "ニホンゴ",
+          "actual": "ニッポンゴ",
+          "pass": false,
+          "analysisAndFormattingMs": 163.59999999997672,
+          "roundTripMs": 163.79999999993015
+        },
+        {
+          "text": "国際交流会館へ行きます。",
+          "target": "国際交流会館",
+          "expected": "コクサイコウリュウカイカン",
+          "actual": "コクサイコウリュウカイカン",
+          "pass": true,
+          "analysisAndFormattingMs": 154.89999999990687,
+          "roundTripMs": 155.30000000004657
+        },
+        {
+          "text": "東京都立大学に行きます。",
+          "target": "東京都立大学",
+          "expected": "トウキョウトリツダイガク",
+          "actual": "トウキョウトリツダイガク",
+          "pass": true,
+          "analysisAndFormattingMs": 151.20000000006985,
+          "roundTripMs": 151.40000000002328
+        },
+        {
+          "text": "食べる。",
+          "target": "食べる",
+          "expected": "タベル",
+          "actual": "タベル",
+          "pass": true,
+          "analysisAndFormattingMs": 153.40000000002328,
+          "roundTripMs": 153.5
+        },
+        {
+          "text": "昨日食べました。",
+          "target": "食べました",
+          "expected": "タベマシタ",
+          "actual": "タベマシタ",
+          "pass": true,
+          "analysisAndFormattingMs": 164.80000000004657,
+          "roundTripMs": 165
+        },
+        {
+          "text": "本を読みました。",
+          "target": "読みました",
+          "expected": "ヨミマシタ",
+          "actual": "ヨミマシタ",
+          "pass": true,
+          "analysisAndFormattingMs": 155.40000000002328,
+          "roundTripMs": 155.59999999997672
+        },
+        {
+          "text": "山梨大学に留学しています。",
+          "target": "山梨大学",
+          "expected": "ヤマナシダイガク",
+          "actual": "ヤマナシダイガク",
+          "pass": true,
+          "analysisAndFormattingMs": 154.80000000004657,
+          "roundTripMs": 155
+        },
+        {
+          "text": "江崎先生に会います。",
+          "target": "江崎",
+          "expected": "エサキ",
+          "actual": "エザキ",
+          "pass": false,
+          "analysisAndFormattingMs": 156.5,
+          "roundTripMs": 156.70000000006985
+        },
+        {
+          "text": "甲府駅で待っています。",
+          "target": "甲府駅",
+          "expected": "コウフエキ",
+          "actual": "コウフエキ",
+          "pass": true,
+          "analysisAndFormattingMs": 153.29999999993015,
+          "roundTripMs": 153.59999999997672
+        },
+        {
+          "text": "十月一日です。",
+          "target": "十月一日",
+          "expected": "ジュウガツツイタチ",
+          "actual": "ジュウガツツイタチ",
+          "pass": true,
+          "analysisAndFormattingMs": 152.69999999995343,
+          "roundTripMs": 153
+        },
+        {
+          "text": "三本のペンがあります。",
+          "target": "三本",
+          "expected": "サンボン",
+          "actual": "サンポン",
+          "pass": false,
+          "analysisAndFormattingMs": 151.40000000002328,
+          "roundTripMs": 151.59999999997672
+        },
+        {
+          "text": "一人で来ました。",
+          "target": "一人",
+          "expected": "ヒトリ",
+          "actual": "ヒトリ",
+          "pass": true,
+          "analysisAndFormattingMs": 156.40000000002328,
+          "roundTripMs": 156.59999999997672
+        },
+        {
+          "text": "二十歳です。",
+          "target": "二十歳",
+          "expected": "ハタチ",
+          "actual": "ハタチ",
+          "pass": true,
+          "analysisAndFormattingMs": 155.80000000004657,
+          "roundTripMs": 156
+        },
+        {
+          "text": "銀行へ行きます。",
+          "target": "銀行",
+          "expected": "ギンコウ",
+          "actual": "ギンコウ",
+          "pass": true,
+          "analysisAndFormattingMs": 152.5,
+          "roundTripMs": 152.70000000006985
+        },
+        {
+          "text": "新聞を読みます。",
+          "target": "新聞",
+          "expected": "シンブン",
+          "actual": "シンブン",
+          "pass": true,
+          "analysisAndFormattingMs": 241.29999999993015,
+          "roundTripMs": 241.5
+        },
+        {
+          "text": "恋愛の話です。",
+          "target": "恋愛",
+          "expected": "レンアイ",
+          "actual": "レンアイ",
+          "pass": true,
+          "analysisAndFormattingMs": 154.29999999993015,
+          "roundTripMs": 154.5
+        },
+        {
+          "text": "先生です。",
+          "target": "先生",
+          "expected": "センセイ",
+          "actual": "センセイ",
+          "pass": true,
+          "analysisAndFormattingMs": 147.40000000002328,
+          "roundTripMs": 147.69999999995343
+        },
+        {
+          "text": "明日は休みです。",
+          "target": "明日",
+          "expected": "アシタ",
+          "actual": "アス",
+          "pass": false,
+          "analysisAndFormattingMs": 151.90000000002328,
+          "roundTripMs": 152.09999999997672
+        },
+        {
+          "text": "この絵は上手です。",
+          "target": "上手",
+          "expected": "ジョウズ",
+          "actual": "ジョウズ",
+          "pass": true,
+          "analysisAndFormattingMs": 148.5,
+          "roundTripMs": 148.80000000004657
+        },
+        {
+          "text": "舞台の上手に立ちます。",
+          "target": "上手",
+          "expected": "カミテ",
+          "actual": "ジョウズ",
+          "pass": false,
+          "analysisAndFormattingMs": 213.5,
+          "roundTripMs": 213.59999999997672
+        },
+        {
+          "text": "龘という字です。",
+          "target": "龘",
+          "expected": null,
+          "actual": null,
+          "pass": true,
+          "analysisAndFormattingMs": 207.10000000009313,
+          "roundTripMs": 207.40000000002328
+        }
+      ]
+    }
+  ],
+  "network": {
+    "requests": 50,
+    "external": 0,
+    "nonGet": 0
+  },
+  "pageErrors": []
+}

@@ -1,0 +1,1104 @@
+{
+  "purpose": "migration preparation only; not a runnable release or deployment artifact",
+  "upstream": "https://github.com/esaKITs/kana-romaji-camera",
+  "pr": "https://github.com/esaKITs/kana-romaji-camera/pull/26",
+  "prHead": "e3ae1bf64d9f341f1be69ca26bc3df2df135a47e",
+  "localCommit": "36c1de2457ea6d7546e0a8ee23585f7ee2235653",
+  "tree": "bdb11a0271976d831b212130fe4287e6010695bb",
+  "targetRepository": "esaKITs/kana-romaji-camera-kanji",
+  "files": [
+    {
+      "path": "kanji-reading/CAMERA-PROTOTYPE-REPORT.md",
+      "bytes": 2678,
+      "sha256": "807f87a45703b7afb547cb25f17f7958a58ec177f8b33c3c31997bf678c51603",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/CURVED-LABEL-REPORT.md",
+      "bytes": 1983,
+      "sha256": "8fc2fe80d6dbe792c06a7cd12f75961d6ccec4a511cf19e922ac2269e46c721a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/DEVELOPMENT.md",
+      "bytes": 2098,
+      "sha256": "0f74c78feb1b53e14d99b20fc6f811f9572afccf5464e5d8d9e75d9b8f952228",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/DISPLAY-TOKENS-REPORT.md",
+      "bytes": 3048,
+      "sha256": "4237eed674f49497ca40d29a8387b0f9620e65ffa50f9259a3b351a42c09b239",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/EVALUATION-100-RESULTS.md",
+      "bytes": 11991,
+      "sha256": "bff4854d946713620f479e0862a45557ca7f428f9438c0cc329c69dae9a5ceeb",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/LIVE-LANDSCAPE-REPORT.md",
+      "bytes": 3105,
+      "sha256": "da2cd7b7ad2d342399ecf843fc0ef6b4377ab1ba94e43db739de36b19d32000d",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/MANICHI-REPORT.md",
+      "bytes": 2149,
+      "sha256": "1f9115f55e993324f7ba2ffba5db75a45dfed7ceefedde86d0026b709d0f08e2",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/NUMERIC-BASE-100-RESULTS.md",
+      "bytes": 17476,
+      "sha256": "a45b8b67402c8beb4ef8f44fdbb0ab2f78e2ebfbae35f3b64170e6c4a6577124",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/NUMERIC-EXTRA-100-RESULTS.md",
+      "bytes": 17088,
+      "sha256": "87af4dbb66e3cc7f5e5344704f01f0280f204ef5889a394764a323e2501fc5de",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/NUMERIC-READING-REPORT.md",
+      "bytes": 10271,
+      "sha256": "470f86609b6cbeaacf053ac91f86d3301d75efff9d25e79520155eac93c478b4",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/OCR-RUBY-STILL-REPORT.md",
+      "bytes": 8870,
+      "sha256": "956871cc31d2ab0f100b5683eacc73041740889a6d4106b20b0715635f2c3bd0",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/PAPER-MOTION-REPORT.md",
+      "bytes": 2913,
+      "sha256": "c88717324e07e6daa1e2773754ef09b18c9459235c1d56ebd34b9917aa525c32",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/PARTICLE-ANCHOR-REPORT.md",
+      "bytes": 2082,
+      "sha256": "6cf373f2c5fce8c5182d01336de1c1dc0bfb74358f96e9e59d0cbf6063c7a383",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/PHASE1-2-REPORT.md",
+      "bytes": 18885,
+      "sha256": "77dbe44f2321e1639552d9f3e3cba69f351c4c6a561a2e2d1bd37ec8428c3123",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/PHASE2-CONTINUATION-REPORT.md",
+      "bytes": 16272,
+      "sha256": "f0f5cf815b388fa8410ad5208c86f20d3c7cb03d44a0c89975839310c5155630",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/SOURCE-COVER-REPORT.md",
+      "bytes": 2271,
+      "sha256": "868123dfa01813bc0db7d41a5e484db9760a4829bc1800f74cdd05efa2c0fd30",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/STILL-LAYOUT-REPORT.md",
+      "bytes": 4019,
+      "sha256": "cb9f847892f3532d8c0da2b943ec0537107fc5b004dc46cd0ce56c4d6f504180",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/TE-IRU-REPORT.md",
+      "bytes": 1810,
+      "sha256": "8df36494b803edb20e2925ae240f7c34aa8e8fd9703ffeb50ef099434376fe55",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/TECHNOLOGY-NOTE.md",
+      "bytes": 4607,
+      "sha256": "be6d593d34e37ad60bd5328647e30f4e727f7b591430052d4e854a96534ce1e1",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/camera-prototype/base.css",
+      "bytes": 15814,
+      "sha256": "f1ed27d844fb3b6ec1fe1338da69ee0d071ad7d5646ccab513d4e5a33d2919f3",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/camera-prototype/camera.css",
+      "bytes": 4216,
+      "sha256": "a4a0e306709cd843e390feabe79a4f64b869d1c01264e31f4fac90bfd9953719",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/camera-prototype/index.html",
+      "bytes": 5706,
+      "sha256": "4ab4b8a9468e64a7c1b953df933160e6678add2ee8e3756c76d1031fe5610131",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/camera-prototype/main.mjs",
+      "bytes": 11649,
+      "sha256": "4508b2340c8de5b92b6f51bb17555271dc292a3d92780e9641f48cfdeeb644b3",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/camera-prototype/motion.mjs",
+      "bytes": 2557,
+      "sha256": "182500f75370956c96d9dc0376b4f55d07b0355159d48e99b0ff199dbb35b27d",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/camera-prototype/paint.mjs",
+      "bytes": 1370,
+      "sha256": "135681ccc2c3a59536318ad3d019ed266f261b2f3997c213d0ef1bc1c55ec9c9",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/camera-prototype/session.mjs",
+      "bytes": 451,
+      "sha256": "8811c08d80c778a706c00cf9c07266e9bee77675e0f9d3079d228c23932d3487",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/camera-prototype/vite.config.mjs",
+      "bytes": 550,
+      "sha256": "0d1ca6b3fde9524db5f3126123037ca44aef7e935e228992f15afa6e29226be4",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/camera-prototype/zoom.mjs",
+      "bytes": 3625,
+      "sha256": "f369653ac980eccba00c037aee92af65e3cbf82141056dd8bdb608432c755ef1",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/.gitignore",
+      "bytes": 25,
+      "sha256": "c0dc33bd76e95de215e1e70fd5f33d4f3153ba41904c778f7b3f4bea77dc0917",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/README.md",
+      "bytes": 2966,
+      "sha256": "9601224bc8dc446e55dfe2a5f026aaf6a33cd01362e69a43b9295a6899a921a6",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/V2-README.md",
+      "bytes": 5564,
+      "sha256": "470f7ac41c0c5f552f13a146b2c47377d8db2a34a776b99b5a39a742b588cfaa",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/assets-v2.lock.json",
+      "bytes": 1694,
+      "sha256": "42e920bc79adb1a93ff4957c3fab094ab047810c10338641aaa9a905cc8ac784",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/cases.json",
+      "bytes": 2195,
+      "sha256": "99e54dc7d5e5570427ce97a42fb511ad44f68da3341ea8e10c54a90f2b8e2c87",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/evaluation-100.json",
+      "bytes": 45590,
+      "sha256": "85b046c9b3d25491258b5b026c6d86b4905b96c2397bf82c11a4e3ec9f31d950",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/index.html",
+      "bytes": 1326,
+      "sha256": "d7eb8132be96146b5ffee1ff8da2c0c9f6ff29d3d092dafc35f114565c29b767",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/main.js",
+      "bytes": 1493,
+      "sha256": "93ce44793d86fdd48bf6e28ca1e3f96acd7e3761d04356c1e4f1c6b17eb28bf8",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/numeric-extra-100.json",
+      "bytes": 20445,
+      "sha256": "dd0f9c69f517fde5d7a74dc2827598b7741943fc9cad277bc53b5605c418ad53",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/original-30-reviewed.json",
+      "bytes": 7670,
+      "sha256": "c708050b1c282dbf70fe12fd400b86952c8b664f13e2247a7a21d81c97935025",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/package-lock.json",
+      "bytes": 2178,
+      "sha256": "35bb2333fac7ddc40d0d664a3b5cb6a69c851e7ca4b5071dad436bbe67d9a185",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/package.json",
+      "bytes": 807,
+      "sha256": "a984ed3c91a76a8d0e3408b35c3cb86aef2243200993ca1a77f7f1c120ebe2da",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/benchmark-regions.mjs",
+      "bytes": 1507,
+      "sha256": "5590d4fe06b8acb263f811b6fc4fae0b3e018b90b3098782521d657a8b9e6a33",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/benchmark.mjs",
+      "bytes": 3561,
+      "sha256": "b7129d81a46af15eec0a5684152bb225d88e7ded44568dffb47b605e12e6475b",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/browser-evaluate-v2.mjs",
+      "bytes": 3541,
+      "sha256": "48cfb24e1529940438735450ec862c70ce0556917e1807e5d7674d58caa4cce4",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/browser-numeric.mjs",
+      "bytes": 2968,
+      "sha256": "20750fa5c160d54361480e14a0b5e3420c4916b0d4d218e4be549428cccb297e",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/browser-server-v2.mjs",
+      "bytes": 1164,
+      "sha256": "9d5d27afd1c244206039f2c28332d7854bfcfb2177791fcf015aabf3badee28b",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/browser-test.mjs",
+      "bytes": 3361,
+      "sha256": "8d3fc672dbe7417e86793c86695e6a59e09a07fb9c9cdd915c91932a3e730eae",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/cdp-worker-memory.mjs",
+      "bytes": 1200,
+      "sha256": "7ac448320e485afebb2ea42c3f699da81393806873f3ac4f950220cb85e1c12f",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/check-gold.py",
+      "bytes": 3106,
+      "sha256": "c65bb98cad514d90c2bb013a481d3c168420536f9d54ac82de767c578cc5aabc",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/check-package-text.mjs",
+      "bytes": 1740,
+      "sha256": "b44ad7a1c7525216456f315f3a251a5896edea9c4fd28c108226f684efaf9763",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/evaluate-numeric.mjs",
+      "bytes": 1949,
+      "sha256": "831376c2944eb7c5c4c13eb8e40abcc3af7d6cc1f4ade64569bf2bd4b44ed091",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/evaluate-v2.mjs",
+      "bytes": 1639,
+      "sha256": "1a42290bcf1f716df9683e260f75c759956d5e0c5c55f7f4eb41e64ae5f685b5",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/generate-romanizer.mjs",
+      "bytes": 1119,
+      "sha256": "ee5a1c024948e840da6dbc2ab71045142c0e19b305814181508eec961d59ddcd",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/layout-browser-test.mjs",
+      "bytes": 2832,
+      "sha256": "b024f7d4105b23bd08472030a91cbd7d9767eede199e6834493b4a302a735677",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/make-fixtures.cjs",
+      "bytes": 992,
+      "sha256": "8df8d51578829e6d89b79c9411ae94c721f62e3c68aae74b78718d83ce305386",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/make-numeric-fixture.cjs",
+      "bytes": 656,
+      "sha256": "24ea7e70fcc58257e5be5e9204cdc5f3afa5c4494527391ae9fdc4932130d1f6",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/node-ocr-worker.mjs",
+      "bytes": 611,
+      "sha256": "845709cbdd374143546ffa4e1b32e66e8a3cb8f3d1fe13f5a57c4cfc0428eebc",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/node-photo-ocr.mjs",
+      "bytes": 2404,
+      "sha256": "7ca1529bdce23b690ee6c4b56a48a13ef8660f32fe2d3dcbba7431a5e32f035d",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/prepare-v2.py",
+      "bytes": 3977,
+      "sha256": "0d842a841f99f02b45b518f4bee2b30cf8f2d1beaf38dfae127f52c27e8d2099",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/render-source-cover.mjs",
+      "bytes": 1125,
+      "sha256": "e5437d3a065fc1f6930f451fd8fe0a9da2ab7f07f32c7db4fcf532625af37a22",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/review-original-30.mjs",
+      "bytes": 1822,
+      "sha256": "b2a526a83dd1ebdc4037c37b778274d950112b4654483ea42bc14fb3830c4bda",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/serve.mjs",
+      "bytes": 1129,
+      "sha256": "84cf16c81a0e0bb05bedf44b323bb314d4348ec64e4fafe0ed6b9c010d6ee8f9",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/still-browser-test.mjs",
+      "bytes": 3562,
+      "sha256": "015116e94e2e2d05d508176951a85d2545df4488048ec640685cb5a4fe04c3de",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/scripts/still-numeric-test.mjs",
+      "bytes": 3321,
+      "sha256": "cd9255dc0ebf53914546d17be850b0f42c66feebf6a922cb311bdf3525411f57",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/special-cases.json",
+      "bytes": 743,
+      "sha256": "32e9342f31e2b62aeef49a2a05d0cc70f7bab7d64e285c2e1cfb74d4206d6ca2",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/src/adapters.mjs",
+      "bytes": 2812,
+      "sha256": "44e47319069ee764fee298c577b047d2fec71d0c0473367f3e9afc5e21af21d2",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/src/engines.mjs",
+      "bytes": 2178,
+      "sha256": "35d7730b451a1eea1274dbf078efdfb404846a3bf150a71de592bb07e360e436",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/src/evaluation.mjs",
+      "bytes": 2060,
+      "sha256": "9e026bc51f097fa293d6f289f14632f8107ed100572a271fd13c025bea408188",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/src/format.mjs",
+      "bytes": 1227,
+      "sha256": "2e76c3931129d936e415373956746c771d69150f6851f3d2e5b0eacdcadd74c3",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/src/numeric-reading.mjs",
+      "bytes": 10690,
+      "sha256": "de42fcfd0c8a3836ab5778073e131b12f37a24afe6608cbebd811721f423cce1",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/src/policy.mjs",
+      "bytes": 2055,
+      "sha256": "57d040e0b7d6387b4dca8d005958f69b007c0547e1050f53cf3017871ecc9e38",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/camera-live.test.mjs",
+      "bytes": 5839,
+      "sha256": "032d1f1cf7e5457e5ee2c3cf5eefa6ca5c6de42b5ae3d12261a4d32ce9af8d4d",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/camera-session.test.mjs",
+      "bytes": 1250,
+      "sha256": "d171afb1d94af518833f9c2a501f5364f0c5c5fbbc5f9f2d633600272bb8dc2a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/contracts.test.mjs",
+      "bytes": 4243,
+      "sha256": "f9acb6d0a4cf00486a17fcc6e480aaf480d2debf96963dd12cac342b93fbf512",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/display-tokens.test.mjs",
+      "bytes": 2875,
+      "sha256": "a2cc24fd44de0bb975f181a01e1ebc0d8110d730d4cea6776083b12476f57509",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/evaluation-v2.test.mjs",
+      "bytes": 3954,
+      "sha256": "954ab6f5521eaa903f09c22d4447f703a7a4208e6efebb1aad092bfc8a0fcbc2",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/layout.test.mjs",
+      "bytes": 4703,
+      "sha256": "3ee347ae12fe0c428ddbbdfe26cb860b7fff2ff88d2bab27f8cbc76f07a48edb",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/lexical-marker.test.mjs",
+      "bytes": 2307,
+      "sha256": "0adb0eb8a82fe9f850a1b5738bd78f5609a5264077f5b659f271e0e11389a8b2",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/motion.test.mjs",
+      "bytes": 1773,
+      "sha256": "e9be62e3c145dd2d026a0bfe8efa12bc5e008ba93f3e50a1b9aab2c91b95e12e",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/numeric-reading.test.mjs",
+      "bytes": 4707,
+      "sha256": "9bfe2571b24550245dc4da317ae13a791ce77ec5cfe56f89a06feb497cb047ee",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/paper.test.mjs",
+      "bytes": 2128,
+      "sha256": "8a63b689762759ffb65fa173f79cbd8f13fae441b16d03e1998540e01c87c0b8",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/source-cover.test.mjs",
+      "bytes": 2397,
+      "sha256": "6ceaa78ccb84168a7caf1a6204cb1363c3fc8066e2a502a197aa35df222796e5",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/te-iru.test.mjs",
+      "bytes": 1441,
+      "sha256": "2f49f907204fed15524cd0a6c485a265f60258b513174ee39c15a549013a527a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/tests/textbook-regions.test.mjs",
+      "bytes": 6088,
+      "sha256": "c7ac894ccc636e7079376fc59047aa906c55b55b0c383a91cc19c8463cf588c4",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/worker-v2.js",
+      "bytes": 987,
+      "sha256": "21dc382b3f5a7bf5db5c9c04aa5120d0f5a6d2fef5df44de0a846ee151c884dc",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/worker.js",
+      "bytes": 1421,
+      "sha256": "4cecc7766171b5b29e58cc45027a2f5c7dad10198a373c6bfcf1eacf0d8c6999",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/EVALUATION-DATA-NOTICE.md",
+      "bytes": 2299,
+      "sha256": "39940acddad676ce81a7627fe1c0716d7889b519ce696842c20c82b13abb7e80",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/NotoSansJP-OFL.txt",
+      "bytes": 4387,
+      "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/async-MIT.txt",
+      "bytes": 1063,
+      "sha256": "d9fed24f132985934fca621c4dc1dfb53e03377a24d0568d424383d7eaa9c0ac",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/doublearray-MIT.txt",
+      "bytes": 1079,
+      "sha256": "3f16fbaaaf98d1ba9ad570a1b79799d4932198324b382aa4cad1270fd09f02e3",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/kuromoji-Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/kuromoji-IPADIC-NOTICE.md",
+      "bytes": 4263,
+      "sha256": "fab84e2471dada5afa7ea4226b629f3fda414f9b50b62b4f832f8b57fe9addd7",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/lodash-MIT.txt",
+      "bytes": 1952,
+      "sha256": "f71e8ed126b46346494aad5486874cd8f0aafe95092ed67d2e3cb6110f939abc",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/sudachi-0.1.5-README-and-dictionary-notices.md",
+      "bytes": 7827,
+      "sha256": "bdc6a8d555867fbc7352a174c6e30506e9f60fbc2bd68d0537453f1bffc98598",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/sudachi-Apache-2.0.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/sudachi-separated-Apache-2.0.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/sudachi-separated-Cargo.lock",
+      "bytes": 11346,
+      "sha256": "b28748cb5bd0dab693063059df221de07398d37a262f20df2ecbac0dd57e877f",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/licenses/zlibjs-MIT.txt",
+      "bytes": 1222,
+      "sha256": "131afe3f7bdce1698beb292fb8de1a968de01bce876122a60ef5db230471c866",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/anchor-layout-tests.txt",
+      "bytes": 4498,
+      "sha256": "8a76dec5d153061800506c5a01b89cee0eed8de7a3aa2ab2f9ba135589d9165a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/baseline-tests.txt",
+      "bytes": 16460,
+      "sha256": "f98b8b1a36c751a9cf76abd65f309861bd15056e7cb6ba5ee5946031f133c010",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/camera-session-tests.txt",
+      "bytes": 5142,
+      "sha256": "0e72b3c988d0d4d494413198a15e9b3480e104c6cad3da2148fc35d90cc0868a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/chromium.json",
+      "bytes": 18637,
+      "sha256": "9b58de1d516e98017128f17915978e0ec9356d5d2e2a8b6efd264607884f2280",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/curved-label-tests.txt",
+      "bytes": 6733,
+      "sha256": "4657e3cf40b291c4b88f3fa63011c83eeaccd92fa3125055ba8044db03706fd6",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/display-token-tests.txt",
+      "bytes": 4423,
+      "sha256": "f35cd84f295108a723fba600d434ab089d8344440c07ca4f83867cf982222d41",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/kuromoji.json",
+      "bytes": 59022,
+      "sha256": "75071be3328e0bf8f1af90f06d3457e3ec1513afcfa6c6739b42cbc941c3b30b",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/lab-tests.txt",
+      "bytes": 1279,
+      "sha256": "d1858ecf3855542daf5cf45d4d03f777d596e7d10859a8d3553e792720cf4b28",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/layout-chromium.json",
+      "bytes": 70382,
+      "sha256": "a120c75aaf2f5b659946cba6669c98cc27440b1feca58b5c1a480595eee41507",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/layout-unit-tests.txt",
+      "bytes": 3719,
+      "sha256": "60add55d044b07175a7671b91cfb9ceb51f4cf5cdbf40dd26ad06549938f560c",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/lexical-marker-tests.txt",
+      "bytes": 4887,
+      "sha256": "35901b128126f1c2b628c9559b34ee923e8c124b7affb42262ffaae2400965b6",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/live-landscape-tests.txt",
+      "bytes": 6557,
+      "sha256": "2c012090442f29de5c8e346dfc2a26111825258c9aef618d70a37194b8a47545",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/motion-tests.txt",
+      "bytes": 5544,
+      "sha256": "e32acded117ee516e66389742685dee119867d6608be1c87d0b4af6b4a5e5e24",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/numeric-chromium.json",
+      "bytes": 128367,
+      "sha256": "475790b06f67302e663d9e0b4a0bad2aff814e45e7be2a700a6c81037109ba8c",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/numeric-kuromoji.json",
+      "bytes": 199943,
+      "sha256": "816e4a09ca62f4cd54206104cf7317ee789c11b1b744c413677420d2995577b0",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/numeric-still.json",
+      "bytes": 46748,
+      "sha256": "71742195b8ee4859f1d0b0216799d675da71bb8c69582ebb99f28881fa0bae3a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/numeric-sudachi-small.json",
+      "bytes": 206094,
+      "sha256": "78003b822e8d40814a60516a5c34dabd31fa692fb03c32b8f31c8d662b44be8b",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/numeric-unit-tests.txt",
+      "bytes": 3110,
+      "sha256": "74eb8c5d35fda3fd7357bdc641bd767f8f0757cd8372a29ff03f9b6b672a970c",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/ocr-ruby-still-benchmark.json",
+      "bytes": 666,
+      "sha256": "23e4b274d2bda010288edb6e7389c0d6b478fd7a19fbbf20f66058a1b4a496e9",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/ocr-ruby-still-tests.json",
+      "bytes": 1935,
+      "sha256": "11c30e3a4e8e9da74df5b4b1e0848fb358439af983bf1b9ae03a4d291b8f7277",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/ocr-ruby-still-tests.txt",
+      "bytes": 13834,
+      "sha256": "e13c17565d37fbbf770b023dc27a5212a7dcef2da3fa003713bb5b5cf813be10",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/package-text-reading.json",
+      "bytes": 24633,
+      "sha256": "7a11545cc1f9edf28869658817602eefd0c6a882e8c8ff95625720831a35cb26",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/paper-motion-tests.txt",
+      "bytes": 5984,
+      "sha256": "e0a81edd9331a1dd50c3ff0d0085073a74211aadc0b051d112e743edfe0162ae",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/readings.csv",
+      "bytes": 4304,
+      "sha256": "afb07a220ae4f2faa45e62da90cb3be8e6fe93813ab5343675b857292edf7c32",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/source-cover-tests.txt",
+      "bytes": 4021,
+      "sha256": "cdfc2a2d2507b5c9a94d2c4cd493402faecb5ce7c3db9c3ca2da5a53d699bd7a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/source-cover.json",
+      "bytes": 119277,
+      "sha256": "b43ebd2474ec8247a385fb98a28a3d2588f5025c7afdebe195d67af65cb65f35",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/source-cover.png",
+      "bytes": 56324,
+      "sha256": "a6e6566888a0d3cefff39ad90367cfbdd9ed3507dbdf9570e571839e9e5e3a07",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/still-numeric.png",
+      "bytes": 70569,
+      "sha256": "9854879ac405ba168c69320037b26a6b0779c78df7b298cb611cf490f6f02430",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/still-okurigana.png",
+      "bytes": 16949,
+      "sha256": "3a313aacf46325473af5a234dfa7a852fb02641183f916c5f8bf639f307ea955",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/still-plain.png",
+      "bytes": 24933,
+      "sha256": "c7732f43f7e2b86acefd3fdfd2b0ea668a8c695dceb03c445feebc4f32992092",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/still-ruby-food.png",
+      "bytes": 20405,
+      "sha256": "edc07140509137e8458c951d9d93cae735335c141ca77ddbb6ebc32b21d632af",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/still-ruby-school.png",
+      "bytes": 21841,
+      "sha256": "97314f45d49ce1ed53e83355a1c0a5610ff24f080bca3ebe776c155a2ced2ba2",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/sudachi.json",
+      "bytes": 68559,
+      "sha256": "07376957e19637a8b0a8613f33f3ccf390c99112585ed8bf97f417313491e5ae",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/te-iru-tests.txt",
+      "bytes": 6161,
+      "sha256": "57e2c89f44edd4f0b5fef9d788c2137d7df5d1c15d8c05bf532b5d82856de596",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/v2-baseline-tests.txt",
+      "bytes": 16446,
+      "sha256": "c2b44916f7cb6711e2b429aa1684dd366266e8d9b2ba3ac4cfb107166c445018",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/v2-chromium.json",
+      "bytes": 112844,
+      "sha256": "7175596cc61b3daf8214b240458712ffc420cd1e30ac23ede45d27933ad62218",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/v2-gold-lexical-check.json",
+      "bytes": 15916,
+      "sha256": "79a0c45410df67af47847f957888086308621463df6def41252f599074451dab",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/v2-kuromoji.json",
+      "bytes": 57748,
+      "sha256": "e03a5a6aa9331f46f2468fb6ea76195b80b9946e3eae8041e7d18fc532513883",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/v2-original-30-review.json",
+      "bytes": 35234,
+      "sha256": "996078ba6c6515709e278b7749375211dc1cf51548f62222df6c7a8be93d1d07",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/v2-still.json",
+      "bytes": 57889,
+      "sha256": "5b64bb5039e82e436200915099e56847665dc25f95f2132c120404094da8619a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/v2-sudachi-small.json",
+      "bytes": 61714,
+      "sha256": "65380198f628dac3971d5be5d48ca5f8aa28841f356c5c180fb5d05cd9cc803a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/results/v2-unit-tests.txt",
+      "bytes": 1922,
+      "sha256": "b088cc4d7fdc15dfc5b1d4a2db11811b440b32a153893848756d016cb1890cf1",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/.gitignore",
+      "bytes": 32,
+      "sha256": "8f2b2998ba4b4974e5363c3bae021fa21752241298d8d68443d6776155771600",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/display-tokens.mjs",
+      "bytes": 3208,
+      "sha256": "ecdcbd8ec0f59ba8aa435dc23f0e510137656423979871f1ddf938e0a4db162c",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/index.html",
+      "bytes": 741,
+      "sha256": "17ff1f72dd32b93508012c00a1b9c8ff36a72ad0016cb43ae9ec0783f4a84592",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/layout.mjs",
+      "bytes": 6003,
+      "sha256": "e6056cb727cc3f5ccbb9d058ebd15c0f18d720c37f9c139ffa9794781038670c",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/main.mjs",
+      "bytes": 1043,
+      "sha256": "1317a33dd85bd981a25faa22ca6fc6a1dc557a99f580d09eaf1c07733a3b86d3",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/ocr-entry.mjs",
+      "bytes": 3951,
+      "sha256": "3fb631cd27374a71d11037e24da9e36d6e302f6e6e59c9d2f190bf2eda59c9de",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/paper.mjs",
+      "bytes": 4459,
+      "sha256": "1ea0154718be6f6bb7c166c2f602c5c82002c47ea6b08a99d2a886ad2c40416c",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/pipeline.mjs",
+      "bytes": 9526,
+      "sha256": "681e7e2204b0e527b2171283e9ae9c05fe6741aaaabd64227fb7b466c7c597d8",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/regions.mjs",
+      "bytes": 2601,
+      "sha256": "adb960d5b397ea9964465aaafee0000d63d8454955f53f75a74fb855504d8c44",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/still-prototype/vite.config.mjs",
+      "bytes": 558,
+      "sha256": "2d0b3a15e31d71807829ea03a6954ea5fda5883918477215f6e392a6608fb22c",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/app.html",
+      "bytes": 186715,
+      "sha256": "37108235c4846271ce4ce12ecf85c8d207d4816fa817f3edf6ef3e27456aedc9",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/assets.lock.json",
+      "bytes": 1165,
+      "sha256": "765a243dbe42b3f3ef030d431d37173ade6de5af88a539ee358eedd59a397fa1",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/data/kana-pronunciations.json",
+      "bytes": 1433084,
+      "sha256": "47faa5abd604ea9fc58fa3e0f8f404b684646f0240fb8abd396ed057c18e11a5",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/data/kana-pronunciations.meta.json",
+      "bytes": 365,
+      "sha256": "ea89dc577daa2f4dea61aa2a065a964967d5e464f0f97ef2e0c2f08d42e0930f",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/models.lock.json",
+      "bytes": 2975,
+      "sha256": "23ea22e1b6b0a78480b4ae15fc227498e282f070f92f221bec3559a7036874f3",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/package-lock.json",
+      "bytes": 49606,
+      "sha256": "16134c7f41b78d63e3ab40be0ca67d3b7c8eff724d0ab02757d822677de30744",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/package.json",
+      "bytes": 341,
+      "sha256": "dfb115150a16a81d458e7f7bac3932d1b138fa67be83358601d71c56abba4f1b",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/apple-touch-icon.png",
+      "bytes": 2485,
+      "sha256": "3290594b7ec7e66656ac47b6c51b999d10f3f8c96c1b9004037fdec5ab080c7f",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/LICENSE.app-MIT",
+      "bytes": 1070,
+      "sha256": "68a546ebc22d16ea90b879c248d8dcfcae5da0303f06c8eb2860c61f2e636b7a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/LICENSE.featurematch-MIT",
+      "bytes": 1071,
+      "sha256": "6cfe35dfdf4f01831cbe409d78dbe4919be0dfd69734004fa9c7285fa67c181e",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/LICENSE.meikiocr-web-GPL-3.0",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/LICENSE.models-LGPL-3.0",
+      "bytes": 7652,
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/LICENSE.onnxruntime-MIT",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/LICENSE.opencv-Apache-2.0",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/LICENSE.shimage-MIT",
+      "bytes": 1071,
+      "sha256": "6cfe35dfdf4f01831cbe409d78dbe4919be0dfd69734004fa9c7285fa67c181e",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/NOTICE.html",
+      "bytes": 2926,
+      "sha256": "b4c03a5fdedb97c4e144161e26f2f8edafe4703a5d70967065f102946e9f2d4b",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/THIRD_PARTY_NOTICES.meikiocr-web.md",
+      "bytes": 2080,
+      "sha256": "90a187ed498e79f7161a2039694a5e452bf24e2124f5b8f59ec3cd24790bd64a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/public/licenses/UniDic-LICENSE.txt",
+      "bytes": 1515,
+      "sha256": "7917ecfaf95a5ba7b4f45aa9a845ac931d79c90f39b7e711442dbc21c612560f",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/src/romanization-controller.js",
+      "bytes": 8976,
+      "sha256": "c36d1baf6ff6062c3497417cc84612926aeddc84ffe7e19185103fcbbfd33e36",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/tests/controller/romanization.test.cjs",
+      "bytes": 6995,
+      "sha256": "11c5c1a9fb17b2bc4668e23f9161ef7905a804e5e291b73c7941ed80fa497b77",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/LICENSE",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/THIRD_PARTY_NOTICES.md",
+      "bytes": 2080,
+      "sha256": "90a187ed498e79f7161a2039694a5e452bf24e2124f5b8f59ec3cd24790bd64a",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/UPSTREAM.json",
+      "bytes": 602,
+      "sha256": "741e38b0d18127a5997fc395c8ea432e9596636e0970e82f9943d687626fa9a4",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/index.js",
+      "bytes": 42261,
+      "sha256": "5b319052613313bdb4f864adfb6ccd971bc3fd82d6e65978d9ea1083c7402c7f",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/index.js.map",
+      "bytes": 114808,
+      "sha256": "90648c7ee1df8c363ef60e3b9a67b6336aecd3a364adb6a63454fec925a1d0c9",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/models.lock.json",
+      "bytes": 2975,
+      "sha256": "23ea22e1b6b0a78480b4ae15fc227498e282f070f92f221bec3559a7036874f3",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/tools/export-assets.mjs",
+      "bytes": 3307,
+      "sha256": "81bb3dcbfda7954e571f70b56b2e68a7019adbb54af5a23c5e7a12072206586e",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/tools/fetch-models.mjs",
+      "bytes": 5048,
+      "sha256": "879be3d5c64eebd76c774610cac51fb39aa629377f7501675e6b14062e43311e",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/tools/inspect-models.py",
+      "bytes": 1143,
+      "sha256": "6411f707170a5e35d31059551262531c373846e97d0c16332bbd833484ba8e9e",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/worker.js",
+      "bytes": 44487,
+      "sha256": "23e46a9d3fe1e31947b7464b4ade848ede86ac545f7a45c9ded000b7768b6292",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "meikiocr-test/vendor/meikiocr-web/worker.js.map",
+      "bytes": 125633,
+      "sha256": "9e2e6b1d611a71e0013b63f72726830681d14284198e32651fe230cc39ed1155",
+      "origin": "git HEAD"
+    },
+    {
+      "path": "kanji-reading/lab/generated/romanizer.mjs",
+      "bytes": 1454287,
+      "sha256": "6a17960394e6d8bb10911986b1c08f14d7218331509f200a603cf75f3eac9ed8",
+      "origin": "existing generated output; generator inputs included"
+    }
+  ],
+  "omitted": [
+    "all upstream .github workflows",
+    "Sites credentials and metadata",
+    "node_modules",
+    "OCR model/WASM binaries",
+    "Sudachi generated binaries"
+  ]
+}

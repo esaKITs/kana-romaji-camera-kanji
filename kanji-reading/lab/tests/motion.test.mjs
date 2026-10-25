@@ -1,0 +1,8 @@
+import test from'node:test';import assert from'node:assert/strict';import{fingerprint,frameDistance,MotionGuard}from'../../camera-prototype/motion.mjs';
+function pixels(shift=0,light=0){const a=new Uint8ClampedArray(32*16*4);for(let y=0;y<16;y++)for(let x=0;x<32;x++){const i=(y*32+x)*4,v=((x+shift)%8<3&&y%5<3?45:170)+light;a[i]=a[i+1]=a[i+2]=v;a[i+3]=255;}return a;}
+const a=fingerprint(pixels()),b=fingerprint(pixels(2));
+test('uniform lighting change does not masquerade as motion',()=>assert.ok(frameDistance(a,fingerprint(pixels(0,20)))<.001));
+test('new OCR result is rejected after movement during recognition',()=>{const g=new MotionGuard();g.observe(a,0);g.observe(a,400);const epoch=g.epoch;assert.ok(g.accepts(a,a,epoch,500));assert.equal(g.accepts(a,b,epoch,600),false);assert.equal(g.stable(600),false);});
+test('returning to the same view cannot revive a stale recognition ticket',()=>{const g=new MotionGuard();g.observe(a,0);const old=g.epoch;g.observe(b,400);g.observe(a,600);assert.equal(g.accepts(a,a,old,1200),false);assert.ok(g.accepts(a,a,g.epoch,1200));});
+test('a painted anchor detects cumulative drift even when each step is small',()=>{const g=new MotionGuard({threshold:.32});g.observe(a,0);g.painted(a);assert.equal(g.observe(Float32Array.from(a,v=>v+.15),400),false);assert.equal(g.observe(Float32Array.from(a,v=>v+.30),500),false);assert.equal(g.observe(Float32Array.from(a,v=>v+.45),600),true);});
+test('session reset and settling window protect restart/background return',()=>{const g=new MotionGuard();g.observe(a,0);assert.equal(g.stable(349),false);assert.equal(g.stable(350),true);const old=g.epoch;g.reset();g.observe(a,1000);assert.equal(g.accepts(a,a,old,1500),false);assert.equal(frameDistance(a,new Float32Array(3)),Infinity);});

@@ -1,0 +1,40 @@
+name: Check second-edition camera (no deployment)
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    if: github.repository == 'esaKITs/kana-romaji-camera-kanji'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run deps
+      - uses: actions/cache@v4
+        with:
+          path: .cache
+          key: kanji-assets-v1-${{ hashFiles('**/*lock.json', 'pages/runtime.lock.json') }}
+      - name: Pinned research compiler
+        run: |
+          rustup toolchain install 1.99.1 --profile minimal --target wasm32-unknown-unknown
+          rustup default 1.99.1
+      - run: python3 scripts/prepare-research-assets.py
+      - run: npm run prepare:assets
+      - run: npm run build
+      - run: npm test
+      - run: npm run verify:dist
+      - name: Actual Chromium OCR and project-path integration
+        run: |
+          node meikiocr-test/node_modules/playwright/cli.js install --with-deps chromium
+          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: second-edition-test-results
+          path: test-results/

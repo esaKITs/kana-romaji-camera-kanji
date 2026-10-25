@@ -1,0 +1,8 @@
+import {readFile,writeFile} from 'node:fs/promises';import {loadEngine} from '../src/engines.mjs';import {evaluateCase,summarize} from '../src/evaluation.mjs';
+const original=JSON.parse(await readFile('cases.json','utf8'));
+const revised=original.map(([text,target,expected,category],i)=>({id:'O'+String(i+1).padStart(2,'0'),originalNumber:i+1,text,target,category,acceptedReadings:expected?[expected]:[],excluded:[17,30].includes(i+1)}));
+for(const c of revised){if(c.target==='日本語')c.acceptedReadings=['ニホンゴ','ニッポンゴ'];if(c.target==='明日')c.acceptedReadings=['アシタ','アス','ミョウニチ'];if(c.target==='今日')c.acceptedReadings=['キョウ','コンニチ'];if(c.text.includes('冷蔵庫')&&c.target==='生物')c.acceptedReadings=['ナマモノ','セイブツ'];if(c.text.includes('人気のない')&&c.target==='人気')c.acceptedReadings=['ヒトケ','ニンキ'];if(c.text.includes('舞台')&&c.target==='上手')c.acceptedReadings=['カミテ','ジョウズ'];}
+await writeFile('original-30-reviewed.json',JSON.stringify({ordinaryCount:28,specialCount:2,cases:revised},null,2)+'\n');
+const results=[];
+for(const name of ['kuromoji','sudachi-small']){const engine=await loadEngine(name,{node:true});try{const ordinary=revised.filter(c=>!c.excluded).map(c=>evaluateCase(c,engine.analyze(c.text)));const special=revised.filter(c=>c.excluded).map(c=>({item:c,tokens:engine.analyze(c.text)}));results.push({engine:name,...summarize(ordinary),ordinary,special});}finally{engine.dispose()}}
+await writeFile('../results/v2-original-30-review.json',JSON.stringify({note:'Original ambiguous contexts permit plausible readings; this is not a semantic disambiguation success metric. No.17 and 30 excluded.',results},null,2)+'\n');console.log(results.map(x=>({engine:x.engine,raw:x.raw})));
