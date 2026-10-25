@@ -1,0 +1,2 @@
+import{defineConfig}from'../../meikiocr-test/node_modules/vite/dist/node/index.js';import{fileURLToPath}from'node:url';
+export default defineConfig({root:fileURLToPath(new URL('.',import.meta.url)),base:'/kana-romaji-camera-kanji/',publicDir:false,resolve:{alias:[{find:/^onnxruntime-web$/,replacement:fileURLToPath(new URL('../../meikiocr-test/node_modules/onnxruntime-web/dist/ort.wasm.bundle.min.mjs',import.meta.url))}],conditions:['onnxruntime-web-use-extern-wasm']},worker:{format:'es'},build:{outDir:'../../dist',emptyOutDir:true,target:'es2022'}});

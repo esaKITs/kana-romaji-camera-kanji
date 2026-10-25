@@ -1,0 +1,32 @@
+{
+  "before": {
+    "kind": "synthetic geometry only; stub analyzer; no OCR/rendering",
+    "iterations": 1000,
+    "medianMs": 0.02248000000000161,
+    "p95Ms": 0.08275600000000338,
+    "outputs": [
+      "machi",
+      "kiree",
+      "ii",
+      "doo",
+      "ka"
+    ],
+    "rubyCovered": false,
+    "heapUsedBytes": 12015584
+  },
+  "after": {
+    "kind": "synthetic geometry only; stub analyzer; no OCR/rendering",
+    "iterations": 1000,
+    "medianMs": 0.030174000000002366,
+    "p95Ms": 0.09815000000000396,
+    "outputs": [
+      "machi",
+      "kiree",
+      "ii",
+      "doo",
+      "ka"
+    ],
+    "rubyCovered": true,
+    "heapUsedBytes": 11554320
+  }
+}

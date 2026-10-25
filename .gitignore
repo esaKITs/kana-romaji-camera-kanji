@@ -1,0 +1,7 @@
+**/node_modules/
+dist/
+.cache/
+kanji-reading/lab/generated/*
+!kanji-reading/lab/generated/romanizer.mjs
+test-results/
+*.log

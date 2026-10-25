@@ -1,0 +1,50 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test
+> node --test tests/*.test.mjs
+
+✔ only the three fixed modes, including Han extension characters (27.007706ms)
+✔ source offsets survive spaces and astral Han; mismatches never get fake boxes (3.113829ms)
+✔ okurigana stays kana in Han-only alignment; opaque mixed words defer (9.617338ms)
+✔ unknown, named and ambiguous kanji remain review candidates (0.391967ms)
+✔ cache is bounded, copies results, rejects excessive lines and clears (4.489337ms)
+✔ Sudachi package schema refuses unrecognized ABI (0.623494ms)
+✔ existing kanji ruby romanization: がっこう (7.374155ms)
+✔ existing kanji ruby romanization: としょかん (1.011751ms)
+✔ existing kanji ruby romanization: しんぶん (2.11525ms)
+✔ existing kanji ruby romanization: れんあい (2.086003ms)
+✔ existing kanji ruby romanization: せんせい (1.006758ms)
+✔ existing kana exceptions preserved (0.938433ms)
+✔ particle pronunciation selection remains separate from spelling (0.516012ms)
+✔ all existing golden kana spellings agree in both vowel styles (5.069227ms)
+✔ 100 reviewed ordinary probes exclude identity and dictionary-coverage probes (15.366451ms)
+✔ multiple valid readings and metric denominators are distinct (138.960791ms)
+✔ modern Sudachi code-point offsets are checked against UTF-16 source (11.071204ms)
+✔ verified grouped ruby overrides different analyzer boundaries without duplicates (9.572387ms)
+✔ uncertain candidate ruby stays unconverted and does not create duplicate labels (1.173521ms)
+✔ Han-only and katakana/Han preserve okurigana; all-script mode can cover the word (9.128479ms)
+✔ partial ruby, competing bodies and invalid glyph boxes do not fabricate a match (0.494082ms)
+✔ kanji/ASCII/fullwidth parsing rejects malformed and ambiguous digit strings (1.810445ms)
+✔ productive pronunciation 三本 (1.067265ms)
+✔ productive pronunciation 二十六本 (0.35359ms)
+✔ productive pronunciation 百八杯 (0.235327ms)
+✔ productive pronunciation 三千匹 (0.410768ms)
+✔ productive pronunciation 二十四人 (0.319764ms)
+✔ productive pronunciation 十八冊 (0.23635ms)
+✔ productive pronunciation 十三階 (0.221592ms)
+✔ productive pronunciation 三分待つ (0.324102ms)
+✔ calendar first day and one-day durations differ; twenty days does not switch to nijuu-nichi (5.21074ms)
+✔ calendar limits, leap years and ambiguous lexical/minute uses are guarded (134.055379ms)
+✔ merges actual token spans, preserves offsets and leaves input untouched (4.254943ms)
+✔ proper names and overlapping lexical words never get split to fit a numeric rule (1.117467ms)
+✔ Still preserves Arabic digits and puts the counter allomorph only on the Han box in every mode (5.939996ms)
+✔ verified ruby retains priority over the numeric rule (1.167757ms)
+✔ whole-day duration supplies the juu suffix without rewriting a following word (0.560234ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1843.732252

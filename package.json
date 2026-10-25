@@ -1,0 +1,14 @@
+{
+  "name": "kana-romaji-camera-kanji",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deps": "npm ci --prefix meikiocr-test && npm ci --prefix kanji-reading/lab",
+    "prepare:assets": "python3 scripts/prepare-pages-assets.py",
+    "generate": "npm run generate --prefix kanji-reading/lab",
+    "build": "node scripts/build-pages.mjs",
+    "test": "node scripts/test-all.mjs",
+    "test:browser": "node scripts/pages-browser-test.mjs",
+    "verify:dist": "node scripts/verify-dist.mjs"
+  }
+}

@@ -1,0 +1,62 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test
+> node --test tests/*.test.mjs
+
+✔ only the three fixed modes, including Han extension characters (2.08631ms)
+✔ source offsets survive spaces and astral Han; mismatches never get fake boxes (0.507369ms)
+✔ okurigana stays kana in Han-only alignment; opaque mixed words defer (0.723518ms)
+✔ unknown, named and ambiguous kanji remain review candidates (0.174788ms)
+✔ cache is bounded, copies results, rejects excessive lines and clears (0.411116ms)
+✔ Sudachi package schema refuses unrecognized ABI (0.293723ms)
+✔ existing kanji ruby romanization: がっこう (1.683234ms)
+✔ existing kanji ruby romanization: としょかん (0.210952ms)
+✔ existing kanji ruby romanization: しんぶん (0.125976ms)
+✔ existing kanji ruby romanization: れんあい (0.159515ms)
+✔ existing kanji ruby romanization: せんせい (0.173897ms)
+✔ existing kana exceptions preserved (0.218913ms)
+✔ particle pronunciation selection remains separate from spelling (0.161098ms)
+✔ all existing golden kana spellings agree in both vowel styles (1.825464ms)
+✔ 100 reviewed ordinary probes exclude identity and dictionary-coverage probes (1.164549ms)
+✔ multiple valid readings and metric denominators are distinct (2.258203ms)
+✔ modern Sudachi code-point offsets are checked against UTF-16 source (0.486318ms)
+✔ verified grouped ruby overrides different analyzer boundaries without duplicates (1.084811ms)
+✔ uncertain candidate ruby stays unconverted and does not create duplicate labels (0.407912ms)
+✔ Han-only and katakana/Han preserve okurigana; all-script mode can cover the word (1.906424ms)
+✔ partial ruby, competing bodies and invalid glyph boxes do not fabricate a match (0.344489ms)
+✔ adjacent words share free row space, preserve order, and do not collide (1.895759ms)
+✔ digits and non-target kana remain protected in every mode (0.571062ms)
+✔ long label wraps into two rows with a readable font (0.4199ms)
+✔ nearby ruby and other lines cannot be painted over (0.230009ms)
+✔ impossible width is explicitly withheld, never over-compressed (0.23014ms)
+✔ allocation is repeatable and input is immutable (1.069168ms)
+✔ overlapping OCR bounds are clipped to preserved neighboring glyphs (0.228187ms)
+✔ tight canvases and uneven words never produce out-of-bounds rectangles (0.666474ms)
+✔ kanji/ASCII/fullwidth parsing rejects malformed and ambiguous digit strings (1.244907ms)
+✔ productive pronunciation 三本 (0.604402ms)
+✔ productive pronunciation 二十六本 (0.2913ms)
+✔ productive pronunciation 百八杯 (0.149681ms)
+✔ productive pronunciation 三千匹 (0.128279ms)
+✔ productive pronunciation 二十四人 (0.138324ms)
+✔ productive pronunciation 十八冊 (0.159585ms)
+✔ productive pronunciation 十三階 (0.163682ms)
+✔ productive pronunciation 三分待つ (0.200656ms)
+✔ calendar first day and one-day durations differ; twenty days does not switch to nijuu-nichi (0.710499ms)
+✔ calendar limits, leap years and ambiguous lexical/minute uses are guarded (0.42034ms)
+✔ merges actual token spans, preserves offsets and leaves input untouched (1.091041ms)
+✔ proper names and overlapping lexical words never get split to fit a numeric rule (0.505867ms)
+✔ Still preserves Arabic digits and puts the counter allomorph only on the Han box in every mode (2.98774ms)
+✔ verified ruby retains priority over the numeric rule (0.498786ms)
+✔ whole-day duration supplies the juu suffix without rewriting a following word (0.272502ms)
+✔ source word edges are erased independently of shorter label width (4.129546ms)
+✔ source mask preserves every pixel of an overlapping digit box (6.207542ms)
+✔ two-dimensional mask subtraction conserves unprotected area (0.322276ms)
+✔ separated words stay at their own source centers (0.565405ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 49
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 363.999318

@@ -1,0 +1,5095 @@
+{
+  "environment": "Node @napi-rs/canvas; replay of recorded Chromium OCR, not new OCR or iPhone execution",
+  "results": [
+    {
+      "mode": "あア漢",
+      "style": "double",
+      "drawn": [
+        {
+          "source": "三本",
+          "reading": "サンボン",
+          "output": "sambon",
+          "box": {
+            "x0": 72,
+            "y0": 61,
+            "x1": 173,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 67.63999938964844,
+            "x1": 177.36000061035156,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "sambon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 175,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 67.63999938964844,
+              "x1": 177.36000061035156,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "の",
+          "reading": "ノ",
+          "output": "no",
+          "box": {
+            "x0": 177,
+            "y0": 61,
+            "x1": 228,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 183.45000076293945,
+            "x1": 221.54999923706055,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "no"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 230,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 183.45000076293945,
+              "x1": 221.54999923706055,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "ペン",
+          "reading": "ペン",
+          "output": "pen",
+          "box": {
+            "x0": 232,
+            "y0": 61,
+            "x1": 332,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 254.6599998474121,
+            "x1": 309.3400001525879,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "pen"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 230,
+              "x1": 334,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 254.6599998474121,
+              "x1": 309.3400001525879,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "と",
+          "reading": "ト",
+          "output": "to",
+          "box": {
+            "x0": 340,
+            "y0": 61,
+            "x1": 384,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 346.3549995422363,
+            "x1": 377.6450004577637,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "to"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 338,
+              "x1": 386,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 346.3549995422363,
+              "x1": 377.6450004577637,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "本",
+          "reading": "ボン",
+          "output": "bon",
+          "box": {
+            "x0": 428,
+            "y0": 61,
+            "x1": 476,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 429,
+            "x1": 484.1500015258789,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "bon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 59,
+              "y1": 61
+            },
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 108,
+              "y1": 110
+            },
+            {
+              "x0": 428,
+              "x1": 478,
+              "y0": 61,
+              "y1": 108
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 429,
+              "x1": 484.1500015258789,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "の",
+          "reading": "ノ",
+          "output": "no",
+          "box": {
+            "x0": 477,
+            "y0": 61,
+            "x1": 528,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 486.1500015258789,
+            "x1": 524.25,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "no"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 475,
+              "x1": 530,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 486.1500015258789,
+              "x1": 524.25,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "ペン",
+          "reading": "ペン",
+          "output": "pen",
+          "box": {
+            "x0": 531,
+            "y0": 61,
+            "x1": 632,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 554.1599998474121,
+            "x1": 608.8400001525879,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "pen"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 529,
+              "x1": 634,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 554.1599998474121,
+              "x1": 608.8400001525879,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "五月",
+          "reading": "ゴガツ",
+          "output": "gogatsu",
+          "box": {
+            "x0": 72,
+            "y0": 171,
+            "x1": 175,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 44.5,
+            "x1": 155.1999969482422,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "gogatsu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 177,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 44.5,
+              "x1": 155.1999969482422,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "ツイタチ",
+          "output": "tsuitachi",
+          "box": {
+            "x0": 177,
+            "y0": 171,
+            "x1": 281,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 157.1999969482422,
+            "x1": 283,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "tsuitachi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 283,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 157.1999969482422,
+              "x1": 283,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "イチニチ",
+          "output": "ichinichi",
+          "box": {
+            "x0": 339,
+            "y0": 171,
+            "x1": 445,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 335,
+            "x1": 461.2699966430664,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "ichinichi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 337,
+              "x1": 447,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 335,
+              "x1": 461.2699966430664,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "中",
+          "reading": "ジュウ",
+          "output": "juu",
+          "box": {
+            "x0": 448,
+            "y0": 171,
+            "x1": 499,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 463.2699966430664,
+            "x1": 512.5799980163574,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "juu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 446,
+              "x1": 501,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 463.2699966430664,
+              "x1": 512.5799980163574,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "休み",
+          "reading": "ヤスミ",
+          "output": "yasumi",
+          "box": {
+            "x0": 503,
+            "y0": 171,
+            "x1": 608,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 514.5799980163574,
+            "x1": 616.9900016784668,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "yasumi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 501,
+              "x1": 610,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 514.5799980163574,
+              "x1": 616.9900016784668,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "ます",
+          "reading": "マス",
+          "output": "masu",
+          "box": {
+            "x0": 610,
+            "y0": 171,
+            "x1": 714,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 623.7000007629395,
+            "x1": 700.2999992370605,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "masu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 608,
+              "x1": 716,
+              "y0": 169,
+              "y1": 171
+            },
+            {
+              "x0": 608,
+              "x1": 716,
+              "y0": 218,
+              "y1": 220
+            },
+            {
+              "x0": 608,
+              "x1": 714,
+              "y0": 171,
+              "y1": 218
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 623.7000007629395,
+              "x1": 700.2999992370605,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "二十日間",
+          "reading": "ハツカカン",
+          "output": "hatsukakan",
+          "box": {
+            "x0": 71,
+            "y0": 280,
+            "x1": 285,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 93.38500213623047,
+            "x1": 262.61499786376953,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "hatsukakan"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 287,
+              "y0": 278,
+              "y1": 330
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 93.38500213623047,
+              "x1": 262.61499786376953,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "休み",
+          "reading": "ヤスミ",
+          "output": "yasumi",
+          "box": {
+            "x0": 287,
+            "y0": 280,
+            "x1": 392,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 287.24499893188477,
+            "x1": 391.75500106811523,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "yasumi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 285,
+              "x1": 394,
+              "y0": 278,
+              "y1": 330
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 287.24499893188477,
+              "x1": 391.75500106811523,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "ます",
+          "reading": "マス",
+          "output": "masu",
+          "box": {
+            "x0": 394,
+            "y0": 280,
+            "x1": 499,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 407.42499923706055,
+            "x1": 485.57500076293945,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "masu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 278,
+              "y1": 280
+            },
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 328,
+              "y1": 330
+            },
+            {
+              "x0": 392,
+              "x1": 498,
+              "y0": 280,
+              "y1": 328
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 407.42499923706055,
+              "x1": 485.57500076293945,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "に",
+          "reading": "ニ",
+          "output": "ni",
+          "box": {
+            "x0": 177,
+            "y0": 388,
+            "x1": 230,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 186.72999954223633,
+            "x1": 220.27000045776367,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ni"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 232,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 175,
+              "x1": 232,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 176,
+              "x1": 232,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 186.72999954223633,
+              "x1": 220.27000045776367,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "注意",
+          "reading": "チュウイ",
+          "output": "chuui",
+          "box": {
+            "x0": 229,
+            "y0": 388,
+            "x1": 336,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 238.76499938964844,
+            "x1": 326.23500061035156,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "chuui"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 386,
+              "y1": 440
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 238.76499938964844,
+              "x1": 326.23500061035156,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "十分",
+          "reading": "ジュップン",
+          "output": "juppun",
+          "box": {
+            "x0": 391,
+            "y0": 388,
+            "x1": 499,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 393,
+            "x1": 501.75,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "juppun"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 393,
+              "x1": 501.75,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "待ち",
+          "reading": "マチ",
+          "output": "machi",
+          "box": {
+            "x0": 501,
+            "y0": 388,
+            "x1": 608,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 507.9099998474121,
+            "x1": 601.0900001525879,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "machi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 499,
+              "x1": 610,
+              "y0": 386,
+              "y1": 440
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 507.9099998474121,
+              "x1": 601.0900001525879,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "ます",
+          "reading": "マス",
+          "output": "masu",
+          "box": {
+            "x0": 609,
+            "y0": 388,
+            "x1": 717,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 622.375,
+            "x1": 703.625,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "masu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 607,
+              "x1": 719,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 607,
+              "x1": 719,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 607,
+              "x1": 714,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 622.375,
+              "x1": 703.625,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "水",
+          "reading": "ミズ",
+          "output": "mizu",
+          "box": {
+            "x0": 71,
+            "y0": 498,
+            "x1": 124,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 59.72999954223633,
+            "x1": 135.27000045776367,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "mizu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 496,
+              "y1": 550
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 59.72999954223633,
+              "x1": 135.27000045776367,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "が",
+          "reading": "ガ",
+          "output": "ga",
+          "box": {
+            "x0": 122,
+            "y0": 498,
+            "x1": 177,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 137.27000045776367,
+            "x1": 175.4900016784668,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ga"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 120,
+              "x1": 179,
+              "y0": 496,
+              "y1": 550
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 137.27000045776367,
+              "x1": 175.4900016784668,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "十三杯",
+          "reading": "ジュウサンバイ",
+          "output": "juusambai",
+          "box": {
+            "x0": 176,
+            "y0": 498,
+            "x1": 339,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 179.5500030517578,
+            "x1": 335.4499969482422,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "juusambai"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 496,
+              "y1": 550
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 179.5500030517578,
+              "x1": 335.4499969482422,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "あり",
+          "reading": "アリ",
+          "output": "ari",
+          "box": {
+            "x0": 340,
+            "y0": 498,
+            "x1": 447,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 370.5,
+            "x1": 416.5,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ari"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 338,
+              "x1": 449,
+              "y0": 496,
+              "y1": 550
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 370.5,
+              "x1": 416.5,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "ます",
+          "reading": "マス",
+          "output": "masu",
+          "box": {
+            "x0": 447,
+            "y0": 498,
+            "x1": 553,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 459.375,
+            "x1": 540.625,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "masu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 445,
+              "x1": 555,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 445,
+              "x1": 555,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 445,
+              "x1": 552,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 459.375,
+              "x1": 540.625,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        }
+      ],
+      "omitted": []
+    },
+    {
+      "mode": "あア漢",
+      "style": "macron",
+      "drawn": [
+        {
+          "source": "三本",
+          "reading": "サンボン",
+          "output": "sambon",
+          "box": {
+            "x0": 72,
+            "y0": 61,
+            "x1": 173,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 67.63999938964844,
+            "x1": 177.36000061035156,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "sambon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 175,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 67.63999938964844,
+              "x1": 177.36000061035156,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "の",
+          "reading": "ノ",
+          "output": "no",
+          "box": {
+            "x0": 177,
+            "y0": 61,
+            "x1": 228,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 183.45000076293945,
+            "x1": 221.54999923706055,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "no"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 230,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 183.45000076293945,
+              "x1": 221.54999923706055,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "ペン",
+          "reading": "ペン",
+          "output": "pen",
+          "box": {
+            "x0": 232,
+            "y0": 61,
+            "x1": 332,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 254.6599998474121,
+            "x1": 309.3400001525879,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "pen"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 230,
+              "x1": 334,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 254.6599998474121,
+              "x1": 309.3400001525879,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "と",
+          "reading": "ト",
+          "output": "to",
+          "box": {
+            "x0": 340,
+            "y0": 61,
+            "x1": 384,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 346.3549995422363,
+            "x1": 377.6450004577637,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "to"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 338,
+              "x1": 386,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 346.3549995422363,
+              "x1": 377.6450004577637,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "本",
+          "reading": "ボン",
+          "output": "bon",
+          "box": {
+            "x0": 428,
+            "y0": 61,
+            "x1": 476,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 429,
+            "x1": 484.1500015258789,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "bon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 59,
+              "y1": 61
+            },
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 108,
+              "y1": 110
+            },
+            {
+              "x0": 428,
+              "x1": 478,
+              "y0": 61,
+              "y1": 108
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 429,
+              "x1": 484.1500015258789,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "の",
+          "reading": "ノ",
+          "output": "no",
+          "box": {
+            "x0": 477,
+            "y0": 61,
+            "x1": 528,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 486.1500015258789,
+            "x1": 524.25,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "no"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 475,
+              "x1": 530,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 486.1500015258789,
+              "x1": 524.25,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "ペン",
+          "reading": "ペン",
+          "output": "pen",
+          "box": {
+            "x0": 531,
+            "y0": 61,
+            "x1": 632,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 554.1599998474121,
+            "x1": 608.8400001525879,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "pen"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 529,
+              "x1": 634,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 554.1599998474121,
+              "x1": 608.8400001525879,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "五月",
+          "reading": "ゴガツ",
+          "output": "gogatsu",
+          "box": {
+            "x0": 72,
+            "y0": 171,
+            "x1": 175,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 44.5,
+            "x1": 155.1999969482422,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "gogatsu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 177,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 44.5,
+              "x1": 155.1999969482422,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "ツイタチ",
+          "output": "tsuitachi",
+          "box": {
+            "x0": 177,
+            "y0": 171,
+            "x1": 281,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 157.1999969482422,
+            "x1": 283,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "tsuitachi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 283,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 157.1999969482422,
+              "x1": 283,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "イチニチ",
+          "output": "ichinichi",
+          "box": {
+            "x0": 339,
+            "y0": 171,
+            "x1": 445,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 335,
+            "x1": 461.2699966430664,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "ichinichi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 337,
+              "x1": 447,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 335,
+              "x1": 461.2699966430664,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "中",
+          "reading": "ジュウ",
+          "output": "jū",
+          "box": {
+            "x0": 448,
+            "y0": 171,
+            "x1": 499,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 463.2699966430664,
+            "x1": 494.55999755859375,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "jū"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 446,
+              "x1": 501,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 463.2699966430664,
+              "x1": 494.55999755859375,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "休み",
+          "reading": "ヤスミ",
+          "output": "yasumi",
+          "box": {
+            "x0": 503,
+            "y0": 171,
+            "x1": 608,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 504.2949981689453,
+            "x1": 606.7050018310547,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "yasumi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 501,
+              "x1": 610,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 504.2949981689453,
+              "x1": 606.7050018310547,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "ます",
+          "reading": "マス",
+          "output": "masu",
+          "box": {
+            "x0": 610,
+            "y0": 171,
+            "x1": 714,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 623.7000007629395,
+            "x1": 700.2999992370605,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "masu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 608,
+              "x1": 716,
+              "y0": 169,
+              "y1": 171
+            },
+            {
+              "x0": 608,
+              "x1": 716,
+              "y0": 218,
+              "y1": 220
+            },
+            {
+              "x0": 608,
+              "x1": 714,
+              "y0": 171,
+              "y1": 218
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 623.7000007629395,
+              "x1": 700.2999992370605,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "二十日間",
+          "reading": "ハツカカン",
+          "output": "hatsukakan",
+          "box": {
+            "x0": 71,
+            "y0": 280,
+            "x1": 285,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 93.38500213623047,
+            "x1": 262.61499786376953,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "hatsukakan"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 287,
+              "y0": 278,
+              "y1": 330
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 93.38500213623047,
+              "x1": 262.61499786376953,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "休み",
+          "reading": "ヤスミ",
+          "output": "yasumi",
+          "box": {
+            "x0": 287,
+            "y0": 280,
+            "x1": 392,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 287.24499893188477,
+            "x1": 391.75500106811523,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "yasumi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 285,
+              "x1": 394,
+              "y0": 278,
+              "y1": 330
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 287.24499893188477,
+              "x1": 391.75500106811523,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "ます",
+          "reading": "マス",
+          "output": "masu",
+          "box": {
+            "x0": 394,
+            "y0": 280,
+            "x1": 499,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 407.42499923706055,
+            "x1": 485.57500076293945,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "masu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 278,
+              "y1": 280
+            },
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 328,
+              "y1": 330
+            },
+            {
+              "x0": 392,
+              "x1": 498,
+              "y0": 280,
+              "y1": 328
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 407.42499923706055,
+              "x1": 485.57500076293945,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "に",
+          "reading": "ニ",
+          "output": "ni",
+          "box": {
+            "x0": 177,
+            "y0": 388,
+            "x1": 230,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 186.72999954223633,
+            "x1": 220.27000045776367,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ni"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 232,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 175,
+              "x1": 232,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 176,
+              "x1": 232,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 186.72999954223633,
+              "x1": 220.27000045776367,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "注意",
+          "reading": "チュウイ",
+          "output": "chūi",
+          "box": {
+            "x0": 229,
+            "y0": 388,
+            "x1": 336,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 248.35499954223633,
+            "x1": 316.6450004577637,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "chūi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 386,
+              "y1": 440
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 248.35499954223633,
+              "x1": 316.6450004577637,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "十分",
+          "reading": "ジュップン",
+          "output": "juppun",
+          "box": {
+            "x0": 391,
+            "y0": 388,
+            "x1": 499,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 393,
+            "x1": 501.75,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "juppun"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 393,
+              "x1": 501.75,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "待ち",
+          "reading": "マチ",
+          "output": "machi",
+          "box": {
+            "x0": 501,
+            "y0": 388,
+            "x1": 608,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 507.9099998474121,
+            "x1": 601.0900001525879,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "machi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 499,
+              "x1": 610,
+              "y0": 386,
+              "y1": 440
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 507.9099998474121,
+              "x1": 601.0900001525879,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "ます",
+          "reading": "マス",
+          "output": "masu",
+          "box": {
+            "x0": 609,
+            "y0": 388,
+            "x1": 717,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 622.375,
+            "x1": 703.625,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "masu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 607,
+              "x1": 719,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 607,
+              "x1": 719,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 607,
+              "x1": 714,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 622.375,
+              "x1": 703.625,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "水",
+          "reading": "ミズ",
+          "output": "mizu",
+          "box": {
+            "x0": 71,
+            "y0": 498,
+            "x1": 124,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 59.72999954223633,
+            "x1": 135.27000045776367,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "mizu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 496,
+              "y1": 550
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 59.72999954223633,
+              "x1": 135.27000045776367,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "が",
+          "reading": "ガ",
+          "output": "ga",
+          "box": {
+            "x0": 122,
+            "y0": 498,
+            "x1": 177,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 137.27000045776367,
+            "x1": 175.4900016784668,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ga"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 120,
+              "x1": 179,
+              "y0": 496,
+              "y1": 550
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 137.27000045776367,
+              "x1": 175.4900016784668,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "十三杯",
+          "reading": "ジュウサンバイ",
+          "output": "jūsambai",
+          "box": {
+            "x0": 176,
+            "y0": 498,
+            "x1": 339,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 189.13999938964844,
+            "x1": 325.86000061035156,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "jūsambai"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 496,
+              "y1": 550
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 189.13999938964844,
+              "x1": 325.86000061035156,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "あり",
+          "reading": "アリ",
+          "output": "ari",
+          "box": {
+            "x0": 340,
+            "y0": 498,
+            "x1": 447,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 370.5,
+            "x1": 416.5,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ari"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 338,
+              "x1": 449,
+              "y0": 496,
+              "y1": 550
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 370.5,
+              "x1": 416.5,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "ます",
+          "reading": "マス",
+          "output": "masu",
+          "box": {
+            "x0": 447,
+            "y0": 498,
+            "x1": 553,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 459.375,
+            "x1": 540.625,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "masu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 445,
+              "x1": 555,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 445,
+              "x1": 555,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 445,
+              "x1": 552,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 459.375,
+              "x1": 540.625,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        }
+      ],
+      "omitted": []
+    },
+    {
+      "mode": "ア漢",
+      "style": "double",
+      "drawn": [
+        {
+          "source": "三本",
+          "reading": "サンボン",
+          "output": "sambon",
+          "box": {
+            "x0": 72,
+            "y0": 61,
+            "x1": 173,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 66.27999877929688,
+            "x1": 176,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "sambon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 175,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 66.27999877929688,
+              "x1": 176,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "ペン",
+          "reading": "ペン",
+          "output": "pen",
+          "box": {
+            "x0": 232,
+            "y0": 61,
+            "x1": 332,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 254.6599998474121,
+            "x1": 309.3400001525879,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "pen"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 230,
+              "x1": 334,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 254.6599998474121,
+              "x1": 309.3400001525879,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "本",
+          "reading": "ボン",
+          "output": "bon",
+          "box": {
+            "x0": 428,
+            "y0": 61,
+            "x1": 476,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 429,
+            "x1": 476,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 0.8406646865542031,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "bon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 59,
+              "y1": 61
+            },
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 108,
+              "y1": 110
+            },
+            {
+              "x0": 428,
+              "x1": 477,
+              "y0": 61,
+              "y1": 108
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 429,
+              "x1": 476,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "ペン",
+          "reading": "ペン",
+          "output": "pen",
+          "box": {
+            "x0": 531,
+            "y0": 61,
+            "x1": 632,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 554.1599998474121,
+            "x1": 608.8400001525879,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "pen"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 529,
+              "x1": 634,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 554.1599998474121,
+              "x1": 608.8400001525879,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "五月",
+          "reading": "ゴガツ",
+          "output": "gogatsu",
+          "box": {
+            "x0": 72,
+            "y0": 171,
+            "x1": 175,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 44.5,
+            "x1": 155.1999969482422,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "gogatsu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 177,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 44.5,
+              "x1": 155.1999969482422,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "ツイタチ",
+          "output": "tsuitachi",
+          "box": {
+            "x0": 177,
+            "y0": 171,
+            "x1": 281,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 157.1999969482422,
+            "x1": 283,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "tsuitachi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 283,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 157.1999969482422,
+              "x1": 283,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "イチニチ",
+          "output": "ichinichi",
+          "box": {
+            "x0": 339,
+            "y0": 171,
+            "x1": 445,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 335,
+            "x1": 447.0207844253961,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.883461089319672,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "ichinichi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 337,
+              "x1": 447,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 335,
+              "x1": 447.0207844253961,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "中",
+          "reading": "ジュウ",
+          "output": "juu",
+          "box": {
+            "x0": 448,
+            "y0": 171,
+            "x1": 499,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 449.0207844253961,
+            "x1": 493.0504075957196,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.883461089319672,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "juu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 446,
+              "x1": 501,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 449.0207844253961,
+              "x1": 493.0504075957196,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "休",
+          "reading": "やす",
+          "output": "yasu",
+          "box": {
+            "x0": 503,
+            "y0": 171,
+            "x1": 554,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 495.0504075957196,
+            "x1": 555,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.883461089319672,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "yasu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 501,
+              "x1": 556,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 495.0504075957196,
+              "x1": 555,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "二十日間",
+          "reading": "ハツカカン",
+          "output": "hatsukakan",
+          "box": {
+            "x0": 71,
+            "y0": 280,
+            "x1": 285,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 93.38500213623047,
+            "x1": 262.61499786376953,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "hatsukakan"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 287,
+              "y0": 278,
+              "y1": 330
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 93.38500213623047,
+              "x1": 262.61499786376953,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "休",
+          "reading": "やす",
+          "output": "yasu",
+          "box": {
+            "x0": 287,
+            "y0": 280,
+            "x1": 338,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 269.30999755859375,
+            "x1": 338,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "yasu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 285,
+              "x1": 340,
+              "y0": 278,
+              "y1": 280
+            },
+            {
+              "x0": 285,
+              "x1": 340,
+              "y0": 328,
+              "y1": 330
+            },
+            {
+              "x0": 285,
+              "x1": 339,
+              "y0": 280,
+              "y1": 328
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 269.30999755859375,
+              "x1": 338,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "注意",
+          "reading": "チュウイ",
+          "output": "chuui",
+          "box": {
+            "x0": 229,
+            "y0": 388,
+            "x1": 336,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 238.76499938964844,
+            "x1": 326.23500061035156,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "chuui"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 230,
+              "x1": 338,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 238.76499938964844,
+              "x1": 326.23500061035156,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "十分",
+          "reading": "ジュップン",
+          "output": "juppun",
+          "box": {
+            "x0": 391,
+            "y0": 388,
+            "x1": 499,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 393,
+            "x1": 501.75,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "juppun"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 393,
+              "x1": 501.75,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "待",
+          "reading": "ま",
+          "output": "ma",
+          "box": {
+            "x0": 501,
+            "y0": 388,
+            "x1": 554,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 503.75,
+            "x1": 551.8199996948242,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ma"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 499,
+              "x1": 556,
+              "y0": 386,
+              "y1": 440
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 503.75,
+              "x1": 551.8199996948242,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "水",
+          "reading": "ミズ",
+          "output": "mizu",
+          "box": {
+            "x0": 71,
+            "y0": 498,
+            "x1": 124,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 45.459999084472656,
+            "x1": 121,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "mizu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 69,
+              "x1": 122,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 45.459999084472656,
+              "x1": 121,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "十三杯",
+          "reading": "ジュウサンバイ",
+          "output": "juusambai",
+          "box": {
+            "x0": 176,
+            "y0": 498,
+            "x1": 339,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 179.5500030517578,
+            "x1": 335.4499969482422,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "juusambai"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 177,
+              "x1": 340,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 179.5500030517578,
+              "x1": 335.4499969482422,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        }
+      ],
+      "omitted": []
+    },
+    {
+      "mode": "ア漢",
+      "style": "macron",
+      "drawn": [
+        {
+          "source": "三本",
+          "reading": "サンボン",
+          "output": "sambon",
+          "box": {
+            "x0": 72,
+            "y0": 61,
+            "x1": 173,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 66.27999877929688,
+            "x1": 176,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "sambon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 175,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 66.27999877929688,
+              "x1": 176,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "ペン",
+          "reading": "ペン",
+          "output": "pen",
+          "box": {
+            "x0": 232,
+            "y0": 61,
+            "x1": 332,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 254.6599998474121,
+            "x1": 309.3400001525879,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "pen"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 230,
+              "x1": 334,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 254.6599998474121,
+              "x1": 309.3400001525879,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "本",
+          "reading": "ボン",
+          "output": "bon",
+          "box": {
+            "x0": 428,
+            "y0": 61,
+            "x1": 476,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 429,
+            "x1": 476,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 0.8406646865542031,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "bon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 59,
+              "y1": 61
+            },
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 108,
+              "y1": 110
+            },
+            {
+              "x0": 428,
+              "x1": 477,
+              "y0": 61,
+              "y1": 108
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 429,
+              "x1": 476,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "ペン",
+          "reading": "ペン",
+          "output": "pen",
+          "box": {
+            "x0": 531,
+            "y0": 61,
+            "x1": 632,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 554.1599998474121,
+            "x1": 608.8400001525879,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "pen"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 529,
+              "x1": 634,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 554.1599998474121,
+              "x1": 608.8400001525879,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "五月",
+          "reading": "ゴガツ",
+          "output": "gogatsu",
+          "box": {
+            "x0": 72,
+            "y0": 171,
+            "x1": 175,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 44.5,
+            "x1": 155.1999969482422,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "gogatsu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 177,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 44.5,
+              "x1": 155.1999969482422,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "ツイタチ",
+          "output": "tsuitachi",
+          "box": {
+            "x0": 177,
+            "y0": 171,
+            "x1": 281,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 157.1999969482422,
+            "x1": 283,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "tsuitachi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 283,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 157.1999969482422,
+              "x1": 283,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "イチニチ",
+          "output": "ichinichi",
+          "box": {
+            "x0": 339,
+            "y0": 171,
+            "x1": 445,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 335,
+            "x1": 456.1641664084592,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.9582413480429522,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "ichinichi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 337,
+              "x1": 447,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 335,
+              "x1": 456.1641664084592,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "中",
+          "reading": "ジュウ",
+          "output": "jū",
+          "box": {
+            "x0": 448,
+            "y0": 171,
+            "x1": 499,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 458.1641664084592,
+            "x1": 488.3145736738475,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.9582413480429522,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "jū"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 446,
+              "x1": 501,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 458.1641664084592,
+              "x1": 488.3145736738475,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "休",
+          "reading": "やす",
+          "output": "yasu",
+          "box": {
+            "x0": 503,
+            "y0": 171,
+            "x1": 554,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 490.3145736738475,
+            "x1": 555,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.9582413480429522,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "yasu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 501,
+              "x1": 556,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 490.3145736738475,
+              "x1": 555,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "二十日間",
+          "reading": "ハツカカン",
+          "output": "hatsukakan",
+          "box": {
+            "x0": 71,
+            "y0": 280,
+            "x1": 285,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 93.38500213623047,
+            "x1": 262.61499786376953,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "hatsukakan"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 287,
+              "y0": 278,
+              "y1": 330
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 93.38500213623047,
+              "x1": 262.61499786376953,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "休",
+          "reading": "やす",
+          "output": "yasu",
+          "box": {
+            "x0": 287,
+            "y0": 280,
+            "x1": 338,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 269.30999755859375,
+            "x1": 338,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "yasu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 285,
+              "x1": 340,
+              "y0": 278,
+              "y1": 280
+            },
+            {
+              "x0": 285,
+              "x1": 340,
+              "y0": 328,
+              "y1": 330
+            },
+            {
+              "x0": 285,
+              "x1": 339,
+              "y0": 280,
+              "y1": 328
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 269.30999755859375,
+              "x1": 338,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "注意",
+          "reading": "チュウイ",
+          "output": "chūi",
+          "box": {
+            "x0": 229,
+            "y0": 388,
+            "x1": 336,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 248.35499954223633,
+            "x1": 316.6450004577637,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "chūi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 230,
+              "x1": 338,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 248.35499954223633,
+              "x1": 316.6450004577637,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "十分",
+          "reading": "ジュップン",
+          "output": "juppun",
+          "box": {
+            "x0": 391,
+            "y0": 388,
+            "x1": 499,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 393,
+            "x1": 501.75,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "juppun"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 393,
+              "x1": 501.75,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "待",
+          "reading": "ま",
+          "output": "ma",
+          "box": {
+            "x0": 501,
+            "y0": 388,
+            "x1": 554,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 503.75,
+            "x1": 551.8199996948242,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ma"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 499,
+              "x1": 556,
+              "y0": 386,
+              "y1": 440
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 503.75,
+              "x1": 551.8199996948242,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "水",
+          "reading": "ミズ",
+          "output": "mizu",
+          "box": {
+            "x0": 71,
+            "y0": 498,
+            "x1": 124,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 45.459999084472656,
+            "x1": 121,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "mizu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 69,
+              "x1": 122,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 45.459999084472656,
+              "x1": 121,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "十三杯",
+          "reading": "ジュウサンバイ",
+          "output": "jūsambai",
+          "box": {
+            "x0": 176,
+            "y0": 498,
+            "x1": 339,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 189.13999938964844,
+            "x1": 325.86000061035156,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "jūsambai"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 177,
+              "x1": 340,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 189.13999938964844,
+              "x1": 325.86000061035156,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        }
+      ],
+      "omitted": []
+    },
+    {
+      "mode": "漢",
+      "style": "double",
+      "drawn": [
+        {
+          "source": "三本",
+          "reading": "サンボン",
+          "output": "sambon",
+          "box": {
+            "x0": 72,
+            "y0": 61,
+            "x1": 173,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 66.27999877929688,
+            "x1": 176,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "sambon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 175,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 66.27999877929688,
+              "x1": 176,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "本",
+          "reading": "ボン",
+          "output": "bon",
+          "box": {
+            "x0": 428,
+            "y0": 61,
+            "x1": 476,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 429,
+            "x1": 476,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 0.8406646865542031,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "bon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 59,
+              "y1": 61
+            },
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 108,
+              "y1": 110
+            },
+            {
+              "x0": 428,
+              "x1": 477,
+              "y0": 61,
+              "y1": 108
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 429,
+              "x1": 476,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "五月",
+          "reading": "ゴガツ",
+          "output": "gogatsu",
+          "box": {
+            "x0": 72,
+            "y0": 171,
+            "x1": 175,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 44.5,
+            "x1": 155.1999969482422,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "gogatsu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 177,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 44.5,
+              "x1": 155.1999969482422,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "ツイタチ",
+          "output": "tsuitachi",
+          "box": {
+            "x0": 177,
+            "y0": 171,
+            "x1": 281,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 157.1999969482422,
+            "x1": 283,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "tsuitachi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 283,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 157.1999969482422,
+              "x1": 283,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "イチニチ",
+          "output": "ichinichi",
+          "box": {
+            "x0": 339,
+            "y0": 171,
+            "x1": 445,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 335,
+            "x1": 447.0207844253961,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.883461089319672,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "ichinichi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 337,
+              "x1": 447,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 335,
+              "x1": 447.0207844253961,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "中",
+          "reading": "ジュウ",
+          "output": "juu",
+          "box": {
+            "x0": 448,
+            "y0": 171,
+            "x1": 499,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 449.0207844253961,
+            "x1": 493.0504075957196,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.883461089319672,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "juu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 446,
+              "x1": 501,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 449.0207844253961,
+              "x1": 493.0504075957196,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "休",
+          "reading": "やす",
+          "output": "yasu",
+          "box": {
+            "x0": 503,
+            "y0": 171,
+            "x1": 554,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 495.0504075957196,
+            "x1": 555,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.883461089319672,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "yasu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 501,
+              "x1": 556,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 495.0504075957196,
+              "x1": 555,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "二十日間",
+          "reading": "ハツカカン",
+          "output": "hatsukakan",
+          "box": {
+            "x0": 71,
+            "y0": 280,
+            "x1": 285,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 93.38500213623047,
+            "x1": 262.61499786376953,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "hatsukakan"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 287,
+              "y0": 278,
+              "y1": 330
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 93.38500213623047,
+              "x1": 262.61499786376953,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "休",
+          "reading": "やす",
+          "output": "yasu",
+          "box": {
+            "x0": 287,
+            "y0": 280,
+            "x1": 338,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 269.30999755859375,
+            "x1": 338,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "yasu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 285,
+              "x1": 340,
+              "y0": 278,
+              "y1": 280
+            },
+            {
+              "x0": 285,
+              "x1": 340,
+              "y0": 328,
+              "y1": 330
+            },
+            {
+              "x0": 285,
+              "x1": 339,
+              "y0": 280,
+              "y1": 328
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 269.30999755859375,
+              "x1": 338,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "注意",
+          "reading": "チュウイ",
+          "output": "chuui",
+          "box": {
+            "x0": 229,
+            "y0": 388,
+            "x1": 336,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 238.76499938964844,
+            "x1": 326.23500061035156,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "chuui"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 230,
+              "x1": 338,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 238.76499938964844,
+              "x1": 326.23500061035156,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "十分",
+          "reading": "ジュップン",
+          "output": "juppun",
+          "box": {
+            "x0": 391,
+            "y0": 388,
+            "x1": 499,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 393,
+            "x1": 501.75,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "juppun"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 393,
+              "x1": 501.75,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "待",
+          "reading": "ま",
+          "output": "ma",
+          "box": {
+            "x0": 501,
+            "y0": 388,
+            "x1": 554,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 503.75,
+            "x1": 551.8199996948242,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ma"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 499,
+              "x1": 556,
+              "y0": 386,
+              "y1": 440
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 503.75,
+              "x1": 551.8199996948242,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "水",
+          "reading": "ミズ",
+          "output": "mizu",
+          "box": {
+            "x0": 71,
+            "y0": 498,
+            "x1": 124,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 45.459999084472656,
+            "x1": 121,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "mizu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 69,
+              "x1": 122,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 45.459999084472656,
+              "x1": 121,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "十三杯",
+          "reading": "ジュウサンバイ",
+          "output": "juusambai",
+          "box": {
+            "x0": 176,
+            "y0": 498,
+            "x1": 339,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 179.5500030517578,
+            "x1": 335.4499969482422,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "juusambai"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 177,
+              "x1": 340,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 179.5500030517578,
+              "x1": 335.4499969482422,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        }
+      ],
+      "omitted": []
+    },
+    {
+      "mode": "漢",
+      "style": "macron",
+      "drawn": [
+        {
+          "source": "三本",
+          "reading": "サンボン",
+          "output": "sambon",
+          "box": {
+            "x0": 72,
+            "y0": 61,
+            "x1": 173,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 66.27999877929688,
+            "x1": 176,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "sambon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 175,
+              "y0": 59,
+              "y1": 110
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 66.27999877929688,
+              "x1": 176,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "本",
+          "reading": "ボン",
+          "output": "bon",
+          "box": {
+            "x0": 428,
+            "y0": 61,
+            "x1": 476,
+            "y1": 108
+          },
+          "lineId": 0,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 429,
+            "x1": 476,
+            "y0": 61,
+            "y1": 108
+          },
+          "horizontalScale": 0.8406646865542031,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "bon"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 59,
+              "y1": 61
+            },
+            {
+              "x0": 426,
+              "x1": 478,
+              "y0": 108,
+              "y1": 110
+            },
+            {
+              "x0": 428,
+              "x1": 477,
+              "y0": 61,
+              "y1": 108
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 429,
+              "x1": 476,
+              "y0": 61,
+              "y1": 108
+            }
+          ]
+        },
+        {
+          "source": "五月",
+          "reading": "ゴガツ",
+          "output": "gogatsu",
+          "box": {
+            "x0": 72,
+            "y0": 171,
+            "x1": 175,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 44.5,
+            "x1": 155.1999969482422,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "gogatsu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 70,
+              "x1": 177,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 44.5,
+              "x1": 155.1999969482422,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "ツイタチ",
+          "output": "tsuitachi",
+          "box": {
+            "x0": 177,
+            "y0": 171,
+            "x1": 281,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 157.1999969482422,
+            "x1": 283,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "tsuitachi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 175,
+              "x1": 283,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 157.1999969482422,
+              "x1": 283,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "一日",
+          "reading": "イチニチ",
+          "output": "ichinichi",
+          "box": {
+            "x0": 339,
+            "y0": 171,
+            "x1": 445,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 335,
+            "x1": 456.1641664084592,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.9582413480429522,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "ichinichi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 337,
+              "x1": 447,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 335,
+              "x1": 456.1641664084592,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "中",
+          "reading": "ジュウ",
+          "output": "jū",
+          "box": {
+            "x0": 448,
+            "y0": 171,
+            "x1": 499,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 458.1641664084592,
+            "x1": 488.3145736738475,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.9582413480429522,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "jū"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 446,
+              "x1": 501,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 458.1641664084592,
+              "x1": 488.3145736738475,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "休",
+          "reading": "やす",
+          "output": "yasu",
+          "box": {
+            "x0": 503,
+            "y0": 171,
+            "x1": 554,
+            "y1": 218
+          },
+          "lineId": 1,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 490.3145736738475,
+            "x1": 555,
+            "y0": 171,
+            "y1": 218
+          },
+          "horizontalScale": 0.9582413480429522,
+          "fontSize": 26.320000000000004,
+          "rows": [
+            "yasu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 501,
+              "x1": 556,
+              "y0": 169,
+              "y1": 220
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 490.3145736738475,
+              "x1": 555,
+              "y0": 171,
+              "y1": 218
+            }
+          ]
+        },
+        {
+          "source": "二十日間",
+          "reading": "ハツカカン",
+          "output": "hatsukakan",
+          "box": {
+            "x0": 71,
+            "y0": 280,
+            "x1": 285,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 93.38500213623047,
+            "x1": 262.61499786376953,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "hatsukakan"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 287,
+              "y0": 278,
+              "y1": 330
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 93.38500213623047,
+              "x1": 262.61499786376953,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "休",
+          "reading": "やす",
+          "output": "yasu",
+          "box": {
+            "x0": 287,
+            "y0": 280,
+            "x1": 338,
+            "y1": 328
+          },
+          "lineId": 2,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 269.30999755859375,
+            "x1": 338,
+            "y0": 280,
+            "y1": 328
+          },
+          "horizontalScale": 1,
+          "fontSize": 26.880000000000003,
+          "rows": [
+            "yasu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 285,
+              "x1": 340,
+              "y0": 278,
+              "y1": 280
+            },
+            {
+              "x0": 285,
+              "x1": 340,
+              "y0": 328,
+              "y1": 330
+            },
+            {
+              "x0": 285,
+              "x1": 339,
+              "y0": 280,
+              "y1": 328
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 269.30999755859375,
+              "x1": 338,
+              "y0": 280,
+              "y1": 328
+            }
+          ]
+        },
+        {
+          "source": "注意",
+          "reading": "チュウイ",
+          "output": "chūi",
+          "box": {
+            "x0": 229,
+            "y0": 388,
+            "x1": 336,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 248.35499954223633,
+            "x1": 316.6450004577637,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "chūi"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 227,
+              "x1": 338,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 230,
+              "x1": 338,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 248.35499954223633,
+              "x1": 316.6450004577637,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "十分",
+          "reading": "ジュップン",
+          "output": "juppun",
+          "box": {
+            "x0": 391,
+            "y0": 388,
+            "x1": 499,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 393,
+            "x1": 501.75,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "juppun"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 386,
+              "y1": 388
+            },
+            {
+              "x0": 389,
+              "x1": 501,
+              "y0": 438,
+              "y1": 440
+            },
+            {
+              "x0": 392,
+              "x1": 501,
+              "y0": 388,
+              "y1": 438
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 393,
+              "x1": 501.75,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "待",
+          "reading": "ま",
+          "output": "ma",
+          "box": {
+            "x0": 501,
+            "y0": 388,
+            "x1": 554,
+            "y1": 438
+          },
+          "lineId": 3,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 503.75,
+            "x1": 551.8199996948242,
+            "y0": 388,
+            "y1": 438
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "ma"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 499,
+              "x1": 556,
+              "y0": 386,
+              "y1": 440
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 503.75,
+              "x1": 551.8199996948242,
+              "y0": 388,
+              "y1": 438
+            }
+          ]
+        },
+        {
+          "source": "水",
+          "reading": "ミズ",
+          "output": "mizu",
+          "box": {
+            "x0": 71,
+            "y0": 498,
+            "x1": 124,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "dictionary-candidate",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 45.459999084472656,
+            "x1": 121,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "mizu"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 69,
+              "x1": 126,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 69,
+              "x1": 122,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 45.459999084472656,
+              "x1": 121,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        },
+        {
+          "source": "十三杯",
+          "reading": "ジュウサンバイ",
+          "output": "jūsambai",
+          "box": {
+            "x0": 176,
+            "y0": 498,
+            "x1": 339,
+            "y1": 548
+          },
+          "lineId": 4,
+          "readingSource": "numeric-rule-v1",
+          "coversRuby": false,
+          "displayBox": {
+            "x0": 189.13999938964844,
+            "x1": 325.86000061035156,
+            "y0": 498,
+            "y1": 548
+          },
+          "horizontalScale": 1,
+          "fontSize": 28.000000000000004,
+          "rows": [
+            "jūsambai"
+          ],
+          "eraseRegions": [
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 496,
+              "y1": 498
+            },
+            {
+              "x0": 174,
+              "x1": 341,
+              "y0": 548,
+              "y1": 550
+            },
+            {
+              "x0": 177,
+              "x1": 340,
+              "y0": 498,
+              "y1": 548
+            }
+          ],
+          "textRegions": [
+            {
+              "x0": 189.13999938964844,
+              "x1": 325.86000061035156,
+              "y0": 498,
+              "y1": 548
+            }
+          ]
+        }
+      ],
+      "omitted": []
+    }
+  ]
+}

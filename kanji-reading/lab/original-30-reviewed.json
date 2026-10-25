@@ -1,0 +1,341 @@
+{
+  "ordinaryCount": 28,
+  "specialCount": 2,
+  "cases": [
+    {
+      "id": "O01",
+      "originalNumber": 1,
+      "text": "学校へ行きます。",
+      "target": "学校",
+      "category": "basic",
+      "acceptedReadings": [
+        "ガッコウ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O02",
+      "originalNumber": 2,
+      "text": "図書館で本を読みます。",
+      "target": "図書館",
+      "category": "basic",
+      "acceptedReadings": [
+        "トショカン"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O03",
+      "originalNumber": 3,
+      "text": "今日は晴れです。",
+      "target": "今日",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "キョウ",
+        "コンニチ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O04",
+      "originalNumber": 4,
+      "text": "一日中勉強しました。",
+      "target": "一日",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "イチニチ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O05",
+      "originalNumber": 5,
+      "text": "五月一日は休みです。",
+      "target": "一日",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "ツイタチ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O06",
+      "originalNumber": 6,
+      "text": "生物の授業があります。",
+      "target": "生物",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "セイブツ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O07",
+      "originalNumber": 7,
+      "text": "生物は冷蔵庫に入れてください。",
+      "target": "生物",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "ナマモノ",
+        "セイブツ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O08",
+      "originalNumber": 8,
+      "text": "人気の店です。",
+      "target": "人気",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "ニンキ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O09",
+      "originalNumber": 9,
+      "text": "人気のない道を歩きました。",
+      "target": "人気",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "ヒトケ",
+        "ニンキ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O10",
+      "originalNumber": 10,
+      "text": "日本語を勉強します。",
+      "target": "日本語",
+      "category": "compound",
+      "acceptedReadings": [
+        "ニホンゴ",
+        "ニッポンゴ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O11",
+      "originalNumber": 11,
+      "text": "国際交流会館へ行きます。",
+      "target": "国際交流会館",
+      "category": "compound",
+      "acceptedReadings": [
+        "コクサイコウリュウカイカン"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O12",
+      "originalNumber": 12,
+      "text": "東京都立大学に行きます。",
+      "target": "東京都立大学",
+      "category": "compound",
+      "acceptedReadings": [
+        "トウキョウトリツダイガク"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O13",
+      "originalNumber": 13,
+      "text": "食べる。",
+      "target": "食べる",
+      "category": "inflection",
+      "acceptedReadings": [
+        "タベル"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O14",
+      "originalNumber": 14,
+      "text": "昨日食べました。",
+      "target": "食べました",
+      "category": "inflection",
+      "acceptedReadings": [
+        "タベマシタ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O15",
+      "originalNumber": 15,
+      "text": "本を読みました。",
+      "target": "読みました",
+      "category": "inflection",
+      "acceptedReadings": [
+        "ヨミマシタ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O16",
+      "originalNumber": 16,
+      "text": "山梨大学に留学しています。",
+      "target": "山梨大学",
+      "category": "name",
+      "acceptedReadings": [
+        "ヤマナシダイガク"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O17",
+      "originalNumber": 17,
+      "text": "江崎先生に会います。",
+      "target": "江崎",
+      "category": "name",
+      "acceptedReadings": [
+        "エサキ"
+      ],
+      "excluded": true
+    },
+    {
+      "id": "O18",
+      "originalNumber": 18,
+      "text": "甲府駅で待っています。",
+      "target": "甲府駅",
+      "category": "name",
+      "acceptedReadings": [
+        "コウフエキ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O19",
+      "originalNumber": 19,
+      "text": "十月一日です。",
+      "target": "十月一日",
+      "category": "number",
+      "acceptedReadings": [
+        "ジュウガツツイタチ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O20",
+      "originalNumber": 20,
+      "text": "三本のペンがあります。",
+      "target": "三本",
+      "category": "number",
+      "acceptedReadings": [
+        "サンボン"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O21",
+      "originalNumber": 21,
+      "text": "一人で来ました。",
+      "target": "一人",
+      "category": "number",
+      "acceptedReadings": [
+        "ヒトリ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O22",
+      "originalNumber": 22,
+      "text": "二十歳です。",
+      "target": "二十歳",
+      "category": "number",
+      "acceptedReadings": [
+        "ハタチ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O23",
+      "originalNumber": 23,
+      "text": "銀行へ行きます。",
+      "target": "銀行",
+      "category": "nasal",
+      "acceptedReadings": [
+        "ギンコウ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O24",
+      "originalNumber": 24,
+      "text": "新聞を読みます。",
+      "target": "新聞",
+      "category": "nasal",
+      "acceptedReadings": [
+        "シンブン"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O25",
+      "originalNumber": 25,
+      "text": "恋愛の話です。",
+      "target": "恋愛",
+      "category": "nasal",
+      "acceptedReadings": [
+        "レンアイ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O26",
+      "originalNumber": 26,
+      "text": "先生です。",
+      "target": "先生",
+      "category": "long-vowel",
+      "acceptedReadings": [
+        "センセイ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O27",
+      "originalNumber": 27,
+      "text": "明日は休みです。",
+      "target": "明日",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "アシタ",
+        "アス",
+        "ミョウニチ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O28",
+      "originalNumber": 28,
+      "text": "この絵は上手です。",
+      "target": "上手",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "ジョウズ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O29",
+      "originalNumber": 29,
+      "text": "舞台の上手に立ちます。",
+      "target": "上手",
+      "category": "ambiguity",
+      "acceptedReadings": [
+        "カミテ",
+        "ジョウズ"
+      ],
+      "excluded": false
+    },
+    {
+      "id": "O30",
+      "originalNumber": 30,
+      "text": "龘という字です。",
+      "target": "龘",
+      "category": "unknown",
+      "acceptedReadings": [],
+      "excluded": true
+    }
+  ]
+}

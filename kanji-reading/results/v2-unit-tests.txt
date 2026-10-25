@@ -1,0 +1,34 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test
+> node --test tests/*.test.mjs
+
+✔ only the three fixed modes, including Han extension characters (2.81938ms)
+✔ source offsets survive spaces and astral Han; mismatches never get fake boxes (0.546443ms)
+✔ okurigana stays kana in Han-only alignment; opaque mixed words defer (0.827307ms)
+✔ unknown, named and ambiguous kanji remain review candidates (0.300252ms)
+✔ cache is bounded, copies results, rejects excessive lines and clears (0.47799ms)
+✔ Sudachi package schema refuses unrecognized ABI (0.434495ms)
+✔ existing kanji ruby romanization: がっこう (1.746443ms)
+✔ existing kanji ruby romanization: としょかん (0.297649ms)
+✔ existing kanji ruby romanization: しんぶん (0.23231ms)
+✔ existing kanji ruby romanization: れんあい (0.347934ms)
+✔ existing kanji ruby romanization: せんせい (0.224077ms)
+✔ existing kana exceptions preserved (0.290398ms)
+✔ particle pronunciation selection remains separate from spelling (0.26591ms)
+✔ all existing golden kana spellings agree in both vowel styles (2.632818ms)
+✔ 100 reviewed ordinary probes exclude identity and dictionary-coverage probes (1.196032ms)
+✔ multiple valid readings and metric denominators are distinct (2.897798ms)
+✔ modern Sudachi code-point offsets are checked against UTF-16 source (0.523028ms)
+✔ verified grouped ruby overrides different analyzer boundaries without duplicates (1.412689ms)
+✔ uncertain candidate ruby stays unconverted and does not create duplicate labels (0.413824ms)
+✔ Han-only and katakana/Han preserve okurigana; all-script mode can cover the word (2.492977ms)
+✔ partial ruby, competing bodies and invalid glyph boxes do not fabricate a match (0.37186ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 158.603036

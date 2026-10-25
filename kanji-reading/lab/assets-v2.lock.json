@@ -1,0 +1,38 @@
+{
+  "wrapperRepository": "https://github.com/f3liz-casa/sudachi-wasm",
+  "wrapperCommit": "20ccaedee7459d2c5be9366efabfe407ec48ca5e",
+  "sudachiCommit": "7003268361c654ff94277f9912172b4609168a8a",
+  "dictionaryPythonPackage": "SudachiDict_small==20250129",
+  "rustc": "1.99.1",
+  "wasmBindgen": "0.2.114",
+  "files": [
+    {
+      "path": "sudachi_wasm.js",
+      "bytes": 12340,
+      "sha256": "6b24147410e1c880be4ac21177bda9e310ce255a355dcb8222397c47dd614772"
+    },
+    {
+      "path": "sudachi_wasm_bg.wasm",
+      "bytes": 2111998,
+      "sha256": "9d794855a9547fcde923bfc224d6a1d09faaf2af194432d1a7c822f453ed144a"
+    },
+    {
+      "path": "system-small.dic",
+      "bytes": 122949387,
+      "sha256": "edd7e6521ccc2c2e674dd5f4cccb9e87456cf12507b8f8448973f4602b545317"
+    }
+  ],
+  "dictionaryWheel": {
+    "url": "https://files.pythonhosted.org/packages/b0/9b/20ff5d3e2d16e5b0f98eaa3ccdbc149313f3f7ccb99a4b09edc204e7d9b1/SudachiDict_small-20250129-py3-none-any.whl",
+    "sha256": "5f27f7b19fb2cd0cde17abf680cb56fba5f870163906101150e60b97d272cc23"
+  },
+  "cliArchive": {
+    "url": "https://github.com/wasm-bindgen/wasm-bindgen/releases/download/0.2.114/wasm-bindgen-0.2.114-x86_64-unknown-linux-musl.tar.gz",
+    "sha256": "ce21be002bdbc22ede2a5cf250cb801d2106956fc3c529c75d9452729db3490c"
+  },
+  "font": {
+    "url": "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansjp/NotoSansJP%5Bwght%5D.ttf",
+    "sha256": "c2f3b4d463500a2ddcd3849cded1fceeb9fd6d1c32e6cbecd568453ba50fc68f"
+  },
+  "binaryHashNote": "Measured local build. Other source paths/toolchains can change generated WASM bytes; setup records actual output hashes and strictly checks JS/dictionary bytes."
+}

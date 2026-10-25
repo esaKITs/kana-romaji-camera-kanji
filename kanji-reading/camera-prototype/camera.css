@@ -1,0 +1,21 @@
+[hidden]{display:none!important}button{cursor:pointer;touch-action:manipulation}button:focus-visible{outline:3px solid #f3b393;outline-offset:3px}header h1{font-size:17px}.camera-options #kana-mode{width:66px;min-width:66px}.home-actions{display:grid;gap:10px;max-width:430px;margin:22px auto}.secondary{background:#e8ebef;color:#263445}#home{max-width:640px;margin:auto;box-sizing:border-box}#home .note{line-height:1.6}#home details{margin-top:26px;line-height:1.6}#status{font-size:14px}body.camera-active #home{display:none}body:not(.camera-active) #capture-controls{display:none}body.camera-active #stage{position:fixed;inset:0;min-height:0;height:100dvh}#video,#output,#guides{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}#output,#guides{pointer-events:none}body.camera-still #output,body.camera-still #guides{object-fit:contain}#guides{z-index:2}body.camera-still #video{visibility:hidden}body.camera-active .actions{position:fixed;bottom:0;z-index:20;box-sizing:border-box;display:flex;justify-content:center;align-items:center;height:calc(96px + env(safe-area-inset-bottom,0px));padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}body.camera-active .actions .photo-button{position:absolute;left:24px;background:#e8ebef;color:#263445;width:46px;height:46px;padding:10px;border-radius:12px;pointer-events:auto}body.camera-active.camera-still .actions{display:none}body.camera-still #live-return{display:grid;place-items:center;z-index:16}body.camera-still .still-progress-group{z-index:16}body.camera-active:not(.camera-still) .still-progress-group{top:auto;bottom:calc(120px + env(safe-area-inset-bottom,0px));max-width:90%;pointer-events:none}body.camera-active #progress{top:45%;padding:14px 18px;border-radius:14px;max-width:80%;min-width:200px;font-size:14px;z-index:18;background:#101820df}body.camera-active #stop{display:grid!important}body.camera-still #stop{visibility:hidden}body.camera-still #retry{display:grid;place-items:center}#retry:disabled{opacity:.4}body.camera-active header .topbar{pointer-events:none}body.camera-active header .topbar button{pointer-events:auto}body.camera-still .camera-options #torch{display:none!important}@media(max-width:380px){header .topbar h1{font-size:14px}.camera-options{gap:6px}body.camera-active header .topbar{gap:4px}header .brand{font-size:12px}}
+/* Original-image visibility is separate from reading mode and romanization. */
+.camera-options #source-level{width:66px;min-width:66px;height:44px;min-height:44px;padding:0 4px;border-radius:12px;background:#e8ebef;color:#263445;font-size:13px;font-weight:700;white-space:nowrap;flex:none}
+body.camera-active header{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
+@media(max-width:420px){.camera-options{gap:5px;padding-left:0;padding-right:0}.camera-options #source-level{width:59px;min-width:59px}}
+@media(orientation:landscape) and (max-height:600px){
+ body.camera-active header{padding-top:max(6px,env(safe-area-inset-top));padding-right:calc(110px + env(safe-area-inset-right))}
+ body.camera-active header .topbar{min-height:36px}
+ body.camera-active header .camera-options{padding-top:4px;justify-content:flex-start;margin-top:0}
+ body.camera-active .actions{left:auto;right:env(safe-area-inset-right,0px);top:0;bottom:0;width:100px;height:100dvh;min-height:0;padding:0;flex-direction:column;justify-content:center}
+ body.camera-active .actions .photo-button{left:27px;bottom:max(16px,env(safe-area-inset-bottom));width:46px;height:46px}
+ body.camera-active .still-progress-group,body.camera-active:not(.camera-still) .still-progress-group{top:auto;bottom:max(10px,env(safe-area-inset-bottom));left:50%;max-width:70%}
+ body.camera-still header .camera-options{margin-top:4px}
+ body.camera-still #live-return{top:max(8px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left))}
+ body.camera-still header .topbar{padding-left:44px}
+ body.camera-active #progress{top:48%;max-width:65%}
+}
+
+/* Gestures belong only to the Still image; controls remain outside this layer. */
+body.camera-still #zoom-layer{touch-action:none;user-select:none;-webkit-user-select:none}
+body.camera-still #stage{overflow:hidden}

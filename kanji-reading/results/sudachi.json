@@ -1,0 +1,3290 @@
+{
+  "engine": "sudachi",
+  "version": "0.1.5",
+  "runtime": "v24.19.0",
+  "platform": "linux",
+  "arch": "x64",
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "environment": "container Node.js; not smartphone/browser; OCR not loaded",
+  "cases": 30,
+  "passed": 23,
+  "initMs": 7081.988479,
+  "beforeMemory": {
+    "rss": 57667584,
+    "heapTotal": 18157568,
+    "heapUsed": 13383560,
+    "external": 3778697,
+    "arrayBuffers": 149414
+  },
+  "afterMemory": {
+    "rss": 668807168,
+    "heapTotal": 194551808,
+    "heapUsed": 175958288,
+    "external": 325658741,
+    "arrayBuffers": 146563
+  },
+  "rssDeltaBytes": 611139584,
+  "maxRssIncludingAssetInspectionKiB": 950604,
+  "assets": {
+    "embeddedScriptBytes": 164339497,
+    "gzipBytes": 69646454,
+    "dictionaryIdentity": "Embedded; exact dictionary revision not independently established"
+  },
+  "warmSentenceLatencyMs": {
+    "p50": 170.55055400000128,
+    "p95": 224.5920810000025,
+    "samples": 300
+  },
+  "cached1000Ms": 177.07205200000317,
+  "rows": [
+    {
+      "text": "学校へ行きます。",
+      "target": "学校",
+      "expected": "ガッコウ",
+      "category": "basic",
+      "actual": "ガッコウ",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "gakkoo",
+        "macron": "gakkō"
+      },
+      "tokens": [
+        {
+          "surface": "学校",
+          "reading": "ガッコウ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "へ",
+          "reading": "ヘ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "行き",
+          "reading": "イキ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "五段-カ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "text": "図書館で本を読みます。",
+      "target": "図書館",
+      "expected": "トショカン",
+      "category": "basic",
+      "actual": "トショカン",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "toshokan",
+        "macron": "toshokan"
+      },
+      "tokens": [
+        {
+          "surface": "図書",
+          "reading": "トショ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "館",
+          "reading": "カン",
+          "pos": [
+            "接尾辞",
+            "名詞的",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "で",
+          "reading": "デ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "本",
+          "reading": "ホン",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 5
+        },
+        {
+          "surface": "を",
+          "reading": "ヲ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "読み",
+          "reading": "ヨミ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "五段-マ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 8
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 10,
+          "end": 11
+        }
+      ]
+    },
+    {
+      "text": "今日は晴れです。",
+      "target": "今日",
+      "expected": "キョウ",
+      "category": "ambiguity",
+      "actual": "キョウ",
+      "pass": true,
+      "review": [
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "kyoo",
+        "macron": "kyō"
+      },
+      "tokens": [
+        {
+          "surface": "今日",
+          "reading": "キョウ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "副詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "pos": [
+            "助詞",
+            "係助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "晴れ",
+          "reading": "ハレ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "text": "一日中勉強しました。",
+      "target": "一日",
+      "expected": "イチニチ",
+      "category": "ambiguity",
+      "actual": "イチニチ",
+      "pass": true,
+      "review": [
+        "number-or-date"
+      ],
+      "romaji": {
+        "double": "ichinichi",
+        "macron": "ichinichi"
+      },
+      "tokens": [
+        {
+          "surface": "一",
+          "reading": "イチ",
+          "pos": [
+            "名詞",
+            "数詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "日",
+          "reading": "ニチ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "助数詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 1,
+          "end": 2
+        },
+        {
+          "surface": "中",
+          "reading": "チュウ",
+          "pos": [
+            "接尾辞",
+            "名詞的",
+            "副詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "勉強",
+          "reading": "ベンキョウ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "サ変可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "し",
+          "reading": "シ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "サ行変格",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "まし",
+          "reading": "マシ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 8
+        },
+        {
+          "surface": "た",
+          "reading": "タ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-タ",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 8,
+          "end": 9
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 9,
+          "end": 10
+        }
+      ]
+    },
+    {
+      "text": "五月一日は休みです。",
+      "target": "一日",
+      "expected": "ツイタチ",
+      "category": "ambiguity",
+      "actual": "ツイタチ",
+      "pass": true,
+      "review": [
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "tsuitachi",
+        "macron": "tsuitachi"
+      },
+      "tokens": [
+        {
+          "surface": "五",
+          "reading": "ゴ",
+          "pos": [
+            "名詞",
+            "数詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "月",
+          "reading": "ガツ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "助数詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 1,
+          "end": 2
+        },
+        {
+          "surface": "一日",
+          "reading": "ツイタチ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "副詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "pos": [
+            "助詞",
+            "係助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 5
+        },
+        {
+          "surface": "休み",
+          "reading": "ヤスミ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 9,
+          "end": 10
+        }
+      ]
+    },
+    {
+      "text": "生物の授業があります。",
+      "target": "生物",
+      "expected": "セイブツ",
+      "category": "ambiguity",
+      "actual": "セイブツ",
+      "pass": true,
+      "review": [
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "seebutsu",
+        "macron": "sēbutsu"
+      },
+      "tokens": [
+        {
+          "surface": "生物",
+          "reading": "セイブツ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "の",
+          "reading": "ノ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "授業",
+          "reading": "ジュギョウ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "サ変可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "あり",
+          "reading": "アリ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "五段-ラ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 8
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 10,
+          "end": 11
+        }
+      ]
+    },
+    {
+      "text": "生物は冷蔵庫に入れてください。",
+      "target": "生物",
+      "expected": "ナマモノ",
+      "category": "ambiguity",
+      "actual": "セイブツ",
+      "pass": false,
+      "review": [
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "seebutsu",
+        "macron": "sēbutsu"
+      },
+      "tokens": [
+        {
+          "surface": "生物",
+          "reading": "セイブツ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "pos": [
+            "助詞",
+            "係助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "冷蔵",
+          "reading": "レイゾウ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "サ変可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "庫",
+          "reading": "コ",
+          "pos": [
+            "接尾辞",
+            "名詞的",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "に",
+          "reading": "ニ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "入れ",
+          "reading": "イレ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "下一段-ラ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "て",
+          "reading": "テ",
+          "pos": [
+            "助詞",
+            "接続助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 9,
+          "end": 10
+        },
+        {
+          "surface": "ください",
+          "reading": "クダサイ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "五段-ラ行",
+            "命令形"
+          ],
+          "unknown": false,
+          "start": 10,
+          "end": 14
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 14,
+          "end": 15
+        }
+      ]
+    },
+    {
+      "text": "人気の店です。",
+      "target": "人気",
+      "expected": "ニンキ",
+      "category": "ambiguity",
+      "actual": "ニンキ",
+      "pass": true,
+      "review": [
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "ninki",
+        "macron": "ninki"
+      },
+      "tokens": [
+        {
+          "surface": "人気",
+          "reading": "ニンキ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "の",
+          "reading": "ノ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "店",
+          "reading": "ミセ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 6,
+          "end": 7
+        }
+      ]
+    },
+    {
+      "text": "人気のない道を歩きました。",
+      "target": "人気",
+      "expected": "ヒトケ",
+      "category": "ambiguity",
+      "actual": "ニンキ",
+      "pass": false,
+      "review": [
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "ninki",
+        "macron": "ninki"
+      },
+      "tokens": [
+        {
+          "surface": "人気",
+          "reading": "ニンキ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "の",
+          "reading": "ノ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "ない",
+          "reading": "ナイ",
+          "pos": [
+            "形容詞",
+            "非自立可能",
+            "*",
+            "*",
+            "形容詞",
+            "連体形-一般"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "道",
+          "reading": "ミチ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "を",
+          "reading": "ヲ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "歩き",
+          "reading": "アルキ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "五段-カ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "まし",
+          "reading": "マシ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 9,
+          "end": 11
+        },
+        {
+          "surface": "た",
+          "reading": "タ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-タ",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 11,
+          "end": 12
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 12,
+          "end": 13
+        }
+      ]
+    },
+    {
+      "text": "日本語を勉強します。",
+      "target": "日本語",
+      "expected": "ニホンゴ",
+      "category": "compound",
+      "actual": "ニッポンゴ",
+      "pass": false,
+      "review": [
+        "proper-name"
+      ],
+      "romaji": {
+        "double": "nippongo",
+        "macron": "nippongo"
+      },
+      "tokens": [
+        {
+          "surface": "日本",
+          "reading": "ニッポン",
+          "pos": [
+            "名詞",
+            "固有名詞",
+            "地名",
+            "国",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "語",
+          "reading": "ゴ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "を",
+          "reading": "ヲ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "勉強",
+          "reading": "ベンキョウ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "サ変可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "し",
+          "reading": "シ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "サ行変格",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 9,
+          "end": 10
+        }
+      ]
+    },
+    {
+      "text": "国際交流会館へ行きます。",
+      "target": "国際交流会館",
+      "expected": "コクサイコウリュウカイカン",
+      "category": "compound",
+      "actual": "コクサイコウリュウカイカン",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "kokusaikooryuukaikan",
+        "macron": "kokusaikōryūkaikan"
+      },
+      "tokens": [
+        {
+          "surface": "国際",
+          "reading": "コクサイ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "交流",
+          "reading": "コウリュウ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "サ変可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "会館",
+          "reading": "カイカン",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "へ",
+          "reading": "ヘ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "行き",
+          "reading": "イキ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "五段-カ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 9,
+          "end": 11
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 11,
+          "end": 12
+        }
+      ]
+    },
+    {
+      "text": "東京都立大学に行きます。",
+      "target": "東京都立大学",
+      "expected": "トウキョウトリツダイガク",
+      "category": "compound",
+      "actual": "トウキョウトリツダイガク",
+      "pass": true,
+      "review": [
+        "proper-name"
+      ],
+      "romaji": {
+        "double": "tookyootoritsudaigaku",
+        "macron": "tōkyōtoritsudaigaku"
+      },
+      "tokens": [
+        {
+          "surface": "東京",
+          "reading": "トウキョウ",
+          "pos": [
+            "名詞",
+            "固有名詞",
+            "地名",
+            "一般",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "都立",
+          "reading": "トリツ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "大学",
+          "reading": "ダイガク",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "に",
+          "reading": "ニ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "行き",
+          "reading": "イキ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "五段-カ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 9,
+          "end": 11
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 11,
+          "end": 12
+        }
+      ]
+    },
+    {
+      "text": "食べる。",
+      "target": "食べる",
+      "expected": "タベル",
+      "category": "inflection",
+      "actual": "タベル",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "taberu",
+        "macron": "taberu"
+      },
+      "tokens": [
+        {
+          "surface": "食べる",
+          "reading": "タベル",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "下一段-バ行",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 3
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 3,
+          "end": 4
+        }
+      ]
+    },
+    {
+      "text": "昨日食べました。",
+      "target": "食べました",
+      "expected": "タベマシタ",
+      "category": "inflection",
+      "actual": "タベマシタ",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "tabemashita",
+        "macron": "tabemashita"
+      },
+      "tokens": [
+        {
+          "surface": "昨日",
+          "reading": "キノウ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "副詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "食べ",
+          "reading": "タベ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "下一段-バ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "まし",
+          "reading": "マシ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "た",
+          "reading": "タ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-タ",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "text": "本を読みました。",
+      "target": "読みました",
+      "expected": "ヨミマシタ",
+      "category": "inflection",
+      "actual": "ヨミマシタ",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "yomimashita",
+        "macron": "yomimashita"
+      },
+      "tokens": [
+        {
+          "surface": "本",
+          "reading": "ホン",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "を",
+          "reading": "ヲ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 1,
+          "end": 2
+        },
+        {
+          "surface": "読み",
+          "reading": "ヨミ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "五段-マ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "まし",
+          "reading": "マシ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "た",
+          "reading": "タ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-タ",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "text": "山梨大学に留学しています。",
+      "target": "山梨大学",
+      "expected": "ヤマナシダイガク",
+      "category": "name",
+      "actual": "ヤマナシダイガク",
+      "pass": true,
+      "review": [
+        "proper-name"
+      ],
+      "romaji": {
+        "double": "yamanashidaigaku",
+        "macron": "yamanashidaigaku"
+      },
+      "tokens": [
+        {
+          "surface": "山梨",
+          "reading": "ヤマナシ",
+          "pos": [
+            "名詞",
+            "固有名詞",
+            "地名",
+            "一般",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "大学",
+          "reading": "ダイガク",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "に",
+          "reading": "ニ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 5
+        },
+        {
+          "surface": "留学",
+          "reading": "リュウガク",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "サ変可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "し",
+          "reading": "シ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "サ行変格",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 7,
+          "end": 8
+        },
+        {
+          "surface": "て",
+          "reading": "テ",
+          "pos": [
+            "助詞",
+            "接続助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 8,
+          "end": 9
+        },
+        {
+          "surface": "い",
+          "reading": "イ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "上一段-ア行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 9,
+          "end": 10
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 10,
+          "end": 12
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 12,
+          "end": 13
+        }
+      ]
+    },
+    {
+      "text": "江崎先生に会います。",
+      "target": "江崎",
+      "expected": "エサキ",
+      "category": "name",
+      "actual": "エザキ",
+      "pass": false,
+      "review": [
+        "proper-name"
+      ],
+      "romaji": {
+        "double": "ezaki",
+        "macron": "ezaki"
+      },
+      "tokens": [
+        {
+          "surface": "江崎",
+          "reading": "エザキ",
+          "pos": [
+            "名詞",
+            "固有名詞",
+            "人名",
+            "姓",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "先生",
+          "reading": "センセイ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "に",
+          "reading": "ニ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 5
+        },
+        {
+          "surface": "会い",
+          "reading": "アイ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "五段-ワア行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 7,
+          "end": 9
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 9,
+          "end": 10
+        }
+      ]
+    },
+    {
+      "text": "甲府駅で待っています。",
+      "target": "甲府駅",
+      "expected": "コウフエキ",
+      "category": "name",
+      "actual": "コウフエキ",
+      "pass": true,
+      "review": [
+        "proper-name"
+      ],
+      "romaji": {
+        "double": "koofueki",
+        "macron": "kōfueki"
+      },
+      "tokens": [
+        {
+          "surface": "甲府",
+          "reading": "コウフ",
+          "pos": [
+            "名詞",
+            "固有名詞",
+            "地名",
+            "一般",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "駅",
+          "reading": "エキ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "で",
+          "reading": "デ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "待っ",
+          "reading": "マッ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "五段-タ行",
+            "連用形-促音便"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "て",
+          "reading": "テ",
+          "pos": [
+            "助詞",
+            "接続助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "い",
+          "reading": "イ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "上一段-ア行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 7,
+          "end": 8
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 10,
+          "end": 11
+        }
+      ]
+    },
+    {
+      "text": "十月一日です。",
+      "target": "十月一日",
+      "expected": "ジュウガツツイタチ",
+      "category": "number",
+      "actual": "ジュウガツツイタチ",
+      "pass": true,
+      "review": [
+        "number-or-date",
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "juugatsutsuitachi",
+        "macron": "jūgatsutsuitachi"
+      },
+      "tokens": [
+        {
+          "surface": "十",
+          "reading": "ジュウ",
+          "pos": [
+            "名詞",
+            "数詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "月",
+          "reading": "ガツ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "助数詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 1,
+          "end": 2
+        },
+        {
+          "surface": "一日",
+          "reading": "ツイタチ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "副詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 6,
+          "end": 7
+        }
+      ]
+    },
+    {
+      "text": "三本のペンがあります。",
+      "target": "三本",
+      "expected": "サンボン",
+      "category": "number",
+      "actual": "サンポン",
+      "pass": false,
+      "review": [
+        "number-or-date",
+        "number-or-date"
+      ],
+      "romaji": {
+        "double": "sampon",
+        "macron": "sampon"
+      },
+      "tokens": [
+        {
+          "surface": "三",
+          "reading": "サン",
+          "pos": [
+            "名詞",
+            "数詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "本",
+          "reading": "ポン",
+          "pos": [
+            "接尾辞",
+            "名詞的",
+            "助数詞",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 1,
+          "end": 2
+        },
+        {
+          "surface": "の",
+          "reading": "ノ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "ペン",
+          "reading": null,
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "が",
+          "reading": "ガ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "あり",
+          "reading": "アリ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "五段-ラ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 8
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 10,
+          "end": 11
+        }
+      ]
+    },
+    {
+      "text": "一人で来ました。",
+      "target": "一人",
+      "expected": "ヒトリ",
+      "category": "number",
+      "actual": "ヒトリ",
+      "pass": true,
+      "review": [
+        "number-or-date"
+      ],
+      "romaji": {
+        "double": "hitori",
+        "macron": "hitori"
+      },
+      "tokens": [
+        {
+          "surface": "一人",
+          "reading": "ヒトリ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "副詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "で",
+          "reading": "デ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "来",
+          "reading": "キ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "カ行変格",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "まし",
+          "reading": "マシ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "た",
+          "reading": "タ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-タ",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 7
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "text": "二十歳です。",
+      "target": "二十歳",
+      "expected": "ハタチ",
+      "category": "number",
+      "actual": "ハタチ",
+      "pass": true,
+      "review": [
+        "number-or-date"
+      ],
+      "romaji": {
+        "double": "hatachi",
+        "macron": "hatachi"
+      },
+      "tokens": [
+        {
+          "surface": "二十歳",
+          "reading": "ハタチ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 3
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 5,
+          "end": 6
+        }
+      ]
+    },
+    {
+      "text": "銀行へ行きます。",
+      "target": "銀行",
+      "expected": "ギンコウ",
+      "category": "nasal",
+      "actual": "ギンコウ",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "ginkoo",
+        "macron": "ginkō"
+      },
+      "tokens": [
+        {
+          "surface": "銀行",
+          "reading": "ギンコウ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "へ",
+          "reading": "ヘ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "行き",
+          "reading": "イキ",
+          "pos": [
+            "動詞",
+            "非自立可能",
+            "*",
+            "*",
+            "五段-カ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "text": "新聞を読みます。",
+      "target": "新聞",
+      "expected": "シンブン",
+      "category": "nasal",
+      "actual": "シンブン",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "shimbun",
+        "macron": "shimbun"
+      },
+      "tokens": [
+        {
+          "surface": "新聞",
+          "reading": "シンブン",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "を",
+          "reading": "ヲ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "読み",
+          "reading": "ヨミ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "五段-マ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "text": "恋愛の話です。",
+      "target": "恋愛",
+      "expected": "レンアイ",
+      "category": "nasal",
+      "actual": "レンアイ",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "ren’ai",
+        "macron": "ren’ai"
+      },
+      "tokens": [
+        {
+          "surface": "恋愛",
+          "reading": "レンアイ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "サ変可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "の",
+          "reading": "ノ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "話",
+          "reading": "ハナシ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "サ変可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 6,
+          "end": 7
+        }
+      ]
+    },
+    {
+      "text": "先生です。",
+      "target": "先生",
+      "expected": "センセイ",
+      "category": "long-vowel",
+      "actual": "センセイ",
+      "pass": true,
+      "review": [],
+      "romaji": {
+        "double": "sensee",
+        "macron": "sensē"
+      },
+      "tokens": [
+        {
+          "surface": "先生",
+          "reading": "センセイ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 4,
+          "end": 5
+        }
+      ]
+    },
+    {
+      "text": "明日は休みです。",
+      "target": "明日",
+      "expected": "アシタ",
+      "category": "ambiguity",
+      "actual": "アス",
+      "pass": false,
+      "review": [
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "asu",
+        "macron": "asu"
+      },
+      "tokens": [
+        {
+          "surface": "明日",
+          "reading": "アス",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "副詞可能",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "pos": [
+            "助詞",
+            "係助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "休み",
+          "reading": "ヤスミ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    },
+    {
+      "text": "この絵は上手です。",
+      "target": "上手",
+      "expected": "ジョウズ",
+      "category": "ambiguity",
+      "actual": "ジョウズ",
+      "pass": true,
+      "review": [
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "joozu",
+        "macron": "jōzu"
+      },
+      "tokens": [
+        {
+          "surface": "この",
+          "reading": "コノ",
+          "pos": [
+            "連体詞",
+            "*",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "絵",
+          "reading": "エ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "は",
+          "reading": "ハ",
+          "pos": [
+            "助詞",
+            "係助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 4
+        },
+        {
+          "surface": "上手",
+          "reading": "ジョウズ",
+          "pos": [
+            "形状詞",
+            "一般",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 6
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 8
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 8,
+          "end": 9
+        }
+      ]
+    },
+    {
+      "text": "舞台の上手に立ちます。",
+      "target": "上手",
+      "expected": "カミテ",
+      "category": "ambiguity",
+      "actual": "ジョウズ",
+      "pass": false,
+      "review": [
+        "ambiguous-reading"
+      ],
+      "romaji": {
+        "double": "joozu",
+        "macron": "jōzu"
+      },
+      "tokens": [
+        {
+          "surface": "舞台",
+          "reading": "ブタイ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 0,
+          "end": 2
+        },
+        {
+          "surface": "の",
+          "reading": "ノ",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 3
+        },
+        {
+          "surface": "上手",
+          "reading": "ジョウズ",
+          "pos": [
+            "形状詞",
+            "一般",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 3,
+          "end": 5
+        },
+        {
+          "surface": "に",
+          "reading": "ニ",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-ダ",
+            "連用形-ニ"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 6
+        },
+        {
+          "surface": "立ち",
+          "reading": "タチ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "五段-タ行",
+            "連用形-一般"
+          ],
+          "unknown": false,
+          "start": 6,
+          "end": 8
+        },
+        {
+          "surface": "ます",
+          "reading": "マス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-マス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 8,
+          "end": 10
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 10,
+          "end": 11
+        }
+      ]
+    },
+    {
+      "text": "龘という字です。",
+      "target": "龘",
+      "expected": null,
+      "category": "unknown",
+      "actual": null,
+      "pass": true,
+      "review": [
+        "unknown-reading"
+      ],
+      "romaji": null,
+      "tokens": [
+        {
+          "surface": "龘",
+          "reading": null,
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 0,
+          "end": 1
+        },
+        {
+          "surface": "と",
+          "reading": "ト",
+          "pos": [
+            "助詞",
+            "格助詞",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 1,
+          "end": 2
+        },
+        {
+          "surface": "いう",
+          "reading": "イウ",
+          "pos": [
+            "動詞",
+            "一般",
+            "*",
+            "*",
+            "五段-ワア行",
+            "連体形-一般"
+          ],
+          "unknown": false,
+          "start": 2,
+          "end": 4
+        },
+        {
+          "surface": "字",
+          "reading": "ジ",
+          "pos": [
+            "名詞",
+            "普通名詞",
+            "一般",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": false,
+          "start": 4,
+          "end": 5
+        },
+        {
+          "surface": "です",
+          "reading": "デス",
+          "pos": [
+            "助動詞",
+            "*",
+            "*",
+            "*",
+            "助動詞-デス",
+            "終止形-一般"
+          ],
+          "unknown": false,
+          "start": 5,
+          "end": 7
+        },
+        {
+          "surface": "。",
+          "reading": null,
+          "pos": [
+            "補助記号",
+            "句点",
+            "*",
+            "*",
+            "*",
+            "*"
+          ],
+          "unknown": true,
+          "start": 7,
+          "end": 8
+        }
+      ]
+    }
+  ]
+}
