@@ -32,6 +32,13 @@ export function mergeRecovery(primary,recovered,regions){
   const confidence=readingConfidence(line),region=regions.find(r=>intersection(line.box,r.box)/Math.max(1,area(line.box))>.8);
   if(!region||confidence<.8||line.glyphs.some(g=>japanese.test(g.text)&&(g.confidence??0)<.65)){decisions.push({text:line.text,box:line.box,confidence,accepted:false,reason:'uncertain-regional-reading'});continue;}
   const overlaps=lines.filter(l=>intersection(l.box,region.originalBox)/Math.max(1,Math.min(area(l.box),area(region.originalBox)))>.6);
+  // A regional reread may span several neighboring glyphs. Never replace a
+  // confident line unless it is substantially the same text region: comparing
+  // confidence alone can erase a correctly recognized adjacent word.
+  const substantiallySameRegion=(a,b)=>intersection(a,b)/Math.max(1,Math.max(area(a),area(b)))>=.7;
+  if(overlaps.some(l=>readingConfidence(l)>=.82&&!substantiallySameRegion(l.box,line.box))){
+   decisions.push({text:line.text,box:line.box,confidence,accepted:false,reason:'would-erase-confident-neighbor'});continue;
+  }
   if(overlaps.some(l=>readingConfidence(l)>=confidence-.04)){decisions.push({text:line.text,box:line.box,confidence,accepted:false,reason:'existing-reading-at-least-as-confident'});continue;}
   lines=lines.filter(l=>!overlaps.includes(l));lines.push({...line,id:'repair-'+decisions.length,recognitionSource:'regional-recheck'});
   decisions.push({text:line.text,box:line.box,confidence,accepted:true,replaced:overlaps.map(l=>l.text)});
