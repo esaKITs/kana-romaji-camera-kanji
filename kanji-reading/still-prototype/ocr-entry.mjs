@@ -1,6 +1,7 @@
 import {createMeikiOcr} from '../../meikiocr-test/vendor/meikiocr-web/index.js';
 import {analyzeSnapshot,renderResult} from './pipeline.mjs';
 import {assetUrl} from '../camera-prototype/asset-url.mjs';
+import {recoveryRegions,mergeRecovery,recognitionViewport,restoreRecognitionCoordinates} from './recovery.mjs';
 let ocr=null,readingWorker=null,requestId=0;const waiting=new Map();
 function rpc(data){return new Promise((resolve,reject)=>{const id=++requestId;const timer=setTimeout(()=>{waiting.delete(id);reject(Error('Reading timeout'));},60000);waiting.set(id,{resolve,reject,timer});readingWorker.postMessage({id,...data});});}
 export async function initialize(engine='sudachi-small'){
@@ -13,25 +14,28 @@ export async function initialize(engine='sudachi-small'){
  }
  return {engine,combinedInitMs:performance.now()-t,readingInitMs:reading.initMs,readingWasmBytes:reading.wasmMemoryBytes};
 }
-async function scan(canvas,id){
- const rgba=canvas.getContext('2d',{willReadFrequently:true}).getImageData(0,0,canvas.width,canvas.height).data;
- return ocr.scan({frameId:id,width:canvas.width,height:canvas.height,capturedAtMs:performance.now(),rgba:rgba.buffer.slice(0)},{transfer:'move'});
+async function scan(canvas,id,regions){
+ const view=regions?recognitionViewport(regions,canvas.width,canvas.height):{x:0,y:0,width:canvas.width,height:canvas.height};
+ const rgba=canvas.getContext('2d',{willReadFrequently:true}).getImageData(view.x,view.y,view.width,view.height).data;
+ const snapshot=await ocr.scan({frameId:id,width:view.width,height:view.height,capturedAtMs:performance.now(),rgba:rgba.buffer,...(regions?{regions:view.regions}:{})},{transfer:'move'});
+ return regions?restoreRecognitionCoordinates(snapshot,view):snapshot;
 }
 export async function analyzeText(text){return (await rpc({command:'analyze',text,numeric:true})).tokens;}
 export async function runStill(source,{mode='あア漢',style='double',output=null,paperState=null}={}){
  if(!ocr||!readingWorker)throw Error('Initialize first');
- const t=performance.now(),snapshot=await scan(source,'still-'+requestId),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0;
+ const t=performance.now(),primarySnapshot=await scan(source,'still-'+requestId),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0,recoveryMs=0,snapshot=primarySnapshot,recovery={regions:[],decisions:[]};
+ const regions=recoveryRegions(primarySnapshot);
+ if(regions.length){const started=performance.now(),regionalSnapshot=await scan(source,'repair-'+requestId,regions.map(r=>r.box)),merged=mergeRecovery(primarySnapshot,regionalSnapshot,regions);snapshot=merged.snapshot;recovery={regions,decisions:merged.decisions,regionalSnapshot};recoveryMs=performance.now()-started;}
  const result=await analyzeSnapshot(snapshot,async text=>(await rpc({command:'analyze',text,numeric:true})).tokens,{mode,style,verifyRuby:async c=>{
-  const b=c.rubyBox,pad=4,scale=4,crop=document.createElement('canvas');
-  const x=Math.max(0,b.x0-pad),y=Math.max(0,b.y0-pad),w=Math.min(source.width-x,b.x1-b.x0+pad*2),h=Math.min(source.height-y,b.y1-b.y0+pad*2),margin=80;
-  crop.width=Math.ceil(w*scale)+margin*2;crop.height=Math.ceil(h*scale)+margin*2;
-  const context=crop.getContext('2d');context.fillStyle='white';context.fillRect(0,0,crop.width,crop.height);context.drawImage(source,x,y,w,h,margin,margin,w*scale,h*scale);
-  const checkStart=performance.now(),recheck=await scan(crop,'ruby-'+requestId),reading=recheck.lines.map(l=>l.glyphs.map(g=>g.text).join('')).join('').replace(/\s/g,'');rubyOcrMs+=performance.now()-checkStart;rubyChecks.push({source:c.source,first:c.reading,second:reading});return reading;
+  const kana=s=>s.normalize('NFC').replace(/[ァ-ヶ]/g,k=>String.fromCharCode(k.charCodeAt(0)-96));
+  if(c.contextReading&&kana(c.contextReading)===kana(c.reading)){rubyChecks.push({source:c.source,first:c.reading,second:c.contextReading,method:'context-dictionary-agreement'});return{reading:c.reading,method:'context-dictionary-agreement'};}
+  const b=c.rubyBox,pad=Math.max(2,(b.y1-b.y0)*.1),box=[Math.max(0,Math.floor(b.x0-pad)),Math.max(0,Math.floor(b.y0-pad)),Math.min(source.width,Math.ceil(b.x1+pad)),Math.min(source.height,Math.ceil(b.y1+pad))];
+  const checkStart=performance.now(),recheck=await scan(source,'ruby-'+requestId,[box]),reading=recheck.lines.map(l=>l.glyphs.map(g=>g.text).join('')).join('').replace(/\s/g,'');rubyOcrMs+=performance.now()-checkStart;rubyChecks.push({source:c.source,first:c.reading,second:reading,method:'regional-reread'});return{reading,method:'regional-reread'};
  }});
  const renderStart=performance.now(),rendering=output?renderResult(output,source,result,{paperState}):null;
- const run={elapsedMs:performance.now()-t,rawText:snapshot.lines.map(l=>l.text).join('\n'),snapshot,result,rubyChecks,rendering,timings:{ocrMs,rubyOcrMs,analysisMs:renderStart-t-ocrMs-rubyOcrMs,renderMs:performance.now()-renderStart},jsHeapBytes:performance.memory?.usedJSHeapSize??null};
+ const run={elapsedMs:performance.now()-t,rawText:snapshot.lines.map(l=>l.text).join('\n'),primarySnapshot,snapshot,recovery,result,rubyChecks,rendering,timings:{ocrMs,recoveryMs,rubyOcrMs,analysisMs:renderStart-t-ocrMs-recoveryMs-rubyOcrMs,renderMs:performance.now()-renderStart},jsHeapBytes:performance.memory?.usedJSHeapSize??null};
  // Bounded, browser-local diagnostics. This is neither an upload nor persisted data.
  window.stillLab.lastRun=run;return run;
 }
 export async function dispose(){readingWorker?.terminate();readingWorker=null;for(const p of waiting.values()){clearTimeout(p.timer);p.reject(Error('Disposed'));}waiting.clear();if(ocr)await ocr.dispose();ocr=null;}
-window.stillLab={initialize,runStill,dispose,analyzeSnapshot,renderResult,analyze:async text=>(await rpc({command:"analyze",text,numeric:true})).tokens};
+window.stillLab={initialize,runStill,dispose,scanRegions:(canvas,regions)=>scan(canvas,"regions-"+requestId,regions),analyzeSnapshot,renderResult,analyze:async text=>(await rpc({command:"analyze",text,numeric:true})).tokens};

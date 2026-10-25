@@ -69,7 +69,7 @@ export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
    edge=right;
    for(let i=items.length-1;i>=0;i--){positions[i]=Math.min(positions[i],bounds[i].high,edge-widths[i]);edge=positions[i]-gap;}
    for(let i=0;i<items.length;i++){
-    const item=items[i],b=item.label.box,x=positions[i],rect={x0:x,x1:x+widths[i],y0:Math.max(0,b.y0),y1:Math.min(height,b.y1)};
+    const item=items[i],b=item.label.box,anchor=item.label.bodyBox||b,x=positions[i],rect={x0:x,x1:x+widths[i],y0:Math.max(0,anchor.y0),y1:Math.min(height,anchor.y1)};
     if(rect.x0<left-.01||rect.x1>right+.01||rect.x1<=b.x0||rect.x0>=b.x1)omitted.push({...item.label,reason:'source-anchor-displaced'});
     else place(item.label,item.rows,item.font,scale,rect);
    }

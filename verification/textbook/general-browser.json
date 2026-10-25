@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "kind": "Chromium actual on-device OCR of generated sample; DOM gesture simulation, not physical mobile",
+  "first": {
+    "elapsedMs": 1039.7000000029802,
+    "timings": {
+      "ocrMs": 988.8999999985099,
+      "recoveryMs": 0,
+      "rubyOcrMs": 0,
+      "analysisMs": 26.100000001490116,
+      "renderMs": 24.700000002980232
+    },
+    "labels": 23,
+    "rawText": "三本のペンと3本のペン。\n五月一日。一日中休みます。\n二十日間休みます。\n十分に注意。十分待ちます。\n水が十三杯あります。",
+    "regionDiagnostics": {
+      "duplicates": 0,
+      "joinedFragments": 0,
+      "conflictingRegions": 0
+    }
+  },
+  "gestures": {
+    "pinch": "translate(95px, 0px) scale(2)",
+    "pan": "translate(125px, 0px) scale(2)",
+    "reset": "translate(0px, 0px) scale(1)"
+  },
+  "requests": 30,
+  "externalOrRootRequests": [],
+  "errors": []
+}

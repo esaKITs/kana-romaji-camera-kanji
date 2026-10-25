@@ -41,7 +41,7 @@ async function processScene(){
   if(kind==='live'){source=capture();capturedSignature=videoSignature(source);motion.observe(capturedSignature,performance.now());if(!motion.stable(performance.now())){message('Live · hold steady');return;}captureEpoch=motion.epoch;}
   message(kind==='live'?'Live · reading…':'Still · reading…',kind==='still');
   const temporary=document.createElement('canvas');let result;
-  if(kind==='still'&&cache?.source===source){const previous=cache.value;const analyzed=await analyzeSnapshot(previous.snapshot,analyzeText,{mode:requestedMode,style:requestedStyle,verifyRuby:c=>previous.result.pairs.find(p=>p.lineId===c.lineId&&p.start===c.start&&p.end===c.end)?.reading??null});result={...previous,result:analyzed,rendering:renderResult(temporary,source,analyzed,{paperState})};}
+  if(kind==='still'&&cache?.source===source){const previous=cache.value;const analyzed=await analyzeSnapshot(previous.snapshot,analyzeText,{mode:requestedMode,style:requestedStyle,verifyRuby:c=>{const pair=previous.result.pairs.find(p=>p.lineId===c.lineId&&p.start===c.start&&p.end===c.end);return pair?{reading:pair.reading,method:'cached-'+(pair.verification||'verified-ruby')}:null;}});result={...previous,result:analyzed,rendering:renderResult(temporary,source,analyzed,{paperState})};}
   else result=await runStill(source,{mode:requestedMode,style:requestedStyle,output:temporary,paperState});
   if(!session.owns(generation))return;
   if(kind==='live'&&!motion.accepts(capturedSignature,videoSignature(),captureEpoch,performance.now())){clearLayer();lastFrame=null;message('Live · hold steady');return;}

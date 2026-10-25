@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "original JPEG through actual UI",
+      "passed": true,
+      "timings": {
+        "ocrMs": 926.7999999970198,
+        "recoveryMs": 169.5,
+        "rubyOcrMs": 0,
+        "analysisMs": 19.30000000447035,
+        "renderMs": 19.799999997019768
+      },
+      "elapsedMs": 1135.3999999985099,
+      "pixels": {
+        "sourceRubyInk": 110,
+        "remainingRubyInk": 0,
+        "canvasWidth": 1179,
+        "canvasHeight": 620
+      }
+    },
+    {
+      "name": "same JPEG / macron UI toggle",
+      "passed": true
+    },
+    {
+      "name": "same JPEG / ア漢",
+      "passed": true
+    },
+    {
+      "name": "same JPEG / 漢",
+      "passed": true
+    },
+    {
+      "name": "same JPEG / あア漢",
+      "passed": true
+    },
+    {
+      "name": "same JPEG resampled 0.5",
+      "passed": true,
+      "timings": {
+        "ocrMs": 789.3999999985099,
+        "recoveryMs": 396.29999999701977,
+        "rubyOcrMs": 0,
+        "analysisMs": 8.400000005960464,
+        "renderMs": 8.899999998509884
+      },
+      "elapsedMs": 1203
+    },
+    {
+      "name": "same JPEG resampled 1.5",
+      "passed": true,
+      "timings": {
+        "ocrMs": 747.5,
+        "recoveryMs": 167.20000000298023,
+        "rubyOcrMs": 0,
+        "analysisMs": 4.299999997019768,
+        "renderMs": 16.700000002980232
+      },
+      "elapsedMs": 935.6000000014901
+    }
+  ],
+  "errors": []
+}
