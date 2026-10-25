@@ -24,6 +24,7 @@ export function normalizeRegions(snapshot){
  const eligible=l=>l.orientation!=='vertical'&&l.glyphs.length&&l.glyphs.every(g=>valid(g.box));
  const boxes=lines.map(l=>eligible(l)?union(l.glyphs.map(g=>g.box)):null);
  const edges=[];
+ const kanaOnly=l=>/^[ぁ-ゖァ-ヺー]+$/u.test(l.text);
  for(let i=0;i<lines.length;i++)for(let j=0;j<lines.length;j++){
   if(i===j||!boxes[i]||!boxes[j])continue;
   // OCR can split a kana word into a multi-glyph run plus a final glyph
@@ -31,7 +32,6 @@ export function normalizeRegions(snapshot){
   // side is a singleton, and leave larger independently recognized words
   // separate. The baseline/height/gap and mutual-uniqueness checks below
   // still apply.
-  const kanaOnly=l=>/^[ぁ-ゖァ-ヺー]+$/u.test(l.text);
   if(!kanaOnly(lines[i])||!kanaOnly(lines[j]))continue;
   if(lines[i].glyphs.length!==1&&lines[j].glyphs.length!==1)continue;
   const a=boxes[i],b=boxes[j],h=Math.min(height(a),height(b)),gap=b[0]-a[2];
