@@ -51,14 +51,17 @@ export function rubyCandidates(lines){
 export async function analyzeSnapshot(snapshot,analyze,{mode='あア漢',style='double',verifyRuby=async()=>null}={}){
  if(!modes.includes(mode))throw Error('Invalid mode');
  const normalized=normalizeRegions(snapshot),lines=sourceLines(normalized),pairs=[],candidates=rubyCandidates(lines);
+ const tokenCache=new Map();const tokensFor=async line=>{if(!tokenCache.has(line.id))tokenCache.set(line.id,await analyze(line.text));return tokenCache.get(line.id);};
  for(const c of candidates){
-  const reread=await verifyRuby(c);
-  if(reread?.normalize('NFC')===c.reading.normalize('NFC'))pairs.push({...c,verified:true});
+  const main=lines.find(l=>l.id===c.lineId),contextTokens=(await tokensFor(main)).filter(t=>t.start>=c.start&&t.end<=c.end);
+  const contextReading=contextTokens.length&&contextTokens[0].start===c.start&&contextTokens.at(-1).end===c.end&&contextTokens.every(t=>!t.unknown&&t.reading)?contextTokens.map(t=>t.reading).join(''):null;
+  const checked=await verifyRuby({...c,contextReading}),reread=typeof checked==='string'?checked:checked?.reading;
+  if(reread?.normalize('NFC')===c.reading.normalize('NFC'))pairs.push({...c,verified:true,verification:typeof checked==='object'?checked.method:'independent-reread'});
  }
  const consumedRuby=new Set(candidates.map(p=>p.rubyLineId)),labels=[],withheld=[],nonReading=[],analysis=[];
  for(const line of lines){
   if(consumedRuby.has(line.id))continue;
-  const rawTokens=await analyze(line.text),candidate=openingBullet(line),bullet=candidate&&rawTokens.some(t=>t.start===0&&t.end===1)?candidate:null;
+  const rawTokens=await tokensFor(line),candidate=openingBullet(line),bullet=candidate&&rawTokens.some(t=>t.start===0&&t.end===1)?candidate:null;
   analysis.push({lineId:line.id,text:line.text,tokens:rawTokens});
   if(bullet)nonReading.push({...bullet,lineId:line.id});
   const tokens=displayTokens(line.text,rawTokens,mode,pairs.filter(p=>p.lineId===line.id),{bulletEnd:bullet?.end});
@@ -115,7 +118,7 @@ export function renderResult(canvas,source,result,{paperState=null}={}){
  // First clear the entire source word, independently of its new text position.
  // Draw all backgrounds before any text, so no later mask erases a label.
  for(const label of layout.drawn){
-  const b=label.box,pad=2,sourceBox={x0:Math.max(0,b.x0-pad),x1:Math.min(canvas.width,b.x1+pad),y0:Math.max(0,b.y0-pad),y1:Math.min(canvas.height,b.y1+pad)};
+  const b=label.box,body=label.bodyBox||b,pad=Math.max(2,Math.min(6,Math.ceil((body.y1-body.y0)*.08))),sourceBox={x0:Math.max(0,b.x0-pad),x1:Math.min(canvas.width,b.x1+pad),y0:Math.max(0,b.y0-pad),y1:Math.min(canvas.height,b.y1+pad)};
   label.eraseRegions=visibleRegions(sourceBox,preserved);label.textRegions=visibleRegions(label.displayBox,preserved);
   ctx.fillStyle=label.backgroundColor;for(const r of [...label.eraseRegions,...label.textRegions])ctx.fillRect(r.x0,r.y0,r.x1-r.x0,r.y1-r.y0);
  }

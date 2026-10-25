@@ -1,8 +1,8 @@
 # Kana漢 → Romaji Camera — independent second edition
 
-第二弾専用リポジトリです。**公開は承認待ちで、まだデプロイしていません。**
+第二弾専用リポジトリです。GitHub Pagesで公開中です。教材OCRの追加修正は開発ブランチで検証しており、公開版への追加反映はまだ行っていません。
 
-候補URL: https://esakits.github.io/kana-romaji-camera-kanji/
+公開URL: https://esakits.github.io/kana-romaji-camera-kanji/
 
 第一弾 https://esakits.github.io/kana-romaji-camera/ とそのリポジトリ・main・Pages設定は変更しません。旧PR [#26](https://github.com/esaKITs/kana-romaji-camera/pull/26) の修正を再利用し、独立した配信パスと資産準備を追加しています。
 
@@ -37,11 +37,13 @@ npm run test:browser
 
 ## Current validation
 
-- 単体・回帰テスト **96成功、0失敗、0スキップ**。
+教材画像での再現・修正と実画素検査は [TEXTBOOK-OCR-REPORT.md](TEXTBOOK-OCR-REPORT.md) と [verification/textbook/](verification/textbook/) を参照してください。元画像、同画像の0.5倍／1.5倍、マクロン切替、3モードの実OCRテストを追加しています。
+
+- 単体・回帰テスト **101成功、0失敗、0スキップ**。
 - Chromiumで `/kana-romaji-camera-kanji/` 配下の実OCRを確認。生成日本語サンプルで23ラベル。モデル・WASM・辞書は同じサブパスから取得し、root URL逸脱・外部送信・JSエラーなし。
 - 3モード、長音切替、実DOMでのジェスチャー処理、横画面UI、生成映像によるLive→Still→Live→Homeを確認。
 - 配信成果物は約85MB。モデル2個とruntime2ファイルを含み、資産ハッシュを検証。
-- ユーザー教材画像、実機iPhone Safari／Android Chrome、実カメラ、WebKitの検証は未完了。生成サンプルの成功をユーザー画像での「いい」「どう」「か」の解決と混同しません。
+- 提供された教材画像は実モデルと実描画で検証済みです。実機iPhone Safari／Android Chrome、実カメラ、WebKitの再確認は未完了です。
 
 詳細・実測ログは [verification](verification/) と [移行検証報告](PAGES-MIGRATION-REPORT.md) を参照してください。旧 `kanji-reading/*REPORT.md` は移行前の履歴であり、当時の未実行件数を記録しています。
 

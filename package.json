@@ -9,6 +9,7 @@
     "build": "node scripts/build-pages.mjs",
     "test": "node scripts/test-all.mjs",
     "test:browser": "node scripts/pages-browser-test.mjs",
-    "verify:dist": "node scripts/verify-dist.mjs"
+    "verify:dist": "node scripts/verify-dist.mjs",
+    "test:textbook": "node scripts/textbook-browser-test.mjs"
   }
 }

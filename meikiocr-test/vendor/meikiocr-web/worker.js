@@ -785,6 +785,10 @@ function validateFrame(frame, maxInputPixels) {
     );
   }
   if (!(frame.rgba instanceof ArrayBuffer)) throw new InvalidInputError("frame.rgba must be an ArrayBuffer");
+  if (frame.regions !== undefined) {
+    if (!Array.isArray(frame.regions) || frame.regions.length < 1 || frame.regions.length > 16) throw new InvalidInputError("regions must contain 1..16 rectangles");
+    for (const b of frame.regions) if (!Array.isArray(b) || b.length !== 4 || !b.every(Number.isInteger) || b[0]<0 || b[1]<0 || b[2]>frame.width || b[3]>frame.height || b[2]<=b[0] || b[3]<=b[1]) throw new InvalidInputError("invalid recognition region");
+  }
   const expected = frame.width * frame.height * 4;
   if (frame.rgba.byteLength !== expected) {
     throw new InvalidInputError(`frame.rgba has ${frame.rgba.byteLength} bytes; expected ${expected} (tightly packed RGBA8)`);
@@ -797,11 +801,11 @@ async function runPipeline(engine, frame, cfg, now = () => performance.now()) {
   const warnings = [];
   const rgba = new Uint8Array(frame.rgba);
   const { width, height } = frame;
-  const det = preprocessForDetection(rgba, width, height, params.channelOrder);
+  const det = frame.regions ? null : preprocessForDetection(rgba, width, height, params.channelOrder);
   const t1 = now();
-  const detOut = await engine.detect(det.tensor, det.origTargetSizes);
+  const detOut = frame.regions ? {count:0,boxes:new Float32Array(),scores:new Float32Array()} : await engine.detect(det.tensor, det.origTargetSizes);
   const t2 = now();
-  const boxes = postprocessDetection(detOut, width, height, params.detThreshold, warnings);
+  const boxes = frame.regions ? frame.regions.map(box=>({box:[...box],score:null})) : postprocessDetection(detOut, width, height, params.detThreshold, warnings);
   const results = /* @__PURE__ */ new Map();
   const hIdx = [];
   const vIdx = [];
@@ -810,7 +814,7 @@ async function runPipeline(engine, frame, cfg, now = () => performance.now()) {
     const w = r[2] - r[0];
     const h = r[3] - r[1];
     if (w <= 0 || h <= 0) return;
-    if (h > w) vIdx.push(i);
+    if (h > w && !frame.regions) vIdx.push(i);
     else hIdx.push(i);
   });
   let recPre = 0;
@@ -881,6 +885,10 @@ async function runPipeline(engine, frame, cfg, now = () => performance.now()) {
       elapsedMs: t3 - t0,
       modelSetId: engine.modelSetId,
       warnings,
+      detectionSource: frame.regions ? "supplied-regions" : "detector",
+      detectorThreshold: params.detThreshold,
+      detectorProposals: Array.from({length:detOut.count}, (_,i)=>({box:Array.from(detOut.boxes.slice(i*4,i*4+4)),confidence:detOut.scores[i]})).filter(p=>p.box.every(Number.isFinite)),
+      detectionRegions: boxes.map((b,i)=>({box:b.box,confidence:b.score,route:vIdx.includes(i)?"vertical":"horizontal",recognized:results.has(i),text:results.get(i)?.text??null})),
       timings: {
         detectPreprocessMs: t1 - t0,
         detectMs: t2 - t1,

@@ -1,0 +1,126 @@
+[
+  {
+    "verticalPaddingFactor": 0,
+    "sourceRegion": [
+      671,
+      397,
+      775,
+      426
+    ],
+    "recognizedLine": {
+      "id": "l0",
+      "text": "しいしい",
+      "box": [
+        671,
+        397,
+        774,
+        426
+      ],
+      "orientation": "horizontal",
+      "glyphs": [
+        {
+          "id": "l0g0",
+          "text": "し",
+          "box": [
+            671,
+            397,
+            702,
+            426
+          ],
+          "confidence": 0.6298182010650635,
+          "utf16Start": 0,
+          "utf16End": 1
+        },
+        {
+          "id": "l0g1",
+          "text": "い",
+          "box": [
+            698,
+            397,
+            729,
+            426
+          ],
+          "confidence": 0.4785415232181549,
+          "utf16Start": 1,
+          "utf16End": 2
+        },
+        {
+          "id": "l0g2",
+          "text": "し",
+          "box": [
+            722,
+            397,
+            751,
+            426
+          ],
+          "confidence": 0.42629891633987427,
+          "utf16Start": 2,
+          "utf16End": 3
+        },
+        {
+          "id": "l0g3",
+          "text": "い",
+          "box": [
+            744,
+            397,
+            774,
+            426
+          ],
+          "confidence": 0.6432666778564453,
+          "utf16Start": 3,
+          "utf16End": 4
+        }
+      ]
+    },
+    "note": "Actual recognizer output of the same image pixels; experimental boxes are not application constants."
+  },
+  {
+    "verticalPaddingFactor": 0.35,
+    "sourceRegion": [
+      671,
+      387,
+      775,
+      436
+    ],
+    "recognizedLine": {
+      "id": "l0",
+      "text": "いい",
+      "box": [
+        675,
+        387,
+        774,
+        436
+      ],
+      "orientation": "horizontal",
+      "glyphs": [
+        {
+          "id": "l0g0",
+          "text": "い",
+          "box": [
+            675,
+            387,
+            725,
+            436
+          ],
+          "confidence": 0.9040496349334717,
+          "utf16Start": 0,
+          "utf16End": 1
+        },
+        {
+          "id": "l0g1",
+          "text": "い",
+          "box": [
+            725,
+            387,
+            774,
+            436
+          ],
+          "confidence": 0.8674446940422058,
+          "utf16Start": 1,
+          "utf16End": 2
+        }
+      ]
+    },
+    "note": "Actual recognizer output of the same image pixels; experimental boxes are not application constants."
+  }
+]

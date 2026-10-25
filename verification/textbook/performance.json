@@ -1,0 +1,306 @@
+{
+  "before": {
+    "samples": [
+      {
+        "elapsedMs": 1343.6000000014901,
+        "timings": {
+          "ocrMs": 747.1000000014901,
+          "rubyOcrMs": 570.6000000014901,
+          "analysisMs": 14.799999997019768,
+          "renderMs": 11.100000001490116
+        },
+        "labels": [
+          [
+            "この",
+            "kono"
+          ],
+          [
+            "町",
+            "machi"
+          ],
+          [
+            "は",
+            "wa"
+          ],
+          [
+            "きれい",
+            "kiree"
+          ],
+          [
+            "です",
+            "desu"
+          ],
+          [
+            "にぎやか",
+            "nigiyaka"
+          ],
+          [
+            "おもしろい",
+            "omoshiroi"
+          ]
+        ],
+        "jsHeapBytes": 14964320,
+        "browserPssBytes": 775483392,
+        "processesMeasured": 7
+      },
+      {
+        "elapsedMs": 1347.1000000014901,
+        "timings": {
+          "ocrMs": 888.7999999970198,
+          "rubyOcrMs": 440.8999999985099,
+          "analysisMs": 8.600000001490116,
+          "renderMs": 8.800000004470348
+        },
+        "labels": [
+          [
+            "この",
+            "kono"
+          ],
+          [
+            "町",
+            "machi"
+          ],
+          [
+            "は",
+            "wa"
+          ],
+          [
+            "きれい",
+            "kiree"
+          ],
+          [
+            "です",
+            "desu"
+          ],
+          [
+            "にぎやか",
+            "nigiyaka"
+          ],
+          [
+            "おもしろい",
+            "omoshiroi"
+          ]
+        ],
+        "jsHeapBytes": 18067656,
+        "browserPssBytes": 806292480,
+        "processesMeasured": 7
+      },
+      {
+        "elapsedMs": 1085.5,
+        "timings": {
+          "ocrMs": 698.3999999985099,
+          "rubyOcrMs": 379.6000000014901,
+          "analysisMs": 2.600000001490116,
+          "renderMs": 4.899999998509884
+        },
+        "labels": [
+          [
+            "この",
+            "kono"
+          ],
+          [
+            "町",
+            "machi"
+          ],
+          [
+            "は",
+            "wa"
+          ],
+          [
+            "きれい",
+            "kiree"
+          ],
+          [
+            "です",
+            "desu"
+          ],
+          [
+            "にぎやか",
+            "nigiyaka"
+          ],
+          [
+            "おもしろい",
+            "omoshiroi"
+          ]
+        ],
+        "jsHeapBytes": 22052216,
+        "browserPssBytes": 795839488,
+        "processesMeasured": 7
+      }
+    ],
+    "medianMs": 1343.6000000014901,
+    "medianPssBytes": 795839488
+  },
+  "after": {
+    "samples": [
+      {
+        "elapsedMs": 1152.8000000044703,
+        "timings": {
+          "ocrMs": 832.6000000014901,
+          "recoveryMs": 302.8999999985099,
+          "rubyOcrMs": 0,
+          "analysisMs": 9.5,
+          "renderMs": 7.800000004470348
+        },
+        "labels": [
+          [
+            "この",
+            "kono"
+          ],
+          [
+            "町",
+            "machi"
+          ],
+          [
+            "は",
+            "wa"
+          ],
+          [
+            "きれい",
+            "kiree"
+          ],
+          [
+            "です",
+            "desu"
+          ],
+          [
+            "にぎやか",
+            "nigiyaka"
+          ],
+          [
+            "おもしろい",
+            "omoshiroi"
+          ],
+          [
+            "いい",
+            "ii"
+          ],
+          [
+            "どう",
+            "doo"
+          ],
+          [
+            "か",
+            "ka"
+          ]
+        ],
+        "jsHeapBytes": 7579998,
+        "browserPssBytes": 774287360,
+        "processesMeasured": 7
+      },
+      {
+        "elapsedMs": 883.7999999970198,
+        "timings": {
+          "ocrMs": 692.1999999955297,
+          "recoveryMs": 183.40000000596046,
+          "rubyOcrMs": 0,
+          "analysisMs": 2.1999999955296516,
+          "renderMs": 6
+        },
+        "labels": [
+          [
+            "この",
+            "kono"
+          ],
+          [
+            "町",
+            "machi"
+          ],
+          [
+            "は",
+            "wa"
+          ],
+          [
+            "きれい",
+            "kiree"
+          ],
+          [
+            "です",
+            "desu"
+          ],
+          [
+            "にぎやか",
+            "nigiyaka"
+          ],
+          [
+            "おもしろい",
+            "omoshiroi"
+          ],
+          [
+            "いい",
+            "ii"
+          ],
+          [
+            "どう",
+            "doo"
+          ],
+          [
+            "か",
+            "ka"
+          ]
+        ],
+        "jsHeapBytes": 7881898,
+        "browserPssBytes": 766680064,
+        "processesMeasured": 7
+      },
+      {
+        "elapsedMs": 957.6000000014901,
+        "timings": {
+          "ocrMs": 767.6000000014901,
+          "recoveryMs": 181.20000000298023,
+          "rubyOcrMs": 0,
+          "analysisMs": 3.6999999955296516,
+          "renderMs": 5.100000001490116
+        },
+        "labels": [
+          [
+            "この",
+            "kono"
+          ],
+          [
+            "町",
+            "machi"
+          ],
+          [
+            "は",
+            "wa"
+          ],
+          [
+            "きれい",
+            "kiree"
+          ],
+          [
+            "です",
+            "desu"
+          ],
+          [
+            "にぎやか",
+            "nigiyaka"
+          ],
+          [
+            "おもしろい",
+            "omoshiroi"
+          ],
+          [
+            "いい",
+            "ii"
+          ],
+          [
+            "どう",
+            "doo"
+          ],
+          [
+            "か",
+            "ka"
+          ]
+        ],
+        "jsHeapBytes": 8107850,
+        "browserPssBytes": 789167104,
+        "processesMeasured": 7
+      }
+    ],
+    "medianMs": 957.6000000014901,
+    "medianPssBytes": 774287360
+  },
+  "method": "Same original JPEG; fresh Chromium per version; first UI scan warms engines, then three real scan/analyzer/render runs. Linux browser process PSS sum, not smartphone memory."
+}

@@ -1,0 +1,1324 @@
+{
+  "elapsedMs": 1576.6000000014901,
+  "rawText": "まち\n1この町は\nきれいです。\nにぎやか\nおもしろい",
+  "snapshot": {
+    "frameId": "still-1",
+    "width": 1179,
+    "height": 620,
+    "profile": "meikipop-v2",
+    "lines": [
+      {
+        "id": "l0",
+        "text": "まち",
+        "box": [
+          314,
+          39,
+          376,
+          70
+        ],
+        "orientation": "horizontal",
+        "glyphs": [
+          {
+            "id": "l0g0",
+            "text": "ま",
+            "box": [
+              314,
+              39,
+              346,
+              70
+            ],
+            "confidence": 0.9634066820144653,
+            "utf16Start": 0,
+            "utf16End": 1
+          },
+          {
+            "id": "l0g1",
+            "text": "ち",
+            "box": [
+              344,
+              39,
+              376,
+              70
+            ],
+            "confidence": 0.9713565111160278,
+            "utf16Start": 1,
+            "utf16End": 2
+          }
+        ]
+      },
+      {
+        "id": "l1",
+        "text": "1この町は",
+        "box": [
+          3,
+          72,
+          428,
+          122
+        ],
+        "orientation": "horizontal",
+        "glyphs": [
+          {
+            "id": "l1g0",
+            "text": "1",
+            "box": [
+              3,
+              72,
+              45,
+              122
+            ],
+            "confidence": 0.7771022319793701,
+            "utf16Start": 0,
+            "utf16End": 1
+          },
+          {
+            "id": "l1g1",
+            "text": "こ",
+            "box": [
+              160,
+              72,
+              210,
+              122
+            ],
+            "confidence": 0.8903710246086121,
+            "utf16Start": 1,
+            "utf16End": 2
+          },
+          {
+            "id": "l1g2",
+            "text": "の",
+            "box": [
+              206,
+              72,
+              255,
+              122
+            ],
+            "confidence": 0.9116072654724121,
+            "utf16Start": 2,
+            "utf16End": 3
+          },
+          {
+            "id": "l1g3",
+            "text": "町",
+            "box": [
+              318,
+              72,
+              375,
+              122
+            ],
+            "confidence": 0.8432905673980713,
+            "utf16Start": 3,
+            "utf16End": 4
+          },
+          {
+            "id": "l1g4",
+            "text": "は",
+            "box": [
+              385,
+              72,
+              428,
+              122
+            ],
+            "confidence": 0.8700931668281555,
+            "utf16Start": 4,
+            "utf16End": 5
+          }
+        ]
+      },
+      {
+        "id": "l2",
+        "text": "きれいです。",
+        "box": [
+          622,
+          73,
+          953,
+          123
+        ],
+        "orientation": "horizontal",
+        "glyphs": [
+          {
+            "id": "l2g0",
+            "text": "き",
+            "box": [
+              622,
+              73,
+              672,
+              123
+            ],
+            "confidence": 0.913964569568634,
+            "utf16Start": 0,
+            "utf16End": 1
+          },
+          {
+            "id": "l2g1",
+            "text": "れ",
+            "box": [
+              674,
+              73,
+              727,
+              123
+            ],
+            "confidence": 0.9318960309028625,
+            "utf16Start": 1,
+            "utf16End": 2
+          },
+          {
+            "id": "l2g2",
+            "text": "い",
+            "box": [
+              726,
+              73,
+              780,
+              123
+            ],
+            "confidence": 0.891284704208374,
+            "utf16Start": 2,
+            "utf16End": 3
+          },
+          {
+            "id": "l2g3",
+            "text": "で",
+            "box": [
+              831,
+              73,
+              880,
+              123
+            ],
+            "confidence": 0.9198785424232483,
+            "utf16Start": 3,
+            "utf16End": 4
+          },
+          {
+            "id": "l2g4",
+            "text": "す",
+            "box": [
+              878,
+              73,
+              929,
+              123
+            ],
+            "confidence": 0.9014734625816345,
+            "utf16Start": 4,
+            "utf16End": 5
+          },
+          {
+            "id": "l2g5",
+            "text": "。",
+            "box": [
+              937,
+              73,
+              953,
+              123
+            ],
+            "confidence": 0.1604846000671387,
+            "utf16Start": 5,
+            "utf16End": 6
+          }
+        ]
+      },
+      {
+        "id": "l3",
+        "text": "にぎやか",
+        "box": [
+          571,
+          179,
+          776,
+          224
+        ],
+        "orientation": "horizontal",
+        "glyphs": [
+          {
+            "id": "l3g0",
+            "text": "に",
+            "box": [
+              571,
+              179,
+              619,
+              224
+            ],
+            "confidence": 0.9217894673347473,
+            "utf16Start": 0,
+            "utf16End": 1
+          },
+          {
+            "id": "l3g1",
+            "text": "ぎ",
+            "box": [
+              617,
+              179,
+              668,
+              224
+            ],
+            "confidence": 0.9473724365234375,
+            "utf16Start": 1,
+            "utf16End": 2
+          },
+          {
+            "id": "l3g2",
+            "text": "や",
+            "box": [
+              668,
+              179,
+              722,
+              224
+            ],
+            "confidence": 0.9263257384300232,
+            "utf16Start": 2,
+            "utf16End": 3
+          },
+          {
+            "id": "l3g3",
+            "text": "か",
+            "box": [
+              723,
+              179,
+              776,
+              224
+            ],
+            "confidence": 0.9168840050697327,
+            "utf16Start": 3,
+            "utf16End": 4
+          }
+        ]
+      },
+      {
+        "id": "l4",
+        "text": "おもしろい",
+        "box": [
+          512,
+          281,
+          774,
+          329
+        ],
+        "orientation": "horizontal",
+        "glyphs": [
+          {
+            "id": "l4g0",
+            "text": "お",
+            "box": [
+              512,
+              281,
+              563,
+              329
+            ],
+            "confidence": 0.9270099401473999,
+            "utf16Start": 0,
+            "utf16End": 1
+          },
+          {
+            "id": "l4g1",
+            "text": "も",
+            "box": [
+              563,
+              281,
+              615,
+              329
+            ],
+            "confidence": 0.9029216766357422,
+            "utf16Start": 1,
+            "utf16End": 2
+          },
+          {
+            "id": "l4g2",
+            "text": "し",
+            "box": [
+              619,
+              281,
+              671,
+              329
+            ],
+            "confidence": 0.8928941488265991,
+            "utf16Start": 2,
+            "utf16End": 3
+          },
+          {
+            "id": "l4g3",
+            "text": "ろ",
+            "box": [
+              671,
+              281,
+              723,
+              329
+            ],
+            "confidence": 0.8793420791625977,
+            "utf16Start": 3,
+            "utf16End": 4
+          },
+          {
+            "id": "l4g4",
+            "text": "い",
+            "box": [
+              723,
+              281,
+              774,
+              329
+            ],
+            "confidence": 0.9090702533721924,
+            "utf16Start": 4,
+            "utf16End": 5
+          }
+        ]
+      }
+    ],
+    "diagnostics": {
+      "backend": "wasm",
+      "elapsedMs": 1130.9000000022352,
+      "modelSetId": "meiki-v0-det-a9cffa4-rec-a28cf58",
+      "warnings": [],
+      "timings": {
+        "detectPreprocessMs": 97.90000000223517,
+        "detectMs": 566.1999999992549,
+        "recognizePreprocessMs": 11.100000001490116,
+        "recognizeMs": 453.5999999977648,
+        "postprocessMs": 1.6000000014901161
+      }
+    }
+  },
+  "result": {
+    "mode": "あア漢",
+    "style": "double",
+    "lines": [
+      {
+        "id": 0,
+        "text": "まち",
+        "box": {
+          "x0": 314,
+          "y0": 39,
+          "x1": 376,
+          "y1": 70
+        },
+        "glyphs": [
+          {
+            "text": "ま",
+            "start": 0,
+            "end": 1,
+            "confidence": 0.9634066820144653,
+            "box": {
+              "x0": 314,
+              "y0": 39,
+              "x1": 346,
+              "y1": 70
+            }
+          },
+          {
+            "text": "ち",
+            "start": 1,
+            "end": 2,
+            "confidence": 0.9713565111160278,
+            "box": {
+              "x0": 344,
+              "y0": 39,
+              "x1": 376,
+              "y1": 70
+            }
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "text": "1この町は",
+        "box": {
+          "x0": 3,
+          "y0": 72,
+          "x1": 428,
+          "y1": 122
+        },
+        "glyphs": [
+          {
+            "text": "1",
+            "start": 0,
+            "end": 1,
+            "confidence": 0.7771022319793701,
+            "box": {
+              "x0": 3,
+              "y0": 72,
+              "x1": 45,
+              "y1": 122
+            }
+          },
+          {
+            "text": "こ",
+            "start": 1,
+            "end": 2,
+            "confidence": 0.8903710246086121,
+            "box": {
+              "x0": 160,
+              "y0": 72,
+              "x1": 210,
+              "y1": 122
+            }
+          },
+          {
+            "text": "の",
+            "start": 2,
+            "end": 3,
+            "confidence": 0.9116072654724121,
+            "box": {
+              "x0": 206,
+              "y0": 72,
+              "x1": 255,
+              "y1": 122
+            }
+          },
+          {
+            "text": "町",
+            "start": 3,
+            "end": 4,
+            "confidence": 0.8432905673980713,
+            "box": {
+              "x0": 318,
+              "y0": 72,
+              "x1": 375,
+              "y1": 122
+            }
+          },
+          {
+            "text": "は",
+            "start": 4,
+            "end": 5,
+            "confidence": 0.8700931668281555,
+            "box": {
+              "x0": 385,
+              "y0": 72,
+              "x1": 428,
+              "y1": 122
+            }
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "text": "きれいです。",
+        "box": {
+          "x0": 622,
+          "y0": 73,
+          "x1": 953,
+          "y1": 123
+        },
+        "glyphs": [
+          {
+            "text": "き",
+            "start": 0,
+            "end": 1,
+            "confidence": 0.913964569568634,
+            "box": {
+              "x0": 622,
+              "y0": 73,
+              "x1": 672,
+              "y1": 123
+            }
+          },
+          {
+            "text": "れ",
+            "start": 1,
+            "end": 2,
+            "confidence": 0.9318960309028625,
+            "box": {
+              "x0": 674,
+              "y0": 73,
+              "x1": 727,
+              "y1": 123
+            }
+          },
+          {
+            "text": "い",
+            "start": 2,
+            "end": 3,
+            "confidence": 0.891284704208374,
+            "box": {
+              "x0": 726,
+              "y0": 73,
+              "x1": 780,
+              "y1": 123
+            }
+          },
+          {
+            "text": "で",
+            "start": 3,
+            "end": 4,
+            "confidence": 0.9198785424232483,
+            "box": {
+              "x0": 831,
+              "y0": 73,
+              "x1": 880,
+              "y1": 123
+            }
+          },
+          {
+            "text": "す",
+            "start": 4,
+            "end": 5,
+            "confidence": 0.9014734625816345,
+            "box": {
+              "x0": 878,
+              "y0": 73,
+              "x1": 929,
+              "y1": 123
+            }
+          },
+          {
+            "text": "。",
+            "start": 5,
+            "end": 6,
+            "confidence": 0.1604846000671387,
+            "box": {
+              "x0": 937,
+              "y0": 73,
+              "x1": 953,
+              "y1": 123
+            }
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "text": "にぎやか",
+        "box": {
+          "x0": 571,
+          "y0": 179,
+          "x1": 776,
+          "y1": 224
+        },
+        "glyphs": [
+          {
+            "text": "に",
+            "start": 0,
+            "end": 1,
+            "confidence": 0.9217894673347473,
+            "box": {
+              "x0": 571,
+              "y0": 179,
+              "x1": 619,
+              "y1": 224
+            }
+          },
+          {
+            "text": "ぎ",
+            "start": 1,
+            "end": 2,
+            "confidence": 0.9473724365234375,
+            "box": {
+              "x0": 617,
+              "y0": 179,
+              "x1": 668,
+              "y1": 224
+            }
+          },
+          {
+            "text": "や",
+            "start": 2,
+            "end": 3,
+            "confidence": 0.9263257384300232,
+            "box": {
+              "x0": 668,
+              "y0": 179,
+              "x1": 722,
+              "y1": 224
+            }
+          },
+          {
+            "text": "か",
+            "start": 3,
+            "end": 4,
+            "confidence": 0.9168840050697327,
+            "box": {
+              "x0": 723,
+              "y0": 179,
+              "x1": 776,
+              "y1": 224
+            }
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "text": "おもしろい",
+        "box": {
+          "x0": 512,
+          "y0": 281,
+          "x1": 774,
+          "y1": 329
+        },
+        "glyphs": [
+          {
+            "text": "お",
+            "start": 0,
+            "end": 1,
+            "confidence": 0.9270099401473999,
+            "box": {
+              "x0": 512,
+              "y0": 281,
+              "x1": 563,
+              "y1": 329
+            }
+          },
+          {
+            "text": "も",
+            "start": 1,
+            "end": 2,
+            "confidence": 0.9029216766357422,
+            "box": {
+              "x0": 563,
+              "y0": 281,
+              "x1": 615,
+              "y1": 329
+            }
+          },
+          {
+            "text": "し",
+            "start": 2,
+            "end": 3,
+            "confidence": 0.8928941488265991,
+            "box": {
+              "x0": 619,
+              "y0": 281,
+              "x1": 671,
+              "y1": 329
+            }
+          },
+          {
+            "text": "ろ",
+            "start": 3,
+            "end": 4,
+            "confidence": 0.8793420791625977,
+            "box": {
+              "x0": 671,
+              "y0": 281,
+              "x1": 723,
+              "y1": 329
+            }
+          },
+          {
+            "text": "い",
+            "start": 4,
+            "end": 5,
+            "confidence": 0.9090702533721924,
+            "box": {
+              "x0": 723,
+              "y0": 281,
+              "x1": 774,
+              "y1": 329
+            }
+          }
+        ]
+      }
+    ],
+    "pairs": [],
+    "labels": [
+      {
+        "source": "この",
+        "reading": "コノ",
+        "output": "kono",
+        "box": {
+          "x0": 160,
+          "y0": 72,
+          "x1": 255,
+          "y1": 122
+        },
+        "lineId": 1,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false
+      },
+      {
+        "source": "町",
+        "reading": "マチ",
+        "output": "machi",
+        "box": {
+          "x0": 318,
+          "y0": 72,
+          "x1": 375,
+          "y1": 122
+        },
+        "lineId": 1,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false
+      },
+      {
+        "source": "は",
+        "reading": "ハ",
+        "output": "wa",
+        "box": {
+          "x0": 385,
+          "y0": 72,
+          "x1": 428,
+          "y1": 122
+        },
+        "lineId": 1,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false
+      },
+      {
+        "source": "きれい",
+        "reading": "キレイ",
+        "output": "kiree",
+        "box": {
+          "x0": 622,
+          "y0": 73,
+          "x1": 780,
+          "y1": 123
+        },
+        "lineId": 2,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false
+      },
+      {
+        "source": "です",
+        "reading": "デス",
+        "output": "desu",
+        "box": {
+          "x0": 831,
+          "y0": 73,
+          "x1": 929,
+          "y1": 123
+        },
+        "lineId": 2,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false
+      },
+      {
+        "source": "にぎやか",
+        "reading": "ニギヤカ",
+        "output": "nigiyaka",
+        "box": {
+          "x0": 571,
+          "y0": 179,
+          "x1": 776,
+          "y1": 224
+        },
+        "lineId": 3,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false
+      },
+      {
+        "source": "おもしろい",
+        "reading": "オモシロイ",
+        "output": "omoshiroi",
+        "box": {
+          "x0": 512,
+          "y0": 281,
+          "x1": 774,
+          "y1": 329
+        },
+        "lineId": 4,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false
+      }
+    ],
+    "withheld": [],
+    "nonReading": [],
+    "analysis": [
+      {
+        "lineId": 1,
+        "text": "1この町は",
+        "tokens": [
+          {
+            "surface": "1",
+            "reading": null,
+            "pos": [
+              "名詞",
+              "数",
+              "*",
+              "*"
+            ],
+            "unknown": true,
+            "start": 0,
+            "end": 1
+          },
+          {
+            "surface": "この",
+            "reading": "コノ",
+            "pos": [
+              "連体詞",
+              "*",
+              "*",
+              "*"
+            ],
+            "unknown": false,
+            "start": 1,
+            "end": 3
+          },
+          {
+            "surface": "町",
+            "reading": "マチ",
+            "pos": [
+              "名詞",
+              "一般",
+              "*",
+              "*"
+            ],
+            "unknown": false,
+            "start": 3,
+            "end": 4
+          },
+          {
+            "surface": "は",
+            "reading": "ハ",
+            "pos": [
+              "助詞",
+              "係助詞",
+              "*",
+              "*"
+            ],
+            "unknown": false,
+            "start": 4,
+            "end": 5
+          }
+        ]
+      },
+      {
+        "lineId": 2,
+        "text": "きれいです。",
+        "tokens": [
+          {
+            "surface": "きれい",
+            "reading": "キレイ",
+            "pos": [
+              "名詞",
+              "形容動詞語幹",
+              "*",
+              "*"
+            ],
+            "unknown": false,
+            "start": 0,
+            "end": 3
+          },
+          {
+            "surface": "です",
+            "reading": "デス",
+            "pos": [
+              "助動詞",
+              "*",
+              "*",
+              "*"
+            ],
+            "unknown": false,
+            "start": 3,
+            "end": 5
+          },
+          {
+            "surface": "。",
+            "reading": null,
+            "pos": [
+              "記号",
+              "句点",
+              "*",
+              "*"
+            ],
+            "unknown": false,
+            "start": 5,
+            "end": 6
+          }
+        ]
+      },
+      {
+        "lineId": 3,
+        "text": "にぎやか",
+        "tokens": [
+          {
+            "surface": "にぎやか",
+            "reading": "ニギヤカ",
+            "pos": [
+              "名詞",
+              "形容動詞語幹",
+              "*",
+              "*"
+            ],
+            "unknown": false,
+            "start": 0,
+            "end": 4
+          }
+        ]
+      },
+      {
+        "lineId": 4,
+        "text": "おもしろい",
+        "tokens": [
+          {
+            "surface": "おもしろい",
+            "reading": "オモシロイ",
+            "pos": [
+              "形容詞",
+              "自立",
+              "*",
+              "*"
+            ],
+            "unknown": false,
+            "start": 0,
+            "end": 5
+          }
+        ]
+      }
+    ],
+    "regionDiagnostics": {
+      "duplicates": 0,
+      "joinedFragments": 0,
+      "conflictingRegions": 0
+    }
+  },
+  "rubyChecks": [
+    {
+      "source": "町",
+      "first": "まち",
+      "second": ""
+    }
+  ],
+  "rendering": {
+    "drawn": [
+      {
+        "source": "この",
+        "reading": "コノ",
+        "output": "kono",
+        "box": {
+          "x0": 160,
+          "y0": 72,
+          "x1": 255,
+          "y1": 122
+        },
+        "lineId": 1,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false,
+        "displayBox": {
+          "x0": 170.28984832763672,
+          "x1": 244.71015167236328,
+          "y0": 72,
+          "y1": 122
+        },
+        "horizontalScale": 1,
+        "fontSize": 28.000000000000004,
+        "rows": [
+          "kono"
+        ],
+        "backgroundRgb": [
+          253,
+          253,
+          252
+        ],
+        "backgroundColor": "rgb(253,253,252)",
+        "foregroundColor": "#15212a",
+        "eraseRegions": [
+          {
+            "x0": 158,
+            "x1": 257,
+            "y0": 70,
+            "y1": 124
+          }
+        ],
+        "textRegions": [
+          {
+            "x0": 170.28984832763672,
+            "x1": 244.71015167236328,
+            "y0": 72,
+            "y1": 122
+          }
+        ]
+      },
+      {
+        "source": "町",
+        "reading": "マチ",
+        "output": "machi",
+        "box": {
+          "x0": 318,
+          "y0": 72,
+          "x1": 375,
+          "y1": 122
+        },
+        "lineId": 1,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false,
+        "displayBox": {
+          "x0": 301.63182830810547,
+          "x1": 391.36817169189453,
+          "y0": 72,
+          "y1": 122
+        },
+        "horizontalScale": 1,
+        "fontSize": 28.000000000000004,
+        "rows": [
+          "machi"
+        ],
+        "backgroundRgb": [
+          253,
+          253,
+          252
+        ],
+        "backgroundColor": "rgb(253,253,252)",
+        "foregroundColor": "#15212a",
+        "eraseRegions": [
+          {
+            "x0": 316,
+            "x1": 377,
+            "y0": 70,
+            "y1": 124
+          }
+        ],
+        "textRegions": [
+          {
+            "x0": 301.63182830810547,
+            "x1": 391.36817169189453,
+            "y0": 72,
+            "y1": 122
+          }
+        ]
+      },
+      {
+        "source": "は",
+        "reading": "ハ",
+        "output": "wa",
+        "box": {
+          "x0": 385,
+          "y0": 72,
+          "x1": 428,
+          "y1": 122
+        },
+        "lineId": 1,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false,
+        "displayBox": {
+          "x0": 393.36817169189453,
+          "x1": 438.24832916259766,
+          "y0": 72,
+          "y1": 122
+        },
+        "horizontalScale": 1,
+        "fontSize": 28.000000000000004,
+        "rows": [
+          "wa"
+        ],
+        "backgroundRgb": [
+          253,
+          253,
+          252
+        ],
+        "backgroundColor": "rgb(253,253,252)",
+        "foregroundColor": "#15212a",
+        "eraseRegions": [
+          {
+            "x0": 383,
+            "x1": 430,
+            "y0": 70,
+            "y1": 124
+          }
+        ],
+        "textRegions": [
+          {
+            "x0": 393.36817169189453,
+            "x1": 438.24832916259766,
+            "y0": 72,
+            "y1": 122
+          }
+        ]
+      },
+      {
+        "source": "きれい",
+        "reading": "キレイ",
+        "output": "kiree",
+        "box": {
+          "x0": 622,
+          "y0": 73,
+          "x1": 780,
+          "y1": 123
+        },
+        "lineId": 2,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false,
+        "displayBox": {
+          "x0": 663.4258499145508,
+          "x1": 738.5741500854492,
+          "y0": 73,
+          "y1": 123
+        },
+        "horizontalScale": 1,
+        "fontSize": 28.000000000000004,
+        "rows": [
+          "kiree"
+        ],
+        "backgroundRgb": [
+          251,
+          227,
+          215
+        ],
+        "backgroundColor": "rgb(251,227,215)",
+        "foregroundColor": "#15212a",
+        "eraseRegions": [
+          {
+            "x0": 620,
+            "x1": 782,
+            "y0": 71,
+            "y1": 125
+          }
+        ],
+        "textRegions": [
+          {
+            "x0": 663.4258499145508,
+            "x1": 738.5741500854492,
+            "y0": 73,
+            "y1": 123
+          }
+        ]
+      },
+      {
+        "source": "です",
+        "reading": "デス",
+        "output": "desu",
+        "box": {
+          "x0": 831,
+          "y0": 73,
+          "x1": 929,
+          "y1": 123
+        },
+        "lineId": 2,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false,
+        "displayBox": {
+          "x0": 844.7078628540039,
+          "x1": 915.2921371459961,
+          "y0": 73,
+          "y1": 123
+        },
+        "horizontalScale": 1,
+        "fontSize": 28.000000000000004,
+        "rows": [
+          "desu"
+        ],
+        "backgroundRgb": [
+          253,
+          253,
+          252
+        ],
+        "backgroundColor": "rgb(253,253,252)",
+        "foregroundColor": "#15212a",
+        "eraseRegions": [
+          {
+            "x0": 829,
+            "x1": 931,
+            "y0": 71,
+            "y1": 125
+          }
+        ],
+        "textRegions": [
+          {
+            "x0": 844.7078628540039,
+            "x1": 915.2921371459961,
+            "y0": 73,
+            "y1": 123
+          }
+        ]
+      },
+      {
+        "source": "にぎやか",
+        "reading": "ニギヤカ",
+        "output": "nigiyaka",
+        "box": {
+          "x0": 571,
+          "y0": 179,
+          "x1": 776,
+          "y1": 224
+        },
+        "lineId": 3,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false,
+        "displayBox": {
+          "x0": 617.3846740722656,
+          "x1": 729.6153259277344,
+          "y0": 179,
+          "y1": 224
+        },
+        "horizontalScale": 1,
+        "fontSize": 25.200000000000003,
+        "rows": [
+          "nigiyaka"
+        ],
+        "backgroundRgb": [
+          251,
+          227,
+          215
+        ],
+        "backgroundColor": "rgb(251,227,215)",
+        "foregroundColor": "#15212a",
+        "eraseRegions": [
+          {
+            "x0": 569,
+            "x1": 778,
+            "y0": 177,
+            "y1": 226
+          }
+        ],
+        "textRegions": [
+          {
+            "x0": 617.3846740722656,
+            "x1": 729.6153259277344,
+            "y0": 179,
+            "y1": 224
+          }
+        ]
+      },
+      {
+        "source": "おもしろい",
+        "reading": "オモシロイ",
+        "output": "omoshiroi",
+        "box": {
+          "x0": 512,
+          "y0": 281,
+          "x1": 774,
+          "y1": 329
+        },
+        "lineId": 4,
+        "readingSource": "dictionary-candidate",
+        "coversRuby": false,
+        "displayBox": {
+          "x0": 573.3153076171875,
+          "x1": 712.6846923828125,
+          "y0": 281,
+          "y1": 329
+        },
+        "horizontalScale": 1,
+        "fontSize": 26.880000000000003,
+        "rows": [
+          "omoshiroi"
+        ],
+        "backgroundRgb": [
+          251,
+          227,
+          215
+        ],
+        "backgroundColor": "rgb(251,227,215)",
+        "foregroundColor": "#15212a",
+        "eraseRegions": [
+          {
+            "x0": 510,
+            "x1": 776,
+            "y0": 279,
+            "y1": 331
+          }
+        ],
+        "textRegions": [
+          {
+            "x0": 573.3153076171875,
+            "x1": 712.6846923828125,
+            "y0": 281,
+            "y1": 329
+          }
+        ]
+      }
+    ],
+    "omitted": [],
+    "papers": [
+      [
+        251,
+        227,
+        215
+      ],
+      [
+        253,
+        253,
+        252
+      ]
+    ]
+  },
+  "timings": {
+    "ocrMs": 1144.2000000029802,
+    "rubyOcrMs": 374,
+    "analysisMs": 29,
+    "renderMs": 29.399999998509884
+  },
+  "jsHeapBytes": 10532693
+}
