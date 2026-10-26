@@ -6,7 +6,7 @@ export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlap
  const xEdges=Array.from({length:columns+1},(_,i)=>Math.round(i*width/columns));
  const yEdges=Array.from({length:rows+1},(_,i)=>Math.round(i*height/rows));
  const lines=[],tiles=[],diagnostics={detectorProposals:[],detectionRegions:[]};
- const shifted=(box,x,y)=>Array.isArray(box)?[box[0]+x,box[1]+y,box[2]+x,box[3]+y]:box;
+ const shifted=(box,x,y)=>Array.isArray(box)?[box[0]+x,box[1]+y,box[2]+x,box[3]+y]:box&&typeof box==='object'?{...box,x0:box.x0+x,x1:box.x1+x,y0:box.y0+y,y1:box.y1+y}:box;
  for(let row=0;row<rows;row++)for(let col=0;col<columns;col++){
   const x=Math.max(0,xEdges[col]-overlapX),y=Math.max(0,yEdges[row]-overlapY);
   const right=Math.min(width,xEdges[col+1]+overlapX),bottom=Math.min(height,yEdges[row+1]+overlapY);
@@ -14,7 +14,7 @@ export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlap
   tile.width=w;tile.height=h;tile.getContext('2d').drawImage(source,x,y,w,h,0,0,w,h);
   const snapshot=await scan(tile,id+'-'+row+'-'+col);
   // A detected line is owned by the cell containing its center.
-  const owned=box=>{if(!Array.isArray(box))return false;const cx=(box[0]+box[2])/2,cy=(box[1]+box[3])/2;return cx>=xEdges[col]&&cx<(col===columns-1?width+1:xEdges[col+1])&&cy>=yEdges[row]&&cy<(row===rows-1?height+1:yEdges[row+1]);};
+  const owned=box=>{if(!box)return false;const cx=Array.isArray(box)?(box[0]+box[2])/2:(box.x0+box.x1)/2,cy=Array.isArray(box)?(box[1]+box[3])/2:(box.y0+box.y1)/2;return cx>=xEdges[col]&&cx<(col===columns-1?width+1:xEdges[col+1])&&cy>=yEdges[row]&&cy<(row===rows-1?height+1:yEdges[row+1]);};
   for(const line of snapshot.lines||[]){
    const box=shifted(line.box,x,y);if(!owned(box))continue;
    lines.push({...line,box,glyphs:(line.glyphs||[]).map(g=>({...g,box:shifted(g.box,x,y)}))});
