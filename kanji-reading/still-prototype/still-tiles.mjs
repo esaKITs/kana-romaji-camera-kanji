@@ -3,6 +3,25 @@
 export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlapX=60,overlapY=80}={}) {
  const width=source.width,height=source.height;
  if(!(width>0&&height>0&&rows>0&&columns>0))throw Error('Invalid still scan dimensions');
+ // Keep the established horizontal-textbook scan for wide, short images.
+ // The 4x2 experiment targets portrait pages, where the right edge was missed.
+ if(width>height){
+  const tileHeight=400,overlap=80,starts=[];
+  for(let y=0;y<height;y+=tileHeight-overlap){starts.push(y);if(y+tileHeight>=height)break;}
+  const lines=[],tiles=[],diagnostics={detectorProposals:[],detectionRegions:[]};
+  const shift=(b,y)=>Array.isArray(b)?[b[0],b[1]+y,b[2],b[3]+y]:b;
+  for(let i=0;i<starts.length;i++){
+   const y=starts[i],h=Math.min(tileHeight,height-y),tile=document.createElement('canvas');
+   tile.width=width;tile.height=h;tile.getContext('2d').drawImage(source,0,y,width,h,0,0,width,h);
+   const snapshot=await scan(tile,id+'-wide-'+i);
+   const lower=i===0?0:(starts[i-1]+Math.min(tileHeight,height-starts[i-1])+y)/2;
+   const upper=i===starts.length-1?height:(y+h+starts[i+1])/2;
+   for(const line of snapshot.lines||[]){const box=shift(line.box,y),mid=(box[1]+box[3])/2;if(mid<lower||mid>=upper)continue;lines.push({...line,box,glyphs:(line.glyphs||[]).map(g=>({...g,box:shift(g.box,y)}))});}
+   for(const key of ['detectorProposals','detectionRegions'])for(const entry of snapshot.diagnostics?.[key]||[]){const box=shift(entry.box,y),mid=(box[1]+box[3])/2;if(mid>=lower&&mid<upper)diagnostics[key].push({...entry,box});}
+   tiles.push({y,height:h,detected:(snapshot.lines||[]).length});
+  }
+  return {width,height,lines,diagnostics:{...diagnostics,stillTiles:tiles,scanLayout:'wide-horizontal-strips'}};
+ }
  const xEdges=Array.from({length:columns+1},(_,i)=>Math.round(i*width/columns));
  const yEdges=Array.from({length:rows+1},(_,i)=>Math.round(i*height/rows));
  const lines=[],tiles=[],diagnostics={detectorProposals:[],detectionRegions:[]};
