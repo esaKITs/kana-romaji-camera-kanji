@@ -19,7 +19,7 @@ jobs:
           mkdir -p /tmp/paddle-probe
           cd /tmp/paddle-probe
           npm init -y
-          npm install @paddleocr/paddleocr-js playwright
+          npm install @paddleocr/paddleocr-js playwright vite
       - name: Install Chromium
         run: cd /tmp/paddle-probe && npx playwright install --with-deps chromium
       - name: Run actual browser OCR on existing textbook fixture
