@@ -24,7 +24,8 @@ jobs:
         run: cd /tmp/paddle-probe && npx playwright install --with-deps chromium
       - name: Run actual browser OCR on existing textbook fixture
         run: |
-          cp tests/fixtures/textbook-original.jpg /tmp/paddle-probe/input.jpg
+          test -s tests/fixtures/practice-a.png || { echo 'Missing real Practice A fixture; never substitute older textbook'; exit 1; }
+          cp tests/fixtures/practice-a.png /tmp/paddle-probe/input.jpg
           cp scripts/paddleocr-browser-probe.mjs /tmp/paddle-probe/probe.mjs
           cd /tmp/paddle-probe
           node probe.mjs
