@@ -1,0 +1,36 @@
+name: PaddleOCR.js independent OCR probe
+on:
+  push:
+    branches: [test/new-textbook-page-regressions]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install official browser SDK
+        run: |
+          mkdir -p /tmp/paddle-probe
+          cd /tmp/paddle-probe
+          npm init -y
+          npm install @paddleocr/paddleocr-js playwright vite
+      - name: Install Chromium
+        run: cd /tmp/paddle-probe && npx playwright install --with-deps chromium
+      - name: Run actual browser OCR on existing textbook fixture
+        run: |
+          test -s tests/fixtures/practice-a.png || { echo 'Missing real Practice A fixture; never substitute older textbook'; exit 1; }
+          cp tests/fixtures/practice-a.png /tmp/paddle-probe/input.jpg
+          cp scripts/paddleocr-browser-probe.mjs /tmp/paddle-probe/probe.mjs
+          cd /tmp/paddle-probe
+          node probe.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: paddleocr-probe
+          path: /tmp/paddle-probe/results/
