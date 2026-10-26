@@ -1,6 +1,7 @@
 // Horizontal Still allocator. Measurement is injected so geometry can be tested
 // independently of fonts. Never borrow pixels occupied by preserved glyphs.
 const overlap=(a,b)=>Math.min(a.x1,b.x1)>Math.max(a.x0,b.x0)&&Math.min(a.y1,b.y1)>Math.max(a.y0,b.y0);
+const coverage=(a,b)=>{const x=Math.max(0,Math.min(a.x1,b.x1)-Math.max(a.x0,b.x0)),y=Math.max(0,Math.min(a.y1,b.y1)-Math.max(a.y0,b.y0));return x*y/Math.max(1,(a.x1-a.x0)*(a.y1-a.y0));};
 function rowsFor(text,measure){
  const chars=[...text];let best=null;
  for(let i=1;i<chars.length;i++){
@@ -18,7 +19,7 @@ export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
   const labels=result.labels.filter(l=>l.lineId===line.id).sort((a,b)=>a.box.x0-b.box.x0);
   const protectedGlyphs=result.lines.flatMap(l=>l.glyphs).filter(g=>!labels.some(l=>{
    const covered=b=>b&&g.box.x0>=b.x0-.5&&g.box.x1<=b.x1+.5&&g.box.y0>=b.y0-.5&&g.box.y1<=b.y1+.5;
-   return covered(l.box)||(l.coversRuby&&covered(l.rubyBox));
+   return covered(l.box)||coverage(g.box,l.box)>.85||(l.coversRuby&&(covered(l.rubyBox)||coverage(g.box,l.rubyBox)>.85));
   }));
   // Curved packaging/slanted baselines enlarge the union box without enlarging
   // the characters. Use character height rather than the whole line's envelope.
