@@ -25,7 +25,7 @@ async function scan(canvas,id,regions){
 export async function analyzeText(text){return (await rpc({command:'analyze',text,numeric:true})).tokens;}
 export async function runStill(source,{mode='あア漢',style='double',output=null,paperState=null,adaptive=false,modelAware=true,xycut=true,cropWidth=960,cropHeight=544,overlap=.2}={}){
  if(!ocr||!readingWorker)throw Error('Initialize first');
- const t=performance.now(),primarySnapshot=await (xycut?scanXYCut(source,(tile,id)=>scan(tile,id),'still-'+requestId,{sliceWidth:cropWidth,sliceHeight:cropHeight,pad:24}):scanStillTiles(source,(tile,id)=>scan(tile,id),'still-'+requestId,{adaptive,modelAware,cropWidth,cropHeight,overlap})),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0,recoveryMs=0,snapshot=primarySnapshot,recovery={regions:[],decisions:[]};
+ const t=performance.now(),primarySnapshot=await (xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'still-'+requestId,{sliceWidth:cropWidth,sliceHeight:cropHeight,pad:24}):scanStillTiles(source,(tile,id)=>scan(tile,id),'still-'+requestId,{adaptive,modelAware,cropWidth,cropHeight,overlap})),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0,recoveryMs=0,snapshot=primarySnapshot,recovery={regions:[],decisions:[]};
  const regions=recoveryRegions(primarySnapshot);
  if(regions.length){const started=performance.now(),regionalSnapshot=await scan(source,'repair-'+requestId,regions.map(r=>r.box)),merged=mergeRecovery(primarySnapshot,regionalSnapshot,regions);snapshot=merged.snapshot;recovery={regions,decisions:merged.decisions,regionalSnapshot};recoveryMs=performance.now()-started;}
  const result=await analyzeSnapshot(snapshot,async text=>(await rpc({command:'analyze',text,numeric:true})).tokens,{mode,style,verifyRuby:async c=>{
