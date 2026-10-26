@@ -17,9 +17,10 @@ export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
  const drawn=[],omitted=[],occupied=[];
  for(const line of result.lines){
   const labels=result.labels.filter(l=>l.lineId===line.id).sort((a,b)=>a.box.x0-b.box.x0);
-  const protectedGlyphs=result.lines.flatMap(l=>l.glyphs).filter(g=>!labels.some(l=>{
+  const allLabels=result.labels;
+  const protectedGlyphs=result.lines.flatMap(l=>l.glyphs).filter(g=>!allLabels.some(l=>{
    const covered=b=>b&&g.box.x0>=b.x0-.5&&g.box.x1<=b.x1+.5&&g.box.y0>=b.y0-.5&&g.box.y1<=b.y1+.5;
-   return covered(l.box)||coverage(g.box,l.box)>.85||(l.coversRuby&&(covered(l.rubyBox)||coverage(g.box,l.rubyBox)>.85));
+   return covered(l.box)||coverage(g.box,l.box)>.60||(l.coversRuby&&(covered(l.rubyBox)||coverage(g.box,l.rubyBox)>.60));
   }));
   // Curved packaging/slanted baselines enlarge the union box without enlarging
   // the characters. Use character height rather than the whole line's envelope.
