@@ -1,8 +1,50 @@
+
+// Detect horizontal text bands from image ink density before running OCR.
+// This is a geometry-only proposal stage: it never guesses Japanese readings.
+function adaptiveBands(source,{maxBands=18,minHeight=48,pad=22}={}){
+ const w=source.width,h=source.height,scale=Math.min(1,800/Math.max(w,h));
+ const cw=Math.max(1,Math.round(w*scale)),ch=Math.max(1,Math.round(h*scale));
+ const canvas=document.createElement('canvas');canvas.width=cw;canvas.height=ch;
+ const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(source,0,0,cw,ch);
+ const pixels=ctx.getImageData(0,0,cw,ch).data,counts=new Array(ch).fill(0);
+ for(let y=0;y<ch;y++)for(let x=0;x<cw;x++){
+  const i=(y*cw+x)*4,r=pixels[i],g=pixels[i+1],b=pixels[i+2];
+  if(Math.max(r,g,b)<175&&Math.max(r,g,b)-Math.min(r,g,b)<75)counts[y]++;
+ }
+ const threshold=Math.max(2,Math.floor(cw*.008)),active=counts.map(n=>n>=threshold);
+ const spans=[];let start=-1;
+ for(let y=0;y<=ch;y++){if(y<ch&&active[y]&&start<0)start=y;if(start>=0&&(y===ch||!active[y])){spans.push([start,y]);start=-1;}}
+ if(!spans.length)return [];
+ const merged=[];
+ for(const s of spans){const last=merged[merged.length-1];if(last&&s[0]-last[1]<=Math.max(4,Math.round(12*scale)))last[1]=s[1];else merged.push([...s]);}
+ const bands=merged.map(([a,b])=>[Math.max(0,Math.floor(a/scale)-pad),Math.min(h,Math.ceil(b/scale)+pad)]);
+ const combined=[];
+ for(const band of bands){const last=combined[combined.length-1];if(last&&band[0]<=last[1])last[1]=Math.max(last[1],band[1]);else combined.push([...band]);}
+ if(combined.length>maxBands)return [];
+ return combined.filter(([a,b])=>b-a>=Math.min(minHeight,h)).map(([y,bottom])=>({x:0,y,width:w,height:bottom-y}));
+}
+async function scanAdaptive(source,scan,id){
+ const width=source.width,height=source.height;
+ const bands=adaptiveBands(source);
+ if(!bands.length)return null;
+ const lines=[],diagnostics={detectorProposals:[],detectionRegions:[]},tiles=[];
+ for(let i=0;i<bands.length;i++){
+  const {x,y,width:w,height:h}=bands[i],tile=document.createElement('canvas');
+  tile.width=w;tile.height=h;tile.getContext('2d').drawImage(source,x,y,w,h,0,0,w,h);
+  const snapshot=await scan(tile,id+'-adaptive-'+i);
+  const shift=b=>Array.isArray(b)?[b[0]+x,b[1]+y,b[2]+x,b[3]+y]:b&&typeof b==='object'?{...b,x0:b.x0+x,x1:b.x1+x,y0:b.y0+y,y1:b.y1+y}:b;
+  for(const line of snapshot.lines||[])lines.push({...line,box:shift(line.box),glyphs:(line.glyphs||[]).map(g=>({...g,box:shift(g.box)}))});
+  for(const key of ['detectorProposals','detectionRegions'])for(const entry of snapshot.diagnostics?.[key]||[])diagnostics[key].push({...entry,box:shift(entry.box)});
+  tiles.push({x,y,width:w,height:h,detected:(snapshot.lines||[]).length});
+ }
+ return {width,height,lines,diagnostics:{...diagnostics,stillTiles:tiles,scanLayout:'adaptive-horizontal-bands'}};
+}
 // Four rows by two columns; scan top to bottom and left to right.
 // Overlap protects text at tile edges; midpoint ownership avoids duplicate lines.
-export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlapX=60,overlapY=80}={}) {
+export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlapX=60,overlapY=80,adaptive=false}={}) {
  const width=source.width,height=source.height;
  if(!(width>0&&height>0&&rows>0&&columns>0))throw Error('Invalid still scan dimensions');
+ if(adaptive){const result=await scanAdaptive(source,scan,id);if(result)return result;}
  // Keep the established horizontal-textbook scan for wide, short images.
  // The 4x2 experiment targets portrait pages, where the right edge was missed.
  if(width>height){
