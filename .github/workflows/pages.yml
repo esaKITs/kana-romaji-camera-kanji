@@ -1,5 +1,7 @@
-name: Publish second edition (manual approval only)
+name: Publish second edition
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       approval:
@@ -13,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
-    if: github.repository == 'esaKITs/kana-romaji-camera-kanji' && inputs.approval == 'PUBLISH_SECOND_EDITION'
+    if: github.repository == 'esaKITs/kana-romaji-camera-kanji' && (github.event_name == 'push' || inputs.approval == 'PUBLISH_SECOND_EDITION')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
