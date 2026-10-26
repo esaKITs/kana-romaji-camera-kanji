@@ -47,11 +47,49 @@ async function scanAdaptive(source,scan,id){
  }
  return {width,height,lines:unique,diagnostics:{...diagnostics,stillTiles:tiles,scanLayout:'adaptive-horizontal-bands',deduplicatedLines:lines.length-unique.length}};
 }
+
+/** Model-aware full-coverage windows. Geometry is independent of DOM and OCR.
+ * The detector letterboxes every crop into 960x544; do not use the
+ * full-page 251x544 downscale as a crop dimension.
+ */
+export function modelWindows(width,height,{cropWidth=960,cropHeight=544,overlap=.2}={}){
+ if(![width,height,cropWidth,cropHeight].every(Number.isFinite)||Math.min(width,height,cropWidth,cropHeight)<=0||overlap<0||overlap>=.5)throw Error('Invalid model window geometry');
+ const starts=(length,size)=>{if(length<=size)return[0];const count=Math.ceil((length-size)/(size*(1-overlap)))+1;return Array.from({length:count},(_,i)=>Math.round(i*(length-size)/(count-1)));};
+ const w=Math.min(width,Math.round(cropWidth)),h=Math.min(height,Math.round(cropHeight));
+ return starts(height,h).flatMap(y=>starts(width,w).map(x=>({x,y,width:w,height:h})));
+}
+async function scanModelWindows(source,scan,id,{cropWidth=960,cropHeight=544,overlap=.2}={}){
+ const width=source.width,height=source.height,windows=modelWindows(width,height,{cropWidth,cropHeight,overlap});
+ const lines=[],diagnostics={detectorProposals:[],detectionRegions:[]},tiles=[];
+ const shift=(b,x,y)=>Array.isArray(b)?[b[0]+x,b[1]+y,b[2]+x,b[3]+y]:b&&typeof b==='object'?{...b,x0:b.x0+x,x1:b.x1+x,y0:b.y0+y,y1:b.y1+y}:b;
+ for(let i=0;i<windows.length;i++){
+  const {x,y,width:w,height:h}=windows[i],tile=document.createElement('canvas');tile.width=w;tile.height=h;
+  tile.getContext('2d').drawImage(source,x,y,w,h,0,0,w,h);
+  const snapshot=await scan(tile,id+'-model-'+i);
+  for(const line of snapshot.lines||[])lines.push({...line,box:shift(line.box,x,y),glyphs:(line.glyphs||[]).map(g=>({...g,box:shift(g.box,x,y)}))});
+  for(const key of ['detectorProposals','detectionRegions'])for(const entry of snapshot.diagnostics?.[key]||[])diagnostics[key].push({...entry,box:shift(entry.box,x,y)});
+  tiles.push({...windows[i],detected:(snapshot.lines||[]).length});
+ }
+ const coords=b=>Array.isArray(b)?b:b&&typeof b==='object'?[b.x0,b.y0,b.x1,b.y1]:null;
+ const area=b=>Math.max(0,b[2]-b[0])*Math.max(0,b[3]-b[1]);
+ const unique=[];
+ for(const line of lines){
+  const b=coords(line.box);if(!b){unique.push(line);continue;}
+  const duplicate=unique.findIndex(old=>{const a=coords(old.box);if(!a||old.text!==line.text)return false;
+   const intersection=Math.max(0,Math.min(a[2],b[2])-Math.max(a[0],b[0]))*Math.max(0,Math.min(a[3],b[3])-Math.max(a[1],b[1]));
+   return intersection/Math.max(1,Math.min(area(a),area(b)))>=.8;});
+  if(duplicate<0)unique.push(line);
+  else if((line.glyphs?.length||0)>(unique[duplicate].glyphs?.length||0))unique[duplicate]=line;
+ }
+ return {width,height,lines:unique,diagnostics:{...diagnostics,stillTiles:tiles,scanLayout:'model-windows',cropWidth,cropHeight,overlap,deduplicatedLines:lines.length-unique.length}};
+}
+
 // Four rows by two columns; scan top to bottom and left to right.
 // Overlap protects text at tile edges; midpoint ownership avoids duplicate lines.
-export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlapX=60,overlapY=80,adaptive=false}={}) {
+export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlapX=60,overlapY=80,adaptive=false,modelAware=false,cropWidth=960,cropHeight=544,overlap=.2}={}) {
  const width=source.width,height=source.height;
  if(!(width>0&&height>0&&rows>0&&columns>0))throw Error('Invalid still scan dimensions');
+ if(modelAware)return scanModelWindows(source,scan,id,{cropWidth,cropHeight,overlap});
  if(adaptive){const result=await scanAdaptive(source,scan,id);if(result)return result;}
  // Keep the established horizontal-textbook scan for wide, short images.
  // The 4x2 experiment targets portrait pages, where the right edge was missed.
