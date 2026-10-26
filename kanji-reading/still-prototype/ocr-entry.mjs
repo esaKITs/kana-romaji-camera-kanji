@@ -38,5 +38,45 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
  // Bounded, browser-local diagnostics. This is neither an upload nor persisted data.
  window.stillLab.lastRun=run;return run;
 }
+
+function intersectsBox(a,b){
+ const x=Math.max(0,Math.min(a[2],b[2])-Math.max(a[0],b[0]));
+ const y=Math.max(0,Math.min(a[3],b[3])-Math.max(a[1],b[1]));
+ return x*y>0;
+}
+function diagnosticBox(value){
+ if(Array.isArray(value)&&value.length===4&&value.every(Number.isFinite))return value;
+ if(value&&typeof value==='object'&&['x0','y0','x1','y1'].every(k=>Number.isFinite(value[k])))return [value.x0,value.y0,value.x1,value.y1];
+ return null;
+}
+/** Inspect where a character disappears without changing OCR output or uploading images.
+ * Pass a source-image rectangle around the missing character, e.g. [x0,y0,x1,y1].
+ */
+export function diagnoseRegion(box,run=window.stillLab?.lastRun){
+ const target=diagnosticBox(box);
+ if(!target||target[2]<=target[0]||target[3]<=target[1])throw Error('Expected [x0,y0,x1,y1] around the missing character');
+ if(!run)throw Error('Run still recognition before diagnosing a region');
+ const matching=items=>(items||[]).filter(item=>{const b=diagnosticBox(item.box);return b&&intersectsBox(target,b);});
+ const primary=run.primarySnapshot||{},final=run.snapshot||{};
+ const proposals=matching(primary.diagnostics?.detectorProposals);
+ const detectionRegions=matching(primary.diagnostics?.detectionRegions);
+ const initialLines=matching(primary.lines);
+ const finalLines=matching(final.lines);
+ const recovered=matching(run.recovery?.regionalSnapshot?.lines);
+ const drawn=matching(run.rendering?.drawn);
+ const omitted=matching(run.rendering?.omitted);
+ const summary={
+  target,scanLayout:primary.diagnostics?.scanLayout??null,
+  detectorProposals:proposals,detectionRegions,initialLines,finalLines,
+  recoveredLines:recovered,drawnLabels:drawn,omittedLabels:omitted,
+  recoveryDecisions:matching(run.recovery?.decisions),
+  counts:{proposals:proposals.length,regions:detectionRegions.length,initial:initialLines.length,final:finalLines.length,drawn:drawn.length,omitted:omitted.length},
+  caveat:'No detector proposal does not prove the original glyph was absent: tiled scans may not expose all detector diagnostics. Empty drawnLabels also occurs when runStill was called without an output canvas.'
+ };
+ console.table(summary.counts);
+ console.log('MeikiOCR region diagnosis',summary);
+ return summary;
+}
+
 export async function dispose(){readingWorker?.terminate();readingWorker=null;for(const p of waiting.values()){clearTimeout(p.timer);p.reject(Error('Disposed'));}waiting.clear();if(ocr)await ocr.dispose();ocr=null;}
-window.stillLab={initialize,runStill,dispose,scanRegions:(canvas,regions)=>scan(canvas,"regions-"+requestId,regions),analyzeSnapshot,renderResult,analyze:async text=>(await rpc({command:"analyze",text,numeric:true})).tokens};
+window.stillLab={initialize,runStill,dispose,diagnoseRegion,scanRegions:(canvas,regions)=>scan(canvas,"regions-"+requestId,regions),analyzeSnapshot,renderResult,analyze:async text=>(await rpc({command:"analyze",text,numeric:true})).tokens};
