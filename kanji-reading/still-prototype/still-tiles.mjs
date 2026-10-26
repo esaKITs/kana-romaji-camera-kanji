@@ -1,27 +1,28 @@
-// Still-mode tiled detection: preserve original pixels and image coordinates.
-export async function scanStillTiles(source, scan, id, {tileHeight=400, overlap=80}={}) {
+// Four rows by two columns; scan top to bottom and left to right.
+// Overlap protects text at tile edges; midpoint ownership avoids duplicate lines.
+export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlapX=60,overlapY=80}={}) {
  const width=source.width,height=source.height;
- if(!(width>0&&height>0&&tileHeight>overlap&&overlap>=0))throw Error('Invalid still scan dimensions');
- const starts=[];for(let y=0;y<height;y+=tileHeight-overlap){starts.push(y);if(y+tileHeight>=height)break;}
+ if(!(width>0&&height>0&&rows>0&&columns>0))throw Error('Invalid still scan dimensions');
+ const xEdges=Array.from({length:columns+1},(_,i)=>Math.round(i*width/columns));
+ const yEdges=Array.from({length:rows+1},(_,i)=>Math.round(i*height/rows));
  const lines=[],tiles=[],diagnostics={detectorProposals:[],detectionRegions:[]};
- const shifted=(box,y)=>Array.isArray(box)?[box[0],box[1]+y,box[2],box[3]+y]:box;
- for(let i=0;i<starts.length;i++){
-  const y=starts[i],h=Math.min(tileHeight,height-y),tile=document.createElement('canvas');
-  tile.width=width;tile.height=h;tile.getContext('2d').drawImage(source,0,y,width,h,0,0,width,h);
-  const snapshot=await scan(tile,id+'-'+i);
-  // Assign overlap to exactly one tile by midpoint, rather than guessing text.
-  const lower=i===0?0:(starts[i-1]+Math.min(tileHeight,height-starts[i-1])+y)/2;
-  const upper=i===starts.length-1?height:(y+h+starts[i+1])/2;
+ const shifted=(box,x,y)=>Array.isArray(box)?[box[0]+x,box[1]+y,box[2]+x,box[3]+y]:box;
+ for(let row=0;row<rows;row++)for(let col=0;col<columns;col++){
+  const x=Math.max(0,xEdges[col]-overlapX),y=Math.max(0,yEdges[row]-overlapY);
+  const right=Math.min(width,xEdges[col+1]+overlapX),bottom=Math.min(height,yEdges[row+1]+overlapY);
+  const w=right-x,h=bottom-y,tile=document.createElement('canvas');
+  tile.width=w;tile.height=h;tile.getContext('2d').drawImage(source,x,y,w,h,0,0,w,h);
+  const snapshot=await scan(tile,id+'-'+row+'-'+col);
+  // A detected line is owned by the cell containing its center.
+  const owned=box=>{if(!Array.isArray(box))return false;const cx=(box[0]+box[2])/2,cy=(box[1]+box[3])/2;return cx>=xEdges[col]&&cx<(col===columns-1?width+1:xEdges[col+1])&&cy>=yEdges[row]&&cy<(row===rows-1?height+1:yEdges[row+1]);};
   for(const line of snapshot.lines||[]){
-   const box=shifted(line.box,y),mid=(box[1]+box[3])/2;
-   if(mid<lower||mid>=upper)continue;
-   lines.push({...line,box,glyphs:(line.glyphs||[]).map(g=>({...g,box:shifted(g.box,y)}))});
+   const box=shifted(line.box,x,y);if(!owned(box))continue;
+   lines.push({...line,box,glyphs:(line.glyphs||[]).map(g=>({...g,box:shifted(g.box,x,y)}))});
   }
   for(const key of ['detectorProposals','detectionRegions'])for(const entry of snapshot.diagnostics?.[key]||[]){
-   const box=shifted(entry.box,y),mid=(box[1]+box[3])/2;
-   if(mid>=lower&&mid<upper)diagnostics[key].push({...entry,box});
+   const box=shifted(entry.box,x,y);if(owned(box))diagnostics[key].push({...entry,box});
   }
-  tiles.push({y,height:h,detected:(snapshot.lines||[]).length});
+  tiles.push({row,col,x,y,width:w,height:h,detected:(snapshot.lines||[]).length});
  }
  return {width,height,lines,diagnostics:{...diagnostics,stillTiles:tiles}};
 }
