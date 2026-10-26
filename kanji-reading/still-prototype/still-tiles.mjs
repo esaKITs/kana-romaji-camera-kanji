@@ -24,5 +24,15 @@ export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlap
   }
   tiles.push({row,col,x,y,width:w,height:h,detected:(snapshot.lines||[]).length});
  }
- return {width,height,lines,diagnostics:{...diagnostics,stillTiles:tiles}};
+ // Deduplicate only near-identical readings of the same ink from overlapping tiles.
+ const area=b=>Math.max(0,b[2]-b[0])*Math.max(0,b[3]-b[1]);
+ const intersection=(a,b)=>Math.max(0,Math.min(a[2],b[2])-Math.max(a[0],b[0]))*Math.max(0,Math.min(a[3],b[3])-Math.max(a[1],b[1]));
+ const unique=[];
+ for(const line of lines){
+  const duplicate=unique.findIndex(old=>Array.isArray(old.box)&&Array.isArray(line.box)&&intersection(old.box,line.box)/Math.max(1,Math.min(area(old.box),area(line.box)))>.72&&
+   (old.text===line.text||old.text?.includes(line.text)||line.text?.includes(old.text)));
+  if(duplicate<0)unique.push(line);
+  else if((line.glyphs?.length||0)>(unique[duplicate].glyphs?.length||0))unique[duplicate]=line;
+ }
+ return {width,height,lines:unique,diagnostics:{...diagnostics,stillTiles:tiles,deduplicatedLines:lines.length-unique.length}};
 }
