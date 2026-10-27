@@ -7,14 +7,38 @@ import {candidateRomanization} from '../lab/src/format.mjs';
 import {romaji,rubyKanjiRomaji} from '../lab/generated/romanizer.mjs';
 const union=boxes=>({x0:Math.min(...boxes.map(b=>b.x0)),y0:Math.min(...boxes.map(b=>b.y0)),x1:Math.max(...boxes.map(b=>b.x1)),y1:Math.max(...boxes.map(b=>b.y1))});
 const valid=b=>Object.values(b).every(Number.isFinite)&&b.x1>b.x0&&b.y1>b.y0;
-export function sourceLines(snapshot){
- return snapshot.lines.filter(l=>l.orientation!=='vertical').map((l,id)=>{
-  let offset=0;const glyphs=l.glyphs.filter(g=>g.text&&g.box?.length===4).map(g=>{
-   const start=offset;offset+=g.text.length;return {text:g.text,start,end:offset,confidence:g.confidence,box:{x0:g.box[0],y0:g.box[1],x1:g.box[2],y1:g.box[3]}};
-  });
-  if(!glyphs.length||glyphs.some(g=>!valid(g.box)))return null;
-  return {id,text:glyphs.map(g=>g.text).join(''),glyphs,box:union(glyphs.map(g=>g.box))};
- }).filter(Boolean);
+function splitByPaper(source){
+ if(!source?.getContext)return ()=>false;
+ const ctx=source.getContext('2d',{willReadFrequently:true}),w=source.width,h=source.height;
+ const sample=g=>{
+  const b=g.box,x=Math.max(0,Math.min(w-1,Math.round((b[0]+b[2])/2))),dy=Math.max(2,Math.round((b[3]-b[1])*.2));
+  const ys=[Math.max(0,Math.round(b[1]-dy)),Math.min(h-1,Math.round(b[3]+dy))];
+  const colors=ys.map(y=>ctx.getImageData(x,y,1,1).data);
+  return [0,1,2].map(k=>Math.max(colors[0][k],colors[1][k]));
+ };
+ return (a,b)=>{
+  const p=sample(a),q=sample(b),distance=Math.hypot(...p.map((v,i)=>v-q[i]));
+  const luminance=v=>.299*v[0]+.587*v[1]+.114*v[2];
+  return distance>38&&Math.abs(luminance(p)-luminance(q))>15;
+ };
+}
+export function sourceLines(snapshot,source=null){
+ const boundary=splitByPaper(source);let id=0;
+ return snapshot.lines.filter(l=>l.orientation!=='vertical').flatMap(l=>{
+  const raw=(l.glyphs||[]).filter(g=>g.text&&g.box?.length===4);
+  const groups=[];let group=[];
+  for(const glyph of raw){
+   if(group.length&&boundary(group[group.length-1],glyph)){groups.push(group);group=[];}
+   group.push(glyph);
+  }
+  if(group.length)groups.push(group);
+  return groups.map(gs=>{
+   let offset=0;
+   const glyphs=gs.map(g=>{const start=offset;offset+=g.text.length;return {text:g.text,start,end:offset,confidence:g.confidence,box:{x0:g.box[0],y0:g.box[1],x1:g.box[2],y1:g.box[3]}};});
+   if(glyphs.some(g=>!valid(g.box)))return null;
+   return {id:id++,text:glyphs.map(g=>g.text).join(''),glyphs,box:union(glyphs.map(g=>g.box))};
+  }).filter(Boolean);
+ });
 }
 export function spanBox(line,start,end){
  const glyphs=line.glyphs.filter(g=>g.start<end&&g.end>start);
@@ -48,9 +72,9 @@ export function rubyCandidates(lines){
  // Neither competing bodies nor competing ruby lines may be resolved by iteration order.
  return candidates.filter(c=>candidates.filter(x=>x.rubyLineId===c.rubyLineId).length===1&&!candidates.some(x=>x!==c&&x.lineId===c.lineId&&x.start<c.end&&x.end>c.start));
 }
-export async function analyzeSnapshot(snapshot,analyze,{mode='あア漢',style='double',verifyRuby=async()=>null}={}){
+export async function analyzeSnapshot(snapshot,analyze,{mode='あア漢',style='double',verifyRuby=async()=>null,source=null}={}){
  if(!modes.includes(mode))throw Error('Invalid mode');
- const normalized=normalizeRegions(snapshot),lines=sourceLines(normalized),pairs=[],candidates=rubyCandidates(lines);
+ const normalized=normalizeRegions(snapshot),lines=sourceLines(normalized,source),pairs=[],candidates=rubyCandidates(lines);
  const tokenCache=new Map();const tokensFor=async line=>{if(!tokenCache.has(line.id))tokenCache.set(line.id,await analyze(line.text));return tokenCache.get(line.id);};
  for(const c of candidates){
   const main=lines.find(l=>l.id===c.lineId),contextTokens=(await tokensFor(main)).filter(t=>t.start>=c.start&&t.end<=c.end);
@@ -89,7 +113,8 @@ export async function analyzeSnapshot(snapshot,analyze,{mode='あア漢',style='
    for(const part of parts){
     const box=spanBox(line,token.start+part.start,token.start+part.end);
     if(!box){withheld.push({surface:part.surface,reason:'glyph-alignment-unresolved'});continue;}
-    const output=part===parts[0]&&allTarget&&!pair?candidateRomanization(token,style):isHan(part.surface)?rubyKanjiRomaji(part.reading,style):romaji(part.reading,style);
+    const literalKana=/^[ぁ-ゖァ-ヺー]+$/u.test(part.surface)&&!['は','へ','を'].includes(part.surface)&&part.reading!==part.surface;
+    const output=literalKana?romaji(part.surface,style):part===parts[0]&&allTarget&&!pair?candidateRomanization(token,style):isHan(part.surface)?rubyKanjiRomaji(part.reading,style):romaji(part.reading,style);
     if(!output)continue;
     labels.push({source:part.surface,reading:part.reading,output,box,lineId:line.id,readingSource:pair?'verified-ruby':token.readingSource||'dictionary-candidate',coversRuby:false});
    }
