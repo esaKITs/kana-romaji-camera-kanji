@@ -12,7 +12,7 @@ permissions:
   contents: read
 concurrency:
   group: kanji-camera-pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   build:
     if: github.repository == 'esaKITs/kana-romaji-camera-kanji' && (github.event_name == 'push' || inputs.approval == 'PUBLISH_SECOND_EDITION')
