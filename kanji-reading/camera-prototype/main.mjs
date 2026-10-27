@@ -62,10 +62,12 @@ async function focusScan(rect){
   message('Focus · rereading selection…',true);
   const regional=await window.stillLab.scanFocused(source,box);if(!session.owns(generation))return;
   const centerIn=(b,r)=>{const x=(b[0]+b[2])/2,y=(b[1]+b[3])/2;return x>=r[0]&&x<=r[2]&&y>=r[1]&&y<=r[3];};
-  const accepted=(regional.lines||[]).filter(l=>centerIn(l.box,rect));
-  if(!accepted.length){message('Focus · no text found; original labels kept');return;}
   const old=previous.snapshot;
-  const retained=old.lines.filter(l=>!centerIn(l.box,rect));
+  const confidence=l=>{const gs=(l.glyphs||[]).filter(g=>/[ぁ-んァ-ヶ一-龯]/u.test(g.text||''));return gs.length?gs.reduce((s,g)=>s+Math.max(0,Math.min(1,Number(g.confidence)||0)),0)/gs.length:0;};
+  const overlaps=(a,b)=>Math.max(0,Math.min(a[2],b[2])-Math.max(a[0],b[0]))*Math.max(0,Math.min(a[3],b[3])-Math.max(a[1],b[1]))>0;
+  const accepted=(regional.lines||[]).filter(l=>centerIn(l.box,rect)&&confidence(l)>=.65&&!old.lines.some(p=>overlaps(p.box,l.box)&&p.text!==l.text&&confidence(p)>=confidence(l)-.04));
+  if(!accepted.length){message('Focus · no reliable improvement; original labels kept');return;}
+  const retained=old.lines.filter(l=>!accepted.some(a=>overlaps(l.box,a.box)));
   const snapshot={...old,lines:[...retained,...accepted]};
   const analyzed=await analyzeSnapshot(snapshot,analyzeText,{mode,style});if(!session.owns(generation))return;
   const temporary=document.createElement('canvas'),rendering=renderResult(temporary,source,analyzed,{paperState});
