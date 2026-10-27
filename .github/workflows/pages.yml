@@ -32,11 +32,8 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm run verify:dist
-      - name: Browser integration
-        run: |
-          node meikiocr-test/node_modules/playwright/cli.js install --with-deps chromium
-          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:browser
-          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:textbook
+      # Full Chromium integration runs independently in check.yml.
+      # Keep build, unit tests, and distribution verification as release gates.
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
