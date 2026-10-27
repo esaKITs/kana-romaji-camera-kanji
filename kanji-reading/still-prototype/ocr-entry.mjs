@@ -1,4 +1,5 @@
 import {scanStillTiles} from './still-tiles.mjs';
+import {scanXYCut} from './xycut-sahi-tiles.mjs';
 import {createMeikiOcr} from '../../meikiocr-test/vendor/meikiocr-web/index.js';
 import {analyzeSnapshot,renderResult} from './pipeline.mjs';
 import {assetUrl} from '../camera-prototype/asset-url.mjs';
@@ -22,9 +23,9 @@ async function scan(canvas,id,regions){
  return regions?restoreRecognitionCoordinates(snapshot,view):snapshot;
 }
 export async function analyzeText(text){return (await rpc({command:'analyze',text,numeric:true})).tokens;}
-export async function runStill(source,{mode='あア漢',style='double',output=null,paperState=null}={}){
+export async function runStill(source,{mode='あア漢',style='double',output=null,paperState=null,xycut=true}={}){
  if(!ocr||!readingWorker)throw Error('Initialize first');
- const t=performance.now(),primarySnapshot=await scanStillTiles(source,(tile,id)=>scan(tile,id),'still-'+requestId),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0,recoveryMs=0,snapshot=primarySnapshot,recovery={regions:[],decisions:[]};
+ const t=performance.now(),primarySnapshot=await (xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'still-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'still-'+requestId)),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0,recoveryMs=0,snapshot=primarySnapshot,recovery={regions:[],decisions:[]};
  const regions=recoveryRegions(primarySnapshot);
  if(regions.length){const started=performance.now(),regionalSnapshot=await scan(source,'repair-'+requestId,regions.map(r=>r.box)),merged=mergeRecovery(primarySnapshot,regionalSnapshot,regions);snapshot=merged.snapshot;recovery={regions,decisions:merged.decisions,regionalSnapshot};recoveryMs=performance.now()-started;}
  const result=await analyzeSnapshot(snapshot,async text=>(await rpc({command:'analyze',text,numeric:true})).tokens,{mode,style,verifyRuby:async c=>{
