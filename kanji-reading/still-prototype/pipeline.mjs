@@ -82,7 +82,7 @@ export async function analyzeSnapshot(snapshot,analyze,{mode='あア漢',style='
   const checked=await verifyRuby({...c,contextReading}),reread=typeof checked==='string'?checked:checked?.reading;
   if(reread?.normalize('NFC')===c.reading.normalize('NFC'))pairs.push({...c,verified:true,verification:typeof checked==='object'?checked.method:'independent-reread'});
  }
- const consumedRuby=new Set(pairs.map(p=>p.rubyLineId)),labels=[],withheld=[],nonReading=[],analysis=[];
+ const consumedRuby=new Set(candidates.map(p=>p.rubyLineId)),labels=[],withheld=[],nonReading=[],analysis=[];
  for(const line of lines){
   if(consumedRuby.has(line.id))continue;
   const rawTokens=await tokensFor(line),candidate=openingBullet(line),bullet=candidate&&rawTokens.some(t=>t.start===0&&t.end===1)?candidate:null;
