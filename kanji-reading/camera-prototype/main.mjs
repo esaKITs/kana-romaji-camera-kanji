@@ -5,17 +5,19 @@ import{fingerprint,LiveMotionGuard}from'./motion.mjs';
 import{AdaptivePapers}from'../still-prototype/paper.mjs';
 import{paintLabels,sourceLevels}from'./paint.mjs';
 import{bindStillZoom}from'./zoom.mjs';
+import{bindFocusSelection}from'./focus-scan.mjs';
 import{assetUrl}from'./asset-url.mjs';
 const $=id=>document.getElementById(id),session=new CameraSession(),modes=['あア漢','ア漢','漢'];
 const paperState=new AdaptivePapers();
 const stillZoom=bindStillZoom($('zoom-layer'),()=>session.source);
+const focus=bindFocusSelection($('zoom-layer'),$('output'),rect=>{void focusScan(rect);});
 const motion=new LiveMotionGuard(),motionCanvas=document.createElement('canvas');motionCanvas.width=96;motionCanvas.height=64;const motionContext=motionCanvas.getContext('2d',{willReadFrequently:true});let motionTimer=null,paintedFrame=false;
 let mode='あア漢',style='double',guides=false,stream=null,ready=null,pending=false,timer=null,cache=null,lastFrame=null,torch=false,opening=0,reveal=0,lastPaint=null;
 try{const settings=JSON.parse(localStorage.getItem('kanahan-camera-settings-v1'));if(modes.includes(settings?.mode))mode=settings.mode;if(settings?.style==='macron')style='macron';if(sourceLevels.includes(settings?.reveal))reveal=settings.reveal;}catch{}
 function settings(){ $('source-level').textContent='◐ '+reveal+'%';$('source-level').setAttribute('aria-label','Original image visibility: '+reveal+'%. Change visibility');try{localStorage.setItem('kanahan-camera-settings-v1',JSON.stringify({mode,style,reveal}));}catch{}$('kana-mode').textContent=mode;$('kana-mode').setAttribute('aria-label','Reading mode: '+mode);$('long-vowels').textContent=style==='double'?'aa':'ā';$('long-vowels').setAttribute('aria-pressed',String(style==='macron'));$('long-vowels').setAttribute('aria-label','Long vowels: '+(style==='double'?'aa. Switch to ā':'ā. Switch to aa'));}
 settings();
 function message(text,loading=false){$('status').textContent=text;$('scan-label').textContent=text;$('progress').textContent=text;$('progress').hidden=!loading;}
-function screen(){const active=session.kind!=='home',still=session.kind==='still';document.body.classList.toggle('camera-active',active);document.body.classList.toggle('camera-still',still);$('stage').hidden=!active;$('stop').hidden=!active;$('capture-controls').hidden=!active||still;$('live-return').hidden=!still;$('retry').hidden=!still;$('scan').disabled=session.kind!=='live';if(!active)$('progress').hidden=true;stillZoom.setActive(still);}
+function screen(){const active=session.kind!=='home',still=session.kind==='still';document.body.classList.toggle('camera-active',active);document.body.classList.toggle('camera-still',still);$('stage').hidden=!active;$('stop').hidden=!active;$('capture-controls').hidden=!active||still;$('live-return').hidden=!still;$('retry').hidden=!still;$('scan').disabled=session.kind!=='live';if(!active)$('progress').hidden=true;stillZoom.setActive(still);if(!still){focus.enable(false);$('focus-scan').setAttribute('aria-pressed','false');}$('focus-scan').hidden=!still;}
 function stopStream(){stopMotion();clearTimeout(timer);timer=null;stream?.getTracks().forEach(t=>t.stop());stream=null;$('video').srcObject=null;torch=false;$('torch').hidden=true;$('torch').setAttribute('aria-pressed','false');}
 function clearLayer(){lastPaint=null;paintedFrame=false;for(const id of ['output','guides']){const c=$(id);c.getContext('2d').clearRect(0,0,c.width,c.height);}}
 function home(){paperState.reset();opening++;session.enter('home');pending=false;stopStream();cache=null;lastFrame=null;clearLayer();screen();message('Horizontal printed Japanese · development preview');}
@@ -51,6 +53,27 @@ async function processScene(){
  }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}});
  if(pending&&session.kind!=='home')queueMicrotask(processScene);
 }
+async function focusScan(rect){
+ if(session.kind!=='still'||session.busy||!cache?.value?.snapshot){message('Wait for Still recognition to finish.');return;}
+ const generation=session.generation,source=session.source,previous=cache.value;
+ const pad=Math.max(8,Math.round(Math.min(rect[2]-rect[0],rect[3]-rect[1])*.12));
+ const box=[Math.max(0,rect[0]-pad),Math.max(0,rect[1]-pad),Math.min(source.width,rect[2]+pad),Math.min(source.height,rect[3]+pad)];
+ await session.exclusive(async()=>{try{
+  message('Focus · rereading selection…',true);
+  const regional=await window.stillLab.scanFocused(source,box);if(!session.owns(generation))return;
+  const centerIn=(b,r)=>{const x=(b[0]+b[2])/2,y=(b[1]+b[3])/2;return x>=r[0]&&x<=r[2]&&y>=r[1]&&y<=r[3];};
+  const accepted=(regional.lines||[]).filter(l=>centerIn(l.box,rect));
+  if(!accepted.length){message('Focus · no text found; original labels kept');return;}
+  const old=previous.snapshot;
+  const retained=old.lines.filter(l=>!centerIn(l.box,rect));
+  const snapshot={...old,lines:[...retained,...accepted]};
+  const analyzed=await analyzeSnapshot(snapshot,analyzeText,{mode,style});if(!session.owns(generation))return;
+  const temporary=document.createElement('canvas'),rendering=renderResult(temporary,source,analyzed,{paperState});
+  const value={...previous,snapshot,result:analyzed,rendering};cache={source,value};showResult(rendering,source,'still');lastFrame=analyzed;drawGuides(analyzed);
+  message('Focus · '+accepted.length+' region(s) reread · '+rendering.drawn.length+' shown'+(rendering.omitted?.length?' · '+rendering.omitted.length+' not fitted':''));
+ }catch(error){if(session.owns(generation))message('Focus scan failed: '+error.message);}});
+}
+$('focus-scan').onclick=()=>{const enabled=!focus.enabled;focus.enable(enabled);$('focus-scan').setAttribute('aria-pressed',String(enabled));$('focus-scan').textContent=enabled?'✓ Focus':'◎ Focus';message(enabled?'Focus · drag a rectangle over text':'Still · focus off');};
 function renderSource(source){const c=$('output');c.width=source.width;c.height=source.height;c.getContext('2d').drawImage(source,0,0);$('guides').getContext('2d').clearRect(0,0,$('guides').width,$('guides').height);}
 function tick(){clearTimeout(timer);if(session.kind!=='live')return;if(!document.hidden&&!session.busy)void processScene();timer=setTimeout(tick,1800);}
 async function start(){if(stream||session.kind==='live')return;const request=++opening;$('start').disabled=true;try{message('Opening camera…');const opened=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});if(request!==opening){opened.getTracks().forEach(t=>t.stop());return;}stream=opened;$('video').srcObject=stream;await $('video').play();if(request!==opening){stopStream();return;}cache=null;session.enter('live');clearLayer();screen();const track=stream.getVideoTracks()[0],cap=track?.getCapabilities?.();$('torch').hidden=!cap?.torch;$('torch').disabled=!cap?.torch;paperState.reset();stopMotion();watchMotion();tick();}catch(error){if(request===opening){stopStream();message('Unable to start camera: '+error.message);}}finally{$('start').disabled=false;}}
