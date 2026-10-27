@@ -60,7 +60,7 @@ async function focusScan(rect){
  const box=[Math.max(0,rect[0]-pad),Math.max(0,rect[1]-pad),Math.min(source.width,rect[2]+pad),Math.min(source.height,rect[3]+pad)];
  await session.exclusive(async()=>{try{
   message('Focus · rereading selection…',true);
-  const regional=await window.stillLab.scanRegions(source,[box]);if(!session.owns(generation))return;
+  const regional=await window.stillLab.scanFocused(source,box);if(!session.owns(generation))return;
   const centerIn=(b,r)=>{const x=(b[0]+b[2])/2,y=(b[1]+b[3])/2;return x>=r[0]&&x<=r[2]&&y>=r[1]&&y<=r[3];};
   const accepted=(regional.lines||[]).filter(l=>centerIn(l.box,rect));
   if(!accepted.length){message('Focus · no text found; original labels kept');return;}
