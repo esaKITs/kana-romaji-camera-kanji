@@ -23,7 +23,7 @@ export function bindFocusSelection(layer,canvas,onSelect){
  },true);
  layer.addEventListener('pointermove',e=>{
   if(!enabled||multi||touches.size!==1||!start||e.pointerId!==start.id)return;
-  e.preventDefault();e.stopImmediatePropagation();
+  e.preventDefault();
   draw(start.point,coordinates(e));
  },true);
  layer.addEventListener('pointerup',e=>{
@@ -31,7 +31,7 @@ export function bindFocusSelection(layer,canvas,onSelect){
   const wasMulti=multi;touches.delete(e.pointerId);
   if(wasMulti){start=null;marker.style.display='none';if(!touches.size)multi=false;return;}
   if(!start||e.pointerId!==start.id)return;
-  e.preventDefault();e.stopImmediatePropagation();
+  e.preventDefault();
   const a=start.point,b=coordinates(e);start=null;marker.style.display='none';
   const rect=[Math.floor(Math.min(a.x,b.x)),Math.floor(Math.min(a.y,b.y)),Math.ceil(Math.max(a.x,b.x)),Math.ceil(Math.max(a.y,b.y))];
   if(rect[2]-rect[0]>=12&&rect[3]-rect[1]>=12)onSelect(rect);
