@@ -5,6 +5,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: camera-check-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   check:
     if: github.repository == 'esaKITs/kana-romaji-camera-kanji'
@@ -30,6 +33,7 @@ jobs:
       - run: npm test
       - run: npm run verify:dist
       - name: Actual Chromium OCR and project-path integration
+        timeout-minutes: 20
         run: |
           node meikiocr-test/node_modules/playwright/cli.js install --with-deps chromium
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:browser
