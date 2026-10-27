@@ -26,7 +26,7 @@ export async function scanFocused(source,box){
  if(!ocr)throw Error('Initialize first');
  const [x0,y0,x1,y1]=box,w=x1-x0,h=y1-y0;
  if(w<1||h<1)throw Error('Empty focus region');
- const scale=Math.min(3,Math.sqrt(3000000/(w*h)));
+ const scale=Math.max(1,Math.min(3,Math.sqrt(3000000/(w*h))));
  const tile=document.createElement('canvas');tile.width=Math.max(1,Math.round(w*scale));tile.height=Math.max(1,Math.round(h*scale));
  tile.getContext('2d').drawImage(source,x0,y0,w,h,0,0,tile.width,tile.height);
  const result=await scan(tile,'focus-'+(++requestId));
