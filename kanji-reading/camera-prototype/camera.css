@@ -19,3 +19,5 @@ body.camera-active header{padding-left:max(12px,env(safe-area-inset-left));paddi
 /* Gestures belong only to the Still image; controls remain outside this layer. */
 body.camera-still #zoom-layer{touch-action:none;user-select:none;-webkit-user-select:none}
 body.camera-still #stage{overflow:hidden}
+
+body.camera-still #focus-scan{display:block;position:fixed;top:calc(170px + env(safe-area-inset-top,0px));right:12px;z-index:19;padding:9px 13px;border-radius:12px;background:#e8ebef;color:#263445;font-weight:700}body.camera-still #focus-scan[aria-pressed=true]{background:#18b6a4;color:#061d1b}
