@@ -20,7 +20,7 @@ export function bindStillZoom(layer,source){
  layer.addEventListener('pointerdown',event=>{
   if(!active||event.pointerType==='mouse'&&event.button!==0||points.size>=2)return;
   event.preventDefault();layer.setPointerCapture(event.pointerId);points.set(event.pointerId,{x:event.clientX,y:event.clientY});
-  gesture={x:event.clientX,y:event.clientY,moved:false,multi:points.size===2,time:event.timeStamp};if(gesture.multi)lastTap=null;
+  if(points.size===1)gesture={x:event.clientX,y:event.clientY,moved:false,multi:false,time:event.timeStamp};else {gesture={x:event.clientX,y:event.clientY,moved:false,multi:true,time:event.timeStamp};lastTap=null;}
  });
  layer.addEventListener('pointermove',event=>{
   if(!active||!points.has(event.pointerId))return;event.preventDefault();
