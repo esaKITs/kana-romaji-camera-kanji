@@ -22,6 +22,17 @@ async function scan(canvas,id,regions){
  const snapshot=await ocr.scan({frameId:id,width:view.width,height:view.height,capturedAtMs:performance.now(),rgba:rgba.buffer,...(regions?{regions:view.regions}:{})},{transfer:'move'});
  return regions?restoreRecognitionCoordinates(snapshot,view):snapshot;
 }
+export async function scanFocused(source,box){
+ if(!ocr)throw Error('Initialize first');
+ const [x0,y0,x1,y1]=box,w=x1-x0,h=y1-y0;
+ if(w<1||h<1)throw Error('Empty focus region');
+ const scale=Math.min(3,Math.sqrt(3000000/(w*h)));
+ const tile=document.createElement('canvas');tile.width=Math.max(1,Math.round(w*scale));tile.height=Math.max(1,Math.round(h*scale));
+ tile.getContext('2d').drawImage(source,x0,y0,w,h,0,0,tile.width,tile.height);
+ const result=await scan(tile,'focus-'+(++requestId));
+ const transform=b=>[x0+b[0]/(tile.width/w),y0+b[1]/(tile.height/h),x0+b[2]/(tile.width/w),y0+b[3]/(tile.height/h)];
+ return {...result,width:source.width,height:source.height,lines:(result.lines||[]).map(l=>({...l,box:transform(l.box),glyphs:(l.glyphs||[]).map(g=>({...g,box:transform(g.box)}))}))};
+}
 export async function analyzeText(text){return (await rpc({command:'analyze',text,numeric:true})).tokens;}
 export async function runStill(source,{mode='あア漢',style='double',output=null,paperState=null,xycut=true}={}){
  if(!ocr||!readingWorker)throw Error('Initialize first');
@@ -40,4 +51,4 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
  window.stillLab.lastRun=run;return run;
 }
 export async function dispose(){readingWorker?.terminate();readingWorker=null;for(const p of waiting.values()){clearTimeout(p.timer);p.reject(Error('Disposed'));}waiting.clear();if(ocr)await ocr.dispose();ocr=null;}
-window.stillLab={initialize,runStill,dispose,scanRegions:(canvas,regions)=>scan(canvas,"regions-"+requestId,regions),analyzeSnapshot,renderResult,analyze:async text=>(await rpc({command:"analyze",text,numeric:true})).tokens};
+window.stillLab={initialize,runStill,scanFocused,dispose,scanRegions:(canvas,regions)=>scan(canvas,"regions-"+requestId,regions),analyzeSnapshot,renderResult,analyze:async text=>(await rpc({command:"analyze",text,numeric:true})).tokens};
