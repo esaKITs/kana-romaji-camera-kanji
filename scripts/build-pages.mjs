@@ -22,6 +22,8 @@ await copy('meikiocr-test/public/licenses',out+'/licenses');
 for(const [file,name]of [['LICENSE-2.0.txt','LICENSE.kuromoji-Apache-2.0.txt'],['NOTICE.md','NOTICE.kuromoji-IPADIC.md']])await copy('kanji-reading/lab/node_modules/kuromoji/'+file,out+'/licenses/'+name);
 await copy('pages/NOTICE.onnxruntime.txt',out+'/licenses/NOTICE.onnxruntime.txt');
 await copy('pages/NOTICE.html',out+'/licenses/NOTICE.html');
+// Isolated OCR experiment: never imported by the production camera.
+await copy('pages/ppocr-experiment/index.html',out+'/ppocr-experiment/index.html');
 await copy('SOURCE.md',out+'/SOURCE.md');
 await mkdir(out+'/ocr-assets',{recursive:true});
 const lock=JSON.parse(await readFile('meikiocr-test/models.lock.json')),manifest={modelSetId:lock.modelSetId,onnxruntimeWeb:'1.30.0',models:[],runtime:[]};
