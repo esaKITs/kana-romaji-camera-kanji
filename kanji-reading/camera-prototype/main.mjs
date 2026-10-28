@@ -28,7 +28,7 @@ function home(){paperState.reset();opening++;session.enter('home');pending=false
 async function engines(){if(!ready){message('Loading OCR and reading data…',true);ready=initialize('kuromoji').catch(error=>{ready=null;throw error;});}await ready;}
 function drawGuides(result){const c=$('guides');c.width=$('output').width;c.height=$('output').height;const x=c.getContext('2d');if(!guides||!result)return;x.lineWidth=2;for(const l of result.labels){x.strokeStyle=lastPaint?.layout.drawn.some(d=>d.lineId===l.lineId&&d.source===l.source&&d.box.x0===l.box.x0)?'#37d78d':'#ffbf47';const b=l.box;x.strokeRect(b.x0,b.y0,b.x1-b.x0,b.y1-b.y0);}}
 function showResult(layout,source,kind){lastPaint={layout,source,kind};paintLabels($('output'),source,layout,{still:kind==='still',reveal});}
-function capture(){const video=$('video');if(!video.videoWidth)throw Error('The camera has no frame yet.');const s=Math.min(1,1200/Math.max(video.videoWidth,video.videoHeight)),c=document.createElement('canvas');c.width=Math.round(video.videoWidth*s);c.height=Math.round(video.videoHeight*s);c.getContext('2d').drawImage(video,0,0,c.width,c.height);return c;}
+function capture(){const video=$('video');if(!video.videoWidth)throw Error('The camera has no frame yet.');const s=ppocrMode?1:Math.min(1,1200/Math.max(video.videoWidth,video.videoHeight)),c=document.createElement('canvas');c.width=Math.round(video.videoWidth*s);c.height=Math.round(video.videoHeight*s);c.getContext('2d').drawImage(video,0,0,c.width,c.height);return c;}
 function videoSignature(source=$('video')){motionContext.drawImage(source,0,0,96,64);return fingerprint(motionContext.getImageData(0,0,96,64).data);}
 function stopMotion(){clearTimeout(motionTimer);motionTimer=null;motion.reset();}
 function watchMotion(){
@@ -58,7 +58,7 @@ async function processScene(){
  if(pending&&session.kind!=='home')queueMicrotask(processScene);
 }
 async function focusScan(rect){
- if(ppocrMode){message('Focus is unavailable with PP-OCR whole-image mode');return;}
+ if(ppocrMode){message('Focus is unavailable with PP-OCR tiled mode');return;}
  if(session.kind!=='still'||session.busy||!cache?.value?.snapshot){message('Wait for Still recognition to finish.');return;}
  const generation=session.generation,source=session.source,previous=cache.value;
  const pad=Math.max(8,Math.round(Math.min(rect[2]-rect[0],rect[3]-rect[1])*.12));
@@ -90,7 +90,7 @@ $('start').onclick=start;$('stop').onclick=home;$('scan').onclick=()=>{try{still
 $('live-return').onclick=()=>{if(stream){session.enter('live');cache=null;clearLayer();screen();paperState.reset();stopMotion();watchMotion();tick();}else home();};
 $('retry').onclick=()=>{if(session.kind==='still'){cache=null;session.enter('still',session.source);void processScene();}};
 for(const id of ['choose','choose-home'])$(id).onclick=()=>$('image').click();
-$('image').onchange=async()=>{const file=$('image').files[0];$('image').value='';if(!file)return;const request=++opening;try{const bitmap=await createImageBitmap(file);if(request!==opening){bitmap.close();return;}const s=Math.min(1,2000/Math.max(bitmap.width,bitmap.height)),c=document.createElement('canvas');c.width=Math.round(bitmap.width*s);c.height=Math.round(bitmap.height*s);c.getContext('2d').drawImage(bitmap,0,0,c.width,c.height);bitmap.close();stopStream();still(c);}catch(error){message(error.message);}};
+$('image').onchange=async()=>{const file=$('image').files[0];$('image').value='';if(!file)return;const request=++opening;try{const bitmap=await createImageBitmap(file);if(request!==opening){bitmap.close();return;}const s=ppocrMode?1:Math.min(1,2000/Math.max(bitmap.width,bitmap.height)),c=document.createElement('canvas');c.width=Math.round(bitmap.width*s);c.height=Math.round(bitmap.height*s);c.getContext('2d').drawImage(bitmap,0,0,c.width,c.height);bitmap.close();stopStream();still(c);}catch(error){message(error.message);}};
 $('sample').onclick=async()=>{const request=++opening;$('sample').disabled=true;try{const img=new Image();img.src=assetUrl('fixtures/numeric.png');await img.decode();if(request!==opening)return;const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);stopStream();still(c);}catch(error){message(error.message);}finally{$('sample').disabled=false;}};
 function changed(){settings();if(session.kind!=='home'){session.enter(session.kind,session.source);clearLayer();void processScene();}}
 $('kana-mode').onclick=()=>{mode=modes[(modes.indexOf(mode)+1)%modes.length];changed();};$('long-vowels').onclick=()=>{style=style==='double'?'macron':'double';changed();};

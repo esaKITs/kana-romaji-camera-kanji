@@ -1,0 +1,61 @@
+{
+  "imageSha256": "41665ef0a68c31e831e1cb1a94a20bdc51d3cd1bf381da83d6bb8cfdd33fd49c",
+  "rawRegions": 66,
+  "classifiedRegions": 63,
+  "counts": {
+    "本文候補": 50,
+    "ルビ候補": 8,
+    "保留": 5
+  },
+  "experimentCameraRawEqual": true,
+  "experimentLiveRawEqual": true,
+  "classificationEqual": true,
+  "labels": 40,
+  "omitted": 0,
+  "targetLabels": [
+    {
+      "source": "紅茶を買いました",
+      "reading": "コウチャヲカイマシタ",
+      "output": "koocha o kaimashita",
+      "box": {
+        "x0": 709,
+        "y0": 1280,
+        "x1": 1093,
+        "y1": 1309
+      }
+    },
+    {
+      "source": "京都へ",
+      "reading": "キョウトヘ",
+      "output": "kyooto e",
+      "box": {
+        "x0": 447,
+        "y0": 1662,
+        "x1": 573,
+        "y1": 1692
+      }
+    },
+    {
+      "source": "お花見を",
+      "reading": "オハナミヲ",
+      "output": "ohanami o",
+      "box": {
+        "x0": 432,
+        "y0": 1742,
+        "x1": 585,
+        "y1": 1769
+      }
+    },
+    {
+      "source": "食堂へ",
+      "reading": "ショクドウヘ",
+      "output": "shokudoo e",
+      "box": {
+        "x0": 202,
+        "y0": 2041,
+        "x1": 339,
+        "y1": 2076
+      }
+    }
+  ]
+}

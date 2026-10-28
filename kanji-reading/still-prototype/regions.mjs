@@ -8,6 +8,7 @@ function sameRegion(a,b){
  return intersection/Math.max(area(a),area(b))>=.85;
 }
 export function normalizeRegions(snapshot){
+ if(snapshot.geometry==='detected-regions')return {...snapshot,regionDiagnostics:{duplicates:0,joinedFragments:0,conflictingRegions:0}};
  const seen=[],diagnostics={duplicates:0,joinedFragments:0,conflictingRegions:0},lines=[];
  for(const original of snapshot.lines){
   if(original.orientation==='vertical'){lines.push(original);continue;}

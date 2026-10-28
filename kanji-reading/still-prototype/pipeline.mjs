@@ -1,3 +1,4 @@
+import {analyzePPOCRRegions} from './ppocr-reading.mjs';
 import {sampledPaperColor,selectPapers,paperFor,foregroundFor} from './paper.mjs';
 import {displayTokens,openingBullet} from './display-tokens.mjs';
 import {allocateLabels} from './layout.mjs';
@@ -74,6 +75,7 @@ export function rubyCandidates(lines){
 }
 export async function analyzeSnapshot(snapshot,analyze,{mode='あア漢',style='double',verifyRuby=async()=>null,source=null}={}){
  if(!modes.includes(mode))throw Error('Invalid mode');
+ if(snapshot.engine==='ppocrv6-manga')return analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRuby});
  const normalized=normalizeRegions(snapshot),lines=sourceLines(normalized,source),pairs=[],candidates=rubyCandidates(lines);
  const tokenCache=new Map();const tokensFor=async line=>{if(!tokenCache.has(line.id))tokenCache.set(line.id,await analyze(line.text));return tokenCache.get(line.id);};
  for(const c of candidates){

@@ -38,6 +38,10 @@ jobs:
           node meikiocr-test/node_modules/playwright/cli.js install --with-deps chromium
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:browser
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:textbook
+      - name: Canonical PP-OCR actual textbook parity
+        timeout-minutes: 15
+        run: |
+          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") PPOCR_IMAGE=tests/fixtures/practice-a.png node scripts/ppocr-compare.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
