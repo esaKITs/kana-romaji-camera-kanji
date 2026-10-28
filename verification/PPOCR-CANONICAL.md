@@ -8,3 +8,5 @@ Measured Practice A source: IMG_2112(5).png (1179×2556); tests/fixtures/practic
 Bridge uses measured region boxes, never synthetic character boxes. Dictionary analysis retains raw text, separates ruby/held regions, and paints composite region labels. Ruby annotations remain visible; no claim of character-level OCR or learned ruby association. Region-level rendering cannot place separate word labels within a detected multiword region. Vertical regions remain preserved without horizontal labels.
 
 Local regression: 108 unit tests, Meiki browser integration and original-textbook browser integration passed. Actual PP comparison and synthetic Live are release gates in check.yml. Real iPhone/camera validation remains distinct from simulated stream tests.
+
+Final local result: 40 rendered region labels, 0 layout omissions; all four target readings asserted. PP synthetic Live raw output and classification match the original exactly, followed by successful capture into Still. See ppocr-comparison.json.
