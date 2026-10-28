@@ -1,0 +1,436 @@
+{
+  "version": "0.2.13",
+  "canonicalRawRegions": 66,
+  "canonicalClassifiedRegions": 63,
+  "supplemental": {
+    "regions": [
+      {
+        "box": [
+          668,
+          898,
+          694,
+          933
+        ],
+        "text": "し",
+        "provenance": "supplemental-local-single",
+        "checks": [
+          {
+            "text": "し",
+            "minimumProbability": 0.9982753992080688
+          },
+          {
+            "text": "し",
+            "minimumProbability": 0.9968679547309875
+          }
+        ]
+      },
+      {
+        "box": [
+          667,
+          1134,
+          695,
+          1168
+        ],
+        "text": "し",
+        "provenance": "supplemental-local-single",
+        "checks": [
+          {
+            "text": "し",
+            "minimumProbability": 0.9955079555511475
+          },
+          {
+            "text": "し",
+            "minimumProbability": 0.9899762272834778
+          }
+        ]
+      },
+      {
+        "box": [
+          680,
+          1738,
+          706,
+          1772
+        ],
+        "text": "し",
+        "provenance": "supplemental-local-single",
+        "checks": [
+          {
+            "text": "し",
+            "minimumProbability": 0.9985877275466919
+          },
+          {
+            "text": "し",
+            "minimumProbability": 0.9891014695167542
+          }
+        ]
+      }
+    ],
+    "detectedBoxes": [
+      [
+        793.4322916666666,
+        491.3125,
+        815.8645833333334,
+        531.1875
+      ],
+      [
+        668.1458333333334,
+        897.875,
+        693.6197916666666,
+        932.875
+      ],
+      [
+        667.3541666666666,
+        1134.4140625,
+        694.9791666666666,
+        1168.26953125
+      ],
+      [
+        680.4947916666666,
+        1737.5,
+        705.6197916666666,
+        1771.875
+      ]
+    ],
+    "decisions": [
+      {
+        "box": [
+          793.4322916666666,
+          491.3125,
+          815.8645833333334,
+          531.1875
+        ],
+        "first": {
+          "text": "た今",
+          "minimumProbability": 0.4065231382846832
+        },
+        "second": {
+          "text": "た今",
+          "minimumProbability": 0.35623306035995483
+        },
+        "accepted": false
+      },
+      {
+        "box": [
+          668.1458333333334,
+          897.875,
+          693.6197916666666,
+          932.875
+        ],
+        "first": {
+          "text": "し",
+          "minimumProbability": 0.9982753992080688
+        },
+        "second": {
+          "text": "し",
+          "minimumProbability": 0.9968679547309875
+        },
+        "accepted": true
+      },
+      {
+        "box": [
+          667.3541666666666,
+          1134.4140625,
+          694.9791666666666,
+          1168.26953125
+        ],
+        "first": {
+          "text": "し",
+          "minimumProbability": 0.9955079555511475
+        },
+        "second": {
+          "text": "し",
+          "minimumProbability": 0.9899762272834778
+        },
+        "accepted": true
+      },
+      {
+        "box": [
+          680.4947916666666,
+          1737.5,
+          705.6197916666666,
+          1771.875
+        ],
+        "first": {
+          "text": "し",
+          "minimumProbability": 0.9985877275466919
+        },
+        "second": {
+          "text": "し",
+          "minimumProbability": 0.9891014695167542
+        },
+        "accepted": true
+      }
+    ],
+    "elapsedMs": 355.39999999990687,
+    "scale": 3,
+    "proposals": [
+      [
+        795,
+        494,
+        806,
+        512
+      ],
+      [
+        674,
+        900,
+        693,
+        932
+      ],
+      [
+        674,
+        1135,
+        694,
+        1168
+      ],
+      [
+        686,
+        1739,
+        705,
+        1771
+      ]
+    ],
+    "classifiedRegions": [
+      {
+        "box": [
+          668,
+          898,
+          694,
+          933
+        ],
+        "text": "し",
+        "provenance": "supplemental-local-single",
+        "checks": [
+          {
+            "text": "し",
+            "minimumProbability": 0.9982753992080688
+          },
+          {
+            "text": "し",
+            "minimumProbability": 0.9968679547309875
+          }
+        ],
+        "type": "本文候補",
+        "reason": "近傍比較で本文"
+      },
+      {
+        "box": [
+          667,
+          1134,
+          695,
+          1168
+        ],
+        "text": "し",
+        "provenance": "supplemental-local-single",
+        "checks": [
+          {
+            "text": "し",
+            "minimumProbability": 0.9955079555511475
+          },
+          {
+            "text": "し",
+            "minimumProbability": 0.9899762272834778
+          }
+        ],
+        "type": "本文候補",
+        "reason": "近傍比較で本文"
+      },
+      {
+        "box": [
+          680,
+          1738,
+          706,
+          1772
+        ],
+        "text": "し",
+        "provenance": "supplemental-local-single",
+        "checks": [
+          {
+            "text": "し",
+            "minimumProbability": 0.9985877275466919
+          },
+          {
+            "text": "し",
+            "minimumProbability": 0.9891014695167542
+          }
+        ],
+        "type": "本文候補",
+        "reason": "近傍比較で本文"
+      }
+    ]
+  },
+  "renderedShi": [
+    {
+      "source": "し",
+      "reading": "シ",
+      "output": "shi",
+      "box": {
+        "x0": 668,
+        "y0": 898,
+        "x1": 694,
+        "y1": 933
+      },
+      "bodyBox": {
+        "x0": 668,
+        "y0": 898,
+        "x1": 694,
+        "y1": 933
+      },
+      "rubyBox": null,
+      "lineId": 62,
+      "coversRuby": false,
+      "geometry": "detected-region",
+      "readingSource": "dictionary-region",
+      "displayBox": {
+        "x0": 662.8361129760742,
+        "x1": 699.1638870239258,
+        "y0": 880.5,
+        "y1": 933
+      },
+      "horizontalScale": 1,
+      "verticalScale": 1.55,
+      "fontSize": 19.6,
+      "rows": [
+        "shi"
+      ],
+      "backgroundRgb": [
+        252,
+        231,
+        220
+      ],
+      "backgroundColor": "rgb(252,231,220)",
+      "foregroundColor": "#15212a",
+      "eraseRegions": [
+        {
+          "x0": 665,
+          "x1": 697,
+          "y0": 895,
+          "y1": 936
+        }
+      ],
+      "textRegions": [
+        {
+          "x0": 662.8361129760742,
+          "x1": 699.1638870239258,
+          "y0": 880.5,
+          "y1": 933
+        }
+      ]
+    },
+    {
+      "source": "し",
+      "reading": "シ",
+      "output": "shi",
+      "box": {
+        "x0": 667,
+        "y0": 1134,
+        "x1": 695,
+        "y1": 1168
+      },
+      "bodyBox": {
+        "x0": 667,
+        "y0": 1134,
+        "x1": 695,
+        "y1": 1168
+      },
+      "rubyBox": null,
+      "lineId": 63,
+      "coversRuby": false,
+      "geometry": "detected-region",
+      "readingSource": "dictionary-region",
+      "displayBox": {
+        "x0": 663.3001480102539,
+        "x1": 698.6998519897461,
+        "y0": 1117,
+        "y1": 1168
+      },
+      "horizontalScale": 1,
+      "verticalScale": 1.55,
+      "fontSize": 19.040000000000003,
+      "rows": [
+        "shi"
+      ],
+      "backgroundRgb": [
+        250,
+        194,
+        189
+      ],
+      "backgroundColor": "rgb(250,194,189)",
+      "foregroundColor": "#15212a",
+      "eraseRegions": [
+        {
+          "x0": 664,
+          "x1": 698,
+          "y0": 1131,
+          "y1": 1171
+        }
+      ],
+      "textRegions": [
+        {
+          "x0": 663.3001480102539,
+          "x1": 698.6998519897461,
+          "y0": 1117,
+          "y1": 1168
+        }
+      ]
+    },
+    {
+      "source": "し",
+      "reading": "シ",
+      "output": "shi",
+      "box": {
+        "x0": 680,
+        "y0": 1738,
+        "x1": 706,
+        "y1": 1772
+      },
+      "bodyBox": {
+        "x0": 680,
+        "y0": 1738,
+        "x1": 706,
+        "y1": 1772
+      },
+      "rubyBox": null,
+      "lineId": 64,
+      "coversRuby": false,
+      "geometry": "detected-region",
+      "readingSource": "dictionary-region",
+      "displayBox": {
+        "x0": 675.3001480102539,
+        "x1": 710.6998519897461,
+        "y0": 1721,
+        "y1": 1772
+      },
+      "horizontalScale": 1,
+      "verticalScale": 1.55,
+      "fontSize": 19.040000000000003,
+      "rows": [
+        "shi"
+      ],
+      "backgroundRgb": [
+        252,
+        231,
+        220
+      ],
+      "backgroundColor": "rgb(252,231,220)",
+      "foregroundColor": "#15212a",
+      "eraseRegions": [
+        {
+          "x0": 677,
+          "x1": 709,
+          "y0": 1735,
+          "y1": 1775
+        }
+      ],
+      "textRegions": [
+        {
+          "x0": 675.3001480102539,
+          "x1": 710.6998519897461,
+          "y0": 1721,
+          "y1": 1772
+        }
+      ]
+    }
+  ],
+  "labels": 44,
+  "omitted": 0
+}
