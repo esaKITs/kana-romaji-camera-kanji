@@ -80,7 +80,20 @@ export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
  }
  function place(label,rows,font,scale,rect){
   if(occupied.some(q=>overlap(q,rect))){omitted.push({...label,reason:'label-collision'});return;}
-  occupied.push(rect);drawn.push({...label,displayBox:rect,horizontalScale:scale,fontSize:font,rows});
+  // Stretch glyphs vertically, never horizontally. Reserve headroom for furigana,
+  // but stop before another source line or an already placed label.
+  const body=label.bodyBox||label.box,bodyHeight=Math.max(1,body.y1-body.y0);
+  const desiredTop=Math.max(0,body.y0-bodyHeight*.5);
+  const blockers=result.lines.filter(line=>line.id!==label.lineId)
+   .flatMap(line=>line.glyphs).map(g=>g.box)
+   .filter(q=>q.y1<=body.y0&&q.x0<rect.x1&&q.x1>rect.x0);
+  const priorBottom=blockers.length?Math.max(...blockers.map(q=>q.y1+2)):0;
+  const top=Math.min(rect.y0,Math.max(desiredTop,priorBottom));
+  const tallRect={...rect,y0:top};
+  const textHeight=Math.max(1,font*rows.length);
+  const verticalScale=Math.min(1.55,Math.max(1,(tallRect.y1-tallRect.y0-2)/textHeight));
+  if(occupied.some(q=>overlap(q,tallRect))){omitted.push({...label,reason:'extended-label-collision'});return;}
+  occupied.push(tallRect);drawn.push({...label,displayBox:tallRect,horizontalScale:scale,verticalScale,fontSize:font,rows});
  }
  return{drawn,omitted};
 }
