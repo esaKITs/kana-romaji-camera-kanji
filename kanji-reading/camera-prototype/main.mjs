@@ -7,7 +7,7 @@ import{paintLabels,sourceLevels}from'./paint.mjs';
 import{bindStillZoom}from'./zoom.mjs';
 import{bindFocusSelection}from'./focus-scan.mjs';
 import{assetUrl}from'./asset-url.mjs';
-const ppocrMode=new URLSearchParams(location.search).get('ocr')==='ppocr';
+const ppocrMode=typeof location!=='undefined'&&typeof URLSearchParams!=='undefined'&&new URLSearchParams(location.search).get('ocr')==='ppocr';
 const $=id=>document.getElementById(id),session=new CameraSession(),modes=['あア漢','ア漢','漢'];
 const paperState=new AdaptivePapers();
 const stillZoom=bindStillZoom($('zoom-layer'),()=>session.source);
