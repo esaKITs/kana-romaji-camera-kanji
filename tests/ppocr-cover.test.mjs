@@ -14,3 +14,9 @@ test('PP region mask covers source ink outside the detector box and preserves ru
  const camera=createCanvas(1,1);paintLabels(camera,source,layout,{still:true});assert.deepEqual(camera.getContext('2d').getImageData(0,0,220,110).data,preview.getContext('2d').getImageData(0,0,220,110).data,'preview and camera must paint identical pixels');
  const label=layout.drawn[0];assert.ok(label.fontSize>(box.y1-box.y0)*.75);assert.equal(label.textBaseline,'alphabetic');assert.ok(Number.isFinite(label.textOffsetY));
 });
+
+test('a crowded PP label can retain its old font size instead of disappearing',()=>{
+ const source=createCanvas(85,70),ctx=source.getContext('2d');ctx.fillStyle='white';ctx.fillRect(0,0,85,70);
+ const box={x0:5,y0:20,x1:80,y1:50},result={lines:[{id:0,box,glyphs:[{text:'語',box,geometry:'detected-region'}]}],labels:[{source:'語',output:'WWWWWW',lineId:0,box,geometry:'detected-region'}]};
+ const layout=renderResult(createCanvas(1,1),source,result);assert.equal(layout.drawn.length,1);assert.equal(layout.omitted.length,0);assert.ok(layout.drawn[0].fontSize<30*.75,'only the crowded label falls back to its original size');
+});

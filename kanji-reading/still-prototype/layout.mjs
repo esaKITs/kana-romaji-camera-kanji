@@ -12,7 +12,7 @@ function rowsFor(text,measure){
  }
  return best;
 }
-export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
+export function allocateLabels(result,width,height,measure,{minScale=.70,compactLines=new Set()}={}){
  const drawn=[],omitted=[],occupied=[];
  for(const line of result.lines){
   const labels=result.labels.filter(l=>l.lineId===line.id).sort((a,b)=>a.box.x0-b.box.x0);
@@ -25,7 +25,7 @@ export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
   const heights=line.glyphs.map(g=>g.box.y1-g.box.y0).filter(h=>Number.isFinite(h)&&h>0).sort((a,b)=>a-b);
   const characterHeight=heights.length?heights[Math.floor(heights.length/2)]:line.box.y1-line.box.y0;
   const regionLabels=labels.some(l=>l.geometry==='detected-region');
-  const font=Math.min(line.box.y1-line.box.y0,characterHeight)*(regionLabels ? .85 : .56);
+  const font=Math.min(line.box.y1-line.box.y0,characterHeight)*(regionLabels&&!compactLines.has(line.id) ? .85 : .56);
   const cells=labels.map(label=>{
    const b=label.box,obstacles=protectedGlyphs.map(g=>g.box).filter(q=>q.y0<b.y1&&q.y1>b.y0).filter(q=>label.geometry!=='detected-region'||Math.min(q.y1,b.y1)-Math.max(q.y0,b.y0)>(b.y1-b.y0)*.2);
    const center=(b.x0+b.x1)/2;

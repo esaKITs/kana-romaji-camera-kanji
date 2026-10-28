@@ -138,7 +138,9 @@ export function renderResult(canvas,source,result,{paperState=null}={}){
  canvas.width=source.width;canvas.height=source.height;const ctx=canvas.getContext('2d');ctx.drawImage(source,0,0);
  const measure=(text,font)=>{ctx.font=`700 ${font}px system-ui`;return ctx.measureText(text).width;};
  measure.ink=(text,font)=>{ctx.font=`700 ${font}px system-ui`;const m=ctx.measureText(text);return {ascent:m.actualBoundingBoxAscent,descent:m.actualBoundingBoxDescent};};
- const layout=allocateLabels(result,canvas.width,canvas.height,measure);
+ let layout=allocateLabels(result,canvas.width,canvas.height,measure);
+ const compactLines=new Set(layout.omitted.filter(l=>l.geometry==='detected-region').map(l=>l.lineId));
+ if(compactLines.size)layout=allocateLabels(result,canvas.width,canvas.height,measure,{compactLines});
  const samples=layout.drawn.map(l=>({rgb:sampledPaperColor(l.box,source),weight:Math.min(5,Math.max(1,Math.sqrt((l.box.x1-l.box.x0)*(l.box.y1-l.box.y0))/30))}));
  const papers=paperState?paperState.resolve(samples):selectPapers(samples);layout.papers=papers;
  layout.drawn.forEach((l,i)=>{l.backgroundRgb=paperState?.colorFor?paperState.colorFor(samples[i].rgb,l):paperFor(samples[i].rgb,papers);l.backgroundColor='rgb('+l.backgroundRgb.join(',')+')';l.foregroundColor=foregroundFor(l.backgroundRgb);});
