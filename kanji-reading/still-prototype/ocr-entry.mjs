@@ -88,45 +88,12 @@ export async function scanFocused(source,box){
  }
  return {width:source.width,height:source.height,lines:chosen,variants:counts};
 }
-// Automatically inspect enlarged strips above recognized Han glyphs for ruby.
-async function recoverRuby(source,snapshot){
- const han=(snapshot.lines||[]).flatMap(l=>(l.glyphs||[]).filter(g=>/[\\p{Script=Han}々〆]/u.test(g.text||'')&&Array.isArray(g.box)));
- if(!han.length)return snapshot;
- const strips=[];
- for(const g of han){
-  const [x0,y0,x1,y1]=g.box,h=y1-y0,w=x1-x0;
-  if(h<9||w<5)continue;
-  const box=[Math.max(0,Math.floor(x0-w*.65)),Math.max(0,Math.floor(y0-h*.95)),Math.min(source.width,Math.ceil(x1+w*.65)),Math.max(0,Math.floor(y0+h*.12))];
-  if(box[3]-box[1]<7)continue;
-  if(!strips.some(s=>Math.abs(s[0]-box[0])<w*.5&&Math.abs(s[1]-box[1])<h*.5))strips.push(box);
- }
- const additions=[];
- for(const [x0,y0,x1,y1] of strips.slice(0,16)){
-  const w=x1-x0,h=y1-y0,scale=Math.min(4,Math.max(2,Math.sqrt(400000/(w*h))));
-  const tile=document.createElement('canvas');tile.width=Math.round(w*scale);tile.height=Math.round(h*scale);
-  tile.getContext('2d').drawImage(source,x0,y0,w,h,0,0,tile.width,tile.height);
-  try{
-   const read=await scan(tile,'auto-ruby-'+(++requestId));
-   const transform=b=>[x0+b[0]/scale,y0+b[1]/scale,x0+b[2]/scale,y0+b[3]/scale];
-   for(const l of read.lines||[]){
-    const glyphs=(l.glyphs||[]).filter(g=>/^[ぁ-ゖァ-ヺー]+$/u.test(g.text||'')).map(g=>({...g,box:transform(g.box)}));
-    if(!glyphs.length)continue;
-    const text=glyphs.map(g=>g.text).join(''),box=[Math.min(...glyphs.map(g=>g.box[0])),Math.min(...glyphs.map(g=>g.box[1])),Math.max(...glyphs.map(g=>g.box[2])),Math.max(...glyphs.map(g=>g.box[3]))];
-    if(box[3]>y1-(y1-y0)*.05||glyphs.some(g=>(g.confidence??0)<.75))continue;
-    const same=(snapshot.lines||[]).some(old=>(old.glyphs||[]).some(g=>g.text===text&&Math.abs(g.box[0]-box[0])<5&&Math.abs(g.box[1]-box[1])<5));
-    if(!same)additions.push({...l,text,box,glyphs});
-   }
-  }catch{} // The original OCR result remains usable if a ruby scan fails.
- }
- return {...snapshot,lines:[...snapshot.lines,...additions]};
-}
 export async function analyzeText(text){return (await rpc({command:'analyze',text,numeric:true})).tokens;}
 export async function runStill(source,{mode='あア漢',style='double',output=null,paperState=null,xycut=true}={}){
  if(!ocr||!readingWorker)throw Error('Initialize first');
  const t=performance.now(),primarySnapshot=await (xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'still-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'still-'+requestId)),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0,recoveryMs=0,snapshot=primarySnapshot,recovery={regions:[],decisions:[]};
  const regions=recoveryRegions(primarySnapshot);
  if(regions.length){const started=performance.now(),regionalSnapshot=await scan(source,'repair-'+requestId,regions.map(r=>r.box)),merged=mergeRecovery(primarySnapshot,regionalSnapshot,regions);snapshot=merged.snapshot;recovery={regions,decisions:merged.decisions,regionalSnapshot};recoveryMs=performance.now()-started;}
- snapshot=await recoverRuby(source,snapshot);
  const result=await analyzeSnapshot(snapshot,async text=>(await rpc({command:'analyze',text,numeric:true})).tokens,{mode,style,source,verifyRuby:async c=>{
   const kana=s=>s.normalize('NFC').replace(/[ァ-ヶ]/g,k=>String.fromCharCode(k.charCodeAt(0)-96));
   if(c.contextReading&&kana(c.contextReading)===kana(c.reading)){rubyChecks.push({source:c.source,first:c.reading,second:c.contextReading,method:'context-dictionary-agreement'});return{reading:c.reading,method:'context-dictionary-agreement'};}
