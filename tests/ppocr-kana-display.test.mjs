@@ -12,7 +12,7 @@ test('measured tall single kana stays eligible, with no guessed text orientation
  assert.equal(result.labels[0].output,'mi');assert.deepEqual(snapshot.rawRegions,raw);
 });
 test('actual dictionary splits of kana words and auxiliary endings do not corrupt display',async()=>{
- for(const [text,expected]of [['こうべへ','koobe e'],['とうきょう','tookyoo'],['ませんか','masen ka'],['ましょう','mashoo'],['にくとやさい','niku to yasai'],['し','shi']]){
+ for(const [text,expected]of [['こうべへ','koobe e'],['とうきょう','tookyoo'],['ませんか','masen ka'],['ましょう','mashoo'],['にくとやさい','niku to yasai'],['し','shi'],['あのみせ','ano mise'],['パンです','pan desu']]){
   const r={text,box:[10,10,240,45],type:'本文候補'},raw=[{text,box:r.box}];
   const snapshot=snapshotFromPPOCR({rawRegions:raw,classifiedRegions:[r]});
   const result=await analyzePPOCRRegions(snapshot,engine.analyze,{mode:'あア漢',style:'double',verifyRuby:async()=>null});

@@ -6,14 +6,16 @@ import {romaji,rubyKanjiRomaji} from '../lab/generated/romanizer.mjs';
 const rect=b=>({x0:b[0],y0:b[1],x1:b[2],y1:b[3]});
 const kana=s=>s.normalize('NFC').replace(/[ァ-ヶ]/g,k=>String.fromCharCode(k.charCodeAt(0)-96));
 // The analyzer can split a kana word or a standalone auxiliary across tokens.
-// Preserve grammatical particles as boundaries; romanize each other kana run
+// Preserve grammatical particles and ordinary word boundaries; romanize a run
 // together so the existing lexical long-vowel rules see the complete spelling.
 export function groupPPOCRTokens(tokens){
  const result=[],isKana=t=>/^[ぁ-ゖァ-ヺー]+$/u.test(t.surface);
  const particle=t=>t.pos?.[0]==='助詞'&&!t.pos.includes('終助詞');
  for(const token of tokens){
   const previous=result.at(-1);
-  if(previous&&previous.end===token.start&&isKana(previous)&&isKana(token)&&!particle(previous)&&!particle(token)){
+  const adjacentAuxiliary=previous?.pos?.[0]==='助動詞'&&token.pos?.[0]==='助動詞';
+  const splitKanaWord=previous?.pos?.[0]==='副詞'&&(token.pos?.[0]==='名詞'||token.pos?.includes('終助詞'));
+  if(previous&&previous.end===token.start&&isKana(previous)&&isKana(token)&&!particle(previous)&&!particle(token)&&(adjacentAuxiliary||splitKanaWord)){
    result[result.length-1]={...previous,surface:previous.surface+token.surface,reading:(previous.reading||previous.surface)+(token.reading||token.surface),end:token.end,members:[...(previous.members||[previous]),...(token.members||[token])]};
   }else result.push(token);
  }
