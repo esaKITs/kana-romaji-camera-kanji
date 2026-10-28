@@ -1,0 +1,11 @@
+# v0.2.14 PP romaji size and source coverage
+
+Problem: PP detector rectangles sometimes stop inside the original Japanese strokes. The former source mask extended just 8% of region height (normally 2–3px), leaving visible stroke fragments around a short Latin label. The label font was 56% of region height. Label count alone did not detect this visual failure.
+
+Changes: PP region labels now use an 85% font-size factor instead of 56% (about 1.52x). Canvas actual glyph ascent/descent center and scale Latin ink inside the allocated rectangle, rather than treating the nominal font size as visible glyph height. The independent source erasure mask extends by 35% of body height (minimum 4px), regardless of Latin-label width. Preserved glyph/ruby rectangles are subtracted from all masks. Source visibility levels remain intentional opacity controls. Meiki uses its existing font-size and padding rules.
+
+The static renderer now applies the same vertical scale and ink baseline as the camera painter. A synthetic pixel regression checks full removal of ink extending outside a detector box, pixel-identical preserved ruby, and exact static/camera pixel equality. The actual-model browser test also paints a mask-only layer, checks light-paper body ink removal and preserved-region equality, then retains all OCR/reading/Still/Live assertions.
+
+Practice A: original 66 canonical raw regions, 63 canonical classified regions and three supplementary shi stay unchanged; 44 labels, zero omissions. The representative watashi-wa nominal font grows from 13.44px to 20.4px. Replaying the previous actual layout finds 774 residual body-edge dark samples before and zero after (dark title paper and preserved ruby excluded). Current mask-only audit checks 27,657 source-ink samples around light-paper body labels with zero residual dark samples, and zero changed pixels inside preserved regions. Per-label sampling may overlap; this is not an OCR recognition-rate measure.
+
+Layout-only change: no model, OCR threshold, recognized text, classifier or supplementary single-character detection is modified. Original ruby remains visible by design. The fixture does not prove every font/photo has perfect masks; actual-image and synthetic pixel tests are release gates.

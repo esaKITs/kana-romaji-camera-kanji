@@ -24,7 +24,8 @@ export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
   // the characters. Use character height rather than the whole line's envelope.
   const heights=line.glyphs.map(g=>g.box.y1-g.box.y0).filter(h=>Number.isFinite(h)&&h>0).sort((a,b)=>a-b);
   const characterHeight=heights.length?heights[Math.floor(heights.length/2)]:line.box.y1-line.box.y0;
-  const font=Math.min(line.box.y1-line.box.y0,characterHeight)*.56;
+  const regionLabels=labels.some(l=>l.geometry==='detected-region');
+  const font=Math.min(line.box.y1-line.box.y0,characterHeight)*(regionLabels ? .85 : .56);
   const cells=labels.map(label=>{
    const b=label.box,obstacles=protectedGlyphs.map(g=>g.box).filter(q=>q.y0<b.y1&&q.y1>b.y0).filter(q=>label.geometry!=='detected-region'||Math.min(q.y1,b.y1)-Math.max(q.y0,b.y0)>(b.y1-b.y0)*.2);
    const center=(b.x0+b.x1)/2;
@@ -91,9 +92,13 @@ export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
   const top=Math.min(rect.y0,Math.max(desiredTop,priorBottom));
   const tallRect={...rect,y0:top};
   const textHeight=Math.max(1,font*rows.length);
-  const verticalScale=Math.min(1.55,Math.max(1,(tallRect.y1-tallRect.y0-2)/textHeight));
+  const regionLabel=label.geometry==='detected-region';
+  const ink=regionLabel&&measure.ink?rows.map(row=>measure.ink(row,font)):null;
+  const ascent=ink?Math.max(...ink.map(m=>m.ascent)):font*.8,descent=ink?Math.max(...ink.map(m=>m.descent)):font*.2;
+  const inkHeight=ascent+descent+font*(rows.length-1);
+  const verticalScale=regionLabel?Math.min(2.2,Math.max(.5,(tallRect.y1-tallRect.y0)*.88/Math.max(1,inkHeight))):Math.min(1.55,Math.max(1,(tallRect.y1-tallRect.y0-2)/textHeight));
   if(occupied.some(q=>overlap(q,tallRect))){omitted.push({...label,reason:'extended-label-collision'});return;}
-  occupied.push(tallRect);drawn.push({...label,displayBox:tallRect,horizontalScale:scale,verticalScale,fontSize:font,rows});
+  occupied.push(tallRect);drawn.push({...label,displayBox:tallRect,horizontalScale:scale,verticalScale,fontSize:font,rows,...(regionLabel?{textBaseline:'alphabetic',textOffsetY:(ascent-descent)/2}:{})});
  }
  return{drawn,omitted};
 }
