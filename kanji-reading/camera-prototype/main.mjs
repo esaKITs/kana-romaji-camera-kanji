@@ -71,6 +71,7 @@ async function focusScan(rect){
   const snapshot={...old,lines:[...retained,...accepted]};
   const analyzed=await analyzeSnapshot(snapshot,analyzeText,{mode,style,source});if(!session.owns(generation))return;
   const temporary=document.createElement('canvas'),rendering=renderResult(temporary,source,analyzed,{paperState});
+  if(rendering.drawn.length<previous.rendering.drawn.length){message('Focus · no verified improvement; original labels kept');return;}
   const value={...previous,snapshot,result:analyzed,rendering};cache={source,value};showResult(rendering,source,'still');lastFrame=analyzed;drawGuides(analyzed);
   message('Focus · '+accepted.length+' region(s) reread · '+rendering.drawn.length+' shown'+(rendering.omitted?.length?' · '+rendering.omitted.length+' not fitted':''));
  }catch(error){if(session.owns(generation))message('Focus scan failed: '+error.message);}});
