@@ -83,7 +83,7 @@ export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
   // Stretch glyphs vertically, never horizontally. Reserve headroom for furigana,
   // but stop before another source line or an already placed label.
   const body=label.bodyBox||label.box,bodyHeight=Math.max(1,body.y1-body.y0);
-  const desiredTop=Math.max(0,body.y0-bodyHeight*.5);
+  const desiredTop=label.coversRuby?body.y0:Math.max(0,body.y0-bodyHeight*.5);
   const blockers=result.lines.filter(line=>line.id!==label.lineId)
    .flatMap(line=>line.glyphs).map(g=>g.box)
    .filter(q=>q.y1<=body.y0&&q.x0<rect.x1&&q.x1>rect.x0);

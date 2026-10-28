@@ -1,15 +1,13 @@
-// PP-OCRv6_manga whole-image adapter. Experimental opt-in only.
-// Output follows the existing snapshot.lines/glyphs contract.
-const BASE='https://huggingface.co/Kellenok/PP-OCRv6_manga/resolve/main/';
-let sessions=null;
-function resized(source,w,h){const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(source,0,0,w,h);return c;}
-function tensor(c,mode,ort){const {width:w,height:h}=c,d=c.getContext('2d',{willReadFrequently:true}).getImageData(0,0,w,h).data,a=new Float32Array(3*w*h),mean=[.485,.456,.406],std=[.229,.224,.225];for(let i=0;i<w*h;i++)for(let k=0;k<3;k++){const v=d[i*4+2-k]/255;a[k*w*h+i]=mode==='det'?(v-mean[k])/std[k]:(v-.5)/.5;}return new ort.Tensor('float32',a,[1,3,h,w]);}
-async function run(s,t){const out=await s.run({[s.inputNames[0]]:t});return out[s.outputNames[0]];}
-function boxesFromMap(pred,w,h){const dims=pred.dims,ph=dims.at(-2),pw=dims.at(-1),a=pred.data,mask=new Uint8Array(pw*ph),seen=new Uint8Array(pw*ph),boxes=[];for(let i=0;i<mask.length;i++)mask[i]=a[i]>.15?1:0;for(let i=0;i<mask.length;i++){if(!mask[i]||seen[i])continue;const stack=[i];seen[i]=1;let n=0,sum=0,minx=pw,miny=ph,maxx=0,maxy=0;while(stack.length){const k=stack.pop(),x=k%pw,y=(k/pw)|0;n++;sum+=a[k];minx=Math.min(minx,x);miny=Math.min(miny,y);maxx=Math.max(maxx,x);maxy=Math.max(maxy,y);for(const j of [k-1,k+1,k-pw,k+pw]){if(j<0||j>=mask.length||seen[j]||!mask[j]||Math.abs(j%pw-x)>1)continue;seen[j]=1;stack.push(j);}}if(n<9||sum/n<.25)continue;const pad=Math.max(2,Math.round(Math.min(maxx-minx,maxy-miny)*.2)),b=[Math.max(0,(minx-pad)/pw*w),Math.max(0,(miny-pad)/ph*h),Math.min(w,(maxx+pad+1)/pw*w),Math.min(h,(maxy+pad+1)/ph*h)];if(Math.min(b[2]-b[0],b[3]-b[1])>=4)boxes.push(b);}return boxes.sort((a,b)=>a[1]-b[1]||a[0]-b[0]).slice(0,150);}
-export async function initializePPOCR(){if(sessions)return;const ort=await import('https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.mjs');ort.env.wasm.wasmPaths='https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/';ort.env.wasm.numThreads=1;const options={executionProviders:['wasm'],graphOptimizationLevel:'all'};const [det,rec,dict]=await Promise.all([ort.InferenceSession.create(BASE+'det/manga_det_v0.2.onnx',options),ort.InferenceSession.create(BASE+'rec/manga_rec_v0.2.onnx',options),fetch(BASE+'ppocrv6_dict.txt').then(r=>{if(!r.ok)throw Error('PP-OCR dictionary unavailable');return r.text();})]);sessions={ort,det,rec,vocab:['blank',...dict.trimEnd().split(/\r?\n/),' ']};}
-export async function scanPPOCR(source){await initializePPOCR();const {ort,det,rec,vocab}=sessions,W=source.width,H=source.height,ratio=960/Math.max(W,H),rw=Math.max(32,Math.round(W*ratio/32)*32),rh=Math.max(32,Math.round(H*ratio/32)*32);const pred=await run(det,tensor(resized(source,rw,rh),'det',ort)),boxes=boxesFromMap(pred,W,H),lines=[];for(const b of boxes){const [x0,y0,x1,y1]=b,cw=Math.max(1,Math.round(x1-x0)),ch=Math.max(1,Math.round(y1-y0));let crop=document.createElement('canvas');crop.width=cw;crop.height=ch;crop.getContext('2d').drawImage(source,x0,y0,x1-x0,y1-y0,0,0,cw,ch);if(ch>cw){const t=document.createElement('canvas');t.width=ch;t.height=cw;const x=t.getContext('2d');x.translate(0,cw);x.rotate(-Math.PI/2);x.drawImage(crop,0,0);crop=t;}const tw=Math.max(16,Math.min(640,Math.round(48*crop.width/crop.height))),out=await run(rec,tensor(resized(crop,tw,48),'rec',ort)),dims=out.dims,steps=dims.at(-2),classes=dims.at(-1),v=out.data;let text='',last=0;for(let t=0;t<steps;t++){let best=0,value=-Infinity;for(let j=0;j<classes;j++){const z=v[t*classes+j];if(z>value){value=z;best=j;}}if(best&&best!==last)text+=vocab[best]||'';last=best;}if(!text.trim())continue;
-// PP-OCR returns word/line boxes, not individual glyph coordinates.
-// Approximate glyph widths for first-stage reading pipeline integration;
-// this is NOT character-level OCR geometry.
-const chars=[...text],glyphs=chars.map((char,i)=>({text:char,confidence:.8,box:[x0+(x1-x0)*i/chars.length,y0,x0+(x1-x0)*(i+1)/chars.length,y1]}));lines.push({text,box:b,glyphs,orientation:'horizontal'});}
-return {width:W,height:H,lines,engine:'ppocrv6-manga',geometry:'estimated-glyph-boxes'};}
+// Preserve detected region geometry; PP-OCR does not measure individual glyphs.
+import {assetUrl} from '../camera-prototype/asset-url.mjs';
+let core;
+const loadCore=()=>core ||= import(/* @vite-ignore */ assetUrl('ppocr-core.mjs'));
+export async function initializePPOCR(){return (await loadCore()).initializePPOCR();}
+export function snapshotFromPPOCR(run){
+ return {...run,engine:'ppocrv6-manga',geometry:'detected-regions',
+  lines:run.classifiedRegions.map((r,id)=>({id,text:r.text,box:[...r.box],
+   regionType:r.type,reason:r.reason,parentText:r.parentText,
+   geometry:'detected-region',orientation:r.box[3]-r.box[1]>r.box[2]-r.box[0]?'vertical':'horizontal',
+   glyphs:[{text:r.text,box:[...r.box],geometry:'detected-region'}]}))};
+}
+export async function scanPPOCR(source){return snapshotFromPPOCR(await (await loadCore()).recognizePPOCR(source,{resolution:'tiles'}));}
