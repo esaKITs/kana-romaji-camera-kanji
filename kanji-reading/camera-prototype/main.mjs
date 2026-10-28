@@ -7,6 +7,7 @@ import{paintLabels,sourceLevels}from'./paint.mjs';
 import{bindStillZoom}from'./zoom.mjs';
 import{bindFocusSelection}from'./focus-scan.mjs';
 import{assetUrl}from'./asset-url.mjs';
+const ppocrMode=new URLSearchParams(location.search).get('ocr')==='ppocr';
 const $=id=>document.getElementById(id),session=new CameraSession(),modes=['あア漢','ア漢','漢'];
 const paperState=new AdaptivePapers();
 const stillZoom=bindStillZoom($('zoom-layer'),()=>session.source);
@@ -16,8 +17,11 @@ let mode='あア漢',style='double',guides=false,stream=null,ready=null,pending=
 try{const settings=JSON.parse(localStorage.getItem('kanahan-camera-settings-v1'));if(modes.includes(settings?.mode))mode=settings.mode;if(settings?.style==='macron')style='macron';if(sourceLevels.includes(settings?.reveal))reveal=settings.reveal;}catch{}
 function settings(){ $('source-level').textContent='◐ '+reveal+'%';$('source-level').setAttribute('aria-label','Original image visibility: '+reveal+'%. Change visibility');try{localStorage.setItem('kanahan-camera-settings-v1',JSON.stringify({mode,style,reveal}));}catch{}$('kana-mode').textContent=mode;$('kana-mode').setAttribute('aria-label','Reading mode: '+mode);$('long-vowels').textContent=style==='double'?'aa':'ā';$('long-vowels').setAttribute('aria-pressed',String(style==='macron'));$('long-vowels').setAttribute('aria-label','Long vowels: '+(style==='double'?'aa. Switch to ā':'ā. Switch to aa'));}
 settings();
+$('ocr-engine').textContent=ppocrMode?'OCR: PP-v6':'OCR: Meiki';
+$('ocr-engine').setAttribute('aria-label',ppocrMode?'OCR engine: PP-OCRv6 manga. Switch to MeikiOCR':'OCR engine: MeikiOCR. Switch to PP-OCRv6 manga');
+$('ocr-engine').onclick=()=>{const url=new URL(location.href);if(ppocrMode)url.searchParams.delete('ocr');else url.searchParams.set('ocr','ppocr');location.assign(url.href);};
 function message(text,loading=false){$('status').textContent=text;$('scan-label').textContent=text;$('progress').textContent=text;$('progress').hidden=!loading;}
-function screen(){const active=session.kind!=='home',still=session.kind==='still';document.body.classList.toggle('camera-active',active);document.body.classList.toggle('camera-still',still);$('stage').hidden=!active;$('stop').hidden=!active;$('capture-controls').hidden=!active||still;$('live-return').hidden=!still;$('retry').hidden=!still;$('scan').disabled=session.kind!=='live';if(!active)$('progress').hidden=true;stillZoom.setActive(still);if(!still){focus.enable(false);$('focus-scan').setAttribute('aria-pressed','false');}$('focus-scan').hidden=!still;}
+function screen(){const active=session.kind!=='home',still=session.kind==='still';document.body.classList.toggle('camera-active',active);document.body.classList.toggle('camera-still',still);$('stage').hidden=!active;$('stop').hidden=!active;$('capture-controls').hidden=!active||still;$('live-return').hidden=!still;$('retry').hidden=!still;$('scan').disabled=session.kind!=='live';if(!active)$('progress').hidden=true;stillZoom.setActive(still);if(!still){focus.enable(false);$('focus-scan').setAttribute('aria-pressed','false');}$('focus-scan').hidden=!still||ppocrMode;}
 function stopStream(){stopMotion();clearTimeout(timer);timer=null;stream?.getTracks().forEach(t=>t.stop());stream=null;$('video').srcObject=null;torch=false;$('torch').hidden=true;$('torch').setAttribute('aria-pressed','false');}
 function clearLayer(){lastPaint=null;paintedFrame=false;for(const id of ['output','guides']){const c=$(id);c.getContext('2d').clearRect(0,0,c.width,c.height);}}
 function home(){paperState.reset();opening++;session.enter('home');pending=false;stopStream();cache=null;lastFrame=null;clearLayer();screen();message('Horizontal printed Japanese · development preview');}
@@ -54,6 +58,7 @@ async function processScene(){
  if(pending&&session.kind!=='home')queueMicrotask(processScene);
 }
 async function focusScan(rect){
+ if(ppocrMode){message('Focus is unavailable with PP-OCR whole-image mode');return;}
  if(session.kind!=='still'||session.busy||!cache?.value?.snapshot){message('Wait for Still recognition to finish.');return;}
  const generation=session.generation,source=session.source,previous=cache.value;
  const pad=Math.max(8,Math.round(Math.min(rect[2]-rect[0],rect[3]-rect[1])*.12));
