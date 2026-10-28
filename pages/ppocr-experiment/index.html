@@ -1,7 +1,7 @@
 <!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PP-OCRv6 manga isolated experiment</title>
 <style>body{font:16px system-ui;max-width:850px;margin:auto;padding:16px;background:#f6f7fb;color:#15202b}button,input{font:inherit}button{padding:10px;margin:8px 0}canvas{max-width:100%;height:auto;border:1px solid #aaa;background:white}pre{white-space:pre-wrap;background:#fff;padding:12px;border-radius:6px}small{color:#555}</style>
 <h2>PP-OCRv6 manga · 独立実験</h2><p>本文と小さなルビ候補を座標付きで認識します。現行アプリには影響しません。画像処理は端末内。初回はモデル約23MBを取得します。</p>
-<fieldset style="background:white;border:1px solid #ccd;padding:12px"><legend>ルビ判定の比較（実験）</legend><label><input type="radio" name="filter" value="all" checked> フィルターなし（すべて表示）</label><br><label><input type="radio" name="filter" value="hide"> ルビ候補を除外</label><br><label><input type="radio" name="filter" value="classify"> 本文・ルビ候補・保留に分類</label><p><small>※開発元の学習済みフィルターではなく、位置と文字サイズによる暫定的な判定です。OCR自体は変えず、同じ55領域などの結果を再分類して比較します。</small></p></fieldset><fieldset style="background:#fff;border:1px solid #ccd;padding:12px"><legend>検出方法の比較</legend><label><input type="radio" name="resolution" value="whole" checked> 従来：全体を960pxに縮小</label><br><label><input type="radio" name="resolution" value="tiles"> 分割：画像を重ねて高解像度検出</label><p><small>分割は検出モデルを複数回実行するため、時間が増えます。重複領域は座標で統合します。</small></p></fieldset><input type="file" id="file" accept="image/*"><button id="run" disabled>検出・認識を実行</button><p id="status">画像を選択してください</p><canvas id="view"></canvas><pre id="output">未実行</pre><small>実験版：文字領域は簡易連結成分法で抽出。ルビの対応付けは未実装。ONNXモデル: Kellenok/PP-OCRv6_manga (Apache-2.0)。実測結果を確認してから採用を判断してください。</small>
+<fieldset style="background:white;border:1px solid #ccd;padding:12px"><legend>ルビ判定の比較（実験）</legend><label><input type="radio" name="filter" value="all" checked> フィルターなし（すべて表示）</label><br><label><input type="radio" name="filter" value="hide"> ルビ候補を除外</label><br><label><input type="radio" name="filter" value="classify"> 本文・ルビ候補・保留に分類</label><p><small>※ルビ判定は試験的な幾何学的判定です。学習済みフィルターは未導入です。</small></p></fieldset><fieldset style="background:#fff;border:1px solid #ccd;padding:12px"><legend>検出方法の比較</legend><label><input type="radio" name="resolution" value="whole" checked> 従来：全体を960pxに縮小</label><br><label><input type="radio" name="resolution" value="tiles"> 分割：画像を重ねて高解像度検出</label><p><small>分割は検出モデルを複数回実行するため、時間が増えます。重複領域は座標で統合します。</small></p></fieldset><fieldset style="background:#fff;border:1px solid #ccd;padding:12px"><legend>後処理の比較（分割OCR向け）</legend><label><input type="checkbox" id="merge" checked> 重複した文字領域を統合</label><br><label><input type="checkbox" id="localruby" checked> 近傍本文との相対サイズでルビ判定</label><p><small>後処理の切替は再認識不要。学習済みルビフィルターではありません。開発元の公開ONNXは検出・認識の2モデルです。</small></p></fieldset><input type="file" id="file" accept="image/*"><button id="run" disabled>検出・認識を実行</button><p id="status">画像を選択してください</p><canvas id="view"></canvas><pre id="output">未実行</pre><small>実験版：文字領域は簡易連結成分法で抽出。ルビの対応付けは未実装。ONNXモデル: Kellenok/PP-OCRv6_manga (Apache-2.0)。実測結果を確認してから採用を判断してください。</small>
 <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.js"></script>
 <script>
 const $=id=>document.getElementById(id),src=document.createElement('canvas'),view=$('view'),ctx=view.getContext('2d');let loaded=false;let lastResults=null;let lastElapsed=0;
@@ -25,18 +25,53 @@ function classifyRegions(regions){
   return {...r,type:'本文候補',reason:'通常サイズ'};
  });
 }
+function mergeRecognizedRegions(regions){
+ const ordered=[...regions].sort((a,b)=>(b.text.length)-(a.text.length));const kept=[];
+ for(const r of ordered){
+  const [x0,y0,x1,y1]=r.box,w=x1-x0,h=y1-y0;
+  const duplicate=kept.some(k=>{
+   const [a,b,c,d]=k.box,inter=Math.max(0,Math.min(x1,c)-Math.max(x0,a))*Math.max(0,Math.min(y1,d)-Math.max(y0,b));
+   const coverage=inter/Math.max(1,Math.min(w*h,(c-a)*(d-b)));
+   const sameLine=Math.abs((y0+y1-b-d)/2)<Math.max(h,d-b)*.38;
+   return coverage>.72&&sameLine&&(k.text.includes(r.text)||r.text.includes(k.text)||coverage>.91);
+  });
+  if(!duplicate)kept.push(r);
+ }
+ return kept.sort((a,b)=>a.box[1]-b.box[1]||a.box[0]-b.box[0]);
+}
+function classifyLocal(regions){
+ return regions.map(r=>{
+  const [x0,y0,x1,y1]=r.box,h=y1-y0,w=x1-x0;
+  if(!r.text)return {...r,type:'保留',reason:'空文字列'};
+  const near=regions.filter(q=>{
+   if(q===r||!q.text)return false;
+   const [a,b,c,d]=q.box,qh=d-b;
+   const overlap=Math.max(0,Math.min(x1,c)-Math.max(x0,a));
+   const gap=b-y1;
+   return overlap/Math.max(1,Math.min(w,c-a))>.24&&gap>=-h*.5&&gap<Math.max(24,h*1.3)&&qh>=h*.9;
+  }).sort((a,b)=>Math.abs(a.box[1]-y1)-Math.abs(b.box[1]-y1));
+  const parent=near.find(q=>{
+   const qh=q.box[3]-q.box[1];
+   return qh>h*1.12&&(/[一-龯々]/u.test(q.text)||/[0-9０-９]/u.test(q.text));
+  });
+  if(parent)return {...r,type:'ルビ候補',reason:'直下の漢字・数字本文との相対サイズ',parentText:parent.text};
+  if(near.length&&h<(near[0].box[3]-near[0].box[1])*.8)return {...r,type:'保留',reason:'小文字だが対応本文が未確定'};
+  return {...r,type:'本文候補',reason:'近傍比較で本文'};
+ });
+}
 function renderResults(){
  if(!lastResults)return;
  const mode=document.querySelector('input[name=filter]:checked').value;
- const classified=classifyRegions(lastResults);
+ const processed=$('merge').checked?mergeRecognizedRegions(lastResults):lastResults;
+ const classified=$('localruby').checked?classifyLocal(processed):classifyRegions(processed);
  const shown=mode==='hide'?classified.filter(r=>r.type!=='ルビ候補'):classified;
  ctx.drawImage(src,0,0);
  for(const r of shown){const [x0,y0,x1,y1]=r.box;ctx.strokeStyle=mode==='all'?'#d33':r.type==='ルビ候補'?'#e0a000':r.type==='保留'?'#888':'#1684ce';ctx.lineWidth=Math.max(2,src.width/500);ctx.strokeRect(x0,y0,x1-x0,y1-y0)}
  const counts=Object.fromEntries(['本文候補','ルビ候補','保留'].map(t=>[t,classified.filter(r=>r.type===t).length]));
- $('output').textContent=JSON.stringify({resolution:document.querySelector('input[name=resolution]:checked').value,mode,regionsOriginal:classified.length,regionsDisplayed:shown.length,elapsedSeconds:lastElapsed,counts,results:mode==='all'?lastResults:shown},null,2);
+ $('output').textContent=JSON.stringify({resolution:document.querySelector('input[name=resolution]:checked').value,mode,rawRegions:lastResults.length,duplicateMerge:$('merge').checked,rubyClassifier:$('localruby').checked?'近傍相対サイズ':'旧全体中央値',regionsOriginal:classified.length,regionsDisplayed:shown.length,elapsedSeconds:lastElapsed,counts,results:mode==='all'?processed:shown},null,2);
  status('比較表示：'+({all:'フィルターなし',hide:'ルビ候補除外',classify:'3分類'}[mode])+'／本文 '+counts['本文候補']+'・ルビ '+counts['ルビ候補']+'・保留 '+counts['保留']);
 }
-document.querySelectorAll('input[name=filter]').forEach(e=>e.addEventListener('change',renderResults));
+document.querySelectorAll('input[name=filter]').forEach(e=>e.addEventListener('change',renderResults));['merge','localruby'].forEach(id=>$(id).addEventListener('change',renderResults));
 $('file').onchange=async()=>{const f=$('file').files[0];if(!f)return;const url=URL.createObjectURL(f);try{const im=new Image();im.src=url;await im.decode();src.width=im.naturalWidth;src.height=im.naturalHeight;src.getContext('2d').drawImage(im,0,0);lastResults=null;view.width=src.width;view.height=src.height;ctx.drawImage(src,0,0);$('run').disabled=false;status('画像読み込み完了 '+src.width+'×'+src.height);}catch(e){status('画像エラー '+e.message)}finally{URL.revokeObjectURL(url)}};
 function tensor(canvas,mode){const {width:w,height:h}=canvas;const data=canvas.getContext('2d',{willReadFrequently:true}).getImageData(0,0,w,h).data,arr=new Float32Array(3*w*h);const mean=[.485,.456,.406],std=[.229,.224,.225];for(let i=0;i<w*h;i++){for(let c=0;c<3;c++){const bgr=data[4*i+(2-c)]/255;arr[c*w*h+i]=mode==='det'?(bgr-mean[c])/std[c]:(bgr-.5)/.5}}return new ort.Tensor('float32',arr,[1,3,h,w])}
 function resized(source,w,h){const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(source,0,0,w,h);return c}
