@@ -26,7 +26,7 @@ export function allocateLabels(result,width,height,measure,{minScale=.70}={}){
   const characterHeight=heights.length?heights[Math.floor(heights.length/2)]:line.box.y1-line.box.y0;
   const font=Math.min(line.box.y1-line.box.y0,characterHeight)*.56;
   const cells=labels.map(label=>{
-   const b=label.box,obstacles=protectedGlyphs.map(g=>g.box).filter(q=>q.y0<b.y1&&q.y1>b.y0);
+   const b=label.box,obstacles=protectedGlyphs.map(g=>g.box).filter(q=>q.y0<b.y1&&q.y1>b.y0).filter(q=>label.geometry!=='detected-region'||Math.min(q.y1,b.y1)-Math.max(q.y0,b.y0)>(b.y1-b.y0)*.2);
    const center=(b.x0+b.x1)/2;
    return{label,left:Math.max(0,...obstacles.filter(q=>q.x1<=center).map(q=>q.x1+1)),right:Math.min(width,...obstacles.filter(q=>q.x0>=center).map(q=>q.x0-1)),blocked:obstacles.some(q=>q.x0<center&&q.x1>center)};
   });

@@ -6,7 +6,17 @@ import {romaji,rubyKanjiRomaji} from '../lab/generated/romanizer.mjs';
 const rect=b=>({x0:b[0],y0:b[1],x1:b[2],y1:b[3]});
 const kana=s=>s.normalize('NFC').replace(/[ァ-ヶ]/g,k=>String.fromCharCode(k.charCodeAt(0)-96));
 export async function analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRuby}){
- const lines=snapshot.lines.map((l,id)=>({...l,id,box:rect(l.box),glyphs:[{text:l.text,start:0,end:l.text.length,box:rect(l.box),geometry:'detected-region'}]}));
+ // Display-only stitching: overlapping tiles may retain a shared text suffix.
+ // Preserve every source region in snapshot/rawRegions and record contributors.
+ const displayRegions=[];
+ for(const original of snapshot.lines){
+  const r={...original,sourceRegions:[original]};
+  const previous=displayRegions.find(q=>q.regionType==='本文候補'&&r.regionType==='本文候補'&&q.box[0]<r.box[0]&&q.box[2]>r.box[0]&&Math.abs(q.box[1]-r.box[1])<Math.min(q.box[3]-q.box[1],r.box[3]-r.box[1])*.2);
+  let shared=0;if(previous)for(let n=2;n<=Math.min(previous.text.length,r.text.length);n++)if(previous.text.slice(-n)===r.text.slice(0,n))shared=n;
+  if(shared){previous.text+=r.text.slice(shared);previous.box=[Math.min(previous.box[0],r.box[0]),Math.min(previous.box[1],r.box[1]),Math.max(previous.box[2],r.box[2]),Math.max(previous.box[3],r.box[3])];previous.sourceRegions.push(original);}
+  else displayRegions.push(r);
+ }
+ const lines=displayRegions.map((l,id)=>({...l,id,box:rect(l.box),glyphs:[{text:l.text,start:0,end:l.text.length,box:rect(l.box),geometry:'detected-region'}]}));
  const labels=[],pairs=[],withheld=[],analysis=[],cache=new Map();
  const tokensFor=async text=>{if(!cache.has(text))cache.set(text,await analyze(text));return cache.get(text);};
  // Classifier output is authoritative about which regions must not become body labels.
@@ -14,9 +24,9 @@ export async function analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRub
   if(line.regionType!=='本文候補'||line.orientation==='vertical')continue;
   const raw=await tokensFor(line.text);analysis.push({lineId:line.id,text:line.text,tokens:raw});
   const attached=[];
-  for(const ruby of lines.filter(l=>l.regionType==='ルビ候補'&&l.parentText===line.text&&/^[ぁ-ゖァ-ヺー]+$/u.test(l.text))){
+  for(const ruby of lines.filter(l=>l.regionType==='ルビ候補'&&line.sourceRegions.some(r=>r.text===l.parentText)&&/^[ぁ-ゖァ-ヺー]+$/u.test(l.text))){
    // Identical text may appear on multiple rows. Require a unique nearby parent.
-   const parents=lines.filter(l=>l.regionType==='本文候補'&&l.text===ruby.parentText&&
+   const parents=lines.filter(l=>l.regionType==='本文候補'&&l.sourceRegions.some(r=>r.text===ruby.parentText)&&
     l.box.y0-ruby.box.y1>=-(ruby.box.y1-ruby.box.y0)*.5&&
     l.box.y0-ruby.box.y1<Math.max(24,(ruby.box.y1-ruby.box.y0)*1.3)&&
     Math.min(l.box.x1,ruby.box.x1)>Math.max(l.box.x0,ruby.box.x0));
@@ -57,8 +67,6 @@ export async function analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRub
   if(!changed)continue;
   // One label replaces exactly one measured region. Unconverted characters are
   // carried into that label, so a partial mode never erases unlabelled text.
-  const rubyBox=attached.length?{x0:Math.min(...attached.map(l=>l.box.x0)),y0:Math.min(...attached.map(l=>l.box.y0)),x1:Math.max(...attached.map(l=>l.box.x1)),y1:Math.max(...attached.map(l=>l.box.y1))}:null;
-  const box=rubyBox?{x0:Math.min(line.box.x0,rubyBox.x0),y0:Math.min(line.box.y0,rubyBox.y0),x1:Math.max(line.box.x1,rubyBox.x1),y1:Math.max(line.box.y1,rubyBox.y1)}:line.box;
   labels.push({source:line.text,reading:raw.map(t=>t.reading||t.surface).join(''),output:pieces.join(' '),box:line.box,bodyBox:line.box,rubyBox:null,lineId:line.id,coversRuby:false,geometry:'detected-region',readingSource:'dictionary-region'});
  }
  return {mode,style,lines,pairs,labels,withheld,analysis,nonReading:[],rawRegions:snapshot.rawRegions,classifiedRegions:snapshot.classifiedRegions,regionDiagnostics:{geometry:'detected-regions',duplicates:0,joinedFragments:0,conflictingRegions:0}};

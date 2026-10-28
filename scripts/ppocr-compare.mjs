@@ -21,6 +21,14 @@ try{
  const experiment=await page.evaluate(()=>window.ppocrExperiment);assert.deepEqual(experiment.rawRegions,baseline.raw);assert.deepEqual(experiment.classifiedRegions,baseline.classified);
  await page.goto(root+'?ocr=ppocr');await page.locator('#image').setInputFiles(input);await page.waitForFunction(()=>window.stillLab?.lastRun||/Unable to read/.test(document.querySelector('#status').textContent),{},{timeout:240000});
  const camera=await page.evaluate(()=>window.stillLab.lastRun);assert.ok(camera);assert.deepEqual(camera.snapshot.rawRegions,baseline.raw);assert.deepEqual(camera.snapshot.classifiedRegions,baseline.classified);
+ await writeFile('test-results/ppocr/debug.json',JSON.stringify(camera,null,2));
+ for(const [source,output] of [['京都へ','kyooto e'],['お花見を','ohanami o'],['紅茶を買いました','koocha o kaimashita'],['食堂へ','shokudoo e']])assert.ok(camera.rendering.drawn.some(l=>l.source===source&&l.output===output),source+' must be painted with the expected reading');
  await writeFile('test-results/ppocr/camera.json',JSON.stringify(camera,null,2));await page.screenshot({path:'test-results/ppocr/camera.png'});
- console.log(JSON.stringify({passed:true,raw:baseline.raw.length,classified:baseline.classified.length,labels:camera.rendering.drawn.length,omitted:camera.rendering.omitted.length}));
+ await page.goto(root+'?ocr=ppocr');
+ await page.evaluate(async data=>{const image=new Image();image.src='data:image/png;base64,'+data;await image.decode();const c=document.createElement('canvas');c.width=image.width;c.height=image.height;c.getContext('2d').drawImage(image,0,0);window.ppocrTestStream=c.captureStream(8);Object.defineProperty(navigator.mediaDevices,'getUserMedia',{configurable:true,value:async()=>window.ppocrTestStream});},(await readFile(input)).toString('base64'));
+ await page.locator('#start').click();await page.waitForFunction(()=>/^Live · \d+ labels/.test(document.querySelector('#scan-label').textContent),{},{timeout:240000});
+ const live=await page.evaluate(()=>window.stillLab.lastRun);assert.deepEqual(live.snapshot.rawRegions,baseline.raw);assert.deepEqual(live.snapshot.classifiedRegions,baseline.classified);
+ await writeFile('test-results/ppocr/live.json',JSON.stringify(live,null,2));
+ await page.locator('#scan').click();await page.waitForFunction(()=>/^Still · \d+ shown/.test(document.querySelector('#scan-label').textContent),{},{timeout:240000});
+ console.log(JSON.stringify({livePassed:true,passed:true,raw:baseline.raw.length,classified:baseline.classified.length,labels:camera.rendering.drawn.length,omitted:camera.rendering.omitted.length}));
 }finally{await browser.close();server.close();}
