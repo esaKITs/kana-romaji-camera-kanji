@@ -25,6 +25,7 @@ await copy('pages/NOTICE.html',out+'/licenses/NOTICE.html');
 // Both entry points use the exact same inference module.
 await copy('pages/ppocr-experiment/index.html',out+'/ppocr-experiment/index.html');
 await copy('kanji-reading/still-prototype/ppocr-core.mjs',out+'/ppocr-core.mjs');
+await copy('kanji-reading/still-prototype/ppocr-single.mjs',out+'/ppocr-single.mjs');
 await copy('SOURCE.md',out+'/SOURCE.md');
 await mkdir(out+'/ocr-assets',{recursive:true});
 const lock=JSON.parse(await readFile('meikiocr-test/models.lock.json')),manifest={modelSetId:lock.modelSetId,onnxruntimeWeb:'1.30.0',models:[],runtime:[]};

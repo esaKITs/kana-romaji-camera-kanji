@@ -19,16 +19,25 @@ try{
  await writeFile('test-results/ppocr/baseline.json',JSON.stringify(baseline,null,2));
  await page.goto(root+'ppocr-experiment/index.html');await page.locator('#file').setInputFiles(input);await page.locator('[value=tiles]').check();await page.locator('#run').click();await page.waitForFunction(()=>window.ppocrExperiment||/実行エラー/.test(document.querySelector('#status').textContent),{},{timeout:240000});
  const experiment=await page.evaluate(()=>window.ppocrExperiment);assert.deepEqual(experiment.rawRegions,baseline.raw);assert.deepEqual(experiment.classifiedRegions,baseline.classified);
+ await page.locator('#single').check();await page.locator('#run').click();await page.waitForFunction(()=>window.ppocrExperiment?.supplemental,{},{timeout:240000});
+ const enhancedExperiment=await page.evaluate(()=>window.ppocrExperiment);
+ assert.deepEqual(enhancedExperiment.rawRegions,baseline.raw);
+ assert.equal(enhancedExperiment.supplemental.regions.length,3);
+ assert.ok(enhancedExperiment.supplemental.regions.every(r=>r.text==='し'));
  await page.goto(root+'?ocr=ppocr');await page.locator('#image').setInputFiles(input);await page.waitForFunction(()=>window.stillLab?.lastRun||/Unable to read/.test(document.querySelector('#status').textContent),{},{timeout:240000});
  const camera=await page.evaluate(()=>window.stillLab.lastRun);assert.ok(camera);assert.deepEqual(camera.snapshot.rawRegions,baseline.raw);assert.deepEqual(camera.snapshot.classifiedRegions,baseline.classified);
+ assert.deepEqual(camera.snapshot.supplemental.regions,enhancedExperiment.supplemental.regions);
+ const recovered=camera.rendering.drawn.filter(l=>l.source==='し');
+ assert.equal(recovered.length,3,'all three isolated shi must be painted');assert.ok(recovered.every(l=>l.output==='shi'));
+ assert.equal(camera.rendering.omitted.length,0);
  await writeFile('test-results/ppocr/debug.json',JSON.stringify(camera,null,2));
  for(const [source,output] of [['京都へ','kyooto e'],['お花見を','ohanami o'],['紅茶を買いました','koocha o kaimashita'],['食堂へ','shokudoo e'],['こうべへ','koobe e'],['とうきょう','tookyoo'],['み','mi']])assert.ok(camera.rendering.drawn.some(l=>l.source===source&&l.output===output),source+' must be painted with the expected reading');
  await writeFile('test-results/ppocr/camera.json',JSON.stringify(camera,null,2));await page.screenshot({path:'test-results/ppocr/camera.png'});
  await page.goto(root+'?ocr=ppocr');
  await page.evaluate(async data=>{const image=new Image();image.src='data:image/png;base64,'+data;await image.decode();const c=document.createElement('canvas');c.width=image.width;c.height=image.height;c.getContext('2d').drawImage(image,0,0);window.ppocrTestStream=c.captureStream(8);Object.defineProperty(navigator.mediaDevices,'getUserMedia',{configurable:true,value:async()=>window.ppocrTestStream});},(await readFile(input)).toString('base64'));
  await page.locator('#start').click();await page.waitForFunction(()=>/^Live · \d+ labels/.test(document.querySelector('#scan-label').textContent),{},{timeout:240000});
- const live=await page.evaluate(()=>window.stillLab.lastRun);assert.deepEqual(live.snapshot.rawRegions,baseline.raw);assert.deepEqual(live.snapshot.classifiedRegions,baseline.classified);
+ const live=await page.evaluate(()=>window.stillLab.lastRun);assert.deepEqual(live.snapshot.rawRegions,baseline.raw);assert.deepEqual(live.snapshot.classifiedRegions,baseline.classified);assert.deepEqual(live.snapshot.supplemental.regions,camera.snapshot.supplemental.regions);
  await writeFile('test-results/ppocr/live.json',JSON.stringify(live,null,2));
  await page.locator('#scan').click();await page.waitForFunction(()=>/^Still · \d+ shown/.test(document.querySelector('#scan-label').textContent),{},{timeout:240000});
- console.log(JSON.stringify({livePassed:true,passed:true,raw:baseline.raw.length,classified:baseline.classified.length,labels:camera.rendering.drawn.length,omitted:camera.rendering.omitted.length}));
+ console.log(JSON.stringify({livePassed:true,passed:true,raw:baseline.raw.length,classified:baseline.classified.length,supplemental:camera.snapshot.supplemental.regions.length,labels:camera.rendering.drawn.length,omitted:camera.rendering.omitted.length}));
 }finally{await browser.close();server.close();}
