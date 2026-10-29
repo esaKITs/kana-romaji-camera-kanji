@@ -18,7 +18,7 @@ try{const settings=JSON.parse(localStorage.getItem('kanahan-camera-settings-v1')
 function settings(){ $('source-level').textContent='◐ '+reveal+'%';$('source-level').setAttribute('aria-label','Original image visibility: '+reveal+'%. Change visibility');try{localStorage.setItem('kanahan-camera-settings-v1',JSON.stringify({mode,style,reveal}));}catch{}$('kana-mode').textContent=mode;$('kana-mode').setAttribute('aria-label','Reading mode: '+mode);$('long-vowels').textContent=style==='double'?'aa':'ā';$('long-vowels').setAttribute('aria-pressed',String(style==='macron'));$('long-vowels').setAttribute('aria-label','Long vowels: '+(style==='double'?'aa. Switch to ā':'ā. Switch to aa'));}
 settings();
 $('ocr-engine').textContent=ppocrMode?'OCR: PP-v6':'OCR: Meiki';
-$('ocr-engine').setAttribute('aria-label',ppocrMode?'OCR engine: PP-OCRv6 manga. Switch to MeikiOCR':'OCR engine: MeikiOCR. Switch to PP-OCRv6 manga');
+$('ocr-engine').setAttribute('aria-label',ppocrMode?'OCR engine: PP-OCRv6 manga with MeikiOCR geometry verification. Switch to MeikiOCR':'OCR engine: MeikiOCR. Switch to PP-OCRv6 manga');
 $('ocr-engine').onclick=()=>{const url=new URL(location.href);if(ppocrMode)url.searchParams.delete('ocr');else url.searchParams.set('ocr','ppocr');location.assign(url.href);};
 function message(text,loading=false){$('status').textContent=text;$('scan-label').textContent=text;$('progress').textContent=text;$('progress').hidden=!loading;}
 function screen(){const active=session.kind!=='home',still=session.kind==='still';document.body.classList.toggle('camera-active',active);document.body.classList.toggle('camera-still',still);$('stage').hidden=!active;$('stop').hidden=!active;$('capture-controls').hidden=!active||still;$('live-return').hidden=!still;$('retry').hidden=!still;$('scan').disabled=session.kind!=='live';if(!active)$('progress').hidden=true;stillZoom.setActive(still);if(!still){focus.enable(false);$('focus-scan').setAttribute('aria-pressed','false');}$('focus-scan').hidden=!still||ppocrMode;}
@@ -53,7 +53,7 @@ async function processScene(){
   if(kind==='live'&&!motion.accepts(capturedSignature,videoSignature(),captureEpoch,performance.now())){clearLayer();lastFrame=null;message('Live · hold steady');return;}
   if(kind==='still'){cache={source,value:result};showResult(result.rendering,source,kind);}else{showResult(result.rendering,source,kind);paintedFrame=true;motion.painted(capturedSignature);}
   if(window.stillLab)window.stillLab.lastRun=result;
-  lastFrame=result.result;drawGuides(lastFrame);message(kind==='live'?(result.rendering.drawn.length?'Live · '+result.rendering.drawn.length+' labels':'Live · looking for text'):'Still · '+result.rendering.drawn.length+' shown'+(result.rendering.omitted?.length?' · '+result.rendering.omitted.length+' not fitted':''));
+  lastFrame=result.result;drawGuides(lastFrame);message(kind==='live'?(result.rendering.drawn.length?'Live · '+result.rendering.drawn.length+' labels':'Live · looking for text'):'Still · '+result.rendering.drawn.length+' shown'+(result.rendering.omitted?.length?' · '+result.rendering.omitted.length+' not fitted':''));if(result.snapshot.geometryVerification?.error)message($('scan-label').textContent+' · text check unavailable');
  }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}});
  if(pending&&session.kind!=='home')queueMicrotask(processScene);
 }

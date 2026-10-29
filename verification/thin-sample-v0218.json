@@ -1,0 +1,383 @@
+{
+  "fixture": "unchanged generated/fixtures/numeric.png",
+  "canonicalRaw": [
+    {
+      "box": [
+        85,
+        73,
+        644,
+        97
+      ],
+      "text": "一本のペンと3本のペン"
+    },
+    {
+      "box": [
+        87,
+        182,
+        719,
+        209
+      ],
+      "text": "五月一日。一日中休みます"
+    },
+    {
+      "box": [
+        85,
+        293,
+        501,
+        317
+      ],
+      "text": "士日間みます"
+    },
+    {
+      "box": [
+        86,
+        403,
+        717,
+        427
+      ],
+      "text": "七分に注意。十分待ちます"
+    },
+    {
+      "box": [
+        82,
+        513,
+        556,
+        537
+      ],
+      "text": "水か士ー杯めります"
+    }
+  ],
+  "meikiMeasuredLines": [
+    {
+      "text": "三本のペンと3本のペン。",
+      "box": [
+        72,
+        61,
+        653,
+        108
+      ]
+    },
+    {
+      "text": "五月一日。一日中休みます。",
+      "box": [
+        71,
+        171,
+        731,
+        219
+      ]
+    },
+    {
+      "text": "二十日間休みます。",
+      "box": [
+        71,
+        281,
+        515,
+        328
+      ]
+    },
+    {
+      "text": "十分に注意。十分待ちます。",
+      "box": [
+        71,
+        388,
+        729,
+        439
+      ]
+    },
+    {
+      "text": "水が十三杯あります。",
+      "box": [
+        70,
+        500,
+        567,
+        549
+      ]
+    }
+  ],
+  "verifiedEffectiveLines": [
+    {
+      "text": "三本のペンと3本のペン。",
+      "box": [
+        72,
+        61,
+        653,
+        108
+      ],
+      "canonicalRegion": {
+        "text": "一本のペンと3本のペン",
+        "box": [
+          85,
+          73,
+          644,
+          97
+        ]
+      }
+    },
+    {
+      "text": "五月一日。一日中休みます。",
+      "box": [
+        71,
+        171,
+        731,
+        219
+      ],
+      "canonicalRegion": {
+        "text": "五月一日。一日中休みます",
+        "box": [
+          87,
+          182,
+          719,
+          209
+        ]
+      }
+    },
+    {
+      "text": "二十日間休みます。",
+      "box": [
+        71,
+        281,
+        515,
+        328
+      ],
+      "canonicalRegion": {
+        "text": "士日間みます",
+        "box": [
+          85,
+          293,
+          501,
+          317
+        ]
+      }
+    },
+    {
+      "text": "十分に注意。十分待ちます。",
+      "box": [
+        71,
+        388,
+        729,
+        439
+      ],
+      "canonicalRegion": {
+        "text": "七分に注意。十分待ちます",
+        "box": [
+          86,
+          403,
+          717,
+          427
+        ]
+      }
+    },
+    {
+      "text": "水が十三杯あります。",
+      "box": [
+        70,
+        500,
+        567,
+        549
+      ],
+      "canonicalRegion": {
+        "text": "水か士ー杯めります",
+        "box": [
+          82,
+          513,
+          556,
+          537
+        ]
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "index": 0,
+      "original": {
+        "text": "一本のペンと3本のペン",
+        "box": [
+          85,
+          73,
+          644,
+          97
+        ]
+      },
+      "reference": {
+        "text": "三本のペンと3本のペン。",
+        "box": [
+          72,
+          61,
+          653,
+          108
+        ]
+      },
+      "box": [
+        72,
+        61,
+        653,
+        108
+      ],
+      "first": {
+        "text": "三本のペンと3本のペン。",
+        "minimumProbability": 0.9526469707489014
+      },
+      "second": {
+        "text": "三本のペンと3本のペン。",
+        "minimumProbability": 0.9602479338645935
+      },
+      "accepted": true,
+      "reason": "reference-and-two-pp-crops-agree"
+    },
+    {
+      "index": 1,
+      "original": {
+        "text": "五月一日。一日中休みます",
+        "box": [
+          87,
+          182,
+          719,
+          209
+        ]
+      },
+      "reference": {
+        "text": "五月一日。一日中休みます。",
+        "box": [
+          71,
+          171,
+          731,
+          219
+        ]
+      },
+      "box": [
+        71,
+        171,
+        731,
+        219
+      ],
+      "first": {
+        "text": "五月一日。一日中休みます。",
+        "minimumProbability": 0.9849082231521606
+      },
+      "second": {
+        "text": "五月一日。一日中休みます。",
+        "minimumProbability": 0.9931020736694336
+      },
+      "accepted": true,
+      "reason": "reference-and-two-pp-crops-agree"
+    },
+    {
+      "index": 2,
+      "original": {
+        "text": "士日間みます",
+        "box": [
+          85,
+          293,
+          501,
+          317
+        ]
+      },
+      "reference": {
+        "text": "二十日間休みます。",
+        "box": [
+          71,
+          281,
+          515,
+          328
+        ]
+      },
+      "box": [
+        71,
+        281,
+        515,
+        328
+      ],
+      "first": {
+        "text": "二十日間休みます。",
+        "minimumProbability": 0.9915974736213684
+      },
+      "second": {
+        "text": "二十日間休みます。",
+        "minimumProbability": 0.9985105395317078
+      },
+      "accepted": true,
+      "reason": "reference-and-two-pp-crops-agree"
+    },
+    {
+      "index": 3,
+      "original": {
+        "text": "七分に注意。十分待ちます",
+        "box": [
+          86,
+          403,
+          717,
+          427
+        ]
+      },
+      "reference": {
+        "text": "十分に注意。十分待ちます。",
+        "box": [
+          71,
+          388,
+          729,
+          439
+        ]
+      },
+      "box": [
+        71,
+        388,
+        729,
+        439
+      ],
+      "first": {
+        "text": "十分に注意。十分待ちます。",
+        "minimumProbability": 0.998345136642456
+      },
+      "second": {
+        "text": "十分に注意。十分待ちます。",
+        "minimumProbability": 0.9998747110366821
+      },
+      "accepted": true,
+      "reason": "reference-and-two-pp-crops-agree"
+    },
+    {
+      "index": 4,
+      "original": {
+        "text": "水か士ー杯めります",
+        "box": [
+          82,
+          513,
+          556,
+          537
+        ]
+      },
+      "reference": {
+        "text": "水が十三杯あります。",
+        "box": [
+          70,
+          500,
+          567,
+          549
+        ]
+      },
+      "box": [
+        70,
+        500,
+        567,
+        549
+      ],
+      "first": {
+        "text": "水が十三杯あります。",
+        "minimumProbability": 0.9738760590553284
+      },
+      "second": {
+        "text": "水が十三杯あります。",
+        "minimumProbability": 0.9943825006484985
+      },
+      "accepted": true,
+      "reason": "reference-and-two-pp-crops-agree"
+    }
+  ],
+  "completeLabels": [
+    "sambon no pen to sambon no pen.",
+    "gogatsu tsuitachi. ichinichi juu yasumimasu.",
+    "hatsukakan yasumimasu.",
+    "juubun ni chuui. juppun machimasu.",
+    "mizu ga juusambai arimasu."
+  ]
+}

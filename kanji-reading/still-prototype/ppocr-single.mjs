@@ -38,7 +38,7 @@ async function detectLocalCharacters(source,regions){
  }
  return {boxes:dedupeBoxes(all),proposals};
 }
-async function recognize(source,box,padding){
+export async function recognizeRegion(source,box,padding){
  const {rec,vocab}=await initializePPOCR(),[x0,y0,x1,y1]=box;
  const p=Math.min(x1-x0,y1-y0)*padding,b=[Math.max(0,x0-p),Math.max(0,y0-p),Math.min(source.width,x1+p),Math.min(source.height,y1+p)];
  const cw=Math.max(1,Math.round(b[2]-b[0])),ch=Math.max(1,Math.round(b[3]-b[1]));let crop=document.createElement('canvas');crop.width=cw;crop.height=ch;crop.getContext('2d').drawImage(source,b[0],b[1],b[2]-b[0],b[3]-b[1],0,0,cw,ch);
@@ -53,7 +53,7 @@ async function recognize(source,box,padding){
 export async function recoverSingleCharacters(source,canonicalRegions){
  const started=performance.now(),local=await detectLocalCharacters(source,canonicalRegions),detectedBoxes=local.boxes,boxes=uncoveredSingleBoxes(detectedBoxes,canonicalRegions),accepted=[],decisions=[];
  for(const box of boxes){
-  const first=await recognize(source,box,0),second=await recognize(source,box,.12);
+  const first=await recognizeRegion(source,box,0),second=await recognizeRegion(source,box,.12);
   const accept=/^[ぁ-ゖァ-ヺー一-龯々]$/u.test(first.text)&&first.text===second.text&&Math.min(first.minimumProbability,second.minimumProbability)>=.85;
   decisions.push({box,first,second,accepted:accept});
   if(accept)accepted.push({box:box.map(Math.round),text:first.text,provenance:'supplemental-local-single',checks:[first,second]});

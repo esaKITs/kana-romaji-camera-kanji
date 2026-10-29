@@ -7,7 +7,7 @@ export function snapshotFromPPOCR(run){
  return {...run,engine:'ppocrv6-manga',geometry:'detected-regions',
   lines:(run.extendedRegions||run.classifiedRegions).map((r,id)=>({id,text:r.text,box:[...r.box],
    regionType:r.type,reason:r.reason,parentText:r.parentText,
-   geometry:'detected-region',orientation:'unknown',
+   geometry:'detected-region',orientation:'unknown',provenance:r.provenance,canonicalRegion:r.canonicalRegion,
    glyphs:[{text:r.text,box:[...r.box],geometry:'detected-region'}]}))};
 }
 export async function scanPPOCR(source){
