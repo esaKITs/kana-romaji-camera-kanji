@@ -104,7 +104,7 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
   try{
    await initializeMeiki();
    const reference=await (xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'verify-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'verify-'+requestId));
-   const {recognizeRegion}=await import(/* @vite-ignore */ assetUrl('ppocr-single.mjs'));
+   const {recognizeRegion}=await import(/* @vite-ignore */ assetUrl('ppocr-single.mjs?v=0.2.18')); // A cached v0.2.17 module has no exported region helper.
    snapshot=snapshotFromPPOCR(await verifyClippedRegions(source,primarySnapshot,reference,recognizeRegion));
   }catch(error){snapshot={...primarySnapshot,geometryVerification:{accepted:0,error:error.message}};}
   verificationMs=performance.now()-started;
