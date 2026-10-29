@@ -1,0 +1,15 @@
+{
+  "paperPatchCount": 44,
+  "maxDistortion": 1.65,
+  "deFontRatio": 1,
+  "deScaleRatio": 1,
+  "sourceInk": 32243,
+  "residualInk": 0,
+  "preservedChanges": 0,
+  "rubyMaskErrors": 0,
+  "undetectedRubyInk": 53,
+  "undetectedRubyRemaining": 0,
+  "coveredRuby": 8,
+  "rubyRatio": 0.9,
+  "fontSize": 23.459999999999997
+}

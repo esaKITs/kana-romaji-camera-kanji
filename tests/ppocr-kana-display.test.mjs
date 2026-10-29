@@ -26,3 +26,8 @@ test('partial modes retain kana prefixes while converting their Han and covering
   const result=await analyzePPOCRRegions(snapshot,engine.analyze,{mode,style:'double',verifyRuby:async()=>null});assert.equal(result.labels.length,1);assert.match(result.labels[0].output,/おcha/);assert.equal(result.labels[0].convertedHan,true);assert.deepEqual(result.labels[0].rubyLineIds,[1]);
  }
 });
+
+test('romaji labels use Latin punctuation while the measured OCR text is unchanged',async()=>{
+ const raw=[{text:'ます。',box:[10,10,240,45]}],snapshot=snapshotFromPPOCR({rawRegions:raw,classifiedRegions:raw.map(r=>({...r,type:'本文候補'}))});
+ const result=await analyzePPOCRRegions(snapshot,engine.analyze,{mode:'あア漢',style:'double',verifyRuby:async()=>null});assert.equal(result.labels[0].output,'masu.');assert.deepEqual(snapshot.rawRegions,raw);assert.equal(result.lines[0].text,'ます。');
+});

@@ -15,6 +15,10 @@ function rowsFor(text,measure){
 }
 export function allocateLabels(result,width,height,measure,{minScale=.70,compactLines=new Set()}={}){
  const drawn=[],omitted=[],occupied=[];
+ const regionBodies=result.labels.filter(l=>l.geometry==='detected-region').map(l=>l.bodyBox||l.box);
+ // Region envelopes vary with kana shape. Labels on the same body baseline use
+ // the same nominal font, without inventing any per-character coordinates.
+ const rowHeight=b=>{const h=b.y1-b.y0,neighbors=regionBodies.filter(q=>{const qh=q.y1-q.y0;return qh>=h*.6&&qh<=h/ .6&&Math.abs(q.y1-b.y1)<=Math.max(h,qh)*.45;}).map(q=>q.y1-q.y0).sort((a,b)=>a-b);return neighbors.length?Math.max(h*.75,Math.min(h*1.15,(neighbors[Math.floor((neighbors.length-1)/2)]+neighbors[Math.floor(neighbors.length/2)])/2)):h;};
  for(const line of result.lines){
   const labels=result.labels.filter(l=>l.lineId===line.id).sort((a,b)=>a.box.x0-b.box.x0);
   const protectedGlyphs=result.lines.flatMap(l=>l.glyphs.map(g=>({...g,ownerLineId:l.id}))).filter(g=>!labels.some(label=>labelReplacesGlyph(label,g,g.ownerLineId)));
@@ -23,7 +27,7 @@ export function allocateLabels(result,width,height,measure,{minScale=.70,compact
   const heights=line.glyphs.map(g=>g.box.y1-g.box.y0).filter(h=>Number.isFinite(h)&&h>0).sort((a,b)=>a-b);
   const characterHeight=heights.length?heights[Math.floor(heights.length/2)]:line.box.y1-line.box.y0;
   const regionLabels=labels.some(l=>l.geometry==='detected-region');
-  const font=Math.min(line.box.y1-line.box.y0,characterHeight)*(regionLabels&&!compactLines.has(line.id) ? .85 : .56);
+  const font=regionLabels?rowHeight(labels[0].bodyBox||labels[0].box)*(compactLines.has(line.id)?.56:.85):Math.min(line.box.y1-line.box.y0,characterHeight)*.56;
   const cells=labels.map(label=>{
    const b=label.bodyBox||label.box,obstacles=protectedGlyphs.map(g=>g.box).filter(q=>q.y0<b.y1&&q.y1>b.y0).filter(q=>label.geometry!=='detected-region'||Math.min(q.y1,b.y1)-Math.max(q.y0,b.y0)>(b.y1-b.y0)*.2);
    const center=(b.x0+b.x1)/2;
@@ -85,8 +89,11 @@ export function allocateLabels(result,width,height,measure,{minScale=.70,compact
   const desiredTop=label.heightPolicy?.requestedTop??(label.coversRuby?body.y0:Math.max(0,body.y0-bodyHeight*.5));
   const pad=label.heightPolicy?Math.max(4,Math.ceil(bodyHeight*.35)):0;
   const left=Math.min(rect.x0,label.box.x0-pad),right=Math.max(rect.x1,label.box.x1+pad);
-  const blockers=result.lines.flatMap(line=>line.glyphs.map(g=>({...g,ownerLineId:line.id})))
-   .filter(g=>!labelReplacesGlyph(label,g,g.ownerLineId)).map(g=>g.box)
+  const blockers=result.lines.flatMap(line=>line.glyphs.map(g=>({...g,ownerLineId:line.id,regionType:line.regionType})))
+   .filter(g=>!labelReplacesGlyph(label,g,g.ownerLineId))
+   // An adjacent word's ruby may touch the padded erase box without touching
+   // this text. Clip that ink in the mask; do not shrink the whole label for it.
+   .filter(g=>g.regionType!=='ルビ候補'||g.box.x0<rect.x1&&g.box.x1>rect.x0).map(g=>g.box)
    .filter(q=>q.y1<=body.y0&&q.x0<right&&q.x1>left);
   const priorBottom=blockers.length?Math.max(...blockers.map(q=>q.y1+(label.heightPolicy?Math.max(2,(q.y1-q.y0)*.2):2))):0;
   const top=Math.min(rect.y0,Math.max(desiredTop,priorBottom));
@@ -96,10 +103,10 @@ export function allocateLabels(result,width,height,measure,{minScale=.70,compact
   const ink=regionLabel&&measure.ink?rows.map(row=>measure.ink(row,font)):null;
   const ascent=ink?Math.max(...ink.map(m=>m.ascent)):font*.8,descent=ink?Math.max(...ink.map(m=>m.descent)):font*.2;
   const inkHeight=ascent+descent+font*(rows.length-1);
-  const verticalScale=regionLabel?Math.min(label.heightPolicy?Infinity:2.2,Math.max(.5,(tallRect.y1-tallRect.y0)*.88/Math.max(1,inkHeight))):Math.min(1.55,Math.max(1,(tallRect.y1-tallRect.y0-2)/textHeight));
+  const verticalScale=regionLabel?Math.min(label.heightPolicy?Math.max(.5,scale*1.65):2.2,Math.max(.5,(tallRect.y1-tallRect.y0)*.88/Math.max(1,inkHeight))):Math.min(1.55,Math.max(1,(tallRect.y1-tallRect.y0-2)/textHeight));
   if(occupied.some(q=>overlap(q,tallRect))){omitted.push({...label,reason:'extended-label-collision'});return;}
   const coveredRubyLineIds=label.heightPolicy?(label.rubyLineIds||[]).filter(id=>{const q=result.lines.find(l=>l.id===id)?.box;return q&&q.y0>=top&&q.y1<=body.y1;}):undefined;
-  occupied.push(tallRect);drawn.push({...label,...(coveredRubyLineIds?{coveredRubyLineIds,coversRuby:coveredRubyLineIds.length>0}:{}),displayBox:tallRect,horizontalScale:scale,verticalScale,fontSize:font,rows,...(regionLabel?{textBaseline:'alphabetic',textOffsetY:(ascent-descent)/2}:{})});
+  occupied.push(tallRect);drawn.push({...label,...(coveredRubyLineIds?{coveredRubyLineIds,coversRuby:coveredRubyLineIds.length>0}:{}),displayBox:tallRect,horizontalScale:scale,verticalScale,fontSize:font,rows,...(regionLabel?{textBaseline:'alphabetic',textOffsetY:(ascent-descent)/2,...(label.heightPolicy?{textCenterY:Math.max(tallRect.y0+inkHeight*verticalScale/2,body.y1-bodyHeight*.12-inkHeight*verticalScale/2)}:{})}:{})});
  }
  return{drawn,omitted};
 }
