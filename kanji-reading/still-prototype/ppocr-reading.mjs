@@ -93,7 +93,7 @@ export async function analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRub
   if(!changed)continue;
   // One label replaces exactly one measured region. Unconverted characters are
   // carried into that label, so a partial mode never erases unlabelled text.
-  labels.push({source:line.text,reading:raw.map(t=>t.reading||t.surface).join(''),output:pieces.join(' '),box:line.box,bodyBox:line.box,rubyBox:null,lineId:line.id,coversRuby:false,geometry:'detected-region',readingSource:'dictionary-region',convertedHan});
+  labels.push({source:line.text,reading:raw.map(t=>t.reading||t.surface).join(''),output:pieces.join(' ').replace(/\s*。/g,'.').replace(/\s*、/g,','),box:line.box,bodyBox:line.box,rubyBox:null,lineId:line.id,coversRuby:false,geometry:'detected-region',readingSource:'dictionary-region',convertedHan});
  }
  return applyRubyHeightPolicy({mode,style,lines,pairs,labels,withheld,analysis,nonReading:[],rawRegions:snapshot.rawRegions,classifiedRegions:snapshot.classifiedRegions,regionDiagnostics:{geometry:'detected-regions',duplicates:0,joinedFragments:0,conflictingRegions:0}});
 }
