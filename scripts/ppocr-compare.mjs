@@ -33,7 +33,7 @@ try{
  assert.equal(recovered.length,3,'all three isolated shi must be painted');assert.ok(recovered.every(l=>l.output==='shi'));
  assert.equal(camera.rendering.omitted.length,0);
  await writeFile('test-results/ppocr/debug.json',JSON.stringify(camera,null,2));
- for(const [source,output] of [['京都へ','kyooto e'],['お花見を','ohanami o'],['紅茶を買いました','koocha o kaimashita'],['食堂へ','shokudoo e'],['こうべへ','koobe e'],['とうきょう','tookyoo'],['み','mi']])assert.ok(camera.rendering.drawn.some(l=>l.source===source&&l.output===output),source+' must be painted with the expected reading');
+ for(const [source,output] of [['京都へ','kyooto e'],['お花見を','ohanami o'],['紅茶を買いました','koocha o kaimashita'],['食堂へ','shokudoo e'],['こうべへ','koobe e'],['とうきょう','tookyoo'],['み','mi'],['3時に','sanji ni']])assert.ok(camera.rendering.drawn.some(l=>l.source===source&&l.output===output),source+' must be painted with the expected reading');
  const cover=await page.evaluate(async data=>{
   const {labelReplacesGlyph}=await import('/kana-romaji-camera-kanji/test-ruby-height.mjs');
   const {paintLabels}=await import('/kana-romaji-camera-kanji/test-paint.mjs'),run=window.stillLab.lastRun,layout=run.rendering,result=run.result;

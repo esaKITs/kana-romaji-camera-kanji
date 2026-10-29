@@ -109,4 +109,4 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
  window.stillLab.lastRun=run;return run;
 }
 export async function dispose(){readingWorker?.terminate();readingWorker=null;for(const p of waiting.values()){clearTimeout(p.timer);p.reject(Error('Disposed'));}waiting.clear();if(ocr)await ocr.dispose();ocr=null;}
-window.stillLab={initialize,runStill,scanFocused,dispose,scanRegions:(canvas,regions)=>scan(canvas,"regions-"+requestId,regions),analyzeSnapshot,renderResult,analyze:async text=>(await rpc({command:"analyze",text,numeric:true})).tokens};
+window.stillLab={diagnoseReading:text=>rpc({command:'analyze',text,numeric:true,diagnostics:true}),initialize,runStill,scanFocused,dispose,scanRegions:(canvas,regions)=>scan(canvas,"regions-"+requestId,regions),analyzeSnapshot,renderResult,analyze:async text=>(await rpc({command:"analyze",text,numeric:true})).tokens};

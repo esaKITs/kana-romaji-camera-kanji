@@ -107,7 +107,9 @@ export async function analyzeSnapshot(snapshot,analyze,{mode='あア漢',style='
    if(review){if(isHan(token.surface))withheld.push({surface:token.surface,reason:review});continue;}
    const reading=pair?.reading||token.reading;if(!reading)continue;
    if(/[ッっ]$/.test(reading)){withheld.push({surface:token.surface,reason:'incomplete-sokuon'});continue;}
-   const allTarget=[...token.surface].every(c=>isTarget(c,mode));
+   // A validated number+counter is one pronunciation (20歳=ハタチ,
+   // 3本=サンボン), including in the Han-only modes. Bare digits stay untouched.
+   const allTarget=Boolean(token.numericValidated&&token.reading)||[...token.surface].every(c=>isTarget(c,mode));
    let parts;
    if(allTarget)parts=[{surface:token.surface,reading,start:0,end:token.surface.length}];
    else if(token.numericValidated)parts=token.numericParts?.filter(p=>[...p.surface].every(c=>isTarget(c,mode)));

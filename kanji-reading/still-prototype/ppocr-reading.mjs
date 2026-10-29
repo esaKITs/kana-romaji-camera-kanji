@@ -77,7 +77,9 @@ export async function analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRub
    if(review||(!token.reading&&!verified)||/[ッっ]$/.test(token.reading)){
     pieces.push(token.surface);if(isHan(token.surface))withheld.push({lineId:line.id,surface:token.surface,reason:review||'reading-unresolved'});continue;
    }
-   const allTarget=[...token.surface].every(c=>isTarget(c,mode));
+   // A validated number+counter is one pronunciation (20歳=ハタチ,
+   // 3本=サンボン), including in the Han-only modes. Bare digits stay untouched.
+   const allTarget=Boolean(token.numericValidated&&token.reading)||[...token.surface].every(c=>isTarget(c,mode));
    if(allTarget){
     const literalKana=/^[ぁ-ゖァ-ヺー]+$/u.test(token.surface)&&!['は','へ','を'].includes(token.surface)&&token.reading!==token.surface;
     const output=verified?rubyKanjiRomaji(verified.reading,style):literalKana?romaji(token.surface,style):candidateRomanization(token,style);
