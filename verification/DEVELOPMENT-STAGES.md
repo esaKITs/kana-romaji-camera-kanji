@@ -5,6 +5,9 @@
 2. Improve upright horizontal display: compare actual rendered character heights
    against the original, retain large readable romaji, handle long text and controls.
    The user's 55% original-image visibility is intentionally used for size comparison.
+   Also compare and settle long-vowel spelling (including ei/ee/ē) and nasal
+   spelling (n/m/n’), keeping pronunciation selection separate from spelling.
+   The existing m-before-b output is inherited behavior, not a newly settled policy.
 3. Rotated horizontal text: arbitrary angle, inverse coordinate mapping, Still/Live
    and uploaded images. Rotation is distinct from viewport orientation.
 4. Vertical writing: verify recognition, reading order, right-hand ruby, placement,

@@ -1,4 +1,5 @@
-import {initializePPOCR,scanPPOCR} from './ppocr-adapter.mjs';
+import {snapshotFromPPOCR,initializePPOCR,scanPPOCR} from './ppocr-adapter.mjs';
+import {verifyClippedRegions} from './ppocr-verify.mjs';
 import {scanStillTiles} from './still-tiles.mjs';
 import {scanXYCut} from './xycut-sahi-tiles.mjs';
 import {createMeikiOcr} from '../../meikiocr-test/vendor/meikiocr-web/index.js';
@@ -12,11 +13,15 @@ export async function initialize(engine='sudachi-small'){
  const t=performance.now();readingWorker?.terminate();readingWorker=new Worker(assetUrl('lab/worker-v2.js'));
  readingWorker.onmessage=({data})=>{const p=waiting.get(data.id);if(!p)return;clearTimeout(p.timer);waiting.delete(data.id);data.error?p.reject(Error(data.error)):p.resolve(data);};
  const reading=await rpc({command:'init',engine});
- if(usePPOCR){await initializePPOCR();}else if(!ocr){const base=new URL(assetUrl('ocr-assets/')),manifest=await(await fetch(new URL('manifest.json',base))).json();
+ if(usePPOCR)await initializePPOCR();else await initializeMeiki();
+ return {engine,combinedInitMs:performance.now()-t,readingInitMs:reading.initMs,readingWasmBytes:reading.wasmMemoryBytes};
+}
+async function initializeMeiki(){
+ if(ocr)return;
+ const base=new URL(assetUrl('ocr-assets/')),manifest=await(await fetch(new URL('manifest.json',base))).json();
   ocr=await createMeikiOcr({manifest,assetBaseUrl:base.href,profile:'meikipop-v2',execution:'wasm',wasmThreads:1,vertical:'off',recognitionBatchSize:1,maxInputPixels:4000000,scanTimeoutMs:60000,
    workerFactory:()=>new Worker(new URL('../../meikiocr-test/vendor/meikiocr-web/worker.js',import.meta.url),{type:'module'})});
- }
- return {engine,combinedInitMs:performance.now()-t,readingInitMs:reading.initMs,readingWasmBytes:reading.wasmMemoryBytes};
+
 }
 async function scan(canvas,id,regions){
  const view=regions?recognitionViewport(regions,canvas.width,canvas.height):{x:0,y:0,width:canvas.width,height:canvas.height};
@@ -93,7 +98,17 @@ export async function scanFocused(source,box){
 export async function analyzeText(text){return (await rpc({command:'analyze',text,numeric:true})).tokens;}
 export async function runStill(source,{mode='あア漢',style='double',output=null,paperState=null,xycut=true}={}){
  if((!ocr&&!usePPOCR)||!readingWorker)throw Error('Initialize first');
- const t=performance.now(),primarySnapshot=await (usePPOCR?scanPPOCR(source):(xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'still-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'still-'+requestId))),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0,recoveryMs=0,snapshot=primarySnapshot,recovery={regions:[],decisions:[]};
+ const t=performance.now(),primarySnapshot=await (usePPOCR?scanPPOCR(source):(xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'still-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'still-'+requestId))),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0,recoveryMs=0,verificationMs=0,snapshot=primarySnapshot,recovery={regions:[],decisions:[]};
+ if(usePPOCR){
+  const started=performance.now();
+  try{
+   await initializeMeiki();
+   const reference=await (xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'verify-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'verify-'+requestId));
+   const {recognizeRegion}=await import(/* @vite-ignore */ assetUrl('ppocr-single.mjs?v=0.2.18')); // A cached v0.2.17 module has no exported region helper.
+   snapshot=snapshotFromPPOCR(await verifyClippedRegions(source,primarySnapshot,reference,recognizeRegion));
+  }catch(error){snapshot={...primarySnapshot,geometryVerification:{accepted:0,error:error.message}};}
+  verificationMs=performance.now()-started;
+ }
  const regions=usePPOCR?[]:recoveryRegions(primarySnapshot);
  if(regions.length){const started=performance.now(),regionalSnapshot=await scan(source,'repair-'+requestId,regions.map(r=>r.box)),merged=mergeRecovery(primarySnapshot,regionalSnapshot,regions);snapshot=merged.snapshot;recovery={regions,decisions:merged.decisions,regionalSnapshot};recoveryMs=performance.now()-started;}
  const result=await analyzeSnapshot(snapshot,async text=>(await rpc({command:'analyze',text,numeric:true})).tokens,{mode,style,source,verifyRuby:async c=>{
@@ -104,7 +119,7 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
   const checkStart=performance.now(),recheck=await scan(source,'ruby-'+requestId,[box]),reading=recheck.lines.map(l=>l.glyphs.map(g=>g.text).join('')).join('').replace(/\s/g,'');rubyOcrMs+=performance.now()-checkStart;rubyChecks.push({source:c.source,first:c.reading,second:reading,method:'regional-reread'});return{reading,method:'regional-reread'};
  }});
  const renderStart=performance.now(),rendering=output?renderResult(output,source,result,{paperState}):null;
- const run={elapsedMs:performance.now()-t,rawText:(snapshot.rawRegions?[...snapshot.rawRegions,...(snapshot.supplemental?.regions||[])]:snapshot.lines).map(l=>l.text).join('\n'),primarySnapshot,snapshot,recovery,result,rubyChecks,rendering,timings:{ocrMs,recoveryMs,rubyOcrMs,analysisMs:renderStart-t-ocrMs-recoveryMs-rubyOcrMs,renderMs:performance.now()-renderStart},jsHeapBytes:performance.memory?.usedJSHeapSize??null};
+ const run={elapsedMs:performance.now()-t,rawText:(snapshot.rawRegions?[...snapshot.rawRegions,...(snapshot.supplemental?.regions||[])]:snapshot.lines).map(l=>l.text).join('\n'),effectiveText:snapshot.lines.map(l=>l.text).join('\n'),primarySnapshot,snapshot,recovery,result,rubyChecks,rendering,timings:{ocrMs,verificationMs,recoveryMs,rubyOcrMs,analysisMs:renderStart-t-ocrMs-verificationMs-recoveryMs-rubyOcrMs,renderMs:performance.now()-renderStart},jsHeapBytes:performance.memory?.usedJSHeapSize??null};
  // Bounded, browser-local diagnostics. This is neither an upload nor persisted data.
  window.stillLab.lastRun=run;return run;
 }

@@ -46,6 +46,10 @@ jobs:
         timeout-minutes: 15
         run: |
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/numeric-counter-browser-test.mjs
+      - name: Restore the original five-line sample in Still and Live
+        timeout-minutes: 15
+        run: |
+          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/thin-sample-browser-test.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

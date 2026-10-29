@@ -32,6 +32,8 @@ try{
  const recovered=camera.rendering.drawn.filter(l=>l.source==='し');
  assert.equal(recovered.length,3,'all three isolated shi must be painted');assert.ok(recovered.every(l=>l.output==='shi'));
  assert.equal(camera.rendering.omitted.length,0);
+ assert.equal(camera.snapshot.geometryVerification.accepted,0,'already-correct Practice A regions must not be replaced');
+ assert.deepEqual(camera.snapshot.extendedRegions,[...camera.snapshot.classifiedRegions,...camera.snapshot.supplemental.classifiedRegions],'Practice A text and coordinates stay unchanged');
  await writeFile('test-results/ppocr/debug.json',JSON.stringify(camera,null,2));
  for(const [source,output] of [['京都へ','kyooto e'],['お花見を','ohanami o'],['紅茶を買いました','koocha o kaimashita'],['食堂へ','shokudoo e'],['こうべへ','koobe e'],['とうきょう','tookyoo'],['み','mi'],['3時に','sanji ni']])assert.ok(camera.rendering.drawn.some(l=>l.source===source&&l.output===output),source+' must be painted with the expected reading');
  const cover=await page.evaluate(async data=>{
