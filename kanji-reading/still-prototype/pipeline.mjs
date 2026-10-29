@@ -1,3 +1,4 @@
+import {labelReplacesGlyph} from './ruby-height.mjs';
 import {analyzePPOCRRegions} from './ppocr-reading.mjs';
 import {sampledPaperColor,selectPapers,paperFor,foregroundFor} from './paper.mjs';
 import {displayTokens,openingBullet} from './display-tokens.mjs';
@@ -141,20 +142,14 @@ export function renderResult(canvas,source,result,{paperState=null}={}){
  let layout=allocateLabels(result,canvas.width,canvas.height,measure);
  const compactLines=new Set(layout.omitted.filter(l=>l.geometry==='detected-region').map(l=>l.lineId));
  if(compactLines.size)layout=allocateLabels(result,canvas.width,canvas.height,measure,{compactLines});
- const samples=layout.drawn.map(l=>({rgb:sampledPaperColor(l.box,source),weight:Math.min(5,Math.max(1,Math.sqrt((l.box.x1-l.box.x0)*(l.box.y1-l.box.y0))/30))}));
+ const samples=layout.drawn.map(l=>({rgb:sampledPaperColor(l.bodyBox||l.box,source),weight:Math.min(5,Math.max(1,Math.sqrt((l.box.x1-l.box.x0)*(l.box.y1-l.box.y0))/30))}));
  const papers=paperState?paperState.resolve(samples):selectPapers(samples);layout.papers=papers;
  layout.drawn.forEach((l,i)=>{l.backgroundRgb=paperState?.colorFor?paperState.colorFor(samples[i].rgb,l):paperFor(samples[i].rgb,papers);l.backgroundColor='rgb('+l.backgroundRgb.join(',')+')';l.foregroundColor=foregroundFor(l.backgroundRgb);});
- const replaced=g=>layout.drawn.some(l=>g.box.x0>=l.box.x0-.5&&g.box.x1<=l.box.x1+.5&&g.box.y0>=l.box.y0-.5&&g.box.y1<=l.box.y1+.5);
- // A verified ruby label replaces both its main text and its annotation.
- // Do not preserve the ruby glyphs as obstacles while painting its background.
- const replacedRuby=g=>layout.drawn.some(l=>l.coversRuby&&l.rubyBox&&
-  g.box.x0>=l.rubyBox.x0-.5&&g.box.x1<=l.rubyBox.x1+.5&&
-  g.box.y0>=l.rubyBox.y0-.5&&g.box.y1<=l.rubyBox.y1+.5);
- const preserved=result.lines.flatMap(l=>l.glyphs).filter(g=>!replaced(g)&&!replacedRuby(g)).map(g=>g.box);
+ const preserved=result.lines.flatMap(l=>l.glyphs.map(g=>({...g,ownerLineId:l.id}))).filter(g=>!layout.drawn.some(label=>labelReplacesGlyph(label,g,g.ownerLineId))).map(g=>g.box);
  // First clear the entire source word, independently of its new text position.
  // Draw all backgrounds before any text, so no later mask erases a label.
  for(const label of layout.drawn){
-  const b=label.box,body=label.bodyBox||b,pad=label.geometry==='detected-region'?Math.max(4,Math.ceil((body.y1-body.y0)*.35)):Math.max(2,Math.min(6,Math.ceil((body.y1-body.y0)*.08))),sourceBox={x0:Math.max(0,b.x0-pad),x1:Math.min(canvas.width,b.x1+pad),y0:Math.max(0,b.y0-pad),y1:Math.min(canvas.height,b.y1+pad)};
+  const b=label.box,body=label.bodyBox||b,pad=label.geometry==='detected-region'?Math.max(4,Math.ceil((body.y1-body.y0)*.35)):Math.max(2,Math.min(6,Math.ceil((body.y1-body.y0)*.08))),sourceBox={x0:Math.max(0,b.x0-pad),x1:Math.min(canvas.width,b.x1+pad),y0:label.heightPolicy?label.displayBox.y0:Math.max(0,b.y0-pad),y1:Math.min(canvas.height,b.y1+pad)};
   label.eraseRegions=visibleRegions(sourceBox,preserved);label.textRegions=visibleRegions(label.displayBox,preserved);
   ctx.fillStyle=label.backgroundColor;for(const r of [...label.eraseRegions,...label.textRegions])ctx.fillRect(r.x0,r.y0,r.x1-r.x0,r.y1-r.y0);
  }

@@ -19,3 +19,10 @@ test('actual dictionary splits of kana words and auxiliary endings do not corrup
   assert.equal(result.labels[0].output,expected,text);assert.deepEqual(snapshot.rawRegions,raw);
  }
 });
+
+test('partial modes retain kana prefixes while converting their Han and covering ruby',async()=>{
+ for(const mode of ['ア漢','漢']){
+  const snapshot=snapshotFromPPOCR({rawRegions:[],classifiedRegions:[{text:'お茶を',box:[20,100,150,130],type:'本文候補'},{text:'ちゃ',box:[50,70,90,90],type:'ルビ候補',parentText:'お茶を'}]});
+  const result=await analyzePPOCRRegions(snapshot,engine.analyze,{mode,style:'double',verifyRuby:async()=>null});assert.equal(result.labels.length,1);assert.match(result.labels[0].output,/おcha/);assert.equal(result.labels[0].convertedHan,true);assert.deepEqual(result.labels[0].rubyLineIds,[1]);
+ }
+});
