@@ -3,7 +3,7 @@
 const digits={零:0,〇:0,一:1,二:2,三:3,四:4,五:5,六:6,七:7,八:8,九:9};
 const names=['ゼロ','イチ','ニ','サン','ヨン','ゴ','ロク','ナナ','ハチ','キュウ'];
 const numberChars='0-9０-９零〇一二三四五六七八九十百千';
-const pattern=new RegExp(`[${numberChars}]+(?:時間|日間|日目|本|杯|匹|人|階|冊|分|時|月|日)`,'gu');
+const pattern=new RegExp(`[${numberChars}]+(?:時間|日間|日目|本|杯|匹|人|階|冊|分|時|月|日|歳)`,'gu');
 export function parseNumber(source){
  const s=source.replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xfee0));
  if(/^\d+$/.test(s)){if(s.length>4||s.length>1&&s[0]==='0')return null;return Number(s);}
@@ -31,6 +31,11 @@ const result=(number,counter,kind='counter')=>({reading:number+counter,numberRea
 function counted(n,unit){
  const kana=numberKana(n);if(n<1||!kana)return null;
  const last=n%10;
+ if(unit==='歳'){
+  if(n===20)return {reading:'ハタチ',kind:'age-irregular',segmentable:false};
+  const contracted=last===1?kana.replace(/イチ$/,'イッ'):last===8?kana.replace(/ハチ$/,'ハッ'):/ジュウ$/.test(kana)?kana.replace(/ジュウ$/,'ジュッ'):kana;
+  return result(contracted,'サイ','age');
+ }
  if(unit==='人'){
   if(n===1)return {reading:'ヒトリ',kind:'person-irregular',segmentable:false};
   if(n===2)return {reading:'フタリ',kind:'person-irregular',segmentable:false};

@@ -42,6 +42,10 @@ jobs:
         timeout-minutes: 15
         run: |
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") PPOCR_IMAGE=tests/fixtures/practice-a.png node scripts/ppocr-compare.mjs
+      - name: Number-counter pronunciation through both actual OCR engines
+        timeout-minutes: 15
+        run: |
+          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/numeric-counter-browser-test.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

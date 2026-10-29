@@ -25,13 +25,13 @@ test('proper names and overlapping lexical words never get split to fit a numeri
  const t=[token('十分','ジュウブン')];assert.deepEqual(applyNumericReadings('十分に',t).tokens,t);
 });
 const line=text=>({text,orientation:'horizontal',box:[10,30,10+40*text.length,70],glyphs:[...text].map((c,i)=>({text:c,box:[10+i*40,30,50+i*40,70],confidence:.98}))});
-test('Still preserves Arabic digits and puts the counter allomorph only on the Han box in every mode',async()=>{
+test('Still replaces a validated Arabic number and counter as one measured span in every mode',async()=>{
  const input={lines:[line('3本')]};for(const mode of ['あア漢','ア漢','漢']){
   const r=await analyzeSnapshot(input,async text=>applyNumericReadings(text,[token('3','サン'),token('本','ホン',1)]).tokens,{mode});
-  assert.deepEqual(r.labels.map(l=>[l.source,l.output,l.box.x0]),[['本','bon',50]]);
+  assert.deepEqual(r.labels.map(l=>[l.source,l.output,l.box.x0]),[['3本','sambon',10]]);
  }
  const r=await analyzeSnapshot({lines:[line('20日')]},async text=>applyNumericReadings(text,[token('20日','ニジュウニチ')]).tokens);
- assert.equal(r.labels.length,0);assert.equal(r.withheld[0].reason,'numeric-alignment-unresolved');
+ assert.equal(r.labels.length,1);assert.equal(r.labels[0].source,'20日');assert.equal(r.labels[0].output,'hatsuka');assert.deepEqual(r.labels[0].box,{x0:10,y0:30,x1:130,y1:70});
 });
 test('verified ruby retains priority over the numeric rule',async()=>{
  const main=line('三本'),ruby={...line('さんぼん'),box:[10,10,80,22],glyphs:[...'さんぼん'].map((c,i)=>({text:c,box:[10+i*18,10,28+i*18,22],confidence:.98}))};
