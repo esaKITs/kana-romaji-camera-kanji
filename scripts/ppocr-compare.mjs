@@ -6,6 +6,7 @@ const input=process.env.PPOCR_IMAGE;assert.ok(input,'Set PPOCR_IMAGE to actual t
 await mkdir('test-results/ppocr',{recursive:true});
 await copyFile('tests/fixtures/ppocr-experiment-21a0546.html','dist/ppocr-experiment/baseline.html');
 await copyFile('kanji-reading/camera-prototype/paint.mjs','dist/test-paint.mjs');
+await copyFile('kanji-reading/still-prototype/ruby-height.mjs','dist/test-ruby-height.mjs');
 const server=createPagesServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH,headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
 const page=await browser.newPage();
@@ -34,14 +35,18 @@ try{
  await writeFile('test-results/ppocr/debug.json',JSON.stringify(camera,null,2));
  for(const [source,output] of [['京都へ','kyooto e'],['お花見を','ohanami o'],['紅茶を買いました','koocha o kaimashita'],['食堂へ','shokudoo e'],['こうべへ','koobe e'],['とうきょう','tookyoo'],['み','mi']])assert.ok(camera.rendering.drawn.some(l=>l.source===source&&l.output===output),source+' must be painted with the expected reading');
  const cover=await page.evaluate(async data=>{
+  const {labelReplacesGlyph}=await import('/kana-romaji-camera-kanji/test-ruby-height.mjs');
   const {paintLabels}=await import('/kana-romaji-camera-kanji/test-paint.mjs'),run=window.stillLab.lastRun,layout=run.rendering,result=run.result;
   const im=new Image();im.src='data:image/png;base64,'+data;await im.decode();const source=document.createElement('canvas');source.width=im.width;source.height=im.height;source.getContext('2d').drawImage(im,0,0);
   const mask=document.createElement('canvas');paintLabels(mask,source,{drawn:layout.drawn.map(l=>({...l,rows:[]}))},{still:true,reveal:0});
   const width=source.width,height=source.height,src=source.getContext('2d').getImageData(0,0,width,height).data,out=mask.getContext('2d').getImageData(0,0,width,height).data;
   const inside=(x,y,b)=>x>=b.x0&&x<b.x1&&y>=b.y0&&y<b.y1;
-  const replaced=g=>layout.drawn.some(l=>g.box.x0>=l.box.x0-.5&&g.box.x1<=l.box.x1+.5&&g.box.y0>=l.box.y0-.5&&g.box.y1<=l.box.y1+.5);
-  const preserved=result.lines.flatMap(l=>l.glyphs.filter(g=>!replaced(g)).map(g=>({...g,regionType:l.regionType})));
-  let sourceInk=0,residualInk=0,preservedChanges=0;
+  const preserved=result.lines.flatMap(l=>l.glyphs.filter(g=>!layout.drawn.some(label=>labelReplacesGlyph(label,g,l.id))).map(g=>({...g,regionType:l.regionType})));
+  let sourceInk=0,residualInk=0,preservedChanges=0,rubyMaskErrors=0,undetectedRubyInk=0,undetectedRubyRemaining=0;
+  // Ground-truth annotation た above 食べ is absent from canonical ruby regions.
+  for(let y=492;y<518;y++)for(let x=793;x<818;x++){const i=(y*width+x)*4;if((src[i]+src[i+1]+src[i+2])/3<160){undetectedRubyInk++;if((out[i]+out[i+1]+out[i+2])/3<160)undetectedRubyRemaining++;}}
+  const coveredRuby=new Set(layout.drawn.flatMap(l=>l.coveredRubyLineIds||[]));
+  for(const id of coveredRuby){const ruby=result.lines.find(l=>l.id===id),label=layout.drawn.find(l=>l.coveredRubyLineIds?.includes(id));const b=ruby.box;for(let y=Math.ceil(b.y0);y<Math.floor(b.y1);y++)for(let x=Math.ceil(b.x0);x<Math.floor(b.x1);x++){const i=(y*width+x)*4;if([0,1,2].some(k=>Math.abs(out[i+k]-label.backgroundRgb[k])>1))rubyMaskErrors++;}}
   for(const label of layout.drawn){
    if(label.backgroundRgb.reduce((a,b)=>a+b,0)/3<160)continue;
    const b=label.bodyBox||label.box,p=Math.ceil((b.y1-b.y0)*.45);
@@ -52,11 +57,16 @@ try{
    }
   }
   for(const g of preserved){const b=g.box;for(let y=Math.max(0,Math.ceil(b.y0));y<Math.min(height,Math.floor(b.y1));y++)for(let x=Math.max(0,Math.ceil(b.x0));x<Math.min(width,Math.floor(b.x1));x++){const i=(y*width+x)*4;if([0,1,2,3].some(k=>src[i+k]!==out[i+k]))preservedChanges++;}}
-  return {sourceInk,residualInk,preservedChanges,fontSize:layout.drawn.find(l=>l.source==='わたしは').fontSize};
+  return {sourceInk,residualInk,preservedChanges,rubyMaskErrors,undetectedRubyInk,undetectedRubyRemaining,coveredRuby:coveredRuby.size,rubyRatio:result.rubyHeightPolicy.upperRatio,fontSize:layout.drawn.find(l=>l.source==='わたしは').fontSize};
  },(await readFile(input)).toString('base64'));
- assert.ok(cover.sourceInk>1000);assert.equal(cover.residualInk,0,'no body source ink may remain through the replacement masks');assert.equal(cover.preservedChanges,0,'ruby and other preserved regions must remain pixel-identical');assert.ok(cover.fontSize>=20,'PP romaji must be larger');
+ assert.ok(cover.sourceInk>1000);assert.equal(cover.residualInk,0,'no body source ink may remain through the replacement masks');assert.equal(cover.preservedChanges,0,'unreplaced regions must remain pixel-identical');assert.ok(cover.fontSize>=20,'PP romaji must be larger');assert.equal(cover.coveredRuby,8,'all eight corresponding ruby regions must be covered');assert.equal(cover.rubyMaskErrors,0,'ruby must be fully covered by its parent background');assert.ok(cover.rubyRatio>0);assert.ok(cover.undetectedRubyInk>10);assert.equal(cover.undetectedRubyRemaining,0,'shared ratio also covers undetected ruby above 食べ');
  await writeFile('test-results/ppocr/cover.json',JSON.stringify(cover,null,2));
  await writeFile('test-results/ppocr/camera.json',JSON.stringify(camera,null,2));await page.screenshot({path:'test-results/ppocr/camera.png'});
+ for(const mode of ['ア漢','漢','あア漢']){
+  await page.locator('#kana-mode').click();await page.waitForFunction(mode=>window.stillLab.lastRun?.result.mode===mode,mode);
+  const state=await page.evaluate(()=>{const r=window.stillLab.lastRun;return {raw:r.snapshot.rawRegions,covered:r.rendering.drawn.flatMap(l=>l.coveredRubyLineIds||[]),omitted:r.rendering.omitted,source:r.result.rubyHeightPolicy.source};});
+  assert.deepEqual(state.raw,baseline.raw);assert.equal(new Set(state.covered).size,8,'all modes cover the eight owned ruby');assert.equal(state.omitted.length,0);assert.equal(state.source,'observed-ruby');
+ }
  await page.goto(root+'?ocr=ppocr');
  await page.evaluate(async data=>{const image=new Image();image.src='data:image/png;base64,'+data;await image.decode();const c=document.createElement('canvas');c.width=image.width;c.height=image.height;c.getContext('2d').drawImage(image,0,0);window.ppocrTestStream=c.captureStream(8);Object.defineProperty(navigator.mediaDevices,'getUserMedia',{configurable:true,value:async()=>window.ppocrTestStream});},(await readFile(input)).toString('base64'));
  await page.locator('#start').click();await page.waitForFunction(()=>/^Live · \d+ labels/.test(document.querySelector('#scan-label').textContent),{},{timeout:240000});

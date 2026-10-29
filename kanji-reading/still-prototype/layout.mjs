@@ -1,3 +1,4 @@
+import {labelReplacesGlyph} from './ruby-height.mjs';
 // Horizontal Still allocator. Measurement is injected so geometry can be tested
 // independently of fonts. Never borrow pixels occupied by preserved glyphs.
 const overlap=(a,b)=>Math.min(a.x1,b.x1)>Math.max(a.x0,b.x0)&&Math.min(a.y1,b.y1)>Math.max(a.y0,b.y0);
@@ -16,10 +17,7 @@ export function allocateLabels(result,width,height,measure,{minScale=.70,compact
  const drawn=[],omitted=[],occupied=[];
  for(const line of result.lines){
   const labels=result.labels.filter(l=>l.lineId===line.id).sort((a,b)=>a.box.x0-b.box.x0);
-  const protectedGlyphs=result.lines.flatMap(l=>l.glyphs).filter(g=>!labels.some(l=>{
-   const covered=b=>b&&g.box.x0>=b.x0-.5&&g.box.x1<=b.x1+.5&&g.box.y0>=b.y0-.5&&g.box.y1<=b.y1+.5;
-   return covered(l.box)||(l.coversRuby&&covered(l.rubyBox));
-  }));
+  const protectedGlyphs=result.lines.flatMap(l=>l.glyphs.map(g=>({...g,ownerLineId:l.id}))).filter(g=>!labels.some(label=>labelReplacesGlyph(label,g,g.ownerLineId)));
   // Curved packaging/slanted baselines enlarge the union box without enlarging
   // the characters. Use character height rather than the whole line's envelope.
   const heights=line.glyphs.map(g=>g.box.y1-g.box.y0).filter(h=>Number.isFinite(h)&&h>0).sort((a,b)=>a-b);
@@ -27,7 +25,7 @@ export function allocateLabels(result,width,height,measure,{minScale=.70,compact
   const regionLabels=labels.some(l=>l.geometry==='detected-region');
   const font=Math.min(line.box.y1-line.box.y0,characterHeight)*(regionLabels&&!compactLines.has(line.id) ? .85 : .56);
   const cells=labels.map(label=>{
-   const b=label.box,obstacles=protectedGlyphs.map(g=>g.box).filter(q=>q.y0<b.y1&&q.y1>b.y0).filter(q=>label.geometry!=='detected-region'||Math.min(q.y1,b.y1)-Math.max(q.y0,b.y0)>(b.y1-b.y0)*.2);
+   const b=label.bodyBox||label.box,obstacles=protectedGlyphs.map(g=>g.box).filter(q=>q.y0<b.y1&&q.y1>b.y0).filter(q=>label.geometry!=='detected-region'||Math.min(q.y1,b.y1)-Math.max(q.y0,b.y0)>(b.y1-b.y0)*.2);
    const center=(b.x0+b.x1)/2;
    return{label,left:Math.max(0,...obstacles.filter(q=>q.x1<=center).map(q=>q.x1+1)),right:Math.min(width,...obstacles.filter(q=>q.x0>=center).map(q=>q.x0-1)),blocked:obstacles.some(q=>q.x0<center&&q.x1>center)};
   });
@@ -67,7 +65,7 @@ export function allocateLabels(result,width,height,measure,{minScale=.70,compact
    // Keep each word at its own source center. Only move it when a neighbor
    // needs room; do not compact a whole line into one centered text strip.
    const bounds=anchorBounds(scale);
-   const positions=items.map((item,i)=>Math.max(bounds[i].low,Math.min(bounds[i].high,(item.label.box.x0+item.label.box.x1-widths[i])/2)));
+   const positions=items.map((item,i)=>Math.max(bounds[i].low,Math.min(bounds[i].high,((item.label.bodyBox||item.label.box).x0+(item.label.bodyBox||item.label.box).x1-widths[i])/2)));
    let edge=left;
    for(let i=0;i<items.length;i++){positions[i]=Math.max(edge,positions[i]);edge=positions[i]+widths[i]+gap;}
    edge=right;
@@ -84,11 +82,13 @@ export function allocateLabels(result,width,height,measure,{minScale=.70,compact
   // Stretch glyphs vertically, never horizontally. Reserve headroom for furigana,
   // but stop before another source line or an already placed label.
   const body=label.bodyBox||label.box,bodyHeight=Math.max(1,body.y1-body.y0);
-  const desiredTop=label.coversRuby?body.y0:Math.max(0,body.y0-bodyHeight*.5);
-  const blockers=result.lines.filter(line=>line.id!==label.lineId)
-   .flatMap(line=>line.glyphs).map(g=>g.box)
-   .filter(q=>q.y1<=body.y0&&q.x0<rect.x1&&q.x1>rect.x0);
-  const priorBottom=blockers.length?Math.max(...blockers.map(q=>q.y1+2)):0;
+  const desiredTop=label.heightPolicy?.requestedTop??(label.coversRuby?body.y0:Math.max(0,body.y0-bodyHeight*.5));
+  const pad=label.heightPolicy?Math.max(4,Math.ceil(bodyHeight*.35)):0;
+  const left=Math.min(rect.x0,label.box.x0-pad),right=Math.max(rect.x1,label.box.x1+pad);
+  const blockers=result.lines.flatMap(line=>line.glyphs.map(g=>({...g,ownerLineId:line.id})))
+   .filter(g=>!labelReplacesGlyph(label,g,g.ownerLineId)).map(g=>g.box)
+   .filter(q=>q.y1<=body.y0&&q.x0<right&&q.x1>left);
+  const priorBottom=blockers.length?Math.max(...blockers.map(q=>q.y1+(label.heightPolicy?Math.max(2,(q.y1-q.y0)*.2):2))):0;
   const top=Math.min(rect.y0,Math.max(desiredTop,priorBottom));
   const tallRect={...rect,y0:top};
   const textHeight=Math.max(1,font*rows.length);
@@ -96,9 +96,10 @@ export function allocateLabels(result,width,height,measure,{minScale=.70,compact
   const ink=regionLabel&&measure.ink?rows.map(row=>measure.ink(row,font)):null;
   const ascent=ink?Math.max(...ink.map(m=>m.ascent)):font*.8,descent=ink?Math.max(...ink.map(m=>m.descent)):font*.2;
   const inkHeight=ascent+descent+font*(rows.length-1);
-  const verticalScale=regionLabel?Math.min(2.2,Math.max(.5,(tallRect.y1-tallRect.y0)*.88/Math.max(1,inkHeight))):Math.min(1.55,Math.max(1,(tallRect.y1-tallRect.y0-2)/textHeight));
+  const verticalScale=regionLabel?Math.min(label.heightPolicy?Infinity:2.2,Math.max(.5,(tallRect.y1-tallRect.y0)*.88/Math.max(1,inkHeight))):Math.min(1.55,Math.max(1,(tallRect.y1-tallRect.y0-2)/textHeight));
   if(occupied.some(q=>overlap(q,tallRect))){omitted.push({...label,reason:'extended-label-collision'});return;}
-  occupied.push(tallRect);drawn.push({...label,displayBox:tallRect,horizontalScale:scale,verticalScale,fontSize:font,rows,...(regionLabel?{textBaseline:'alphabetic',textOffsetY:(ascent-descent)/2}:{})});
+  const coveredRubyLineIds=label.heightPolicy?(label.rubyLineIds||[]).filter(id=>{const q=result.lines.find(l=>l.id===id)?.box;return q&&q.y0>=top&&q.y1<=body.y1;}):undefined;
+  occupied.push(tallRect);drawn.push({...label,...(coveredRubyLineIds?{coveredRubyLineIds,coversRuby:coveredRubyLineIds.length>0}:{}),displayBox:tallRect,horizontalScale:scale,verticalScale,fontSize:font,rows,...(regionLabel?{textBaseline:'alphabetic',textOffsetY:(ascent-descent)/2}:{})});
  }
  return{drawn,omitted};
 }

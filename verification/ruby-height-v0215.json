@@ -1,0 +1,341 @@
+{
+  "version": "0.2.15",
+  "canonicalRawRegions": 66,
+  "canonicalClassifiedRegions": 63,
+  "supplemental": 3,
+  "rubyHeightPolicy": {
+    "upperRatio": 0.9,
+    "source": "observed-ruby",
+    "sampleCount": 7,
+    "associations": [
+      {
+        "lineId": 1,
+        "rubyLineId": 0,
+        "rubyBox": {
+          "x0": 49,
+          "y0": 342,
+          "x1": 154,
+          "y1": 364
+        }
+      },
+      {
+        "lineId": 30,
+        "rubyLineId": 27,
+        "rubyBox": {
+          "x0": 708,
+          "y0": 1254,
+          "x1": 805,
+          "y1": 1275
+        }
+      },
+      {
+        "lineId": 30,
+        "rubyLineId": 28,
+        "rubyBox": {
+          "x0": 892,
+          "y0": 1258,
+          "x1": 913,
+          "y1": 1272
+        }
+      },
+      {
+        "lineId": 41,
+        "rubyLineId": 39,
+        "rubyBox": {
+          "x0": 430,
+          "y0": 1635,
+          "x1": 529,
+          "y1": 1658
+        }
+      },
+      {
+        "lineId": 46,
+        "rubyLineId": 45,
+        "rubyBox": {
+          "x0": 451,
+          "y0": 1714,
+          "x1": 546,
+          "y1": 1734
+        }
+      },
+      {
+        "lineId": 48,
+        "rubyLineId": 47,
+        "rubyBox": {
+          "x0": 466,
+          "y0": 1790,
+          "x1": 513,
+          "y1": 1814
+        }
+      },
+      {
+        "lineId": 55,
+        "rubyLineId": 54,
+        "rubyBox": {
+          "x0": 192,
+          "y0": 2013,
+          "x1": 307,
+          "y1": 2042
+        }
+      },
+      {
+        "lineId": 59,
+        "rubyLineId": 57,
+        "rubyBox": {
+          "x0": 217,
+          "y0": 2092,
+          "x1": 251,
+          "y1": 2113
+        }
+      }
+    ]
+  },
+  "rubyLabels": [
+    {
+      "source": "練習A",
+      "bodyBox": {
+        "x0": 51,
+        "y0": 371,
+        "x1": 195,
+        "y1": 409
+      },
+      "rubyBox": {
+        "x0": 49,
+        "y0": 342,
+        "x1": 154,
+        "y1": 364
+      },
+      "rubyLineIds": [
+        0
+      ],
+      "coveredRubyLineIds": [
+        0
+      ],
+      "heightPolicy": {
+        "upperRatio": 0.9,
+        "requestedTop": 333,
+        "source": "observed-ruby"
+      },
+      "displayBox": {
+        "x0": 28.36724853515625,
+        "x1": 217.63275146484375,
+        "y0": 333,
+        "y1": 409
+      },
+      "verticalScale": 2.7866666666666666
+    },
+    {
+      "source": "紅茶を買いました",
+      "bodyBox": {
+        "x0": 709,
+        "y0": 1280,
+        "x1": 1093,
+        "y1": 1309
+      },
+      "rubyBox": {
+        "x0": 708,
+        "y0": 1254,
+        "x1": 913,
+        "y1": 1275
+      },
+      "rubyLineIds": [
+        27,
+        28
+      ],
+      "coveredRubyLineIds": [
+        27,
+        28
+      ],
+      "heightPolicy": {
+        "upperRatio": 0.9,
+        "requestedTop": 1251,
+        "source": "observed-ruby"
+      },
+      "displayBox": {
+        "x0": 756.3660125732422,
+        "x1": 1045.6339874267578,
+        "y0": 1251,
+        "y1": 1309
+      },
+      "verticalScale": 2.686315789473684
+    },
+    {
+      "source": "京都へ",
+      "bodyBox": {
+        "x0": 447,
+        "y0": 1662,
+        "x1": 573,
+        "y1": 1692
+      },
+      "rubyBox": {
+        "x0": 430,
+        "y0": 1635,
+        "x1": 529,
+        "y1": 1658
+      },
+      "rubyLineIds": [
+        39
+      ],
+      "coveredRubyLineIds": [
+        39
+      ],
+      "heightPolicy": {
+        "upperRatio": 0.9,
+        "requestedTop": 1632,
+        "source": "observed-ruby"
+      },
+      "displayBox": {
+        "x0": 445.7503662109375,
+        "x1": 574.2496337890625,
+        "y0": 1632,
+        "y1": 1692
+      },
+      "verticalScale": 2.1999999999999997
+    },
+    {
+      "source": "お花見を",
+      "bodyBox": {
+        "x0": 432,
+        "y0": 1742,
+        "x1": 585,
+        "y1": 1769
+      },
+      "rubyBox": {
+        "x0": 451,
+        "y0": 1714,
+        "x1": 546,
+        "y1": 1734
+      },
+      "rubyLineIds": [
+        45
+      ],
+      "coveredRubyLineIds": [
+        45
+      ],
+      "heightPolicy": {
+        "upperRatio": 0.9,
+        "requestedTop": 1711.3,
+        "source": "observed-ruby"
+      },
+      "displayBox": {
+        "x0": 439.0594940185547,
+        "x1": 577.9405059814453,
+        "y0": 1711.3,
+        "y1": 1769
+      },
+      "verticalScale": 2.820888888888891
+    },
+    {
+      "source": "お茶を",
+      "bodyBox": {
+        "x0": 431,
+        "y0": 1819,
+        "x1": 548,
+        "y1": 1849
+      },
+      "rubyBox": {
+        "x0": 466,
+        "y0": 1790,
+        "x1": 513,
+        "y1": 1814
+      },
+      "rubyLineIds": [
+        47
+      ],
+      "coveredRubyLineIds": [
+        47
+      ],
+      "heightPolicy": {
+        "upperRatio": 0.9,
+        "requestedTop": 1787,
+        "source": "observed-ruby"
+      },
+      "displayBox": {
+        "x0": 440.3038330078125,
+        "x1": 538.6961669921875,
+        "y0": 1787,
+        "y1": 1849
+      },
+      "verticalScale": 2.871578947368421
+    },
+    {
+      "source": "食堂へ",
+      "bodyBox": {
+        "x0": 202,
+        "y0": 2041,
+        "x1": 339,
+        "y1": 2076
+      },
+      "rubyBox": {
+        "x0": 192,
+        "y0": 2013,
+        "x1": 307,
+        "y1": 2042
+      },
+      "rubyLineIds": [
+        54
+      ],
+      "coveredRubyLineIds": [
+        54
+      ],
+      "heightPolicy": {
+        "upperRatio": 0.9,
+        "requestedTop": 2006,
+        "source": "observed-ruby"
+      },
+      "displayBox": {
+        "x0": 172.0013427734375,
+        "x1": 368.9986572265625,
+        "y0": 2006,
+        "y1": 2076
+      },
+      "verticalScale": 2.6782608695652175
+    },
+    {
+      "source": "3時に",
+      "bodyBox": {
+        "x0": 185,
+        "y0": 2122,
+        "x1": 289,
+        "y1": 2154
+      },
+      "rubyBox": {
+        "x0": 217,
+        "y0": 2092,
+        "x1": 251,
+        "y1": 2113
+      },
+      "rubyLineIds": [
+        57
+      ],
+      "coveredRubyLineIds": [
+        57
+      ],
+      "heightPolicy": {
+        "upperRatio": 0.9,
+        "requestedTop": 2088.8,
+        "source": "observed-ruby"
+      },
+      "displayBox": {
+        "x0": 197.15255737304688,
+        "x1": 276.8474426269531,
+        "y0": 2088.8,
+        "y1": 2154
+      },
+      "verticalScale": 2.2067692307692246
+    }
+  ],
+  "labels": 44,
+  "omitted": 0,
+  "maskAudit": {
+    "sourceInk": 28330,
+    "residualInk": 0,
+    "preservedChanges": 0,
+    "rubyMaskErrors": 0,
+    "undetectedRubyInk": 53,
+    "undetectedRubyRemaining": 0,
+    "coveredRuby": 8,
+    "rubyRatio": 0.9,
+    "fontSize": 20.4
+  }
+}

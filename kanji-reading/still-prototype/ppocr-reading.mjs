@@ -1,3 +1,4 @@
+import {applyRubyHeightPolicy} from './ruby-height.mjs';
 // Reading/display bridge only. Never invent character boxes or alter OCR output.
 import {displayTokens} from './display-tokens.mjs';
 import {isHan,isTarget,reviewReason,splitOkurigana} from '../lab/src/policy.mjs';
@@ -20,6 +21,15 @@ export function groupPPOCRTokens(tokens){
   }else result.push(token);
  }
  return result;
+}
+export function regionReadingParts(surface,reading){
+ const direct=splitOkurigana(surface,reading);if(direct)return direct;
+ const m=surface.match(/^([ぁ-ゖァ-ヺー]+)([\p{Script=Han}々〆]+)([ぁ-ゖァ-ヺー]*)$/u),h=reading&&kana(reading);
+ if(!m||!h)return null;
+ const prefix=kana(m[1]),suffix=kana(m[3]);
+ if(!h.startsWith(prefix)||!h.endsWith(suffix)||h.length<=prefix.length+suffix.length)return null;
+ const start=m[1].length,end=start+m[2].length;
+ return [{surface:m[1],reading:prefix,start:0,end:start},{surface:m[2],reading:h.slice(prefix.length,suffix.length?-suffix.length:undefined),start,end},...(m[3]?[{surface:m[3],reading:suffix,start:end,end:surface.length}]:[])];
 }
 export async function analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRuby}){
  // Display-only stitching: overlapping tiles may retain a shared text suffix.
@@ -58,7 +68,7 @@ export async function analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRub
    const checked=await verifyRuby(candidate),reading=typeof checked==='string'?checked:checked?.reading;
    if(reading&&kana(reading)===kana(ruby.text)){const pair={...candidate,verified:true,verification:checked?.method||'independent-reread'};pairs.push(pair);attached.push(ruby);}
   }
-  const tokens=groupPPOCRTokens(displayTokens(line.text,raw,mode,[])),pieces=[];let offset=0,changed=false;
+  const tokens=groupPPOCRTokens(displayTokens(line.text,raw,mode,[])),pieces=[];let offset=0,changed=false,convertedHan=false;
   for(const token of tokens){
    if(token.start>offset)pieces.push(line.text.slice(offset,token.start));
    offset=token.end;
@@ -71,19 +81,19 @@ export async function analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRub
    if(allTarget){
     const literalKana=/^[ぁ-ゖァ-ヺー]+$/u.test(token.surface)&&!['は','へ','を'].includes(token.surface)&&token.reading!==token.surface;
     const output=verified?rubyKanjiRomaji(verified.reading,style):literalKana?romaji(token.surface,style):candidateRomanization(token,style);
-    pieces.push(output||token.surface);changed ||= Boolean(output);continue;
+    pieces.push(output||token.surface);changed ||= Boolean(output);convertedHan ||= Boolean(output)&&isHan(token.surface);continue;
    }
-   const parts=token.numericValidated?token.numericParts:isHan(token.surface)?splitOkurigana(token.surface,token.reading):null;
+   const parts=token.numericValidated?token.numericParts:isHan(token.surface)?regionReadingParts(token.surface,token.reading):null;
    if(!parts?.length){pieces.push(token.surface);continue;}
    let position=0,partOutput='';
-   for(const part of parts){partOutput+=token.surface.slice(position,part.start);const target=[...part.surface].every(c=>isTarget(c,mode));const output=target?(isHan(part.surface)?rubyKanjiRomaji(part.reading,style):romaji(part.reading,style)):null;partOutput+=output||part.surface;changed ||= Boolean(output);position=part.end;}
+   for(const part of parts){partOutput+=token.surface.slice(position,part.start);const target=[...part.surface].every(c=>isTarget(c,mode));const output=target?(isHan(part.surface)?rubyKanjiRomaji(part.reading,style):romaji(part.reading,style)):null;partOutput+=output||part.surface;changed ||= Boolean(output);convertedHan ||= Boolean(output)&&isHan(part.surface);position=part.end;}
    pieces.push(partOutput+token.surface.slice(position));
   }
   if(offset<line.text.length)pieces.push(line.text.slice(offset));
   if(!changed)continue;
   // One label replaces exactly one measured region. Unconverted characters are
   // carried into that label, so a partial mode never erases unlabelled text.
-  labels.push({source:line.text,reading:raw.map(t=>t.reading||t.surface).join(''),output:pieces.join(' '),box:line.box,bodyBox:line.box,rubyBox:null,lineId:line.id,coversRuby:false,geometry:'detected-region',readingSource:'dictionary-region'});
+  labels.push({source:line.text,reading:raw.map(t=>t.reading||t.surface).join(''),output:pieces.join(' '),box:line.box,bodyBox:line.box,rubyBox:null,lineId:line.id,coversRuby:false,geometry:'detected-region',readingSource:'dictionary-region',convertedHan});
  }
- return {mode,style,lines,pairs,labels,withheld,analysis,nonReading:[],rawRegions:snapshot.rawRegions,classifiedRegions:snapshot.classifiedRegions,regionDiagnostics:{geometry:'detected-regions',duplicates:0,joinedFragments:0,conflictingRegions:0}};
+ return applyRubyHeightPolicy({mode,style,lines,pairs,labels,withheld,analysis,nonReading:[],rawRegions:snapshot.rawRegions,classifiedRegions:snapshot.classifiedRegions,regionDiagnostics:{geometry:'detected-regions',duplicates:0,joinedFragments:0,conflictingRegions:0}});
 }
