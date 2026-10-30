@@ -62,6 +62,9 @@ export async function verifyPPOCRRuby(source,candidate,recognize){
  if(!valid(box))return {reading:null,method:'invalid-ruby-geometry'};
  const first=await recognize(source,box,0),second=await recognize(source,box,.12);
  const kana=s=>String(s||'').normalize('NFC').replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96));
- const accepted=[first,second].every(r=>Number.isFinite(r.minimumProbability)&&r.minimumProbability>=.85&&kana(r.text)===kana(candidate.reading));
- return {reading:accepted?candidate.reading:null,method:'two-pp-ruby-crops',first,second,accepted};
+ const checks=[first,second],extra=[];
+ const agrees=r=>kana(r.text)===kana(candidate.reading),confident=r=>Number.isFinite(r.minimumProbability)&&r.minimumProbability>=.85;
+ if(checks.every(agrees)&&checks.filter(confident).length===1){const retry=await recognize(source,box,.06);checks.push(retry);extra.push({padding:.06,...retry});}
+ const accepted=checks.every(agrees)&&checks.filter(confident).length>=2;
+ return {reading:accepted?candidate.reading:null,method:'two-confident-pp-ruby-crops',first,second,...(extra.length?{extra}:{}),accepted};
 }

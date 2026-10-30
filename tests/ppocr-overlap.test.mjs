@@ -23,3 +23,10 @@ test('independent ruby confirmation requires both confident PP readings and vali
  const failed=await verifyPPOCRRuby({},c,async()=>({text:'にぽん',minimumProbability:.99}));assert.equal(failed.reading,null);
  const low=await verifyPPOCRRuby({},c,async()=>({text:'にほん',minimumProbability:.84}));assert.equal(low.reading,null);
 });
+
+test('one low but agreeing ruby crop gets one bounded retry, never a contrary vote',async()=>{
+ const c={reading:'やまだともこ',rubyBox:{x0:1,y0:2,x1:100,y1:25}};
+ for(const [third,expected] of [[{text:c.reading,minimumProbability:.99},true],[{text:c.reading,minimumProbability:.84},false],[{text:'やまだゆうこ',minimumProbability:.99},false]]){
+  const calls=[],r=await verifyPPOCRRuby({},c,async(s,b,p)=>{calls.push(p);return calls.length===1?{text:c.reading,minimumProbability:.83}:calls.length===2?{text:c.reading,minimumProbability:.99}:third;});assert.deepEqual(calls,[0,.12,.06]);assert.equal(r.accepted,expected);
+ }
+});

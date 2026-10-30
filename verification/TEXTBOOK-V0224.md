@@ -26,7 +26,9 @@ rather than the measured 50-pixel body, explaining its small label.
   Preserve actual dictionary pronunciation metadata when the selected reading
   agrees, and retain ordinary verb-chain grouping.
 - For a uniquely associated Han span whose ruby differs from the dictionary,
-  require two PP ruby crops at the existing .85 minimum. Identical body AND
+  require two confident PP ruby crops at the existing .85 minimum. If both
+  agree in text but only one is confident, one intermediate crop may retry;
+  contrary text cannot be outvoted. Identical body AND
   annotation readings can reuse a verified same-document association; homographs
   with different ruby cannot borrow it. Unverified proper names remain withheld.
 - Keep parent spelling aliases when verified geometry repairs the OCR text.

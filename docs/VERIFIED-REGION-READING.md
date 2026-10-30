@@ -8,7 +8,8 @@ are unchanged.
 A verified ruby span overrides analyzer boundaries as a unit. Dictionary
 pronunciation metadata is retained only when it matches that reading. A ruby
 that differs from the dictionary needs two matching PP crop reads at the existing
-.85 gate. A repeated identical body/annotation pair can reuse a verified pair
+.85 gate. Two text agreements with only one confident crop permit one bounded
+intermediate-margin retry; any contrary text rejects the reading. A repeated identical body/annotation pair can reuse a verified pair
 within the current document result; another annotation on the same spelling
 cannot inherit it. No per-character PP coordinates are invented.
 
