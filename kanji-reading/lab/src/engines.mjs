@@ -1,4 +1,4 @@
-import {kuromojiTokens,separatedSudachiTokens,cachedAnalyzer} from './adapters.mjs';
+import {kuromojiTokens,separatedSudachiTokens,cachedAnalyzer} from './adapters.mjs?v=0.2.22';
 export async function loadEngine(engine,{node=false}={}){
  const t=performance.now();let analyze,dispose=()=>{},wasmMemory=null;
  if(engine==='kuromoji'){
