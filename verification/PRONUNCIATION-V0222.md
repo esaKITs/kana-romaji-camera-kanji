@@ -35,7 +35,8 @@ OCR mistakes remain separately visible in its saved raw/effective evidence.
 PP's raw fixture still includes misrecognitions; the existing measured-crop
 verification recovers the target words. No OCR inference change is claimed.
 
-Local Chromium passed both OCR engines and both styles. On this executor the
+Local Chromium passed both OCR engines and both styles. The same 17-target
+real-image test also runs through Linux and native macOS WebKit in CI. On this executor the
 full suite has a missing generated Sudachi research module; GitHub Actions
 builds the pinned research assets and must pass the unchanged full suite before
 publication. The old standalone kana controller harness is not checked out;
