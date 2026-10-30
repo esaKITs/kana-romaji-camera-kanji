@@ -36,3 +36,6 @@ test('counter additions keep names, lexical words, unsupported numbers and sourc
 test('counter contraction preserves voicing inside compound hundreds',()=>{
  for(const [text,reading] of [['三百本','サンビャッポン'],['600匹','ロッピャッピキ'],['８００杯','ハッピャッパイ'],['300分','サンビャップン']])assert.equal(applyNumericReadings(text,engine.analyze(text)).tokens[0].reading,reading,text);
 });
+test('件 stays unvoiced after 三/千 while 軒 voices',()=>{
+ for(const [text,reading] of [['三件','サンケン'],['13件','ジュウサンケン'],['１０００件','センケン'],['三軒','サンゲン'],['1000軒','センゲン']])assert.equal(applyNumericReadings(text,engine.analyze(text)).tokens[0].reading,reading,text);
+});

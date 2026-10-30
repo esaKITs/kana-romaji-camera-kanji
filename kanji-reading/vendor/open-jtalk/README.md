@@ -19,6 +19,13 @@ Native 一/二 selection precedes Sino-Japanese phonology: 一箱 becomes
 of byte-identical C execution. The full speech engine, NAIST dictionary,
 MeCab and voice assets are **not** bundled by this addition.
 
+The adapter also keeps 件 unvoiced (三件＝サンケン、千件＝センケン),
+unlike 軒. The archived Open JTalk class2e lists both together; its original
+data remains unchanged. Reading references:
+https://tcj-education.com/ja/blog/むずかしい日本語の数と数え方/
+and https://accent.u-biq.org/counter1.html . The internal voicing of
+三百/六百/八百 survives subsequent counter contractions as well.
+
 The existing app retains calendar context, age/person exceptions, token and
 name guards, source offsets, validated whole-span placement and ruby priority.
 The supported integer scope remains 1–9999; decimals, signs, ranges, ambiguous

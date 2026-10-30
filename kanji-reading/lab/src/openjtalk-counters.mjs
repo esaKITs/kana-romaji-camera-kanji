@@ -28,6 +28,8 @@ export function openJTalkCounter(n,unit,kana){
   numberReading=numberReading.replace(suffix,match=>terminal==='百'?match.slice(0,2)+replacement.slice(2):replacement);
  }
  const c2=classes2.find(c=>c.units.has(unit)),type=c2?.map[terminal],changes=type==='1'?voiced:type==='2'?semivoiced:null;
- if(changes?.[counterReading[0]])counterReading=changes[counterReading[0]]+counterReading.slice(1);
+ // 件 does not voice after 三/千 (unlike 軒). Keep this explicit adapter
+ // correction outside the unchanged upstream class2e table.
+ if(unit!=='件'&&changes?.[counterReading[0]])counterReading=changes[counterReading[0]]+counterReading.slice(1);
  return {reading:numberReading+counterReading,numberReading,counterReading,kind:'openjtalk-counter',segmentable:true,readingSource:'openjtalk-1.11'};
 }
