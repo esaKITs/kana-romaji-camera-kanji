@@ -11,7 +11,7 @@ test('geometry recovery uses unique independently measured regions and retains c
  const snapshot=snapshotFromPPOCR(out);assert.equal(snapshot.lines[0].provenance,'measured-crop-pp-verified');assert.deepEqual(snapshot.lines[0].canonicalRegion,out.extendedRegions[0].canonicalRegion);
 });
 test('reference text alone, a single successful crop, or low model scores cannot overwrite PP',async()=>{
- for(const readings of [[['違う',.99],['違う',.99]],[[measured.text,.99],['違う',.99]],[[measured.text,.84],[measured.text,.99]]]){
+ for(const readings of [[['違う',.99],['違う',.99]],[[measured.text,.99],['違う',.99]],[[measured.text,.84],[measured.text,.99],[measured.text,.84]]]){
   let i=0;const input=run(),out=await verifyClippedRegions({},input,reference(),async()=>{const [text,minimumProbability]=readings[i++];return{text,minimumProbability};});assert.equal(out.geometryVerification.accepted,0);assert.deepEqual(out.extendedRegions,input.extendedRegions);
  }
 });
@@ -22,4 +22,25 @@ test('unclipped geometry, ambiguous reference regions and ruby intersections are
  assert.equal(clippedRegionCandidates([primary,{text:'さん',type:'ルビ候補',box:[20,35,50,45]}],reference()).length,0);
  assert.equal(clippedRegionCandidates([primary,{...primary,box:[13,56,111,74]}],reference()).length,0);
  assert.equal(clippedRegionCandidates([{...primary,type:'ルビ候補'}],reference()).length,0);
+});
+
+test('iPhone report: matching text with one low crop retries without lowering .85',async()=>{
+ const original={text:'士日間みます。',box:[85,293,501,317],type:'本文候補'};
+ const line={text:'二十日間休みます。',box:[71,281,515,328],glyphs:[{text:'二',box:[71,281,124,328]}]};
+ const input={rawRegions:[structuredClone(original)],classifiedRegions:[structuredClone(original)]},before=structuredClone(input),margins=[];
+ const scores=[.9914557337760925,.5346751809120178,.98];
+ const out=await verifyClippedRegions({},input,{lines:[line]},async(source,box,padding)=>{margins.push(padding);assert.deepEqual(box,line.box);return{text:line.text,minimumProbability:scores[margins.length-1]};});
+ assert.deepEqual(input,before);assert.deepEqual(out.rawRegions,before.rawRegions);assert.deepEqual(margins,[0,.12,.06]);
+ assert.equal(out.geometryVerification.accepted,1);assert.equal(out.extendedRegions[0].text,line.text);assert.deepEqual(out.extendedRegions[0].box,line.box);
+ const d=out.geometryVerification.decisions[0];assert.equal(d.second.minimumProbability,.5346751809120178);assert.equal(d.extra[0].padding,.06);assert.equal(d.reason,'reference-and-two-confident-pp-crops-agree-after-retry');
+});
+test('retry cannot outvote a contrary PP text, two low initial crops, or a low/invalid retry',async()=>{
+ const cases=[
+  [[measured.text,.99],['違う',.99]],
+  [[measured.text,.84],[measured.text,.83]],
+  [[measured.text,.99],[measured.text,.53],['違う',.99]],
+  [[measured.text,.99],[measured.text,.53],[measured.text,.84]],
+  [[measured.text,.99],[measured.text,.53],[measured.text,NaN]],
+ ];
+ for(const readings of cases){let i=0;const input=run(),out=await verifyClippedRegions({},input,reference(),async()=>{assert.ok(i<readings.length,'bounded retry');const [text,minimumProbability]=readings[i++];return{text,minimumProbability};});assert.equal(i,readings.length);assert.equal(out.geometryVerification.accepted,0);assert.deepEqual(out.extendedRegions,input.extendedRegions);}
 });
