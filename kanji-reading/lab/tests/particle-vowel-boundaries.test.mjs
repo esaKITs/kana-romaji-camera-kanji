@@ -16,13 +16,14 @@ test('actual dictionary tokens keep particle boundaries in PP region labels in b
 });
 test('grouped particles cannot merge neighboring vowels, including before e/o and after ga/wa',()=>{
  for(const members of [
+  [{surface:'岩手',reading:'イワテ',pos:['名詞','固有名詞']},{surface:'へ',reading:'ヘ',pos:['助詞']}],
   [{surface:'絵',reading:'エ',pos:['名詞']},{surface:'へ',reading:'ヘ',pos:['助詞']}],
   [{surface:'井戸',reading:'イド',pos:['名詞']},{surface:'を',reading:'ヲ',pos:['助詞']}],
   [{surface:'が',reading:'ガ',pos:['助詞']},{surface:'ある',reading:'アル',pos:['動詞']}],
   [{surface:'は',reading:'ハ',pos:['助詞']},{surface:'ある',reading:'アル',pos:['動詞']}],
  ]){
   const token={surface:members.map(t=>t.surface).join(''),reading:members.map(t=>t.reading).join(''),members};
-  for(const style of ['double','macron'])assert.equal(candidateRomanization(token,style),members.map(t=>candidateRomanization(t,style)).join(''));
+  for(const style of ['double','macron'])assert.equal(candidateRomanization(token,style),members.map(t=>candidateRomanization(t,style)).join(' '));
  }
 });
 
