@@ -35,6 +35,11 @@ try{for(const engine of ['meiki','ppocr']){
  const diagnostics=await page.evaluate(async()=>{const r=window.stillLab.lastRun,out=[];for(const a of r.result.analysis.filter(a=>/[0-9０-９二十]+歳|[123３]本|[3３]時/.test(a.text)))out.push({ocr:a.text,...await window.stillLab.diagnoseReading(a.text)});return out;});
  assert.ok(diagnostics.some(d=>d.numericDecisions?.some(n=>n.surface.normalize('NFKC')==='20歳'&&n.reading==='ハタチ'&&n.status==='resolved')));
  assert.ok(diagnostics.every(d=>Array.isArray(d.rawTokens)));await writeFile('test-results/numeric-counters/'+engine+'-diagnosis.json',JSON.stringify(diagnostics,null,2));
+ const variants=JSON.parse(await readFile('tests/fixtures/counter-readings.json')),counterDiagnostics=[];
+ for(const [n,kanji,unit,reading] of variants)for(const number of [kanji,String(n),String(n).replace(/[0-9]/g,c=>String.fromCharCode(c.charCodeAt(0)+0xfee0))]){
+  const text=number+unit,d=await page.evaluate(text=>window.stillLab.diagnoseReading(text),text);assert.equal(d.tokens.length,1,text);assert.equal(d.tokens[0].reading,reading,text);assert.equal(d.tokens[0].numericValidated,true,text);counterDiagnostics.push({text,...d});
+ }
+ await writeFile('test-results/numeric-counters/'+engine+'-90-counter-readings.json',JSON.stringify(counterDiagnostics,null,2));
  await page.screenshot({path:'test-results/numeric-counters/'+engine+'.png'});console.log(JSON.stringify({engine,passed:true,raw:first.snapshot.lines.length,labels:first.rendering.drawn.length,omitted:first.rendering.omitted.length,readingDisplayPassed:true,canonicalParity:baseline?true:null,coverage:JSON.parse(await readFile('test-results/numeric-counters/'+engine+'-あア漢-coverage.json','utf8'))}));
  await context.close();
 }}finally{await browser.close();server.close();}

@@ -10,7 +10,7 @@ const usePPOCR=new URLSearchParams(location.search).get('ocr')==='ppocr';
 let ocr=null,readingWorker=null,requestId=0;const waiting=new Map();
 function rpc(data){return new Promise((resolve,reject)=>{const id=++requestId;const timer=setTimeout(()=>{waiting.delete(id);reject(Error('Reading timeout'));},60000);waiting.set(id,{resolve,reject,timer});readingWorker.postMessage({id,...data});});}
 export async function initialize(engine='sudachi-small'){
- const t=performance.now();readingWorker?.terminate();readingWorker=new Worker(assetUrl('lab/worker-v2.js'));
+ const t=performance.now();readingWorker?.terminate();readingWorker=new Worker(assetUrl('lab/worker-v2.js?v=0.2.19'));
  readingWorker.onmessage=({data})=>{const p=waiting.get(data.id);if(!p)return;clearTimeout(p.timer);waiting.delete(data.id);data.error?p.reject(Error(data.error)):p.resolve(data);};
  const reading=await rpc({command:'init',engine});
  if(usePPOCR)await initializePPOCR();else await initializeMeiki();
