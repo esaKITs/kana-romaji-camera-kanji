@@ -50,5 +50,9 @@ conversion domains even if a caller has supplied a grouped token. Correct は/�
 pronunciations remain wa/e/o. Existing te/de + iru behavior is retained.
 Tests use the actual Kuromoji dictionary, both display styles and measured PP
 region labels: 学校へ `gakkoo e` / `gakkō e`, 本を `hon o`, 絵へ `e e`,
-井戸を `ido o`, 水がある `mizu ga aru`, 水はある `mizu wa aru`.
+井戸を `ido o`, いわてへ `iwate e`, 水がある `mizu ga aru`, 水はある `mizu wa aru`.
 This is boundary protection, not the full new long-vowel specification.
+
+The actual dictionary pronunciation of 岩手へ also stays `iwate e` in both
+styles. Existing proper-name withholding in the camera is a separate policy,
+not changed by this patch; kana いわてへ is checked through the full PP label path.
