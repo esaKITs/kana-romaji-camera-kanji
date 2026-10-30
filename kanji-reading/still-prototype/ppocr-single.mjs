@@ -46,9 +46,9 @@ export async function recognizeRegion(source,box,padding){
  if(ch>cw){const t=document.createElement('canvas');t.width=ch;t.height=cw;t.getContext('2d').translate(0,cw);t.getContext('2d').rotate(-Math.PI/2);t.getContext('2d').drawImage(crop,0,0);crop=t}
  const targetW=Math.max(16,Math.min(640,Math.round(48*crop.width/crop.height)));
  const out=await runModel(rec,tensor(resized(crop,targetW,48),'rec'));
- const dims=out.dims,steps=dims[dims.length-2],classes=dims[dims.length-1],v=out.data;let text='',last=0;const probabilities=[];
- for(let t=0;t<steps;t++){let best=0,bv=-Infinity;for(let j=0;j<classes;j++){const q=v[t*classes+j];if(q>bv){bv=q;best=j}}if(best&&best!==last){text+=vocab[best]||'';probabilities.push(bv)}last=best}
- return {text,minimumProbability:probabilities.length?Math.min(...probabilities):0};
+ const dims=out.dims,steps=dims[dims.length-2],classes=dims[dims.length-1],v=out.data;let text='',last=0;const probabilities=[],characters=[];
+ for(let t=0;t<steps;t++){let best=0,bv=-Infinity;for(let j=0;j<classes;j++){const q=v[t*classes+j];if(q>bv){bv=q;best=j}}if(best&&best!==last){const character=vocab[best]||'';text+=character;probabilities.push(bv);characters.push({text:character,probability:bv})}last=best}
+ return {text,minimumProbability:probabilities.length?Math.min(...probabilities):0,characters};
 }
 export async function recoverSingleCharacters(source,canonicalRegions){
  const started=performance.now(),local=await detectLocalCharacters(source,canonicalRegions),detectedBoxes=local.boxes,boxes=uncoveredSingleBoxes(detectedBoxes,canonicalRegions),accepted=[],decisions=[];

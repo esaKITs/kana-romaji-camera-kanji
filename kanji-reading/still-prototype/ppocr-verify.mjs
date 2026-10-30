@@ -25,8 +25,18 @@ export async function verifyClippedRegions(source,canonical,reference,recognize)
  const regions=canonical.extendedRegions||canonical.classifiedRegions,candidates=clippedRegionCandidates(regions,reference),decisions=[],accepted=new Map();
  for(const candidate of candidates){
   const first=await recognize(source,candidate.box,0),second=await recognize(source,candidate.box,.12),text=candidate.reference.text;
-  const accept=Boolean(text.trim())&&normalized(first.text)===normalized(text)&&normalized(second.text)===normalized(text)&&Math.min(first.minimumProbability,second.minimumProbability)>=.85;
-  decisions.push({...candidate,first,second,accepted:accept,reason:accept?'reference-and-two-pp-crops-agree':'recognizers-disagree-or-score-low'});
+  const agrees=result=>Boolean(text.trim())&&normalized(result.text)===normalized(text);
+  const confident=result=>Number.isFinite(result.minimumProbability)&&result.minimumProbability>=.85;
+  const checks=[first,second],extra=[];
+  // iPhone evidence: both texts agree with Meiki, but the .12 crop alone
+  // scores .534675. Keep .85 and require two confident PP crops. Retry once
+  // with an intermediate margin only when there is no textual disagreement
+  // and exactly one original crop is confident. Never retry a contrary read.
+  if(checks.every(agrees)&&checks.filter(confident).length===1){
+   const result=await recognize(source,candidate.box,.06);checks.push(result);extra.push({padding:.06,...result});
+  }
+  const accept=checks.every(agrees)&&checks.filter(confident).length>=2;
+  decisions.push({...candidate,first,second,...(extra.length?{extra}:{}),accepted:accept,reason:accept?(extra.length?'reference-and-two-confident-pp-crops-agree-after-retry':'reference-and-two-pp-crops-agree'):'recognizers-disagree-or-score-low'});
   if(accept)accepted.set(candidate.index,{...regions[candidate.index],text:first.text,box:[...candidate.box],provenance:'measured-crop-pp-verified',canonicalRegion:candidate.original});
  }
  return {...canonical,extendedRegions:regions.map((r,i)=>accepted.get(i)||r),geometryVerification:{candidates:candidates.length,accepted:accepted.size,decisions,referenceSnapshot:reference}};
