@@ -44,3 +44,17 @@ test('retry cannot outvote a contrary PP text, two low initial crops, or a low/i
  ];
  for(const readings of cases){let i=0;const input=run(),out=await verifyClippedRegions({},input,reference(),async()=>{assert.ok(i<readings.length,'bounded retry');const [text,minimumProbability]=readings[i++];return{text,minimumProbability};});assert.equal(i,readings.length);assert.equal(out.geometryVerification.accepted,0);assert.deepEqual(out.extendedRegions,input.extendedRegions);}
 });
+test('PDF page: one internal reference glyph cannot veto three confident identical PP crops',async()=>{
+ const original={text:'水か士ー杯めります',box:[82,581,557,605],type:'本文候補'},reference={lines:[{text:'水が一三杯あります。',box:[71,567,570,617],glyphs:[{text:'水',box:[71,567,123,617]}]}]},input={rawRegions:[original],classifiedRegions:[original]},before=structuredClone(input),calls=[];
+ const out=await verifyClippedRegions({},input,reference,async(s,b,p)=>{calls.push(p);return {text:'水が十三杯あります。',minimumProbability:.99};});
+ assert.deepEqual(calls,[0,.12,.06]);assert.equal(out.geometryVerification.accepted,1);assert.equal(out.extendedRegions[0].text,'水が十三杯あります。');assert.equal(out.geometryVerification.decisions[0].reason,'three-pp-crops-one-reference-glyph-disagrees');assert.deepEqual(input,before);assert.deepEqual(out.rawRegions,before.rawRegions);
+});
+test('reference disagreement never permits a contrary/low third crop or unanchored replacement',async()=>{
+ for(const third of [{text:'水が十三枚あります。',minimumProbability:.99},{text:'水が十三杯あります。',minimumProbability:.84}]){
+  const input={classifiedRegions:[{text:'水か士ー杯めります',box:[82,581,557,605],type:'本文候補'}]},ref={lines:[{text:'水が一三杯あります。',box:[71,567,570,617],glyphs:[{}]}]};let n=0;
+  const out=await verifyClippedRegions({},input,ref,async()=>++n<3?{text:'水が十三杯あります。',minimumProbability:.99}:third);assert.equal(n,3);assert.equal(out.geometryVerification.accepted,0);
+ }
+ for(const text of ['違う文章です。','一本のペン','二十日間休みます。']){
+  let n=0;const out=await verifyClippedRegions({},run(),reference(),async()=>{n++;return {text,minimumProbability:.99};});assert.equal(n,2);assert.equal(out.geometryVerification.accepted,0);
+ }
+});
