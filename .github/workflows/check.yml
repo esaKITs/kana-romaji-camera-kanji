@@ -9,6 +9,30 @@ concurrency:
   group: camera-check-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  webkit:
+    if: github.repository == 'esaKITs/kana-romaji-camera-kanji'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run deps
+      - uses: actions/cache@v4
+        with:
+          path: .cache
+          key: kanji-assets-v1-${{ hashFiles('**/*lock.json', 'pages/runtime.lock.json') }}
+      - run: npm run prepare:assets
+      - run: npm run build
+      - run: node meikiocr-test/node_modules/playwright/cli.js install --with-deps webkit
+      - name: Original thin numeric sample through WebKit mobile viewport
+        run: OCR_BROWSER=webkit node scripts/clipped-line-browser-test.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: webkit-clipped-line
+          path: test-results/clipped-line/
   check:
     if: github.repository == 'esaKITs/kana-romaji-camera-kanji'
     runs-on: ubuntu-latest
