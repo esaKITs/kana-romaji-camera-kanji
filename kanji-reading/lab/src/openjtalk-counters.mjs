@@ -23,7 +23,9 @@ export function openJTalkCounter(n,unit,kana){
   // 百 can already be voiced after 三 or contracted after 六/八. The C
   // routine replaces that entire final numeric node, not a guessed substring.
   const suffix=terminal==='百'?/(?:ヒャク|ビャク|ピャク)$/:new RegExp(terminalKana[terminal]+'$');
-  numberReading=numberReading.replace(suffix,replacement);
+  // numberKana has already applied the internal 三百/六百/八百 changes.
+  // Upstream applies those AFTER the counter contraction; preserve them here.
+  numberReading=numberReading.replace(suffix,match=>terminal==='百'?match.slice(0,2)+replacement.slice(2):replacement);
  }
  const c2=classes2.find(c=>c.units.has(unit)),type=c2?.map[terminal],changes=type==='1'?voiced:type==='2'?semivoiced:null;
  if(changes?.[counterReading[0]])counterReading=changes[counterReading[0]]+counterReading.slice(1);

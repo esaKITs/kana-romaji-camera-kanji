@@ -33,3 +33,6 @@ test('counter additions keep names, lexical words, unsupported numbers and sourc
  }
  const text='３枚と6個',r=applyNumericReadings(text,engine.analyze(text));assert.deepEqual(r.tokens.map(t=>[t.surface,t.start,t.end]),[['３枚',0,2],['と',2,3],['6個',3,5]]);
 });
+test('counter contraction preserves voicing inside compound hundreds',()=>{
+ for(const [text,reading] of [['三百本','サンビャッポン'],['600匹','ロッピャッピキ'],['８００杯','ハッピャッパイ'],['300分','サンビャップン']])assert.equal(applyNumericReadings(text,engine.analyze(text)).tokens[0].reading,reading,text);
+});
