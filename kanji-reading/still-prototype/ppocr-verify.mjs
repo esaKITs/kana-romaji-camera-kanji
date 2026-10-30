@@ -4,6 +4,14 @@
 const valid=b=>Array.isArray(b)&&b.length===4&&b.every(Number.isFinite)&&b[2]>b[0]&&b[3]>b[1];
 const overlap=(a,b)=>Math.max(0,Math.min(a[2],b[2])-Math.max(a[0],b[0]))*Math.max(0,Math.min(a[3],b[3])-Math.max(a[1],b[1]));
 const normalized=t=>t.normalize('NFC').replace(/\s/g,'');
+// A reference may disagree on one internal glyph while supplying sound geometry.
+// Keep two unchanged characters on both sides as anchors; this is not a number
+// substitution rule. A third confident PP crop is required below.
+function oneInternalGlyphDiffers(a,b){
+ const x=[...normalized(a)],y=[...normalized(b)];if(x.length!==y.length)return false;
+ const differences=x.flatMap((c,i)=>c!==y[i]?[i]:[]);
+ return differences.length===1&&differences[0]>=2&&differences[0]<x.length-2;
+}
 export function clippedRegionCandidates(regions,reference){
  const measured=(reference.lines||[]).filter(l=>valid(l.box)&&l.text?.trim()&&l.glyphs?.length);
  const candidates=[];
@@ -35,9 +43,28 @@ export async function verifyClippedRegions(source,canonical,reference,recognize)
   if(checks.every(agrees)&&checks.filter(confident).length===1){
    const result=await recognize(source,candidate.box,.06);checks.push(result);extra.push({padding:.06,...result});
   }
-  const accept=checks.every(agrees)&&checks.filter(confident).length>=2;
-  decisions.push({...candidate,first,second,...(extra.length?{extra}:{}),accepted:accept,reason:accept?(extra.length?'reference-and-two-confident-pp-crops-agree-after-retry':'reference-and-two-pp-crops-agree'):'recognizers-disagree-or-score-low'});
+  let consensus=false;
+  if(!checks.every(agrees)&&[first,second].every(confident)&&normalized(first.text)===normalized(second.text)&&oneInternalGlyphDiffers(first.text,text)){
+   const result=await recognize(source,candidate.box,.06);checks.push(result);extra.push({padding:.06,...result});
+   consensus=confident(result)&&normalized(result.text)===normalized(first.text);
+  }
+  const accept=consensus||checks.every(agrees)&&checks.filter(confident).length>=2;
+  decisions.push({...candidate,first,second,...(extra.length?{extra}:{}),accepted:accept,reason:accept?(consensus?'three-pp-crops-one-reference-glyph-disagrees':extra.length?'reference-and-two-confident-pp-crops-agree-after-retry':'reference-and-two-pp-crops-agree'):'recognizers-disagree-or-score-low'});
   if(accept)accepted.set(candidate.index,{...regions[candidate.index],text:first.text,box:[...candidate.box],provenance:'measured-crop-pp-verified',canonicalRegion:candidate.original});
  }
  return {...canonical,extendedRegions:regions.map((r,i)=>accepted.get(i)||r),geometryVerification:{candidates:candidates.length,accepted:accepted.size,decisions,referenceSnapshot:reference}};
+}
+
+// A different but independently reread annotation may override the dictionary.
+// Both crops use measured ruby geometry and the unchanged PP recognizer.
+export async function verifyPPOCRRuby(source,candidate,recognize){
+ const b=candidate.rubyBox,box=[b.x0,b.y0,b.x1,b.y1];
+ if(!valid(box))return {reading:null,method:'invalid-ruby-geometry'};
+ const first=await recognize(source,box,0),second=await recognize(source,box,.12);
+ const kana=s=>String(s||'').normalize('NFC').replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-96));
+ const checks=[first,second],extra=[];
+ const agrees=r=>kana(r.text)===kana(candidate.reading),confident=r=>Number.isFinite(r.minimumProbability)&&r.minimumProbability>=.85;
+ if(checks.every(agrees)&&checks.filter(confident).length===1){const retry=await recognize(source,box,.06);checks.push(retry);extra.push({padding:.06,...retry});}
+ const accepted=checks.every(agrees)&&checks.filter(confident).length>=2;
+ return {reading:accepted?candidate.reading:null,method:'two-confident-pp-ruby-crops',first,second,...(extra.length?{extra}:{}),accepted};
 }
