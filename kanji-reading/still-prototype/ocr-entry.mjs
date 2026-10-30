@@ -1,5 +1,5 @@
 import {snapshotFromPPOCR,initializePPOCR,scanPPOCR} from './ppocr-adapter.mjs';
-import {verifyClippedRegions} from './ppocr-verify.mjs?v=0.2.22';
+import {verifyClippedRegions} from './ppocr-verify.mjs?v=0.2.23';
 import {fingerprintInput} from './ocr-diagnostics.mjs';
 import {scanStillTiles} from './still-tiles.mjs';
 import {scanXYCut} from './xycut-sahi-tiles.mjs';
@@ -11,7 +11,7 @@ const usePPOCR=new URLSearchParams(location.search).get('ocr')==='ppocr';
 let ocr=null,readingWorker=null,requestId=0;const waiting=new Map();
 function rpc(data){return new Promise((resolve,reject)=>{const id=++requestId;const timer=setTimeout(()=>{waiting.delete(id);reject(Error('Reading timeout'));},60000);waiting.set(id,{resolve,reject,timer});readingWorker.postMessage({id,...data});});}
 export async function initialize(engine='sudachi-small'){
- const t=performance.now();readingWorker?.terminate();readingWorker=new Worker(assetUrl('lab/worker-v2.js?v=0.2.22'));
+ const t=performance.now();readingWorker?.terminate();readingWorker=new Worker(assetUrl('lab/worker-v2.js?v=0.2.23'));
  readingWorker.onmessage=({data})=>{const p=waiting.get(data.id);if(!p)return;clearTimeout(p.timer);waiting.delete(data.id);data.error?p.reject(Error(data.error)):p.resolve(data);};
  const reading=await rpc({command:'init',engine});
  if(usePPOCR)await initializePPOCR();else await initializeMeiki();
@@ -106,7 +106,7 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
   try{
    await initializeMeiki();
    const reference=await (xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'verify-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'verify-'+requestId));
-   const {recognizeRegion}=await import(/* @vite-ignore */ assetUrl('ppocr-single.mjs?v=0.2.22')); // A cached v0.2.17 module has no exported region helper.
+   const {recognizeRegion}=await import(/* @vite-ignore */ assetUrl('ppocr-single.mjs?v=0.2.23')); // A cached v0.2.17 module has no exported region helper.
    snapshot=snapshotFromPPOCR(await verifyClippedRegions(source,primarySnapshot,reference,recognizeRegion));
   }catch(error){snapshot={...primarySnapshot,geometryVerification:{accepted:0,error:error.message}};}
   verificationMs=performance.now()-started;
