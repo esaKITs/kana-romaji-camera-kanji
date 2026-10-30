@@ -14,7 +14,8 @@ export function withOffsets(text, tokens) {
  });
 }
 export function kuromojiTokens(text, raw) {
- return withOffsets(text,raw.map(t=>({surface:t.surface_form,reading:t.reading,
+ return withOffsets(text,raw.map(t=>({surface:t.surface_form,reading:t.reading,pronunciation:kana.test(t.pronunciation||'')?t.pronunciation:null,
+  conjugationType:t.conjugated_type,conjugationForm:t.conjugated_form,lemma:t.basic_form,
   pos:[t.pos,t.pos_detail_1,t.pos_detail_2,t.pos_detail_3],unknown:t.word_type==='UNKNOWN'})));
 }
 // Package-specific schema shim for sudachi@0.1.5, NOT upstream SudachiPy.

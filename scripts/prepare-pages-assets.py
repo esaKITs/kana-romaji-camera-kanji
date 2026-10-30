@@ -25,5 +25,6 @@ fixtures = root/'kanji-reading/lab/generated/fixtures'
 fixtures.mkdir(parents=True, exist_ok=True)
 shutil.copyfile(font, fixtures/'NotoSansJP.ttf')
 subprocess.run(['node', 'scripts/make-numeric-fixture.cjs'], cwd=root/'kanji-reading/lab', check=True)
+subprocess.run(['node', 'scripts/make-pronunciation-fixture.cjs'], cwd=root/'kanji-reading/lab', check=True)
 subprocess.run(['node', 'scripts/make-fixtures.cjs'], cwd=root/'kanji-reading/lab', check=True)
 print('Verified pinned OCR models, source, font and generated samples; no deployment.')

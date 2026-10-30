@@ -65,8 +65,8 @@ function pronounceKanaRun(kana){
 function pronunciationKana(text){
  return toHiragana(text).replace(/[ぁ-ゖー]+/g,pronounceKanaRun);
 }
-function romanizeUnits(text,mode=longVowelMode){
- const kana=pronunciationKana(text),units=[];
+function romanizeUnits(text,mode=longVowelMode,{pronounced=false}={}){
+ const kana=pronounced?toHiragana(text):pronunciationKana(text),units=[];
  for(let i=0;i<kana.length;i++){
   const c=kana[i],pair=kana.slice(i,i+2),next=pairs[kana.slice(i+1,i+3)]||map[kana[i+1]]||'';
   if(c==='ー'){
@@ -82,6 +82,8 @@ function romanizeUnits(text,mode=longVowelMode){
  return units;
 }
 function romaji(text,mode=longVowelMode){return romanizeUnits(text,mode).map(x=>x.text).join('')}
+// Render an already resolved pronunciation without looking up its spelling again.
+function romajiPronunciation(text,mode=longVowelMode){return romanizeUnits(text,mode,{pronounced:true}).map(x=>x.text).join('')}
 function rubyPronunciationKana(text){
  const kana=pronunciationKana(text);
  // Only verified kanji ruby gets this orthographic long-vowel conversion.

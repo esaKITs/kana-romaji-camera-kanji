@@ -34,6 +34,7 @@ jobs:
         run: |
           OCR_BROWSER=webkit node scripts/clipped-line-browser-test.mjs
           OCR_BROWSER=webkit node scripts/ios-crop-retry-browser-test.mjs
+          OCR_BROWSER=webkit node scripts/pronunciation-browser-test.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -41,6 +42,7 @@ jobs:
           path: |
             test-results/clipped-line/
             test-results/ios-crop-retry/
+            test-results/pronunciation/
   check:
     if: github.repository == 'esaKITs/kana-romaji-camera-kanji'
     runs-on: ubuntu-latest
@@ -78,6 +80,7 @@ jobs:
         timeout-minutes: 15
         run: |
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/numeric-counter-browser-test.mjs
+          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pronunciation-browser-test.mjs
       - name: Restore the original five-line sample in Still and Live
         timeout-minutes: 15
         run: |

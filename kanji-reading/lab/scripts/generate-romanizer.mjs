@@ -11,5 +11,5 @@ out+=source.match(/Object\.assign\(pairs,[^;]+;/)[0]+'\n';
 out+='map["ぶ"]="bu";\nconst pronunciationLexicon='+await readFile('../../meikiocr-test/data/kana-pronunciations.json','utf8')+';\n';
 const rules=await readFile('../../meikiocr-test/src/romanization-controller.js','utf8');
 out+="let longVowelMode='double';\n"+rules.slice(rules.indexOf('const toHiragana='),rules.indexOf('function renderLongVowelToggle'));
-out+='\nexport {romaji,rubyKanjiRomaji,romanizeUnits};\n';
+out+='\nexport {romaji,rubyKanjiRomaji,romanizeUnits,pronunciationKana,rubyPronunciationKana,romajiPronunciation};\n';
 await mkdir('generated',{recursive:true});await writeFile('generated/romanizer.mjs',out);

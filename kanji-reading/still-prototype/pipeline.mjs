@@ -6,8 +6,7 @@ import {displayTokens,openingBullet} from './display-tokens.mjs';
 import {allocateLabels} from './layout.mjs';
 import {normalizeRegions} from './regions.mjs';
 import {splitOkurigana,isHan,isTarget,modes,reviewReason} from '../lab/src/policy.mjs';
-import {candidateRomanization} from '../lab/src/format.mjs';
-import {romaji,rubyKanjiRomaji} from '../lab/generated/romanizer.mjs';
+import {candidateRomanization,readingRomanization} from '../lab/src/format.mjs';
 const union=boxes=>({x0:Math.min(...boxes.map(b=>b.x0)),y0:Math.min(...boxes.map(b=>b.y0)),x1:Math.max(...boxes.map(b=>b.x1)),y1:Math.max(...boxes.map(b=>b.y1))});
 const valid=b=>Object.values(b).every(Number.isFinite)&&b.x1>b.x0&&b.y1>b.y0;
 function splitByPaper(source){
@@ -94,7 +93,7 @@ export async function analyzeSnapshot(snapshot,analyze,{mode='あア漢',style='
   if(bullet)nonReading.push({...bullet,lineId:line.id});
   const tokens=displayTokens(line.text,rawTokens,mode,pairs.filter(p=>p.lineId===line.id),{bulletEnd:bullet?.end});
   for(const pair of pairs.filter(p=>p.lineId===line.id)){
-   labels.push({source:pair.source,reading:pair.reading,output:rubyKanjiRomaji(pair.reading,style),box:union([pair.box,pair.rubyBox]),bodyBox:pair.box,rubyBox:pair.rubyBox,lineId:line.id,readingSource:'verified-ruby',coversRuby:true});
+   labels.push({source:pair.source,reading:pair.reading,output:readingRomanization(pair.reading,style,{surface:pair.source}),box:union([pair.box,pair.rubyBox]),bodyBox:pair.box,rubyBox:pair.rubyBox,lineId:line.id,readingSource:'verified-ruby',coversRuby:true});
   }
   for(const token of tokens){
    if(bullet&&token.start===0&&token.end===bullet.end)continue;
@@ -119,8 +118,7 @@ export async function analyzeSnapshot(snapshot,analyze,{mode='あア漢',style='
    for(const part of parts){
     const box=spanBox(line,token.start+part.start,token.start+part.end);
     if(!box){withheld.push({surface:part.surface,reason:'glyph-alignment-unresolved'});continue;}
-    const literalKana=/^[ぁ-ゖァ-ヺー]+$/u.test(part.surface)&&!['は','へ','を'].includes(part.surface)&&part.reading!==part.surface;
-    const output=literalKana?romaji(part.surface,style):part===parts[0]&&allTarget&&!pair?candidateRomanization(token,style):isHan(part.surface)?rubyKanjiRomaji(part.reading,style):romaji(part.reading,style);
+    const output=part===parts[0]&&allTarget&&!pair?candidateRomanization(token,style):readingRomanization(part.reading,style,{surface:part.surface,numericValidated:token.numericValidated});
     if(!output)continue;
     labels.push({source:part.surface,reading:part.reading,output,box,lineId:line.id,readingSource:pair?'verified-ruby':token.readingSource||'dictionary-candidate',coversRuby:false});
    }

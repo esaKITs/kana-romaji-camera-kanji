@@ -2,8 +2,7 @@ import {applyRubyHeightPolicy} from './ruby-height.mjs';
 // Reading/display bridge only. Never invent character boxes or alter OCR output.
 import {displayTokens} from './display-tokens.mjs';
 import {isHan,isTarget,reviewReason,splitOkurigana} from '../lab/src/policy.mjs';
-import {candidateRomanization} from '../lab/src/format.mjs';
-import {romaji,rubyKanjiRomaji} from '../lab/generated/romanizer.mjs';
+import {candidateRomanization,readingRomanization} from '../lab/src/format.mjs';
 const rect=b=>({x0:b[0],y0:b[1],x1:b[2],y1:b[3]});
 const kana=s=>s.normalize('NFC').replace(/[ァ-ヶ]/g,k=>String.fromCharCode(k.charCodeAt(0)-96));
 // The analyzer can split a kana word or a standalone auxiliary across tokens.
@@ -17,7 +16,7 @@ export function groupPPOCRTokens(tokens){
   const adjacentAuxiliary=previous?.pos?.[0]==='助動詞'&&token.pos?.[0]==='助動詞';
   const splitKanaWord=previous?.pos?.[0]==='副詞'&&(token.pos?.[0]==='名詞'||token.pos?.includes('終助詞'));
   if(previous&&previous.end===token.start&&isKana(previous)&&isKana(token)&&!particle(previous)&&!particle(token)&&(adjacentAuxiliary||splitKanaWord)){
-   result[result.length-1]={...previous,surface:previous.surface+token.surface,reading:(previous.reading||previous.surface)+(token.reading||token.surface),end:token.end,members:[...(previous.members||[previous]),...(token.members||[token])]};
+   result[result.length-1]={...previous,surface:previous.surface+token.surface,reading:(previous.reading||previous.surface)+(token.reading||token.surface),end:token.end,lexicalKanaGroup:previous.lexicalKanaGroup||splitKanaWord,members:[...(previous.members||[previous]),...(token.members||[token])]};
   }else result.push(token);
  }
  return result;
@@ -81,14 +80,13 @@ export async function analyzePPOCRRegions(snapshot,analyze,{mode,style,verifyRub
    // 3本=サンボン), including in the Han-only modes. Bare digits stay untouched.
    const allTarget=Boolean(token.numericValidated&&token.reading)||[...token.surface].every(c=>isTarget(c,mode));
    if(allTarget){
-    const literalKana=/^[ぁ-ゖァ-ヺー]+$/u.test(token.surface)&&!['は','へ','を'].includes(token.surface)&&token.reading!==token.surface;
-    const output=verified?rubyKanjiRomaji(verified.reading,style):literalKana?romaji(token.surface,style):candidateRomanization(token,style);
+    const output=verified?readingRomanization(verified.reading,style,{surface:verified.source}):candidateRomanization(token,style);
     pieces.push(output||token.surface);changed ||= Boolean(output);convertedHan ||= Boolean(output)&&isHan(token.surface);continue;
    }
    const parts=token.numericValidated?token.numericParts:isHan(token.surface)?regionReadingParts(token.surface,token.reading):null;
    if(!parts?.length){pieces.push(token.surface);continue;}
    let position=0,partOutput='';
-   for(const part of parts){partOutput+=token.surface.slice(position,part.start);const target=[...part.surface].every(c=>isTarget(c,mode));const output=target?(isHan(part.surface)?rubyKanjiRomaji(part.reading,style):romaji(part.reading,style)):null;partOutput+=output||part.surface;changed ||= Boolean(output);convertedHan ||= Boolean(output)&&isHan(part.surface);position=part.end;}
+   for(const part of parts){partOutput+=token.surface.slice(position,part.start);const target=[...part.surface].every(c=>isTarget(c,mode));const output=target?readingRomanization(part.reading,style,{surface:part.surface,numericValidated:token.numericValidated}):null;partOutput+=output||part.surface;changed ||= Boolean(output);convertedHan ||= Boolean(output)&&isHan(part.surface);position=part.end;}
    pieces.push(partOutput+token.surface.slice(position));
   }
   if(offset<line.text.length)pieces.push(line.text.slice(offset));
