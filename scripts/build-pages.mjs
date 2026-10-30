@@ -6,6 +6,7 @@ import {build} from '../meikiocr-test/node_modules/vite/dist/node/index.js';
 const root=fileURLToPath(new URL('../',import.meta.url));process.chdir(root);
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 function run(args,options={}){const r=spawnSync(args[0],args.slice(1),{stdio:'inherit',...options});if(r.error)throw r.error;if(r.status!==0)throw Error('Command failed: '+args.join(' '));}
+run(['node','scripts/generate-openjtalk-counters.mjs','--check']);
 process.chdir('kanji-reading/lab');try{await import('../kanji-reading/lab/scripts/generate-romanizer.mjs');}finally{process.chdir(root);}
 await build({configFile:'kanji-reading/camera-prototype/vite.config.mjs'});
 const out='dist';
@@ -22,6 +23,7 @@ await copy('meikiocr-test/public/licenses',out+'/licenses');
 for(const [file,name]of [['LICENSE-2.0.txt','LICENSE.kuromoji-Apache-2.0.txt'],['NOTICE.md','NOTICE.kuromoji-IPADIC.md']])await copy('kanji-reading/lab/node_modules/kuromoji/'+file,out+'/licenses/'+name);
 await copy('pages/NOTICE.onnxruntime.txt',out+'/licenses/NOTICE.onnxruntime.txt');
 await copy('pages/NOTICE.html',out+'/licenses/NOTICE.html');
+await copy('kanji-reading/vendor/open-jtalk/COPYING',out+'/licenses/LICENSE.open-jtalk-BSD.txt');
 // Both entry points use the exact same inference module.
 await copy('pages/ppocr-experiment/index.html',out+'/ppocr-experiment/index.html');
 await copy('kanji-reading/still-prototype/ppocr-core.mjs',out+'/ppocr-core.mjs');

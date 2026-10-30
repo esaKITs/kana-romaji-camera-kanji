@@ -1,0 +1,19 @@
+{
+  "repository": "https://github.com/r9y9/open_jtalk",
+  "ref": "1.11",
+  "license": "BSD-3-Clause",
+  "files": [
+    {
+      "path": "src/njd_set_digit/njd_set_digit_rule_utf_8.h",
+      "blob": "bd7d66f61784c35aef665b53e31af1246ecc3003"
+    },
+    {
+      "path": "src/njd_set_digit/njd_set_digit.c",
+      "blob": "1632fa9696ef3ceff6adfc6bfbe14d753f775d58"
+    },
+    {
+      "path": "src/COPYING",
+      "blob": "495268369d51f7794083769e3305ef108593ab94"
+    }
+  ]
+}

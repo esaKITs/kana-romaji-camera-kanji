@@ -1,9 +1,12 @@
+import {additionalCounterUnits,openJTalkCounter} from './openjtalk-counters.mjs';
 // Numeric pronunciation only. Existing kana-to-romaji spelling is unchanged.
 // Rules are productive number/counter rules, not an evaluation-sentence lookup.
 const digits={零:0,〇:0,一:1,二:2,三:3,四:4,五:5,六:6,七:7,八:8,九:9};
 const names=['ゼロ','イチ','ニ','サン','ヨン','ゴ','ロク','ナナ','ハチ','キュウ'];
 const numberChars='0-9０-９零〇一二三四五六七八九十百千';
-const pattern=new RegExp(`[${numberChars}]+(?:時間|日間|日目|本|杯|匹|人|階|冊|分|時|月|日|歳)`,'gu');
+const units=[...new Set(['時間','日間','日目','本','杯','匹','人','階','冊','分','時','月','日','歳',...additionalCounterUnits])].sort((a,b)=>b.length-a.length);
+const escapedUnits=units.map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+const pattern=new RegExp(`[${numberChars}]+(?:${escapedUnits.join('|')})`,'gu');
 export function parseNumber(source){
  const s=source.replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xfee0));
  if(/^\d+$/.test(s)){if(s.length>4||s.length>1&&s[0]==='0')return null;return Number(s);}
@@ -30,36 +33,11 @@ export function numberKana(n){
 const result=(number,counter,kind='counter')=>({reading:number+counter,numberReading:number,counterReading:counter,kind,segmentable:true});
 function counted(n,unit){
  const kana=numberKana(n);if(n<1||!kana)return null;
- const last=n%10;
- if(unit==='歳'){
-  if(n===20)return {reading:'ハタチ',kind:'age-irregular',segmentable:false};
-  const contracted=last===1?kana.replace(/イチ$/,'イッ'):last===8?kana.replace(/ハチ$/,'ハッ'):/ジュウ$/.test(kana)?kana.replace(/ジュウ$/,'ジュッ'):kana;
-  return result(contracted,'サイ','age');
- }
- if(unit==='人'){
-  if(n===1)return {reading:'ヒトリ',kind:'person-irregular',segmentable:false};
-  if(n===2)return {reading:'フタリ',kind:'person-irregular',segmentable:false};
-  return result(last===4?kana.replace(/ヨン$/,'ヨ'):kana,'ニン');
- }
- if(unit==='冊')return result(last===1?kana.replace(/イチ$/,'イッ'):last===8?kana.replace(/ハチ$/,'ハッ'):n%10===0&&n%100!==0?kana.replace(/ジュウ$/,'ジュッ'):kana,'サツ');
- if(unit==='階'&&n>99)return null; // High-floor variants are outside this first rule set.
- if(unit==='分'){
-  if(last===1)return result(kana.replace(/イチ$/,'イッ'),'プン');
-  if(last===6)return result(kana.replace(/ロク$/,'ロッ'),'プン');
-  if(last===8)return result(kana.replace(/ハチ$/,'ハッ'),'プン');
-  if(n%10===0&&/ジュウ$/.test(kana))return result(kana.replace(/ジュウ$/,'ジュッ'),'プン');
-  if(n%100===0&&/ク$/.test(kana))return result(kana.replace(/ク$/,'ッ'),'プン');
-  return result(kana,/[ン]$/.test(kana)?'プン':'フン');
- }
- const initial={本:['ホン','ポン','ボン'],杯:['ハイ','パイ','バイ'],匹:['ヒキ','ピキ','ビキ'],階:['カイ','カイ','ガイ']}[unit];
- if(!initial)return null;
- if(last===1)return result(kana.replace(/イチ$/,'イッ'),initial[1]);
- if(last===6)return result(kana.replace(/ロク$/,'ロッ'),initial[1]);
- if(last===8)return result(kana.replace(/ハチ$/,'ハッ'),initial[1]);
- if(n%10===0&&/ジュウ$/.test(kana))return result(kana.replace(/ジュウ$/,'ジュッ'),initial[1]);
- if(n%100===0&&/ク$/.test(kana))return result(kana.replace(/ク$/,'ッ'),initial[1]);
- if(last===3||n%1000===0)return result(kana,initial[2]);
- return result(kana,initial[0]);
+ // Preserve the app's already-tested lexical exceptions and scope limits.
+ if(unit==='歳'&&n===20)return {reading:'ハタチ',kind:'age-irregular',segmentable:false};
+ if(unit==='人'&&n<=2)return {reading:n===1?'ヒトリ':'フタリ',kind:'person-irregular',segmentable:false};
+ if(unit==='階'&&n>99)return null;
+ return openJTalkCounter(n,unit,kana);
 }
 function context(text,start,end){
  const before=text.slice(0,start).split(/[。！？\n]/).at(-1),after=text.slice(end).split(/[。！？\n]/)[0];
@@ -99,6 +77,7 @@ export function numericSpans(text){
   if(/[A-Za-z0-9０-９零〇一二三四五六七八九十百千万億兆.,．・/／:：+＋−－\-〜～]/u.test(prior)||prior==='第')reason='numeric-prefix-or-range';
   else if(n===null||n>9999||n===0)reason='unsupported-number';
   else if(/[A-Za-z]/.test(following))reason='identifier-suffix';
+  else if(unit==='分の')reason='fraction-or-lexeme';
   else if(unit==='分'&&(/^の[0-9０-９一二三四五六七八九十]/.test(ctx.after)||/^(?:割|裂|配|率|比|岐|類|法|する|した|され)/.test(ctx.after)))reason='fraction-or-lexeme';
   else if(unit==='分'&&number==='十'&&!/^(?:間|後|前|待|休|歩|かか|掛か|ほど|以内|以上|以下|だけ)/.test(ctx.after)&&!/(?:時間|所要|あと|残り)\s*(?:は|が)?\s*$/.test(ctx.before))reason='ambiguous-jubun';
   else if(unit==='日'||unit==='日間'||unit==='日目')pronunciation=day(n,unit,ctx);
@@ -115,7 +94,7 @@ export function numericSpans(text){
    {surface:number,reading:pronunciation.numberReading,start:0,end:number.length},
    {surface:unit,reading:pronunciation.counterReading,start:number.length,end:surface.length}
   ]:null;
-  spans.push({surface,start,end,number:n,unit,reading:pronunciation?.reading??null,kind:pronunciation?.kind??null,parts,reason});
+  spans.push({surface,start,end,number:n,unit,reading:pronunciation?.reading??null,kind:pronunciation?.kind??null,parts,reason,readingSource:pronunciation?.readingSource??'numeric-rule-v1'});
  }
  return spans;
 }
@@ -129,7 +108,7 @@ export function applyNumericReadings(text,tokens){
   // Sufficient/adequate 十分 is a lexical word, not a forced ten-minute reading.
   if(span.reason==='ambiguous-jubun'&&/^(?:に|な|だ|です|である)/.test(text.slice(span.end))){decisions.push({...span,status:'preserved',reason:'lexical-jubun'});continue;}
   const token={surface:span.surface,start:span.start,end:span.end,reading:span.reading,pos:['数詞助数詞'],unknown:!span.reading,
-   numericValidated:!!span.reading,numericParts:span.parts,readingSource:'numeric-rule-v1',numericReason:span.reason};
+   numericValidated:!!span.reading,numericParts:span.parts,readingSource:span.readingSource,numericReason:span.reason};
   replacements.push(token);decisions.push({...span,status:span.reading?'resolved':'withheld'});
  }
  // 一日中 is ichinichi-juu, not an independent chuu suffix. Keep the
