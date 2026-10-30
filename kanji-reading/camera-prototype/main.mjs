@@ -7,9 +7,10 @@ import{paintLabels,sourceLevels}from'./paint.mjs';
 import{bindStillZoom}from'./zoom.mjs';
 import{bindFocusSelection}from'./focus-scan.mjs';
 import{assetUrl}from'./asset-url.mjs';
+import{createOcrReport,CAMERA_VERSION}from'../still-prototype/ocr-diagnostics.mjs';
 const ppocrMode=typeof location!=='undefined'&&typeof URLSearchParams!=='undefined'&&new URLSearchParams(location.search).get('ocr')==='ppocr';
 const $=id=>document.getElementById(id),session=new CameraSession(),modes=['あア漢','ア漢','漢'];
-const paperState=new AdaptivePapers();
+const paperState=new AdaptivePapers(),sourceOrigins=new WeakMap();let lastReport=null;
 const stillZoom=bindStillZoom($('zoom-layer'),()=>session.source);
 const focus=bindFocusSelection($('zoom-layer'),$('output'),rect=>{void focusScan(rect);});
 const motion=new LiveMotionGuard(),motionCanvas=document.createElement('canvas');motionCanvas.width=96;motionCanvas.height=64;const motionContext=motionCanvas.getContext('2d',{willReadFrequently:true});let motionTimer=null,paintedFrame=false;
@@ -53,6 +54,7 @@ async function processScene(){
   if(kind==='live'&&!motion.accepts(capturedSignature,videoSignature(),captureEpoch,performance.now())){clearLayer();lastFrame=null;message('Live · hold steady');return;}
   if(kind==='still'){cache={source,value:result};showResult(result.rendering,source,kind);}else{showResult(result.rendering,source,kind);paintedFrame=true;motion.painted(capturedSignature);}
   if(window.stillLab)window.stillLab.lastRun=result;
+  lastReport=createOcrReport(result,{origin:sourceOrigins.get(source)||kind,settings:{engine:ppocrMode?'ppocr':'meiki',mode:requestedMode,style:requestedStyle,reveal},environment:{userAgent:navigator.userAgent,platform:navigator.platform,devicePixelRatio:window.devicePixelRatio||1}});$('download-report').disabled=false;
   lastFrame=result.result;drawGuides(lastFrame);message(kind==='live'?(result.rendering.drawn.length?'Live · '+result.rendering.drawn.length+' labels':'Live · looking for text'):'Still · '+result.rendering.drawn.length+' shown'+(result.rendering.omitted?.length?' · '+result.rendering.omitted.length+' not fitted':''));if(result.snapshot.geometryVerification?.error)message($('scan-label').textContent+' · text check unavailable');
  }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}});
  if(pending&&session.kind!=='home')queueMicrotask(processScene);
@@ -90,8 +92,8 @@ $('start').onclick=start;$('stop').onclick=home;$('scan').onclick=()=>{try{still
 $('live-return').onclick=()=>{if(stream){session.enter('live');cache=null;clearLayer();screen();paperState.reset();stopMotion();watchMotion();tick();}else home();};
 $('retry').onclick=()=>{if(session.kind==='still'){cache=null;session.enter('still',session.source);void processScene();}};
 for(const id of ['choose','choose-home'])$(id).onclick=()=>$('image').click();
-$('image').onchange=async()=>{const file=$('image').files[0];$('image').value='';if(!file)return;const request=++opening;try{const bitmap=await createImageBitmap(file);if(request!==opening){bitmap.close();return;}const s=ppocrMode?1:Math.min(1,2000/Math.max(bitmap.width,bitmap.height)),c=document.createElement('canvas');c.width=Math.round(bitmap.width*s);c.height=Math.round(bitmap.height*s);c.getContext('2d').drawImage(bitmap,0,0,c.width,c.height);bitmap.close();stopStream();still(c);}catch(error){message(error.message);}};
-$('sample').onclick=async()=>{const request=++opening;$('sample').disabled=true;try{const img=new Image();img.src=assetUrl('fixtures/numeric.png');await img.decode();if(request!==opening)return;const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);stopStream();still(c);}catch(error){message(error.message);}finally{$('sample').disabled=false;}};
+$('image').onchange=async()=>{const file=$('image').files[0];$('image').value='';if(!file)return;const request=++opening;try{const bitmap=await createImageBitmap(file);if(request!==opening){bitmap.close();return;}const s=ppocrMode?1:Math.min(1,2000/Math.max(bitmap.width,bitmap.height)),c=document.createElement('canvas');c.width=Math.round(bitmap.width*s);c.height=Math.round(bitmap.height*s);c.getContext('2d').drawImage(bitmap,0,0,c.width,c.height);bitmap.close();sourceOrigins.set(c,'image-file');stopStream();still(c);}catch(error){message(error.message);}};
+$('sample').onclick=async()=>{const request=++opening;$('sample').disabled=true;try{const img=new Image();img.src=assetUrl('fixtures/numeric.png?v='+CAMERA_VERSION);await img.decode();if(request!==opening)return;const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);sourceOrigins.set(c,'built-in-sample');stopStream();still(c);}catch(error){message(error.message);}finally{$('sample').disabled=false;}};
 function changed(){settings();if(session.kind!=='home'){session.enter(session.kind,session.source);clearLayer();void processScene();}}
 $('kana-mode').onclick=()=>{mode=modes[(modes.indexOf(mode)+1)%modes.length];changed();};$('long-vowels').onclick=()=>{style=style==='double'?'macron':'double';changed();};
 $('debug').onclick=()=>{guides=!guides;$('debug').setAttribute('aria-pressed',String(guides));drawGuides(lastFrame);};
@@ -101,3 +103,5 @@ window.addEventListener('resize',()=>stillZoom.resize());window.addEventListener
 $('torch').onclick=async()=>{try{const track=stream?.getVideoTracks()[0];if(!track)return;await track.applyConstraints({advanced:[{torch:!torch}]});torch=!torch;$('torch').setAttribute('aria-pressed',String(torch));}catch{message('Flash is unavailable on this camera.');}};
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopMotion();clearTimeout(timer);if(session.kind==='live'){session.enter('live');clearLayer();}}else if(session.kind==='live'){watchMotion();tick();}});
 window.addEventListener('pagehide',()=>{home();void dispose();ready=null;});screen();
+
+$('download-report').onclick=()=>{if(!lastReport)return;const url=URL.createObjectURL(new Blob([JSON.stringify(lastReport,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='kana-camera-ocr-v'+CAMERA_VERSION+'.json';a.hidden=true;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);};
