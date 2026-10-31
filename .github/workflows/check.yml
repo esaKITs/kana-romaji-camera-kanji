@@ -30,19 +30,11 @@ jobs:
       - run: npm run prepare:assets
       - run: npm run build
       - run: node meikiocr-test/node_modules/playwright/cli.js install --with-deps webkit
-      - name: Startup and PDF module failure visibility
-        run: OCR_BROWSER=webkit node scripts/startup-browser-test.mjs
-      - name: PDF conversion failures survive reload
-        run: |
-          OCR_BROWSER=webkit node scripts/pdf-failure-browser-test.mjs
-          OCR_BROWSER=webkit node scripts/scanned-pdf-browser-test.mjs
-      - name: OCR, pronunciation and PDF import/export through WebKit
+      - name: Original thin numeric sample through WebKit mobile viewport
         run: |
           OCR_BROWSER=webkit node scripts/clipped-line-browser-test.mjs
           OCR_BROWSER=webkit node scripts/ios-crop-retry-browser-test.mjs
           OCR_BROWSER=webkit node scripts/pronunciation-browser-test.mjs
-          OCR_BROWSER=webkit node scripts/pdf-browser-test.mjs
-          OCR_BROWSER=webkit node scripts/verified-ruby-browser-test.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -51,8 +43,6 @@ jobs:
             test-results/clipped-line/
             test-results/ios-crop-retry/
             test-results/pronunciation/
-            test-results/pdf/
-            test-results/verified-ruby/
   check:
     if: github.repository == 'esaKITs/kana-romaji-camera-kanji'
     runs-on: ubuntu-latest
@@ -80,9 +70,7 @@ jobs:
         timeout-minutes: 20
         run: |
           node meikiocr-test/node_modules/playwright/cli.js install --with-deps chromium
-          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/startup-browser-test.mjs
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:browser
-          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pdf-failure-browser-test.mjs
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:textbook
       - name: Canonical PP-OCR actual textbook parity
         timeout-minutes: 15
@@ -93,12 +81,6 @@ jobs:
         run: |
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/numeric-counter-browser-test.mjs
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pronunciation-browser-test.mjs
-          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/verified-ruby-browser-test.mjs
-      - name: PDF import, page selection and PNG/PDF exports
-        timeout-minutes: 15
-        run: |
-          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pdf-browser-test.mjs
-          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/scanned-pdf-browser-test.mjs
       - name: Restore the original five-line sample in Still and Live
         timeout-minutes: 15
         run: |

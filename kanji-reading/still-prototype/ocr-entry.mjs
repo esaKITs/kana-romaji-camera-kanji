@@ -1,7 +1,6 @@
-import {snapshotFromPPOCR,initializePPOCR,scanPPOCR,reclassifyVerifiedPPOCR} from './ppocr-adapter.mjs';
-import {verifyClippedRegions,verifyPPOCRRuby} from './ppocr-verify.mjs?v=0.2.24';
+import {snapshotFromPPOCR,initializePPOCR,scanPPOCR} from './ppocr-adapter.mjs';
+import {verifyClippedRegions} from './ppocr-verify.mjs?v=0.2.22';
 import {fingerprintInput} from './ocr-diagnostics.mjs';
-import {verifyOverlappingRegions} from './ppocr-overlap.mjs';
 import {scanStillTiles} from './still-tiles.mjs';
 import {scanXYCut} from './xycut-sahi-tiles.mjs';
 import {createMeikiOcr} from '../../meikiocr-test/vendor/meikiocr-web/index.js';
@@ -12,7 +11,7 @@ const usePPOCR=new URLSearchParams(location.search).get('ocr')==='ppocr';
 let ocr=null,readingWorker=null,requestId=0;const waiting=new Map();
 function rpc(data){return new Promise((resolve,reject)=>{const id=++requestId;const timer=setTimeout(()=>{waiting.delete(id);reject(Error('Reading timeout'));},60000);waiting.set(id,{resolve,reject,timer});readingWorker.postMessage({id,...data});});}
 export async function initialize(engine='sudachi-small'){
- const t=performance.now();readingWorker?.terminate();readingWorker=new Worker(assetUrl('lab/worker-v2.js?v=0.2.24'));
+ const t=performance.now();readingWorker?.terminate();readingWorker=new Worker(assetUrl('lab/worker-v2.js?v=0.2.22'));
  readingWorker.onmessage=({data})=>{const p=waiting.get(data.id);if(!p)return;clearTimeout(p.timer);waiting.delete(data.id);data.error?p.reject(Error(data.error)):p.resolve(data);};
  const reading=await rpc({command:'init',engine});
  if(usePPOCR)await initializePPOCR();else await initializeMeiki();
@@ -107,9 +106,8 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
   try{
    await initializeMeiki();
    const reference=await (xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'verify-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'verify-'+requestId));
-   const {recognizeRegion}=await import(/* @vite-ignore */ assetUrl('ppocr-single.mjs?v=0.2.24')); // A cached v0.2.17 module has no exported region helper.
-   const clipped=await verifyClippedRegions(source,primarySnapshot,reference,recognizeRegion);
-   snapshot=snapshotFromPPOCR(await reclassifyVerifiedPPOCR(await verifyOverlappingRegions(source,clipped,reference,recognizeRegion)));
+   const {recognizeRegion}=await import(/* @vite-ignore */ assetUrl('ppocr-single.mjs?v=0.2.22')); // A cached v0.2.17 module has no exported region helper.
+   snapshot=snapshotFromPPOCR(await verifyClippedRegions(source,primarySnapshot,reference,recognizeRegion));
   }catch(error){snapshot={...primarySnapshot,geometryVerification:{accepted:0,error:error.message}};}
   verificationMs=performance.now()-started;
  }
@@ -119,12 +117,7 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
   const kana=s=>s.normalize('NFC').replace(/[ァ-ヶ]/g,k=>String.fromCharCode(k.charCodeAt(0)-96));
   if(c.contextReading&&kana(c.contextReading)===kana(c.reading)){rubyChecks.push({source:c.source,first:c.reading,second:c.contextReading,method:'context-dictionary-agreement'});return{reading:c.reading,method:'context-dictionary-agreement'};}
   const b=c.rubyBox,pad=Math.max(2,(b.y1-b.y0)*.1),box=[Math.max(0,Math.floor(b.x0-pad)),Math.max(0,Math.floor(b.y0-pad)),Math.min(source.width,Math.ceil(b.x1+pad)),Math.min(source.height,Math.ceil(b.y1+pad))];
-  if(usePPOCR){
-   const start=performance.now();
-   try{const {recognizeRegion}=await import(/* @vite-ignore */ assetUrl('ppocr-single.mjs?v=0.2.24'));const checked=await verifyPPOCRRuby(source,c,recognizeRegion);rubyChecks.push({source:c.source,...checked});return checked;}
-   catch(error){rubyChecks.push({source:c.source,method:'two-pp-ruby-crops',error:error.message});return null;}
-   finally{rubyOcrMs+=performance.now()-start;}
-  }
+  if(usePPOCR)return null;
   const checkStart=performance.now(),recheck=await scan(source,'ruby-'+requestId,[box]),reading=recheck.lines.map(l=>l.glyphs.map(g=>g.text).join('')).join('').replace(/\s/g,'');rubyOcrMs+=performance.now()-checkStart;rubyChecks.push({source:c.source,first:c.reading,second:reading,method:'regional-reread'});return{reading,method:'regional-reread'};
  }});
  const renderStart=performance.now(),rendering=output?renderResult(output,source,result,{paperState}):null;
