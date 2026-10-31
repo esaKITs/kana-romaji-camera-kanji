@@ -61,3 +61,14 @@ Larger pages are rejected before allocation and offer a lower resolution.
 Only one selected page is processed at a time. Canonical OCR tiling, models,
 thresholds and recognition preprocessing are unchanged. A higher render resolution
 is not a claim that all recognition errors are resolved.
+
+## Large local PDFs (v0.2.26)
+
+PDF.js reads the local Blob through requested byte ranges with automatic fetching
+and streaming disabled. Import no longer calls `file.arrayBuffer()` on the entire
+PDF. Whitespace planning retains full pixel resolution while accumulating profiles
+in strips of at most 128 rows, rather than copying the full page and its RGBA data.
+The temporary recognition render canvas is explicitly released after painting.
+Page status distinguishes rendering from recognition. The selected dpi and OCR
+models/thresholds remain unchanged. These changes reduce peak memory; they do not
+constitute confirmation on a user's physical iPhone or eliminate all memory limits.

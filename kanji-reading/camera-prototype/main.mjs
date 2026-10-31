@@ -41,14 +41,14 @@ function watchMotion(){
 async function processScene(){
  pending=true;if(session.busy||session.kind==='home')return;pending=false;documents?.sync();
  const generation=session.generation,kind=session.kind,requestedMode=mode,requestedStyle=style;
- await session.exclusive(async()=>{try{
+ await session.exclusive(async()=>{let temporary;try{
   let source=kind==='still'?session.source:capture();if(!source)return;
   if(kind==='still'){renderSource(source);message('Preparing Still…',true);}
   await engines();if(!session.owns(generation))return;
   let capturedSignature=null,captureEpoch=null;
   if(kind==='live'){source=capture();capturedSignature=videoSignature(source);motion.observe(capturedSignature,performance.now());if(!motion.stable(performance.now())){message('Live · hold steady');return;}captureEpoch=motion.epoch;}
   message(kind==='live'?'Live · reading…':'Still · reading…',kind==='still');
-  const temporary=document.createElement('canvas');let result;
+  temporary=document.createElement('canvas');let result;
   if(kind==='still'&&cache?.source===source){const previous=cache.value;const analyzed=await analyzeSnapshot(previous.snapshot,analyzeText,{mode:requestedMode,style:requestedStyle,source,verifyRuby:c=>{const pair=previous.result.pairs.find(p=>p.lineId===c.lineId&&p.start===c.start&&p.end===c.end);return pair?{reading:pair.reading,method:'cached-'+(pair.verification||'verified-ruby')}:null;}});result={...previous,result:analyzed,rendering:renderResult(temporary,source,analyzed,{paperState})};}
   else result=await runStill(source,{mode:requestedMode,style:requestedStyle,output:temporary,paperState});
   if(!session.owns(generation))return;
@@ -58,7 +58,7 @@ async function processScene(){
   documents?.remember(source,result);
   lastReport=createOcrReport(result,{origin:sourceOrigins.get(source)||kind,settings:{engine:ppocrMode?'ppocr':'meiki',mode:requestedMode,style:requestedStyle,reveal},environment:{userAgent:navigator.userAgent,platform:navigator.platform,devicePixelRatio:window.devicePixelRatio||1}});$('download-report').disabled=false;
   lastFrame=result.result;drawGuides(lastFrame);message(kind==='live'?(result.rendering.drawn.length?'Live · '+result.rendering.drawn.length+' labels':'Live · looking for text'):'Still · '+result.rendering.drawn.length+' shown'+(result.rendering.omitted?.length?' · '+result.rendering.omitted.length+' not fitted':''));if(result.snapshot.geometryVerification?.error)message($('scan-label').textContent+' · text check unavailable');
- }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}});
+ }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}finally{if(temporary)temporary.width=temporary.height=0;}});
  documents?.sync();if(pending&&session.kind!=='home')queueMicrotask(processScene);
 }
 async function focusScan(rect){

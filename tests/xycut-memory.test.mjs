@@ -1,0 +1,8 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {createRequire} from 'node:module';
+import {planXYCut} from '../kanji-reading/still-prototype/xycut-sahi-tiles.mjs';
+const {createCanvas}=createRequire(import.meta.url)('../meikiocr-test/node_modules/@napi-rs/canvas');
+test('XY-cut profiles full-resolution pages in bounded strips and releases scratch canvas',()=>{
+ const source=createCanvas(2117,3055),ctx=source.getContext('2d');ctx.fillStyle='white';ctx.fillRect(0,0,source.width,source.height);ctx.fillStyle='black';ctx.fillRect(100,500,500,25);ctx.fillRect(1000,2000,600,30);
+ const saved=globalThis.document,created=[],reads=[];globalThis.document={createElement(){const native=createCanvas(1,1);let width=1,height=1;const canvas={get width(){return width;},set width(v){width=v;native.width=Math.max(1,v);},get height(){return height;},set height(v){height=v;native.height=Math.max(1,v);},getContext(...args){const context=native.getContext(...args),read=context.getImageData.bind(context);context.getImageData=(x,y,w,h)=>{reads.push([w,h]);assert.ok(h<=128,'never allocate page-sized RGBA profile');return read(x,y,w,h);};return context;}};created.push(canvas);return canvas;}};
+ try{const slices=planXYCut(source);assert.ok(slices.length>1);assert.ok(slices.every(s=>s.width<=960&&s.height<=544));assert.ok(slices.some(s=>s.x<=100&&s.x+s.width>=100&&s.y<=500&&s.y+s.height>=500));assert.equal(reads.reduce((sum,[w,h])=>sum+w*h,0),source.width*source.height);assert.ok(created.every(c=>c.width===0&&c.height===0));}finally{if(saved===undefined)delete globalThis.document;else globalThis.document=saved;}
+});
