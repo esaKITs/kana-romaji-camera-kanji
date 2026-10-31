@@ -1,0 +1,25 @@
+import {cp,mkdir,writeFile} from 'node:fs/promises';
+import {createRequire} from 'node:module';
+const dir='dist/pdf-preview',vendor=dir+'/vendor',pkg='pages/pdf-import-experiment/node_modules/pdfjs-dist';
+await mkdir(vendor,{recursive:true});
+for(const file of ['index.html','preview.mjs','preview.css'])await cp('pages/pdf-import-experiment/'+file,dir+'/'+file);
+for(const file of ['pdf.mjs','pdf.worker.mjs'])await cp(pkg+'/legacy/build/'+file,vendor+'/'+file);
+for(const folder of ['cmaps','standard_fonts','wasm','iccs'])await cp(pkg+'/'+folder,vendor+'/'+folder,{recursive:true});
+await cp(pkg+'/LICENSE',vendor+'/LICENSE.pdfjs-Apache-2.0.txt');
+// Original synthetic PDF: text, graphics, and a scanned image. No user material.
+const require=createRequire(import.meta.url),{createCanvas}=require('../meikiocr-test/node_modules/@napi-rs/canvas');
+const c=createCanvas(1800,2400),ctx=c.getContext('2d');ctx.fillStyle='white';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='black';ctx.font='70px sans-serif';ctx.fillText('Scanned sample page',130,200);ctx.font='45px sans-serif';ctx.fillText('Original image inside a PDF',130,320);ctx.strokeRect(130,440,1400,1450);const jpeg=c.toBuffer('image/jpeg');
+const objects=[],obj=data=>{objects.push(Buffer.isBuffer(data)?data:Buffer.from(data));return objects.length;};
+const stream=(dict,bytes)=>Buffer.concat([Buffer.from('<< '+dict+' /Length '+bytes.length+' >>\nstream\n'),bytes,Buffer.from('\nendstream')]);
+obj('<< /Type /Catalog /Pages 2 0 R >>');obj('<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>');
+obj('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 432 576] /Resources << /Font << /F1 9 0 R >> >> /Contents 4 0 R >>');
+obj(stream('',Buffer.from('BT /F1 24 Tf 40 510 Td (PDF preview - page 1) Tj 0 -50 Td /F1 16 Tf (Select pages using the thumbnails.) Tj ET')));
+obj('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 432 576] /Rotate 90 /Resources << /Font << /F1 9 0 R >> >> /Contents 6 0 R >>');
+obj(stream('',Buffer.from('BT /F1 24 Tf 40 510 Td (Rotated page 2) Tj ET 0.7 0.3 0.15 rg 40 80 330 330 re f')));
+obj('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 432 576] /Resources << /XObject << /Im0 10 0 R >> >> /Contents 8 0 R >>');
+obj(stream('',Buffer.from('q 432 0 0 576 0 0 cm /Im0 Do Q')));obj('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+obj(stream('/Type /XObject /Subtype /Image /Width 1800 /Height 2400 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode',jpeg));
+const parts=[Buffer.from('%PDF-1.4\n')],offsets=[0];let offset=parts[0].length;
+objects.forEach((object,i)=>{offsets.push(offset);const part=Buffer.concat([Buffer.from((i+1)+' 0 obj\n'),object,Buffer.from('\nendobj\n')]);parts.push(part);offset+=part.length;});
+parts.push(Buffer.from('xref\n0 '+(objects.length+1)+'\n0000000000 65535 f \n'+offsets.slice(1).map(n=>String(n).padStart(10,'0')+' 00000 n \n').join('')+'trailer\n<< /Size '+(objects.length+1)+' /Root 1 0 R >>\nstartxref\n'+offset+'\n%%EOF\n'));
+await writeFile(dir+'/sample.pdf',Buffer.concat(parts));

@@ -1,0 +1,6 @@
+{
+  "name": "romaji-lens-pdf-import-experiment",
+  "private": true,
+  "type": "module",
+  "dependencies": { "pdfjs-dist": "6.4.299" }
+}

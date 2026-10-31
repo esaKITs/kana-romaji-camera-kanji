@@ -30,6 +30,8 @@ jobs:
       - run: npm run prepare:assets
       - run: npm run build
       - run: node meikiocr-test/node_modules/playwright/cli.js install --with-deps webkit
+      - name: Independent PDF thumbnail and page preview
+        run: OCR_BROWSER=webkit node scripts/pdf-preview-browser-test.mjs
       - name: Original thin numeric sample through WebKit mobile viewport
         run: |
           OCR_BROWSER=webkit node scripts/clipped-line-browser-test.mjs
@@ -70,6 +72,7 @@ jobs:
         timeout-minutes: 20
         run: |
           node meikiocr-test/node_modules/playwright/cli.js install --with-deps chromium
+          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pdf-preview-browser-test.mjs
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:browser
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") npm run test:textbook
       - name: Canonical PP-OCR actual textbook parity
