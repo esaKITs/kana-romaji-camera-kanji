@@ -100,3 +100,7 @@ these results must not be reported as confirmation on the user's physical device
 Layout-only tests compare every painted pixel at visibility 0/55/100 against the
 previous path. Private source PDF and its output/diagnostic data are excluded from
 the public repository and CI artifacts.
+
+## Common worker input boundary (v0.2.29)
+
+The v0.2.27 regional fix did not cover detector calls without measured regions. Every Meiki scan now passes through one boundary that splits oversized detector inputs as well as measured crops, preserving source pixels and absolute coordinates. Tests exercise the reported 3193×4474 frame with absent, empty and explicit regions through that production boundary; a real worker browser test also scans the full-size frame. Worker failures include the scan identifier and actual dimensions. This closes a code path that could produce the reported error; the precise failing call on the user's iPhone and its resolution on that device remain unverified.
