@@ -1,7 +1,8 @@
-import {pdfOperation} from './operation-report.mjs';
+import {pdfOperation,bindPdfFailurePanel} from './operation-report.mjs';
 import {DocumentState} from './document-state.mjs';
 export function exportName(name,page,extension){const base=(name||'kana').replace(/\.[^.]+$/,'').replace(/[<>:"/\\|?*\u0000-\u001f]/g,'-');return base+(page?'-page-'+page:'')+'-romaji.'+extension;}
-export function bindDocumentControls({document:doc,getCurrent,readPage,renderExport,onBusy=()=>{},invalidate=()=>{}}){
+export function bindDocumentControls({document:doc,getCurrent,readPage,renderExport,preparePage=async()=>{},onBusy=()=>{},invalidate=()=>{}}){
+ bindPdfFailurePanel(doc);
  const $=id=>doc.getElementById(id),state=new DocumentState(),sources=new WeakMap();let busy=false,download=null,heldSource=null;
  const status=text=>{$('document-status').textContent=text;};
  const io=()=>import('./pdf-io.mjs');
@@ -25,7 +26,7 @@ export function bindDocumentControls({document:doc,getCurrent,readPage,renderExp
  async function show(number,epoch){
   owns(epoch);pdfOperation.step('page-render',{page:number,dpi:state.dpi});const {renderPdfPage}=await io(),p=await renderPdfPage(state.pdf,number,state.dpi);owns(epoch);pdfOperation.step('page-rendered',{page:number,width:p.canvas.width,height:p.canvas.height});
   const old=heldSource;heldSource=p.canvas;sources.set(p.canvas,{pdf:state.pdf,number,dpi:state.dpi,epoch});state.current=number;
-  const previous=state.records.get(number);const run=await readPage(p.canvas,previous?.dpi===state.dpi?previous.run:null,()=>state.owns(epoch));owns(epoch);
+  const previous=state.records.get(number);pdfOperation.step('ocr-initialize');await preparePage();owns(epoch);pdfOperation.step('ocr-convert',{page:number,width:p.canvas.width,height:p.canvas.height});const run=await readPage(p.canvas,previous?.dpi===state.dpi?previous.run:null,()=>state.owns(epoch));owns(epoch);
   if(!run)throw Error('OCR returned no result.');remember(p.canvas,run);pdfOperation.step('page-converted',{page:number});
   if(old&&old!==heldSource)old.width=old.height=0;return run;
  }

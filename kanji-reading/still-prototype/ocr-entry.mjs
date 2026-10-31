@@ -1,4 +1,3 @@
-import {pdfOperation} from '../camera-prototype/operation-report.mjs';
 import {snapshotFromPPOCR,initializePPOCR,scanPPOCR,reclassifyVerifiedPPOCR} from './ppocr-adapter.mjs';
 import {verifyClippedRegions,verifyPPOCRRuby} from './ppocr-verify.mjs?v=0.2.24';
 import {fingerprintInput} from './ocr-diagnostics.mjs';
@@ -28,7 +27,7 @@ async function initializeMeiki(){
 }
 async function scan(canvas,id,regions){
  const view=regions?recognitionViewport(regions,canvas.width,canvas.height):{x:0,y:0,width:canvas.width,height:canvas.height};
- pdfOperation.step('ocr-frame-read',{id,width:view.width,height:view.height,pixels:view.width*view.height,regional:!!regions});const rgba=canvas.getContext('2d',{willReadFrequently:true}).getImageData(view.x,view.y,view.width,view.height).data;pdfOperation.step('ocr-frame-scan',{id,width:view.width,height:view.height,pixels:view.width*view.height});
+ const rgba=canvas.getContext('2d',{willReadFrequently:true}).getImageData(view.x,view.y,view.width,view.height).data;
  const snapshot=await ocr.scan({frameId:id,width:view.width,height:view.height,capturedAtMs:performance.now(),rgba:rgba.buffer,...(regions?{regions:view.regions}:{})},{transfer:'move'});
  return regions?restoreRecognitionCoordinates(snapshot,view):snapshot;
 }
@@ -101,7 +100,7 @@ export async function scanFocused(source,box){
 export async function analyzeText(text){return (await rpc({command:'analyze',text,numeric:true})).tokens;}
 export async function runStill(source,{mode='あア漢',style='double',output=null,paperState=null,xycut=true}={}){
  if((!ocr&&!usePPOCR)||!readingWorker)throw Error('Initialize first');
- pdfOperation.step('input-fingerprint',{width:source.width,height:source.height});const inputFingerprint=await fingerprintInput(source);pdfOperation.step('ocr-primary');
+ const inputFingerprint=await fingerprintInput(source);
  const t=performance.now(),primarySnapshot=await (usePPOCR?scanPPOCR(source):(xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'still-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'still-'+requestId))),ocrMs=performance.now()-t,rubyChecks=[];let rubyOcrMs=0,recoveryMs=0,verificationMs=0,snapshot=primarySnapshot,recovery={regions:[],decisions:[]};
  if(usePPOCR){
   const started=performance.now();
@@ -116,7 +115,7 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
  }
  const regions=usePPOCR?[]:recoveryRegions(primarySnapshot);
  if(regions.length){const started=performance.now(),regionalSnapshot=await scan(source,'repair-'+requestId,regions.map(r=>r.box)),merged=mergeRecovery(primarySnapshot,regionalSnapshot,regions);snapshot=merged.snapshot;recovery={regions,decisions:merged.decisions,regionalSnapshot};recoveryMs=performance.now()-started;}
- pdfOperation.step('reading-analysis');const result=await analyzeSnapshot(snapshot,async text=>(await rpc({command:'analyze',text,numeric:true})).tokens,{mode,style,source,verifyRuby:async c=>{
+ const result=await analyzeSnapshot(snapshot,async text=>(await rpc({command:'analyze',text,numeric:true})).tokens,{mode,style,source,verifyRuby:async c=>{
   const kana=s=>s.normalize('NFC').replace(/[ァ-ヶ]/g,k=>String.fromCharCode(k.charCodeAt(0)-96));
   if(c.contextReading&&kana(c.contextReading)===kana(c.reading)){rubyChecks.push({source:c.source,first:c.reading,second:c.contextReading,method:'context-dictionary-agreement'});return{reading:c.reading,method:'context-dictionary-agreement'};}
   const b=c.rubyBox,pad=Math.max(2,(b.y1-b.y0)*.1),box=[Math.max(0,Math.floor(b.x0-pad)),Math.max(0,Math.floor(b.y0-pad)),Math.min(source.width,Math.ceil(b.x1+pad)),Math.min(source.height,Math.ceil(b.y1+pad))];
@@ -128,7 +127,7 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
   }
   const checkStart=performance.now(),recheck=await scan(source,'ruby-'+requestId,[box]),reading=recheck.lines.map(l=>l.glyphs.map(g=>g.text).join('')).join('').replace(/\s/g,'');rubyOcrMs+=performance.now()-checkStart;rubyChecks.push({source:c.source,first:c.reading,second:reading,method:'regional-reread'});return{reading,method:'regional-reread'};
  }});
- pdfOperation.step('result-render');const renderStart=performance.now(),rendering=output?renderResult(output,source,result,{paperState}):null;
+ const renderStart=performance.now(),rendering=output?renderResult(output,source,result,{paperState}):null;
  const run={inputFingerprint,elapsedMs:performance.now()-t,rawText:(snapshot.rawRegions?[...snapshot.rawRegions,...(snapshot.supplemental?.regions||[])]:snapshot.lines).map(l=>l.text).join('\n'),effectiveText:snapshot.lines.map(l=>l.text).join('\n'),primarySnapshot,snapshot,recovery,result,rubyChecks,rendering,timings:{ocrMs,verificationMs,recoveryMs,rubyOcrMs,analysisMs:renderStart-t-ocrMs-verificationMs-recoveryMs-rubyOcrMs,renderMs:performance.now()-renderStart},jsHeapBytes:performance.memory?.usedJSHeapSize??null};
  // Bounded, browser-local diagnostics. This is neither an upload nor persisted data.
  window.stillLab.lastRun=run;return run;

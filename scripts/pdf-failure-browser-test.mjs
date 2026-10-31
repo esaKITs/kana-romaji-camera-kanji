@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict';import{readFile}from'node:fs/promises';
 import{chromium,webkit}from'../meikiocr-test/node_modules/playwright/index.mjs';import{createPagesServer,base}from'./pages-server.mjs';
 const server=createPagesServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));const type=process.env.OCR_BROWSER==='webkit'?webkit:chromium,browser=await type.launch(type===chromium?{executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']}:{});
-try{for(const mode of ['render','ocr-initialize','parse']){
+try{for(const mode of ['render','ocr-initialize','parse','image-isolation']){
  const page=await browser.newPage();
  await page.addInitScript(mode=>{
   if(mode==='render'){const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(...args){if(this.width>=1000)throw Error('injected-page-render-failure');return original.apply(this,args);};}
-  if(mode==='ocr-initialize'){const Original=Worker;window.Worker=class extends Original{constructor(url,options){if(String(url).includes('lab/worker-v2'))throw Error('injected-ocr-init-failure');super(url,options);}};}
+  if(mode==='ocr-initialize'||mode==='image-isolation'){const Original=Worker;window.Worker=class extends Original{constructor(url,options){if(String(url).includes('lab/worker-v2'))throw Error('injected-ocr-init-failure');super(url,options);}};}
  },mode);
  await page.goto('http://127.0.0.1:'+server.address().port+base);
+ if(mode==='image-isolation'){await page.locator('#sample').click();await page.waitForFunction(()=>document.getElementById('scan-label').textContent.includes('injected-ocr-init-failure'));assert.equal(await page.evaluate(()=>sessionStorage.getItem('romaji-pdf-last-operation-v1')),null);assert.equal(await page.locator('#pdf-failure-tools').isVisible(),false);console.log(JSON.stringify({mode,pdfReportAbsent:true}));await page.close();continue;}
  if(mode==='parse')await page.locator('#image').setInputFiles({name:'broken.pdf',mimeType:'application/pdf',buffer:Buffer.from('not a PDF')});
  else{await page.locator('#sample-pdf').click();await page.locator('#pdf-dialog').waitFor({state:'visible',timeout:60000});await page.locator('#pdf-convert').click();}
  await page.waitForFunction(()=>document.getElementById('pdf-failure-tools')?.hidden===false,{},{timeout:60000});

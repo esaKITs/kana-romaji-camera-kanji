@@ -1,4 +1,3 @@
-import {pdfOperation} from './operation-report.mjs';
 import{initialize,runStill,dispose,analyzeText}from'../still-prototype/ocr-entry.mjs';
 import{analyzeSnapshot,renderResult}from'../still-prototype/pipeline.mjs';
 import{CameraSession}from'./session.mjs';
@@ -39,13 +38,13 @@ function watchMotion(){
  if($('video').videoWidth){try{const moved=motion.observe(videoSignature(),performance.now());if(moved&&paintedFrame){paperState.reset();clearLayer();lastFrame=null;message('Live · hold steady');}}catch{clearLayer();lastFrame=null;}}
  motionTimer=setTimeout(watchMotion,150);
 }
-async function processScene(){
+async function processScene(onError=null){
  pending=true;if(session.busy||session.kind==='home')return;pending=false;documents?.sync();
  const generation=session.generation,kind=session.kind,requestedMode=mode,requestedStyle=style;
  await session.exclusive(async()=>{try{
   let source=kind==='still'?session.source:capture();if(!source)return;
   if(kind==='still'){renderSource(source);message('Preparing Still…',true);}
-  pdfOperation.step('ocr-initialize');await engines();if(!session.owns(generation))return;pdfOperation.step('ocr-initialized');
+  await engines();if(!session.owns(generation))return;
   let capturedSignature=null,captureEpoch=null;
   if(kind==='live'){source=capture();capturedSignature=videoSignature(source);motion.observe(capturedSignature,performance.now());if(!motion.stable(performance.now())){message('Live · hold steady');return;}captureEpoch=motion.epoch;}
   message(kind==='live'?'Live · reading…':'Still · reading…',kind==='still');
@@ -59,7 +58,7 @@ async function processScene(){
   documents?.remember(source,result);
   lastReport=createOcrReport(result,{origin:sourceOrigins.get(source)||kind,settings:{engine:ppocrMode?'ppocr':'meiki',mode:requestedMode,style:requestedStyle,reveal},environment:{userAgent:navigator.userAgent,platform:navigator.platform,devicePixelRatio:window.devicePixelRatio||1}});$('download-report').disabled=false;
   lastFrame=result.result;drawGuides(lastFrame);message(kind==='live'?(result.rendering.drawn.length?'Live · '+result.rendering.drawn.length+' labels':'Live · looking for text'):'Still · '+result.rendering.drawn.length+' shown'+(result.rendering.omitted?.length?' · '+result.rendering.omitted.length+' not fitted':''));if(result.snapshot.geometryVerification?.error)message($('scan-label').textContent+' · text check unavailable');
- }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);if(sourceOrigins.get(session.source)==='pdf-page')throw error;}}});
+ }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);onError?.(error);}}});
  documents?.sync();if(pending&&session.kind!=='home')queueMicrotask(processScene);
 }
 async function focusScan(rect){
@@ -90,7 +89,7 @@ $('focus-scan').onclick=()=>{const enabled=!focus.enabled;focus.enable(enabled);
 function renderSource(source){const c=$('output');c.width=source.width;c.height=source.height;c.getContext('2d').drawImage(source,0,0);$('guides').getContext('2d').clearRect(0,0,$('guides').width,$('guides').height);}
 function tick(){clearTimeout(timer);if(session.kind!=='live')return;if(!document.hidden&&!session.busy)void processScene();timer=setTimeout(tick,1800);}
 async function start(){if(stream||session.kind==='live')return;documents?.clear();const request=++opening;$('start').disabled=true;try{message('Opening camera…');const opened=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}});if(request!==opening){opened.getTracks().forEach(t=>t.stop());return;}stream=opened;$('video').srcObject=stream;await $('video').play();if(request!==opening){stopStream();return;}cache=null;session.enter('live');clearLayer();screen();const track=stream.getVideoTracks()[0],cap=track?.getCapabilities?.();$('torch').hidden=!cap?.torch;$('torch').disabled=!cap?.torch;paperState.reset();stopMotion();watchMotion();tick();}catch(error){if(request===opening){stopStream();message('Unable to start camera: '+error.message);}}finally{$('start').disabled=false;}}
-function still(source,previous=null){stillZoom.reset();paperState.reset();stopMotion();session.enter('still',source);cache=previous?{source,value:previous}:null;clearTimeout(timer);if(torch){stream?.getVideoTracks()[0]?.applyConstraints({advanced:[{torch:false}]}).catch(()=>{});torch=false;$('torch').setAttribute('aria-pressed','false');}screen();renderSource(source);return processScene();}
+function still(source,previous=null,onError=null){stillZoom.reset();paperState.reset();stopMotion();session.enter('still',source);cache=previous?{source,value:previous}:null;clearTimeout(timer);if(torch){stream?.getVideoTracks()[0]?.applyConstraints({advanced:[{torch:false}]}).catch(()=>{});torch=false;$('torch').setAttribute('aria-pressed','false');}screen();renderSource(source);return processScene(onError);}
 $('start').onclick=start;$('stop').onclick=home;$('scan').onclick=()=>{try{still(capture());}catch(error){message(error.message);}};
 $('live-return').onclick=()=>{if(stream){session.enter('live');cache=null;clearLayer();screen();paperState.reset();stopMotion();watchMotion();tick();}else home();};
 $('retry').onclick=()=>{if(session.kind==='still'){cache=null;session.enter('still',session.source);void processScene();}};
@@ -114,16 +113,9 @@ function invalidateDocumentScene(){opening++;pending=false;session.enter('home')
 documents=bindDocumentControls({document,getCurrent:currentDocumentScene,
  onBusy:busy=>{for(const id of ['start','choose','choose-home','sample','sample-pdf','ocr-engine','kana-mode','long-vowels','source-level','retry','scan','focus-scan'])$(id).disabled=busy;},
  invalidate:invalidateDocumentScene,
- readPage:async(source,previous,owns)=>{stopStream();session.enter('home');pending=false;while(session.busy){if(!owns())return null;await new Promise(r=>setTimeout(r,30));}if(!owns())return null;sourceOrigins.set(source,'pdf-page');await still(source,previous);return cache?.source===source?cache.value:null;},
+ preparePage:engines,
+ readPage:async(source,previous,owns)=>{stopStream();session.enter('home');pending=false;while(session.busy){if(!owns())return null;await new Promise(r=>setTimeout(r,30));}if(!owns())return null;sourceOrigins.set(source,'pdf-page');let failure=null;await still(source,previous,error=>{failure=error;});if(failure)throw failure;return cache?.source===source?cache.value:null;},
  renderExport:async(source,previous)=>{if(lastPaint?.source===source&&cache?.value===previous&&previous.result.mode===mode&&previous.result.style===style){const output=document.createElement('canvas');paintLabels(output,source,lastPaint.layout,{still:true,reveal});return output;}const analyzed=await analyzeSnapshot(previous.snapshot,analyzeText,{mode,style,source,verifyRuby:c=>{const p=previous.result.pairs.find(p=>p.lineId===c.lineId&&p.start===c.start&&p.end===c.end);return p?{reading:p.reading,method:'cached-'+(p.verification||'verified-ruby')}:null;}});const scratch=document.createElement('canvas'),layout=renderResult(scratch,source,analyzed,{paperState:new AdaptivePapers()}),output=document.createElement('canvas');paintLabels(output,source,layout,{still:true,reveal});scratch.width=scratch.height=0;return output;}
 });screen();
 
 $('sample-pdf').onclick=async()=>{const request=++opening;$('sample-pdf').disabled=true;try{const response=await fetch(assetUrl('fixtures/document-sample.pdf?v='+CAMERA_VERSION));if(!response.ok)throw Error('Unable to load sample PDF.');if(request!==opening)return;await documents.open(new File([await response.blob()],'document-sample.pdf',{type:'application/pdf'}));}catch(error){message(error.message);}finally{$('sample-pdf').disabled=false;}};
-
-const failureTools=document.createElement('aside');failureTools.id='pdf-failure-tools';failureTools.style.cssText='position:fixed;bottom:12px;left:12px;right:12px;z-index:10000;background:#fff;color:#15212a;padding:12px;border:2px solid #c45a35;border-radius:12px;max-height:45vh;overflow:auto';
-const failureMessage=document.createElement('p'),failureSave=document.createElement('button'),failureClose=document.createElement('button');failureSave.textContent='Save PDF diagnostic';failureClose.textContent='Close';failureTools.append(failureMessage,failureSave,failureClose);document.body.append(failureTools);
-function refreshPdfFailure(){const r=pdfOperation.current;failureTools.hidden=!r||r.complete||r.phase==='cancelled';failureMessage.textContent=r?.error?('PDF failed at '+r.error.phase+': '+r.error.message):('Last PDF step: '+r?.phase);}
-let reportDismissed=false;function displayPdfFailure(){const r=pdfOperation.current;if(r?.error){reportDismissed=false;refreshPdfFailure();}else if(!reportDismissed&&r&&!r.finishedAt){failureTools.hidden=true;}}
-failureClose.onclick=()=>{reportDismissed=true;failureTools.hidden=true;};
-failureSave.onclick=()=>{const r=pdfOperation.current;if(!r)return;const url=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='romaji-pdf-'+r.startedAt.replace(/[^0-9]/g,'')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);};
-window.addEventListener('pdf-operation-change',displayPdfFailure);refreshPdfFailure();
