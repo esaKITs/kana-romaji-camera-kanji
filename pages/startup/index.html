@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Romaji Lens startup check</title></head><body>
+<aside id="startup-probe" style="position:fixed;left:8px;right:8px;bottom:8px;z-index:2147483647;background:#fff;color:#172431;padding:14px;border:2px solid #c15832;border-radius:12px;font:15px system-ui;max-height:48vh;overflow:auto;box-sizing:border-box">
+<strong>Romaji Lens startup check</strong><p id="startup-status" style="margin:8px 0;overflow-wrap:anywhere">Checking app loading…</p><pre id="startup-details" style="white-space:pre-wrap;overflow-wrap:anywhere;font:12px monospace"></pre><button id="startup-save" disabled style="padding:9px 12px;font:inherit">Save startup report</button></aside>
+<script>
+(function(){
+ var report={schema:'romaji-startup-check-v1',startedAt:new Date().toISOString(),userAgent:navigator.userAgent,steps:[],errors:[]},entry=null;
+ var status=document.getElementById('startup-status'),details=document.getElementById('startup-details'),save=document.getElementById('startup-save');
+ function show(message){status.textContent=message;details.textContent=JSON.stringify(report,null,2);}
+ function fail(error,phase){var item={phase:phase,name:error&&error.name||'Error',message:error&&error.message||String(error),stack:error&&error.stack||null};report.errors.push(item);show(phase+': '+item.message);save.disabled=false;}
+ window.addEventListener('error',function(e){fail(e.error||{message:e.message||'Resource failed: '+(e.target&&e.target.src||e.target&&e.target.href||'unknown')},'window-error');},true);
+ window.addEventListener('unhandledrejection',function(e){fail(e.reason,'unhandled-rejection');});
+ save.onclick=function(){var a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));a.href=url;a.download='romaji-startup-'+report.startedAt.replace(/[^0-9]/g,'')+'.json';a.click();setTimeout(function(){URL.revokeObjectURL(url);},60000);};
+ async function check(){
+  var base=new URL('../',location.href),response=await fetch(base.href+'?startup-check='+Date.now(),{cache:'no-store'});
+  if(!response.ok)throw new Error('App HTML HTTP '+response.status);
+  var source=new DOMParser().parseFromString(await response.text(),'text/html'),module=source.querySelector('script[type="module"][src]');
+  if(!module)throw new Error('App entry script was not found');
+  entry=new URL(module.getAttribute('src'),base).href;report.entry=entry;report.appTitle=source.title;
+  report.steps.push({phase:'html-loaded',title:source.title,entry:entry});show('Loading app program…');
+  source.querySelectorAll('script').forEach(function(s){s.remove();});
+  source.querySelectorAll('link[rel="stylesheet"]').forEach(function(link){var copy=link.cloneNode(true);copy.href=new URL(link.getAttribute('href'),base).href;document.head.appendChild(copy);});
+  var app=document.createElement('div');Array.from(source.body.childNodes).forEach(function(node){app.appendChild(document.importNode(node,true));});document.body.appendChild(app);
+  await import(entry);
+  report.handlers={file:typeof document.getElementById('image').onchange,samplePdf:typeof document.getElementById('sample-pdf').onclick,camera:typeof document.getElementById('start').onclick};
+  if(report.handlers.file!=='function'||report.handlers.samplePdf!=='function')throw new Error('App import finished without registering input handlers');
+  report.steps.push({phase:'app-ready',handlers:report.handlers});show('App started. Checking the built-in PDF…');
+  await document.getElementById('sample-pdf').onclick();
+  report.pdf={pageDialogOpen:document.getElementById('pdf-dialog').open,pageCount:document.getElementById('pdf-page-list').children.length,documentStatus:document.getElementById('document-status').textContent,appStatus:document.getElementById('status').textContent};
+  if(!report.pdf.pageDialogOpen)throw new Error(report.pdf.documentStatus||report.pdf.appStatus||'Sample PDF did not open');
+  report.steps.push({phase:'sample-pdf-opened',pages:report.pdf.pageCount});document.getElementById('pdf-dialog').close();show('App startup and sample PDF loading succeeded.');save.disabled=false;
+ }
+ check().catch(function(error){fail(error,report.steps.some(function(s){return s.phase==='app-ready';})?'sample-pdf-open':'app-startup');});
+})();
+</script></body></html>
