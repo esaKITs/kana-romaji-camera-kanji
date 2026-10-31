@@ -1,6 +1,7 @@
 import {snapshotFromPPOCR,initializePPOCR,scanPPOCR,reclassifyVerifiedPPOCR} from './ppocr-adapter.mjs';
 import {verifyClippedRegions,verifyPPOCRRuby} from './ppocr-verify.mjs?v=0.2.24';
 import {fingerprintInput} from './ocr-diagnostics.mjs';
+import {verifyMeasuredContexts} from './ppocr-context.mjs';
 import {verifyOverlappingRegions} from './ppocr-overlap.mjs';
 import {scanStillTiles} from './still-tiles.mjs';
 import {scanXYCut} from './xycut-sahi-tiles.mjs';
@@ -109,7 +110,8 @@ export async function runStill(source,{mode='あア漢',style='double',output=nu
    const reference=await (xycut&&source.height>source.width?scanXYCut(source,(tile,id)=>scan(tile,id),'verify-'+requestId):scanStillTiles(source,(tile,id)=>scan(tile,id),'verify-'+requestId));
    const {recognizeRegion}=await import(/* @vite-ignore */ assetUrl('ppocr-single.mjs?v=0.2.24')); // A cached v0.2.17 module has no exported region helper.
    const clipped=await verifyClippedRegions(source,primarySnapshot,reference,recognizeRegion);
-   snapshot=snapshotFromPPOCR(await reclassifyVerifiedPPOCR(await verifyOverlappingRegions(source,clipped,reference,recognizeRegion)));
+   const overlapping=await verifyOverlappingRegions(source,clipped,reference,recognizeRegion);
+   snapshot=snapshotFromPPOCR(await reclassifyVerifiedPPOCR(await verifyMeasuredContexts(source,overlapping,reference,recognizeRegion)));
   }catch(error){snapshot={...primarySnapshot,geometryVerification:{accepted:0,error:error.message}};}
   verificationMs=performance.now()-started;
  }
