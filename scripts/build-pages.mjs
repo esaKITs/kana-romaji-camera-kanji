@@ -23,6 +23,7 @@ await copy('meikiocr-test/public/licenses',out+'/licenses');
 for(const [file,name]of [['LICENSE-2.0.txt','LICENSE.kuromoji-Apache-2.0.txt'],['NOTICE.md','NOTICE.kuromoji-IPADIC.md']])await copy('kanji-reading/lab/node_modules/kuromoji/'+file,out+'/licenses/'+name);
 await copy('pages/NOTICE.onnxruntime.txt',out+'/licenses/NOTICE.onnxruntime.txt');
 await copy('pages/NOTICE.html',out+'/licenses/NOTICE.html');
+await copy('pages/diagnostics',out+'/diagnostics');
 // PDF assets are same-origin; uploaded documents never need a CDN or upload.
 for(const dir of ['cmaps','standard_fonts','wasm','iccs'])await copy('meikiocr-test/node_modules/pdfjs-dist/'+dir,out+'/pdf-assets/'+dir);
 for(const [file,name]of [['pdfjs-dist/LICENSE','LICENSE.pdfjs-Apache-2.0.txt'],['pdf-lib/LICENSE.md','LICENSE.pdf-lib-MIT.txt'],['@pdf-lib/standard-fonts/LICENSE.md','LICENSE.pdf-standard-fonts-MIT.txt'],['@pdf-lib/upng/LICENSE','LICENSE.pdf-upng-MIT.txt'],['pako/LICENSE','LICENSE.pako.txt'],['tslib/LICENSE.txt','LICENSE.tslib.txt']])await copy('meikiocr-test/node_modules/'+file,out+'/licenses/'+name);
