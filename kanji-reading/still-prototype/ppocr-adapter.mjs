@@ -20,6 +20,6 @@ export async function scanPPOCR(source){
 // classifications separately. A clipped body can otherwise make its ruby look
 // the same height as body text. No classifier thresholds are changed.
 export async function reclassifyVerifiedPPOCR(run){
- if(!run.geometryVerification?.accepted&&!run.overlapVerification?.accepted)return run;
+ if(!run.geometryVerification?.accepted&&!run.overlapVerification?.accepted&&!run.contextVerification?.accepted)return run;
  const core=await loadCore();return {...run,extendedRegions:core.classifyLocal(run.extendedRegions)};
 }

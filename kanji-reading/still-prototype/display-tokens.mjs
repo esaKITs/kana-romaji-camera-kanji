@@ -18,7 +18,7 @@ export function lexicalTokens(text,tokens,pairs=[],bulletEnd=null){
  return tokens.flatMap(t=>{const r=replacements.find(r=>r.start<t.end&&r.end>t.start);return r?(t.start===r.start?[r]:[]):[{...t}];});
 }
 export function displayTokens(text,tokens,mode,pairs=[],{bulletEnd=null}={}){
- tokens=lexicalTokens(text,tokens,pairs,bulletEnd);
+ tokens=lexicalTokens(text,tokens.map(t=>!t.reading&&/^[ぁ-ゖァ-ヺー]+$/u.test(t.surface)?{...t,reading:t.surface,readingSource:'literal-kana'}:t),pairs,bulletEnd);
  const output=[];
  for(const original of tokens){
   let token={...original};
