@@ -65,3 +65,12 @@ The normal application records PDF file size, page counts, selected resolution, 
 ## v0.2.32 PDF-only diagnostics
 
 Remove all PDF diagnostic imports and calls from the shared OCR entry module and restore that module byte-for-byte to v0.2.30. Diagnostic UI binding and initialization/conversion phases now belong to the PDF document controller. The camera controller only passes its existing engine initializer and a per-PDF-call error receiver to the document controller; ordinary image and Live calls have no diagnostic callback. The original camera Live test is restored without the v0.2.31 DOM harness changes. Per-frame OCR traces are removed; PDF records retain page dimensions, initialization/conversion stages and original exceptions. OCR models, frame limits, resolution, dictionary and romanization rules are unchanged.
+
+
+## v0.2.33 large scanned JPEG pages
+
+The selected DPI limits the output canvas, but the PDF.js image path can still expand the embedded JPEG at its original pixel dimensions before scaling it. For large JPEG-only scanned pages, parse the compressed PDF objects with the existing pdf-lib dependency and request a browser-decoded bitmap at the selected output size. Release that bitmap immediately after painting. This avoids application-side full-resolution RGB expansion in PDF.js; a browser's internal decoder memory use is not guaranteed by the resize API.
+
+Eligibility is strict: one content stream containing only save/matrix/image/restore operators; one referenced 8-bit DeviceGray/DeviceRGB DCT image above 16 million pixels; no masks, decode parameters, page rotation, crop adjustment, annotations or non-default user units. Preserve the image matrix and page clipping. All other pages retain the PDF.js renderer; when switching to PDF.js, release the parsed native document before transferring the original bytes to its worker. The file stays local. No OCR, resolution options, dictionary or romanization changes.
+
+Tests generate a large JPEG scan and check output size, orientation and color. A second page with a vector overlay must use PDF.js and preserve the overlay. Run both through Chromium and WebKit. A private source-file test is available through PRIVATE_PDF; do not add that source or private output to the repository or public artifacts.
