@@ -13,7 +13,7 @@ export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlap
   for(let i=0;i<starts.length;i++){
    const y=starts[i],h=Math.min(tileHeight,height-y),tile=document.createElement('canvas');
    tile.width=width;tile.height=h;tile.getContext('2d').drawImage(source,0,y,width,h,0,0,width,h);
-   const snapshot=await scan(tile,id+'-wide-'+i);
+   let snapshot;try{snapshot=await scan(tile,id+'-wide-'+i);}finally{tile.width=tile.height=0;}
    const lower=i===0?0:(starts[i-1]+Math.min(tileHeight,height-starts[i-1])+y)/2;
    const upper=i===starts.length-1?height:(y+h+starts[i+1])/2;
    for(const line of snapshot.lines||[]){const box=shift(line.box,y),mid=(box[1]+box[3])/2;if(mid<lower||mid>=upper)continue;lines.push({...line,box,glyphs:(line.glyphs||[]).map(g=>({...g,box:shift(g.box,y)}))});}
@@ -31,7 +31,7 @@ export async function scanStillTiles(source, scan, id, {rows=4,columns=2,overlap
   const right=Math.min(width,xEdges[col+1]+overlapX),bottom=Math.min(height,yEdges[row+1]+overlapY);
   const w=right-x,h=bottom-y,tile=document.createElement('canvas');
   tile.width=w;tile.height=h;tile.getContext('2d').drawImage(source,x,y,w,h,0,0,w,h);
-  const snapshot=await scan(tile,id+'-'+row+'-'+col);
+  let snapshot;try{snapshot=await scan(tile,id+'-'+row+'-'+col);}finally{tile.width=tile.height=0;}
   // A detected line is owned by the cell containing its center.
 
   for(const line of snapshot.lines||[]){

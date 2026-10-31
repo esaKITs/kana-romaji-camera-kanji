@@ -82,3 +82,21 @@ regional repair now reads its own measured crop sequentially and restores source
 coordinates before merging. No downsampling, model, threshold or worker-limit
 change is used. Regression tests cover the exact reported union dimensions and
 actual Meiki worker calls for two distant regions on a 3500 x 5000 canvas.
+
+## Page-buffer lifetime (v0.2.28)
+
+The app computes replacement layout and patches using a 1 x 1 measurement canvas,
+then paints the visible result once. Export still paints at source resolution.
+Disabled position guides have zero bitmap dimensions. Meiki scan tiles release
+their canvas backing store immediately after their worker call, including errors.
+A conversion shows the current phase and elapsed seconds. A reading failure is
+propagated to document status instead of being replaced with a generic retry text.
+
+The supplied 78-page PDF was exercised directly in Chromium (no extracted page
+or substituted sample): page 1 at 300 dpi (2117 x 3055) and 600 dpi (4234 x 6109),
+using both OCR engines. The v0.2.27 baseline completed all four cases, about
+26-96 seconds locally. An iPhone-specific failure is not reproduced by that test;
+these results must not be reported as confirmation on the user's physical device.
+Layout-only tests compare every painted pixel at visibility 0/55/100 against the
+previous path. Private source PDF and its output/diagnostic data are excluded from
+the public repository and CI artifacts.
