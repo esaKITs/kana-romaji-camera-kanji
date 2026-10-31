@@ -7,6 +7,7 @@ export function scannedPage(page,api){
  const get=(dict,key)=>dict.lookup(PDFName.of(key));
  if(page.getRotation().angle!==0||page.node.Annots()?.size())return null;
  const box=page.getCropBox(),media=page.getMediaBox();
+ if(!['x','y','width','height'].every(k=>Number.isFinite(box[k]))||box.width<=0||box.height<=0)return null;
  if(['x','y','width','height'].some(k=>box[k]!==media[k]))return null;
  let contents=page.node.Contents();
  if(contents instanceof PDFArray){if(contents.size()!==1)return null;contents=contents.lookup(0);}

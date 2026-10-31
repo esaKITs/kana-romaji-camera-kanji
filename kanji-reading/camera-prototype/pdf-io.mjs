@@ -11,12 +11,13 @@ async function pdfReader(){
 export async function openPdf(file){
  pdfOperation.step('file-read',{bytes:file.size});let bytes=new Uint8Array(await file.arrayBuffer()),scanned=null,task=null,loading=null,destroyed=false;
  pdfOperation.step('pdf-parse',{bytes:bytes.byteLength});
- try{const {openScannedPdf}=await import('./scanned-pdf.mjs');scanned=await openScannedPdf(bytes);}catch{}
+ try{const {openScannedPdf}=await import('./scanned-pdf.mjs');scanned=await openScannedPdf(bytes);bytes=null;}catch{}
  function fallback(){
   if(loading)return loading;
   return loading=(async()=>{
   const pdf=await pdfReader();if(destroyed)throw new DOMException('Cancelled.','AbortError');scanned?.release();scanned=null;
-  task=pdf.getDocument({data:bytes,cMapUrl:assetUrl('pdf-assets/cmaps/'),cMapPacked:true,standardFontDataUrl:assetUrl('pdf-assets/standard_fonts/'),wasmUrl:assetUrl('pdf-assets/wasm/'),iccUrl:assetUrl('pdf-assets/iccs/'),isEvalSupported:false});bytes=null;
+  const input=bytes||new Uint8Array(await file.arrayBuffer());bytes=null;if(destroyed)throw new DOMException('Cancelled.','AbortError');
+  task=pdf.getDocument({data:input,cMapUrl:assetUrl('pdf-assets/cmaps/'),cMapPacked:true,standardFontDataUrl:assetUrl('pdf-assets/standard_fonts/'),wasmUrl:assetUrl('pdf-assets/wasm/'),iccUrl:assetUrl('pdf-assets/iccs/'),isEvalSupported:false});bytes=null;
   try{return await task.promise;}catch(error){await task.destroy();if(error.name==='PasswordException')throw Error('Password-protected PDFs are not supported yet.');throw error;}
   })();
  }
