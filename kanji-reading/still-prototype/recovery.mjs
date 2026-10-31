@@ -54,7 +54,5 @@ export function recognitionViewport(regions,width,height){
 }
 export function restoreRecognitionCoordinates(snapshot,viewport){
  const box=b=>[b[0]+viewport.x,b[1]+viewport.y,b[2]+viewport.x,b[3]+viewport.y];
- const diagnostics={...snapshot.diagnostics,recognitionViewport:{x:viewport.x,y:viewport.y,width:viewport.width,height:viewport.height}};
- for(const key of ['detectorProposals','detectionRegions'])if(snapshot.diagnostics?.[key])diagnostics[key]=snapshot.diagnostics[key].map(r=>({...r,box:box(r.box)}));
- return{...snapshot,width:viewport.sourceWidth,height:viewport.sourceHeight,lines:snapshot.lines.map(l=>({...l,box:box(l.box),glyphs:(l.glyphs||[]).map(g=>({...g,box:box(g.box)}))})),diagnostics};
+ return{...snapshot,width:viewport.sourceWidth,height:viewport.sourceHeight,lines:snapshot.lines.map(l=>({...l,box:box(l.box),glyphs:l.glyphs.map(g=>({...g,box:box(g.box)}))})),diagnostics:{...snapshot.diagnostics,recognitionViewport:{x:viewport.x,y:viewport.y,width:viewport.width,height:viewport.height},detectionRegions:snapshot.diagnostics.detectionRegions.map(r=>({...r,box:box(r.box)}))}};
 }
