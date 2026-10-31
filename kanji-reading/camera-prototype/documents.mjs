@@ -22,9 +22,9 @@ export function bindDocumentControls({document:doc,getCurrent,readPage,renderExp
  function failed(error){if(error.name!=='AbortError')status(error.message||String(error));}
  function remember(source,run){const a=sources.get(source);if(a&&a.pdf===state.pdf){state.current=a.number;state.remember(a.number,run,a.dpi);}sync();}
  async function show(number,epoch){
-  owns(epoch);status('Rendering page '+number+' at '+state.dpi+' dpi…');const {renderPdfPage}=await io(),p=await renderPdfPage(state.pdf,number,state.dpi);owns(epoch);
+  owns(epoch);const {renderPdfPage}=await io(),p=await renderPdfPage(state.pdf,number,state.dpi);owns(epoch);
   const old=heldSource;heldSource=p.canvas;sources.set(p.canvas,{pdf:state.pdf,number,dpi:state.dpi,epoch});state.current=number;
-  status('Recognizing page '+number+' at '+state.dpi+' dpi…');const previous=state.records.get(number);const run=await readPage(p.canvas,previous?.dpi===state.dpi?previous.run:null,()=>state.owns(epoch));owns(epoch);
+  const previous=state.records.get(number);const run=await readPage(p.canvas,previous?.dpi===state.dpi?previous.run:null,()=>state.owns(epoch));owns(epoch);
   if(!run)throw Error('The page was not converted. Please retry.');remember(p.canvas,run);
   if(old&&old!==heldSource)old.width=old.height=0;return run;
  }

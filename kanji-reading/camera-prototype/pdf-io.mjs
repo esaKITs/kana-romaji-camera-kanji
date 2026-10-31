@@ -1,4 +1,3 @@
-import {localPdfRange} from './pdf-range.mjs';
 import {assetUrl} from './asset-url.mjs';
 let reader;
 async function pdfReader(){
@@ -9,17 +8,16 @@ async function pdfReader(){
  return reader;
 }
 export async function openPdf(file){
- let failRead;const readFailure=new Promise((_,reject)=>{failRead=reject;});
- const pdf=await pdfReader(),range=localPdfRange(pdf,file,failRead),task=pdf.getDocument({range,length:file.size,disableAutoFetch:true,disableStream:true,
+ const pdf=await pdfReader(),task=pdf.getDocument({data:new Uint8Array(await file.arrayBuffer()),
   cMapUrl:assetUrl('pdf-assets/cmaps/'),cMapPacked:true,standardFontDataUrl:assetUrl('pdf-assets/standard_fonts/'),
   wasmUrl:assetUrl('pdf-assets/wasm/'),iccUrl:assetUrl('pdf-assets/iccs/'),isEvalSupported:false});
- try{const document=await Promise.race([task.promise,readFailure]);return {numPages:document.numPages,getPage:number=>document.getPage(number),destroy:()=>task.destroy()};}catch(error){await task.destroy();if(error.name==='PasswordException')throw Error('Password-protected PDFs are not supported yet.');throw error;}
+ try{const document=await task.promise;return {numPages:document.numPages,getPage:number=>document.getPage(number),destroy:()=>task.destroy()};}catch(error){await task.destroy();if(error.name==='PasswordException')throw Error('Password-protected PDFs are not supported yet.');throw error;}
 }
-export async function renderPdfPage(pdf,number,dpi=600,{preview=false}={}){
+export async function renderPdfPage(pdf,number,dpi=300,{preview=false}={}){
  if(!Number.isFinite(dpi)||dpi<=0)throw Error('Invalid PDF resolution.');
  const page=await pdf.getPage(number),base=page.getViewport({scale:1}),viewport=page.getViewport({scale:dpi/72});
  const width=Math.ceil(viewport.width),height=Math.ceil(viewport.height);
- if(width*height>36000000||width>16384||height>16384){page.cleanup();throw Error('This page is too large at '+dpi+' dpi. Choose a lower page resolution (300, 200 or 150 dpi).');}
+ if(width*height>16000000||width>16384||height>16384){page.cleanup();throw Error('This page is too large at '+dpi+' dpi. Choose 200 or 150 dpi.');}
  const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
  try{await page.render({canvas,viewport,background:'#ffffff'}).promise;}catch(error){canvas.width=canvas.height=0;throw error;}finally{page.cleanup();}
  return {canvas,widthPt:base.width,heightPt:base.height,dpi:preview?null:dpi};

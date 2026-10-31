@@ -1,6 +1,6 @@
 // Page results contain OCR data only, never a full-resolution canvas per page.
 export class DocumentState{
- pdf=null;name='';count=0;current=0;dpi=600;epoch=0;selected=new Set();records=new Map();
+ pdf=null;name='';count=0;current=0;dpi=300;epoch=0;selected=new Set();records=new Map();
  replace(pdf,name){this.cancel();const old=this.pdf;this.pdf=pdf;this.name=name;this.count=pdf.numPages;this.current=0;this.selected=new Set([1]);this.records=new Map();return old;}
  cancel(){return ++this.epoch;}
  owns(epoch){return epoch===this.epoch;}
