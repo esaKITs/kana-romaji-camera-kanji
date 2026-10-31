@@ -72,3 +72,13 @@ The temporary recognition render canvas is explicitly released after painting.
 Page status distinguishes rendering from recognition. The selected dpi and OCR
 models/thresholds remain unchanged. These changes reduce peak memory; they do not
 constitute confirmation on a user's physical iPhone or eliminate all memory limits.
+
+## Distant repair crops (v0.2.27)
+
+The ordinary page scan is tiled, but supplemental Meiki recognition previously
+combined distant measured regions into one bounding frame. The reported
+3193 x 4474 frame exceeded the existing 4,000,000-pixel worker guard. Each
+regional repair now reads its own measured crop sequentially and restores source
+coordinates before merging. No downsampling, model, threshold or worker-limit
+change is used. Regression tests cover the exact reported union dimensions and
+actual Meiki worker calls for two distant regions on a 3500 x 5000 canvas.

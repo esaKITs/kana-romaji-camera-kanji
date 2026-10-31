@@ -2,6 +2,7 @@ import {snapshotFromPPOCR,initializePPOCR,scanPPOCR,reclassifyVerifiedPPOCR} fro
 import {verifyClippedRegions,verifyPPOCRRuby} from './ppocr-verify.mjs?v=0.2.24';
 import {fingerprintInput} from './ocr-diagnostics.mjs';
 import {verifyOverlappingRegions} from './ppocr-overlap.mjs';
+import {scanRegionalCrops} from './regional-scan.mjs';
 import {scanStillTiles} from './still-tiles.mjs';
 import {scanXYCut} from './xycut-sahi-tiles.mjs';
 import {createMeikiOcr} from '../../meikiocr-test/vendor/meikiocr-web/index.js';
@@ -25,10 +26,11 @@ async function initializeMeiki(){
    workerFactory:()=>new Worker(new URL('../../meikiocr-test/vendor/meikiocr-web/worker.js',import.meta.url),{type:'module'})});
 
 }
-async function scan(canvas,id,regions){
+async function scan(canvas,id,regions,detectRegions=false){
+ if(regions&&(regions.length>1||regions.some(b=>(b[2]-b[0])*(b[3]-b[1])>4000000)))return scanRegionalCrops(canvas,regions,(region,index,detect)=>scan(canvas,id+'-region-'+index,[region],detect));
  const view=regions?recognitionViewport(regions,canvas.width,canvas.height):{x:0,y:0,width:canvas.width,height:canvas.height};
  const rgba=canvas.getContext('2d',{willReadFrequently:true}).getImageData(view.x,view.y,view.width,view.height).data;
- const snapshot=await ocr.scan({frameId:id,width:view.width,height:view.height,capturedAtMs:performance.now(),rgba:rgba.buffer,...(regions?{regions:view.regions}:{})},{transfer:'move'});
+ const snapshot=await ocr.scan({frameId:id,width:view.width,height:view.height,capturedAtMs:performance.now(),rgba:rgba.buffer,...(regions&&!detectRegions?{regions:view.regions}:{})},{transfer:'move'});
  return regions?restoreRecognitionCoordinates(snapshot,view):snapshot;
 }
 function preprocessFocus(canvas,mode){
