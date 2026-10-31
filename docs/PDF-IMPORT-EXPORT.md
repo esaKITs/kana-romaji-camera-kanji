@@ -60,3 +60,8 @@ At the user's request, the application is restored to the v0.2.24 source state (
 ## v0.2.31 failure recording
 
 The normal application records PDF file size, page counts, selected resolution, rendering phases and Meiki frame dimensions in tab-local session storage. PDF bytes, filenames and recognized text are not included. The record is updated before each operation and survives a reload in the same tab; an interrupted operation is identified by its last recorded phase, not declared successful. A visible failure panel downloads that record with a unique timestamp. OCR exceptions propagate to the document controller without being replaced by a generic retry message. The separate startup probe only checks application startup and opening the small sample PDF; it does not test PDF rendering or OCR conversion. This release adds diagnosis and error preservation, and does not claim to fix the reported original-PDF failure on an iPhone.
+
+
+## v0.2.32 PDF-only diagnostics
+
+Remove all PDF diagnostic imports and calls from the shared OCR entry module and restore that module byte-for-byte to v0.2.30. Diagnostic UI binding and initialization/conversion phases now belong to the PDF document controller. The camera controller only passes its existing engine initializer and a per-PDF-call error receiver to the document controller; ordinary image and Live calls have no diagnostic callback. The original camera Live test is restored without the v0.2.31 DOM harness changes. Per-frame OCR traces are removed; PDF records retain page dimensions, initialization/conversion stages and original exceptions. OCR models, frame limits, resolution, dictionary and romanization rules are unchanged.
