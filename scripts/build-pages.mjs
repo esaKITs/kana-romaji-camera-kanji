@@ -29,6 +29,8 @@ await copy('pages/ppocr-experiment/index.html',out+'/ppocr-experiment/index.html
 await copy('kanji-reading/still-prototype/ppocr-core.mjs',out+'/ppocr-core.mjs');
 await copy('kanji-reading/still-prototype/ppocr-single.mjs',out+'/ppocr-single.mjs');
 await copy('SOURCE.md',out+'/SOURCE.md');
+// Isolated PDF loading experiment. The v0.2.22 camera entry is unchanged.
+await import('./build-pdf-preview.mjs');
 await mkdir(out+'/ocr-assets',{recursive:true});
 const lock=JSON.parse(await readFile('meikiocr-test/models.lock.json')),manifest={modelSetId:lock.modelSetId,onnxruntimeWeb:'1.30.0',models:[],runtime:[]};
 for(const model of lock.models.filter(m=>m.role!=='recognizer-vertical')){

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Romaji Lens · PDF preview 0.1.0</title>
+<link rel="stylesheet" href="./preview.css">
+<header><div><span class="brand">esaKITs</span><h1>Romaji Lens <small>PDF preview 0.1.0</small></h1></div><a href="../">Camera / image version</a></header>
+<main>
+<p>Choose a PDF, select pages from the thumbnails, then view a page. This experiment checks PDF loading only.</p>
+<div class="toolbar"><label class="button" for="pdf-file">Choose PDF</label><input id="pdf-file" type="file" accept="application/pdf,.pdf"><button id="sample">Try sample PDF</button><button id="clear" disabled>Close PDF</button></div>
+<p id="status" role="status" aria-live="polite">PDFs stay on your device. Page previews use 300 dpi.</p>
+<section id="document" hidden>
+<h2 id="filename"></h2>
+<div class="workspace">
+<aside><div class="selection"><span id="selected-count">0 pages selected</span><button id="clear-selection">Clear selection</button></div><div id="thumbnails" aria-label="PDF pages"></div></aside>
+<section class="viewer" aria-label="Selected page preview"><div class="toolbar"><button id="previous" disabled aria-label="Previous selected page">‹</button><span id="page-label">Select a page</span><button id="next" disabled aria-label="Next selected page">›</button><button id="show" disabled>Show selected page</button><button id="cancel" hidden>Cancel</button></div><p id="page-status" role="status" aria-live="polite"></p><div id="page-host"></div></section>
+</div>
+</section>
+<details><summary>Loading details</summary><p id="details">No PDF loaded.</p><p>Reads the selected file once, then uses PDF.js. No OCR, independent JPEG decoder, byte-range reader, or upload. Thumbnails are generated one at a time near the visible area. Large pages are rejected rather than silently resized.</p></details>
+</main>
+<script type="module" src="./preview.mjs"></script>
+</html>
