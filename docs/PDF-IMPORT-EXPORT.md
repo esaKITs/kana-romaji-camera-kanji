@@ -55,3 +55,8 @@ PDF output pages are also rendered with Poppler for visual inspection.
 ## Rollback release v0.2.30
 
 At the user's request, the application is restored to the v0.2.24 source state (181f2f7), with the release identifier updated to 0.2.30. The default PDF resolution is again 300 dpi; page selection and PNG/PDF exports remain. Changes introduced in v0.2.25–0.2.29 and the separate diagnostic page are removed from the deployed tree. Their commits remain in repository history. This is a rollback for comparison, not a claim that the recurring iPhone failure has been diagnosed or fixed.
+
+
+## v0.2.31 failure recording
+
+The normal application records PDF file size, page counts, selected resolution, rendering phases and Meiki frame dimensions in tab-local session storage. PDF bytes, filenames and recognized text are not included. The record is updated before each operation and survives a reload in the same tab; an interrupted operation is identified by its last recorded phase, not declared successful. A visible failure panel downloads that record with a unique timestamp. OCR exceptions propagate to the document controller without being replaced by a generic retry message. The separate startup probe only checks application startup and opening the small sample PDF; it does not test PDF rendering or OCR conversion. This release adds diagnosis and error preservation, and does not claim to fix the reported original-PDF failure on an iPhone.

@@ -1,3 +1,4 @@
+import {pdfOperation} from './operation-report.mjs';
 import {assetUrl} from './asset-url.mjs';
 let reader;
 async function pdfReader(){
@@ -8,10 +9,10 @@ async function pdfReader(){
  return reader;
 }
 export async function openPdf(file){
- const pdf=await pdfReader(),task=pdf.getDocument({data:new Uint8Array(await file.arrayBuffer()),
+ pdfOperation.step('pdf-library');const pdf=await pdfReader();pdfOperation.step('file-read',{bytes:file.size});const bytes=new Uint8Array(await file.arrayBuffer());pdfOperation.step('pdf-parse',{bytes:bytes.byteLength});const task=pdf.getDocument({data:bytes,
   cMapUrl:assetUrl('pdf-assets/cmaps/'),cMapPacked:true,standardFontDataUrl:assetUrl('pdf-assets/standard_fonts/'),
   wasmUrl:assetUrl('pdf-assets/wasm/'),iccUrl:assetUrl('pdf-assets/iccs/'),isEvalSupported:false});
- try{const document=await task.promise;return {numPages:document.numPages,getPage:number=>document.getPage(number),destroy:()=>task.destroy()};}catch(error){await task.destroy();if(error.name==='PasswordException')throw Error('Password-protected PDFs are not supported yet.');throw error;}
+ try{const document=await task.promise;pdfOperation.step('pdf-opened',{pages:document.numPages});return {numPages:document.numPages,getPage:number=>document.getPage(number),destroy:()=>task.destroy()};}catch(error){await task.destroy();if(error.name==='PasswordException')throw Error('Password-protected PDFs are not supported yet.');throw error;}
 }
 export async function renderPdfPage(pdf,number,dpi=300,{preview=false}={}){
  if(!Number.isFinite(dpi)||dpi<=0)throw Error('Invalid PDF resolution.');

@@ -1,3 +1,4 @@
+import {pdfOperation} from './operation-report.mjs';
 import{initialize,runStill,dispose,analyzeText}from'../still-prototype/ocr-entry.mjs';
 import{analyzeSnapshot,renderResult}from'../still-prototype/pipeline.mjs';
 import{CameraSession}from'./session.mjs';
@@ -44,7 +45,7 @@ async function processScene(){
  await session.exclusive(async()=>{try{
   let source=kind==='still'?session.source:capture();if(!source)return;
   if(kind==='still'){renderSource(source);message('Preparing Still…',true);}
-  await engines();if(!session.owns(generation))return;
+  pdfOperation.step('ocr-initialize');await engines();if(!session.owns(generation))return;pdfOperation.step('ocr-initialized');
   let capturedSignature=null,captureEpoch=null;
   if(kind==='live'){source=capture();capturedSignature=videoSignature(source);motion.observe(capturedSignature,performance.now());if(!motion.stable(performance.now())){message('Live · hold steady');return;}captureEpoch=motion.epoch;}
   message(kind==='live'?'Live · reading…':'Still · reading…',kind==='still');
@@ -58,7 +59,7 @@ async function processScene(){
   documents?.remember(source,result);
   lastReport=createOcrReport(result,{origin:sourceOrigins.get(source)||kind,settings:{engine:ppocrMode?'ppocr':'meiki',mode:requestedMode,style:requestedStyle,reveal},environment:{userAgent:navigator.userAgent,platform:navigator.platform,devicePixelRatio:window.devicePixelRatio||1}});$('download-report').disabled=false;
   lastFrame=result.result;drawGuides(lastFrame);message(kind==='live'?(result.rendering.drawn.length?'Live · '+result.rendering.drawn.length+' labels':'Live · looking for text'):'Still · '+result.rendering.drawn.length+' shown'+(result.rendering.omitted?.length?' · '+result.rendering.omitted.length+' not fitted':''));if(result.snapshot.geometryVerification?.error)message($('scan-label').textContent+' · text check unavailable');
- }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}});
+ }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);if(sourceOrigins.get(session.source)==='pdf-page')throw error;}}});
  documents?.sync();if(pending&&session.kind!=='home')queueMicrotask(processScene);
 }
 async function focusScan(rect){
@@ -118,3 +119,11 @@ documents=bindDocumentControls({document,getCurrent:currentDocumentScene,
 });screen();
 
 $('sample-pdf').onclick=async()=>{const request=++opening;$('sample-pdf').disabled=true;try{const response=await fetch(assetUrl('fixtures/document-sample.pdf?v='+CAMERA_VERSION));if(!response.ok)throw Error('Unable to load sample PDF.');if(request!==opening)return;await documents.open(new File([await response.blob()],'document-sample.pdf',{type:'application/pdf'}));}catch(error){message(error.message);}finally{$('sample-pdf').disabled=false;}};
+
+const failureTools=document.createElement('aside');failureTools.id='pdf-failure-tools';failureTools.style.cssText='position:fixed;bottom:12px;left:12px;right:12px;z-index:10000;background:#fff;color:#15212a;padding:12px;border:2px solid #c45a35;border-radius:12px;max-height:45vh;overflow:auto';
+const failureMessage=document.createElement('p'),failureSave=document.createElement('button'),failureClose=document.createElement('button');failureSave.textContent='Save PDF diagnostic';failureClose.textContent='Close';failureTools.append(failureMessage,failureSave,failureClose);document.body.append(failureTools);
+function refreshPdfFailure(){const r=pdfOperation.current;failureTools.hidden=!r||r.complete||r.phase==='cancelled';failureMessage.textContent=r?.error?('PDF failed at '+r.error.phase+': '+r.error.message):('Last PDF step: '+r?.phase);}
+let reportDismissed=false;function displayPdfFailure(){const r=pdfOperation.current;if(r?.error){reportDismissed=false;refreshPdfFailure();}else if(!reportDismissed&&r&&!r.finishedAt){failureTools.hidden=true;}}
+failureClose.onclick=()=>{reportDismissed=true;failureTools.hidden=true;};
+failureSave.onclick=()=>{const r=pdfOperation.current;if(!r)return;const url=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='romaji-pdf-'+r.startedAt.replace(/[^0-9]/g,'')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);};
+window.addEventListener('pdf-operation-change',displayPdfFailure);refreshPdfFailure();
