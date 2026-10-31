@@ -140,13 +140,13 @@ function paperSampleBox(label,source){
  const b=label.bodyBox||label.box,h=b.y1-b.y0;
  return {x0:Math.max(0,b.x0-h*.5),x1:Math.min(source.width,b.x1+h*.5),y0:Math.max(0,b.y0-h*.5),y1:Math.min(source.height,b.y1+h*.5)};
 }
-export function renderResult(canvas,source,result,{paperState=null}={}){
- canvas.width=source.width;canvas.height=source.height;const ctx=canvas.getContext('2d');ctx.drawImage(source,0,0);
+export function renderResult(canvas,source,result,{paperState=null,layoutOnly=false}={}){
+ const width=source.width,height=source.height;canvas.width=layoutOnly?1:width;canvas.height=layoutOnly?1:height;const ctx=canvas.getContext('2d');if(!layoutOnly)ctx.drawImage(source,0,0);
  const measure=(text,font)=>{ctx.font=`700 ${font}px system-ui`;return ctx.measureText(text).width;};
  measure.ink=(text,font)=>{ctx.font=`700 ${font}px system-ui`;const m=ctx.measureText(text);return {ascent:m.actualBoundingBoxAscent,descent:m.actualBoundingBoxDescent};};
- let layout=allocateLabels(result,canvas.width,canvas.height,measure);
+ let layout=allocateLabels(result,width,height,measure);
  const compactLines=new Set(layout.omitted.filter(l=>l.geometry==='detected-region').map(l=>l.lineId));
- if(compactLines.size)layout=allocateLabels(result,canvas.width,canvas.height,measure,{compactLines});
+ if(compactLines.size)layout=allocateLabels(result,width,height,measure,{compactLines});
  const samples=layout.drawn.map(l=>({rgb:sampledPaperColor(l.heightPolicy?paperSampleBox(l,source):l.bodyBox||l.box,source),weight:Math.min(5,Math.max(1,Math.sqrt((l.box.x1-l.box.x0)*(l.box.y1-l.box.y0))/30))}));
  const papers=paperState?paperState.resolve(samples):selectPapers(samples);layout.papers=papers;
  layout.drawn.forEach((l,i)=>{l.backgroundRgb=paperState?.colorFor?paperState.colorFor(samples[i].rgb,l):paperFor(samples[i].rgb,papers);l.backgroundColor='rgb('+l.backgroundRgb.join(',')+')';l.foregroundColor=foregroundFor(l.backgroundRgb);});
@@ -154,9 +154,10 @@ export function renderResult(canvas,source,result,{paperState=null}={}){
  // First clear the entire source word, independently of its new text position.
  // Draw all backgrounds before any text, so no later mask erases a label.
  for(const label of layout.drawn){
-  const b=label.box,body=label.bodyBox||b,pad=label.geometry==='detected-region'?Math.max(4,Math.ceil((body.y1-body.y0)*.35)):Math.max(2,Math.min(6,Math.ceil((body.y1-body.y0)*.08))),sourceBox={x0:Math.max(0,b.x0-pad),x1:Math.min(canvas.width,b.x1+pad),y0:label.heightPolicy?label.displayBox.y0:Math.max(0,b.y0-pad),y1:Math.min(canvas.height,b.y1+pad)};
+  const b=label.box,body=label.bodyBox||b,pad=label.geometry==='detected-region'?Math.max(4,Math.ceil((body.y1-body.y0)*.35)):Math.max(2,Math.min(6,Math.ceil((body.y1-body.y0)*.08))),sourceBox={x0:Math.max(0,b.x0-pad),x1:Math.min(width,b.x1+pad),y0:label.heightPolicy?label.displayBox.y0:Math.max(0,b.y0-pad),y1:Math.min(height,b.y1+pad)};
   label.eraseRegions=visibleRegions(sourceBox,preserved);label.textRegions=visibleRegions(label.displayBox,preserved);
   if(label.heightPolicy){label.backgroundPatch=makePaperPatch(source,label,()=>canvas.ownerDocument?canvas.ownerDocument.createElement('canvas'):new canvas.constructor(1,1));}
+  if(layoutOnly)continue;
   ctx.save();ctx.beginPath();for(const r of [...label.eraseRegions,...label.textRegions])ctx.rect(r.x0,r.y0,r.x1-r.x0,r.y1-r.y0);ctx.clip();
   if(label.backgroundPatch){const p=label.backgroundPatch;ctx.drawImage(p.canvas,p.x,p.y);}else{ctx.fillStyle=label.backgroundColor;ctx.fillRect(0,0,canvas.width,canvas.height);}
   ctx.restore();

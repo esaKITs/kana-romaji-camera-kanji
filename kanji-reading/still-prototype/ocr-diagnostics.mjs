@@ -1,5 +1,5 @@
 // Local diagnostics only. No requests or image bytes are included in reports.
-export const CAMERA_VERSION='0.2.27';
+export const CAMERA_VERSION='0.2.28';
 export async function fingerprintInput(source){
  try{
   const rgba=source.getContext('2d',{willReadFrequently:true}).getImageData(0,0,source.width,source.height).data;

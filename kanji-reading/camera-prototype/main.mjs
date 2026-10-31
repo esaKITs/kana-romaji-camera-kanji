@@ -28,7 +28,7 @@ function stopStream(){stopMotion();clearTimeout(timer);timer=null;stream?.getTra
 function clearLayer(){lastPaint=null;paintedFrame=false;for(const id of ['output','guides']){const c=$(id);c.getContext('2d').clearRect(0,0,c.width,c.height);}}
 function home(){documents?.cancel();paperState.reset();opening++;session.enter('home');pending=false;stopStream();cache=null;lastFrame=null;clearLayer();screen();message('Horizontal printed Japanese · development preview');}
 async function engines(){if(!ready){message('Loading OCR and reading data…',true);ready=initialize('kuromoji').catch(error=>{ready=null;throw error;});}await ready;}
-function drawGuides(result){const c=$('guides');c.width=$('output').width;c.height=$('output').height;const x=c.getContext('2d');if(!guides||!result)return;x.lineWidth=2;for(const l of result.labels){x.strokeStyle=lastPaint?.layout.drawn.some(d=>d.lineId===l.lineId&&d.source===l.source&&d.box.x0===l.box.x0)?'#37d78d':'#ffbf47';const b=l.box;x.strokeRect(b.x0,b.y0,b.x1-b.x0,b.y1-b.y0);}}
+function drawGuides(result){const c=$('guides');if(!guides||!result){c.width=c.height=0;return;}c.width=$('output').width;c.height=$('output').height;const x=c.getContext('2d');x.lineWidth=2;for(const l of result.labels){x.strokeStyle=lastPaint?.layout.drawn.some(d=>d.lineId===l.lineId&&d.source===l.source&&d.box.x0===l.box.x0)?'#37d78d':'#ffbf47';const b=l.box;x.strokeRect(b.x0,b.y0,b.x1-b.x0,b.y1-b.y0);}}
 function showResult(layout,source,kind){lastPaint={layout,source,kind};paintLabels($('output'),source,layout,{still:kind==='still',reveal});}
 function capture(){const video=$('video');if(!video.videoWidth)throw Error('The camera has no frame yet.');const s=ppocrMode?1:Math.min(1,1200/Math.max(video.videoWidth,video.videoHeight)),c=document.createElement('canvas');c.width=Math.round(video.videoWidth*s);c.height=Math.round(video.videoHeight*s);c.getContext('2d').drawImage(video,0,0,c.width,c.height);return c;}
 function videoSignature(source=$('video')){motionContext.drawImage(source,0,0,96,64);return fingerprint(motionContext.getImageData(0,0,96,64).data);}
@@ -38,27 +38,28 @@ function watchMotion(){
  if($('video').videoWidth){try{const moved=motion.observe(videoSignature(),performance.now());if(moved&&paintedFrame){paperState.reset();clearLayer();lastFrame=null;message('Live · hold steady');}}catch{clearLayer();lastFrame=null;}}
  motionTimer=setTimeout(watchMotion,150);
 }
+let lastReadError=null;
 async function processScene(){
  pending=true;if(session.busy||session.kind==='home')return;pending=false;documents?.sync();
  const generation=session.generation,kind=session.kind,requestedMode=mode,requestedStyle=style;
- await session.exclusive(async()=>{let temporary;try{
+ await session.exclusive(async()=>{let temporary,progressTimer;try{
   let source=kind==='still'?session.source:capture();if(!source)return;
   if(kind==='still'){renderSource(source);message('Preparing Still…',true);}
   await engines();if(!session.owns(generation))return;
   let capturedSignature=null,captureEpoch=null;
   if(kind==='live'){source=capture();capturedSignature=videoSignature(source);motion.observe(capturedSignature,performance.now());if(!motion.stable(performance.now())){message('Live · hold steady');return;}captureEpoch=motion.epoch;}
   message(kind==='live'?'Live · reading…':'Still · reading…',kind==='still');
-  temporary=document.createElement('canvas');let result;
-  if(kind==='still'&&cache?.source===source){const previous=cache.value;const analyzed=await analyzeSnapshot(previous.snapshot,analyzeText,{mode:requestedMode,style:requestedStyle,source,verifyRuby:c=>{const pair=previous.result.pairs.find(p=>p.lineId===c.lineId&&p.start===c.start&&p.end===c.end);return pair?{reading:pair.reading,method:'cached-'+(pair.verification||'verified-ruby')}:null;}});result={...previous,result:analyzed,rendering:renderResult(temporary,source,analyzed,{paperState})};}
-  else result=await runStill(source,{mode:requestedMode,style:requestedStyle,output:temporary,paperState});
-  if(!session.owns(generation))return;
+  temporary=document.createElement('canvas');let result;lastReadError=null;let phase='Preparing image';const progressStart=performance.now();const updateProgress=()=>{if(session.owns(generation)){message('Still · '+phase+' · '+Math.floor((performance.now()-progressStart)/1000)+' s',true);progressTimer=setTimeout(updateProgress,1000);}};if(kind==='still')progressTimer=setTimeout(updateProgress,1000);
+  if(kind==='still'&&cache?.source===source){const previous=cache.value;const analyzed=await analyzeSnapshot(previous.snapshot,analyzeText,{mode:requestedMode,style:requestedStyle,source,verifyRuby:c=>{const pair=previous.result.pairs.find(p=>p.lineId===c.lineId&&p.start===c.start&&p.end===c.end);return pair?{reading:pair.reading,method:'cached-'+(pair.verification||'verified-ruby')}:null;}});result={...previous,result:analyzed,rendering:renderResult(temporary,source,analyzed,{paperState,layoutOnly:true})};}
+  else result=await runStill(source,{mode:requestedMode,style:requestedStyle,output:temporary,paperState,layoutOnly:true,onProgress:value=>{phase=value;}});
+  clearTimeout(progressTimer);if(!session.owns(generation))return;
   if(kind==='live'&&!motion.accepts(capturedSignature,videoSignature(),captureEpoch,performance.now())){clearLayer();lastFrame=null;message('Live · hold steady');return;}
   if(kind==='still'){cache={source,value:result};showResult(result.rendering,source,kind);}else{showResult(result.rendering,source,kind);paintedFrame=true;motion.painted(capturedSignature);}
   if(window.stillLab)window.stillLab.lastRun=result;
   documents?.remember(source,result);
   lastReport=createOcrReport(result,{origin:sourceOrigins.get(source)||kind,settings:{engine:ppocrMode?'ppocr':'meiki',mode:requestedMode,style:requestedStyle,reveal},environment:{userAgent:navigator.userAgent,platform:navigator.platform,devicePixelRatio:window.devicePixelRatio||1}});$('download-report').disabled=false;
   lastFrame=result.result;drawGuides(lastFrame);message(kind==='live'?(result.rendering.drawn.length?'Live · '+result.rendering.drawn.length+' labels':'Live · looking for text'):'Still · '+result.rendering.drawn.length+' shown'+(result.rendering.omitted?.length?' · '+result.rendering.omitted.length+' not fitted':''));if(result.snapshot.geometryVerification?.error)message($('scan-label').textContent+' · text check unavailable');
- }catch(error){if(session.owns(generation)){message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}finally{if(temporary)temporary.width=temporary.height=0;}});
+ }catch(error){if(session.owns(generation)){lastReadError=error;message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}finally{clearTimeout(progressTimer);if(temporary)temporary.width=temporary.height=0;}});
  documents?.sync();if(pending&&session.kind!=='home')queueMicrotask(processScene);
 }
 async function focusScan(rect){
@@ -79,7 +80,7 @@ async function focusScan(rect){
   const retained=old.lines.filter(l=>!accepted.some(a=>overlaps(l.box,a.box)));
   const snapshot={...old,lines:[...retained,...accepted]};
   const analyzed=await analyzeSnapshot(snapshot,analyzeText,{mode,style,source});if(!session.owns(generation))return;
-  const temporary=document.createElement('canvas'),rendering=renderResult(temporary,source,analyzed,{paperState});
+  const temporary=document.createElement('canvas'),rendering=renderResult(temporary,source,analyzed,{paperState,layoutOnly:true});
   if(rendering.drawn.length<previous.rendering.drawn.length){message('Focus · no verified improvement; original labels kept');return;}
   const value={...previous,snapshot,result:analyzed,rendering};cache={source,value};showResult(rendering,source,'still');documents?.remember(source,value);lastFrame=analyzed;drawGuides(analyzed);
   message('Focus · '+accepted.length+' region(s) reread · '+rendering.drawn.length+' shown'+(rendering.omitted?.length?' · '+rendering.omitted.length+' not fitted':''));
@@ -113,8 +114,8 @@ function invalidateDocumentScene(){opening++;pending=false;session.enter('home')
 documents=bindDocumentControls({document,getCurrent:currentDocumentScene,
  onBusy:busy=>{for(const id of ['start','choose','choose-home','sample','sample-pdf','ocr-engine','kana-mode','long-vowels','source-level','retry','scan','focus-scan'])$(id).disabled=busy;},
  invalidate:invalidateDocumentScene,
- readPage:async(source,previous,owns)=>{stopStream();session.enter('home');pending=false;while(session.busy){if(!owns())return null;await new Promise(r=>setTimeout(r,30));}if(!owns())return null;sourceOrigins.set(source,'pdf-page');await still(source,previous);return cache?.source===source?cache.value:null;},
- renderExport:async(source,previous)=>{if(lastPaint?.source===source&&cache?.value===previous&&previous.result.mode===mode&&previous.result.style===style){const output=document.createElement('canvas');paintLabels(output,source,lastPaint.layout,{still:true,reveal});return output;}const analyzed=await analyzeSnapshot(previous.snapshot,analyzeText,{mode,style,source,verifyRuby:c=>{const p=previous.result.pairs.find(p=>p.lineId===c.lineId&&p.start===c.start&&p.end===c.end);return p?{reading:p.reading,method:'cached-'+(p.verification||'verified-ruby')}:null;}});const scratch=document.createElement('canvas'),layout=renderResult(scratch,source,analyzed,{paperState:new AdaptivePapers()}),output=document.createElement('canvas');paintLabels(output,source,layout,{still:true,reveal});scratch.width=scratch.height=0;return output;}
+ readPage:async(source,previous,owns)=>{stopStream();session.enter('home');pending=false;while(session.busy){if(!owns())return null;await new Promise(r=>setTimeout(r,30));}if(!owns())return null;sourceOrigins.set(source,'pdf-page');await still(source,previous);if(cache?.source===source)return cache.value;if(lastReadError)throw lastReadError;return null;},
+ renderExport:async(source,previous)=>{if(lastPaint?.source===source&&cache?.value===previous&&previous.result.mode===mode&&previous.result.style===style){const output=document.createElement('canvas');paintLabels(output,source,lastPaint.layout,{still:true,reveal});return output;}const analyzed=await analyzeSnapshot(previous.snapshot,analyzeText,{mode,style,source,verifyRuby:c=>{const p=previous.result.pairs.find(p=>p.lineId===c.lineId&&p.start===c.start&&p.end===c.end);return p?{reading:p.reading,method:'cached-'+(p.verification||'verified-ruby')}:null;}});const scratch=document.createElement('canvas'),layout=renderResult(scratch,source,analyzed,{paperState:new AdaptivePapers(),layoutOnly:true}),output=document.createElement('canvas');paintLabels(output,source,layout,{still:true,reveal});scratch.width=scratch.height=0;return output;}
 });screen();
 
 $('sample-pdf').onclick=async()=>{const request=++opening;$('sample-pdf').disabled=true;try{const response=await fetch(assetUrl('fixtures/document-sample.pdf?v='+CAMERA_VERSION));if(!response.ok)throw Error('Unable to load sample PDF.');if(request!==opening)return;await documents.open(new File([await response.blob()],'document-sample.pdf',{type:'application/pdf'}));}catch(error){message(error.message);}finally{$('sample-pdf').disabled=false;}};
