@@ -33,7 +33,9 @@ jobs:
       - name: Startup and PDF module failure visibility
         run: OCR_BROWSER=webkit node scripts/startup-browser-test.mjs
       - name: PDF conversion failures survive reload
-        run: OCR_BROWSER=webkit node scripts/pdf-failure-browser-test.mjs
+        run: |
+          OCR_BROWSER=webkit node scripts/pdf-failure-browser-test.mjs
+          OCR_BROWSER=webkit node scripts/scanned-pdf-browser-test.mjs
       - name: OCR, pronunciation and PDF import/export through WebKit
         run: |
           OCR_BROWSER=webkit node scripts/clipped-line-browser-test.mjs
@@ -94,7 +96,9 @@ jobs:
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/verified-ruby-browser-test.mjs
       - name: PDF import, page selection and PNG/PDF exports
         timeout-minutes: 15
-        run: CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pdf-browser-test.mjs
+        run: |
+          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pdf-browser-test.mjs
+          CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/scanned-pdf-browser-test.mjs
       - name: Restore the original five-line sample in Still and Live
         timeout-minutes: 15
         run: |

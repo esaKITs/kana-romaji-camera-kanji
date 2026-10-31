@@ -21,6 +21,6 @@ try{
  await page.locator('#live-return').click();await page.getByText('About this preview',{exact:true}).click();
  const pendingDownload=page.waitForEvent('download');await page.locator('#download-report').click();const download=await pendingDownload;
  const saved=await download.path(),report=JSON.parse(await readFile(saved));
- assert.equal(report.version,'0.2.32');assert.equal(report.origin,'built-in-sample');assert.deepEqual(report.input,run.inputFingerprint);assert.equal(report.rawText,run.rawText);assert.deepEqual(report.snapshot.rawRegions,run.snapshot.rawRegions);assert.ok(report.snapshot.geometryVerification.referenceSnapshot.lines.length);assert.equal(report.rendering.drawn[2].output,'hatsukakan yasumimasu.');assert.ok(!report.rendering.drawn.some(l=>'backgroundPatch' in l));
+ assert.equal(report.version,'0.2.33');assert.equal(report.origin,'built-in-sample');assert.deepEqual(report.input,run.inputFingerprint);assert.equal(report.rawText,run.rawText);assert.deepEqual(report.snapshot.rawRegions,run.snapshot.rawRegions);assert.ok(report.snapshot.geometryVerification.referenceSnapshot.lines.length);assert.equal(report.rendering.drawn[2].output,'hatsukakan yasumimasu.');assert.ok(!report.rendering.drawn.some(l=>'backgroundPatch' in l));
  await writeFile('test-results/clipped-line/'+engine+'-downloaded-report.json',JSON.stringify(report,null,2));
 }finally{await browser.close();server.close();}

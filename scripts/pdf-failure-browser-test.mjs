@@ -13,7 +13,7 @@ try{for(const mode of ['render','ocr-initialize','parse','image-isolation']){
  else{await page.locator('#sample-pdf').click();await page.locator('#pdf-dialog').waitFor({state:'visible',timeout:60000});await page.locator('#pdf-convert').click();}
  await page.waitForFunction(()=>document.getElementById('pdf-failure-tools')?.hidden===false,{},{timeout:60000});
  const report=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('romaji-pdf-last-operation-v1')));
- assert.equal(report.error.phase,mode==='render'?'page-render':mode==='parse'?'pdf-parse':'ocr-initialize');assert.equal(report.complete,false);
+ assert.equal(report.error.phase,mode==='render'?'page-paint':mode==='parse'?'pdf-parse':'ocr-initialize');assert.equal(report.complete,false);
  if(mode!=='parse')assert.match(report.error.message,/injected-/);
  assert.ok(!(await page.locator('#document-status').innerText()).includes('Please retry'));
  await page.reload();await page.locator('#pdf-failure-tools').waitFor({state:'visible'});assert.ok((await page.locator('#pdf-failure-tools').innerText()).includes(report.error.message));

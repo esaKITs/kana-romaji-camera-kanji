@@ -13,7 +13,7 @@ export function createOperationReport({storage=null,version='',environment={},ch
  };
 }
 let localStorage=null;try{localStorage=globalThis.sessionStorage;}catch{}
-export const pdfOperation=createOperationReport({storage:localStorage,version:'0.2.32',environment:{userAgent:globalThis.navigator?.userAgent||'',devicePixelRatio:globalThis.devicePixelRatio||1},changed:()=>globalThis.dispatchEvent?.(new Event('pdf-operation-change'))});
+export const pdfOperation=createOperationReport({storage:localStorage,version:'0.2.33',environment:{userAgent:globalThis.navigator?.userAgent||'',devicePixelRatio:globalThis.devicePixelRatio||1},changed:()=>globalThis.dispatchEvent?.(new Event('pdf-operation-change'))});
 
 export function bindPdfFailurePanel(doc){
  const tools=doc.getElementById('pdf-failure-tools'),message=doc.getElementById('pdf-failure-message'),save=doc.getElementById('pdf-failure-save'),close=doc.getElementById('pdf-failure-close');
