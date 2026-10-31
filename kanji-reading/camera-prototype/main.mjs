@@ -49,17 +49,17 @@ async function processScene(){
   let capturedSignature=null,captureEpoch=null;
   if(kind==='live'){source=capture();capturedSignature=videoSignature(source);motion.observe(capturedSignature,performance.now());if(!motion.stable(performance.now())){message('Live · hold steady');return;}captureEpoch=motion.epoch;}
   message(kind==='live'?'Live · reading…':'Still · reading…',kind==='still');
-  temporary=document.createElement('canvas');let result;lastReadError=null;let phase='Preparing image';const progressStart=performance.now();if(kind==='still')progressTimer=setInterval(()=>{if(session.owns(generation))message('Still · '+phase+' · '+Math.floor((performance.now()-progressStart)/1000)+' s',true);},1000);
+  temporary=document.createElement('canvas');let result;lastReadError=null;let phase='Preparing image';const progressStart=performance.now();const updateProgress=()=>{if(session.owns(generation)){message('Still · '+phase+' · '+Math.floor((performance.now()-progressStart)/1000)+' s',true);progressTimer=setTimeout(updateProgress,1000);}};if(kind==='still')progressTimer=setTimeout(updateProgress,1000);
   if(kind==='still'&&cache?.source===source){const previous=cache.value;const analyzed=await analyzeSnapshot(previous.snapshot,analyzeText,{mode:requestedMode,style:requestedStyle,source,verifyRuby:c=>{const pair=previous.result.pairs.find(p=>p.lineId===c.lineId&&p.start===c.start&&p.end===c.end);return pair?{reading:pair.reading,method:'cached-'+(pair.verification||'verified-ruby')}:null;}});result={...previous,result:analyzed,rendering:renderResult(temporary,source,analyzed,{paperState,layoutOnly:true})};}
   else result=await runStill(source,{mode:requestedMode,style:requestedStyle,output:temporary,paperState,layoutOnly:true,onProgress:value=>{phase=value;}});
-  clearInterval(progressTimer);if(!session.owns(generation))return;
+  clearTimeout(progressTimer);if(!session.owns(generation))return;
   if(kind==='live'&&!motion.accepts(capturedSignature,videoSignature(),captureEpoch,performance.now())){clearLayer();lastFrame=null;message('Live · hold steady');return;}
   if(kind==='still'){cache={source,value:result};showResult(result.rendering,source,kind);}else{showResult(result.rendering,source,kind);paintedFrame=true;motion.painted(capturedSignature);}
   if(window.stillLab)window.stillLab.lastRun=result;
   documents?.remember(source,result);
   lastReport=createOcrReport(result,{origin:sourceOrigins.get(source)||kind,settings:{engine:ppocrMode?'ppocr':'meiki',mode:requestedMode,style:requestedStyle,reveal},environment:{userAgent:navigator.userAgent,platform:navigator.platform,devicePixelRatio:window.devicePixelRatio||1}});$('download-report').disabled=false;
   lastFrame=result.result;drawGuides(lastFrame);message(kind==='live'?(result.rendering.drawn.length?'Live · '+result.rendering.drawn.length+' labels':'Live · looking for text'):'Still · '+result.rendering.drawn.length+' shown'+(result.rendering.omitted?.length?' · '+result.rendering.omitted.length+' not fitted':''));if(result.snapshot.geometryVerification?.error)message($('scan-label').textContent+' · text check unavailable');
- }catch(error){if(session.owns(generation)){lastReadError=error;message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}finally{clearInterval(progressTimer);if(temporary)temporary.width=temporary.height=0;}});
+ }catch(error){if(session.owns(generation)){lastReadError=error;message('Unable to read: '+error.message,false);clearLayer();if(kind==='still'&&session.source)renderSource(session.source);}}finally{clearTimeout(progressTimer);if(temporary)temporary.width=temporary.height=0;}});
  documents?.sync();if(pending&&session.kind!=='home')queueMicrotask(processScene);
 }
 async function focusScan(rect){
