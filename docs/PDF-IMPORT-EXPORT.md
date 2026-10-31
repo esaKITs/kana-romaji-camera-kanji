@@ -5,7 +5,7 @@ browser memory with the existing OCR and reading pipeline; there is no upload.
 
 - A PDF opens a numbered page selector. Select one or multiple pages, or all.
   Only selected pages are converted, sequentially in original document order.
-- Resolution defaults to 300 dpi for fine text/ruby. 200/150 dpi are explicit
+- Resolution defaults to 600 dpi for fine text/ruby. 300/200/150 dpi are explicit
   alternatives. Oversized canvases fail with a clear resolution choice rather
   than silently downsampling or changing OCR inference settings.
 - The page bar navigates selected pages. Converted pages reuse OCR snapshots
@@ -51,3 +51,13 @@ PDF with exact source page sizes/order, switch vowel style without rescanning,
 navigate cached pages, convert/export rotated page 2, reject a corrupt replacement,
 reopen the actual exported PDF through PDF.js, and export a normal image Still.
 PDF output pages are also rendered with Poppler for visual inspection.
+
+## Resolution policy (v0.2.25)
+
+600 dpi is the default for import, OCR and export re-rendering on every device.
+The app does not automatically reduce the selected resolution. The canvas limit
+is 36 million pixels, with a maximum side of 16384 pixels; A4 at 600 dpi fits.
+Larger pages are rejected before allocation and offer a lower resolution.
+Only one selected page is processed at a time. Canonical OCR tiling, models,
+thresholds and recognition preprocessing are unchanged. A higher render resolution
+is not a claim that all recognition errors are resolved.
