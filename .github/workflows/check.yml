@@ -86,6 +86,8 @@ jobs:
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/numeric-counter-browser-test.mjs
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pronunciation-browser-test.mjs
           CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/verified-ruby-browser-test.mjs
+      - name: Large local PDF byte-range rendering
+        run: CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pdf-range-browser-test.mjs
       - name: PDF import, page selection and PNG/PDF exports
         timeout-minutes: 15
         run: CHROMIUM_PATH=$(node --input-type=module -e "import {chromium} from './meikiocr-test/node_modules/playwright/index.mjs';console.log(chromium.executablePath())") node scripts/pdf-browser-test.mjs
