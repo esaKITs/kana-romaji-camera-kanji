@@ -1,6 +1,8 @@
 const $=id=>document.getElementById(id);
 let generation=0,pdf=null,loadingTask=null,renderTask=null,reader=null,observer=null,pumping=false,wantedPage=null,currentPage=0,selected=new Set(),visible=new Set(),pendingThumbs=new Set(),failedThumbs=new Set();
-const thumbCanvases=new Map();
+const mobileLayout=matchMedia('(max-width: 650px), (pointer: coarse) and (max-width: 1024px)');
+const thumbnails=new Map(),thumbnailBudget=8*1024*1024;
+let thumbnailBytes=0,groupStart=0,galleryRevision=0;
 const release=canvas=>{if(canvas)canvas.width=canvas.height=0;};
 function status(text,error=false){$('status').textContent=text;$('status').dataset.error=error;}
 function pageStatus(text,error=false){$('page-status').textContent=text;$('page-status').dataset.error=error;}
@@ -14,10 +16,10 @@ function selection(){
 }
 function cancelRender(){renderTask?.cancel();}
 async function close(){
- ++generation;cancelRender();observer?.disconnect();observer=null;
+ ++generation;++galleryRevision;cancelRender();observer?.disconnect();observer=null;groupStart=0;
  const oldTask=loadingTask;loadingTask=null;pdf=null;wantedPage=null;currentPage=0;
  selected.clear();visible.clear();pendingThumbs.clear();failedThumbs.clear();
- for(const c of thumbCanvases.values())release(c);thumbCanvases.clear();
+ for(const item of thumbnails.values())URL.revokeObjectURL(item.url);thumbnails.clear();thumbnailBytes=0;
  for(const c of $('page-host').querySelectorAll('canvas'))release(c);
  $('page-host').replaceChildren();$('thumbnails').replaceChildren();$('document').hidden=true;$('clear').disabled=true;$('cancel').hidden=true;
  $('page-label').textContent='Select a page';pageStatus('');selection();
@@ -28,7 +30,7 @@ async function pdfReader(){
  return reader;
 }
 async function open(file){
- await close();const epoch=generation,start=performance.now();
+ const openingEpoch=generation+1;await close();if(!isCurrent(openingEpoch))return;const epoch=openingEpoch,start=performance.now();
  status('Reading PDF file…');$('clear').disabled=false;details('File read started: '+file.size.toLocaleString()+' bytes.');
  try{
   // Finish reading the File before clearing the input or importing the PDF library.
@@ -43,21 +45,40 @@ async function open(file){
  }catch(error){if(isCurrent(epoch)){await close();status('Unable to open PDF: '+error.message,true);details('Failed during file read or PDF open: '+error.name+' · '+error.message);}}
 }
 function buildThumbnails(epoch){
+ const revision=++galleryRevision,mobile=mobileLayout.matches;
+ observer?.disconnect();observer=null;visible.clear();pendingThumbs.clear();$('thumbnails').replaceChildren();
+ $('thumb-pagination').hidden=!mobile;
+ const first=mobile?groupStart+1:1,last=mobile?Math.min(pdf.numPages,groupStart+4):pdf.numPages;
+ $('thumb-range').textContent='Pages '+first+'–'+last+' / '+pdf.numPages;
+ $('thumb-previous').disabled=groupStart===0;$('thumb-next').disabled=last>=pdf.numPages;
  const fragment=document.createDocumentFragment();
- for(let number=1;number<=pdf.numPages;number++){
+ for(let number=first;number<=last;number++){
   const label=document.createElement('label');label.className='thumbnail';label.dataset.page=number;
   const image=document.createElement('div');image.className='thumb-image';image.id='thumb-'+number;image.innerHTML='<span>Waiting for preview</span>';
-  const caption=document.createElement('span');caption.className='caption';const input=document.createElement('input');input.type='checkbox';input.setAttribute('aria-label','Page '+number);
+  const caption=document.createElement('span');caption.className='caption';const input=document.createElement('input');input.type='checkbox';input.checked=selected.has(number);input.setAttribute('aria-label','Page '+number);
   input.onchange=()=>{input.checked?selected.add(number):selected.delete(number);selection();};
   caption.append(input,document.createTextNode('Page '+number));label.append(image,caption);fragment.append(label);
  }
  $('thumbnails').append(fragment);
+ if(mobile){
+  for(let number=first;number<=last;number++){visible.add(number);if(thumbnails.has(number))showThumbnail(number);else if(!failedThumbs.has(number))pendingThumbs.add(number);}
+  trimThumbnails();selection();void pump();return;
+ }
  observer=new IntersectionObserver(entries=>{
-  if(!isCurrent(epoch))return;
-  for(const entry of entries){const number=Number(entry.target.dataset.page);if(entry.isIntersecting){visible.add(number);if(!thumbCanvases.has(number)&&!failedThumbs.has(number))pendingThumbs.add(number);}else{visible.delete(number);pendingThumbs.delete(number);const c=thumbCanvases.get(number);if(c){release(c);thumbCanvases.delete(number);$('thumb-'+number).innerHTML='<span>Waiting for preview</span>';}}}
-  void pump();
+  if(!isCurrent(epoch)||revision!==galleryRevision)return;
+  for(const entry of entries){const number=Number(entry.target.dataset.page);if(entry.isIntersecting){visible.add(number);if(thumbnails.has(number))showThumbnail(number);else if(!failedThumbs.has(number))pendingThumbs.add(number);}else{visible.delete(number);pendingThumbs.delete(number);const host=$('thumb-'+number);if(host)host.innerHTML='<span>Waiting for preview</span>';}}
+  trimThumbnails();void pump();
  },{root:$('thumbnails'),rootMargin:'120px'});
  for(const label of $('thumbnails').children)observer.observe(label);
+ selection();
+}
+function showThumbnail(number){
+ const item=thumbnails.get(number),host=$('thumb-'+number);if(!item||!host||!visible.has(number))return;
+ if(host.firstElementChild?.tagName==='IMG')return;
+ const image=new Image();image.alt='Preview of page '+number;image.decoding='async';image.width=item.width;image.height=item.height;image.src=item.url;host.replaceChildren(image);
+}
+function trimThumbnails(){
+ for(const [number,item]of thumbnails){if(thumbnailBytes<=thumbnailBudget)break;if(visible.has(number))continue;URL.revokeObjectURL(item.url);thumbnailBytes-=item.bytes;thumbnails.delete(number);}
 }
 async function render(number,thumbnail,epoch){
  const owner=pdf;let page,canvas,task;
@@ -81,16 +102,27 @@ async function pump(){
   while(pdf&&(wantedPage!==null||pendingThumbs.size)){
    const epoch=generation,full=wantedPage!==null,number=full?wantedPage:pendingThumbs.values().next().value;
    if(full){wantedPage=null;pageStatus('Rendering page '+number+' at 300 dpi…');$('cancel').hidden=false;}else pendingThumbs.delete(number);
+   if(!full&&(!visible.has(number)||thumbnails.has(number))){showThumbnail(number);continue;}
    try{
     const canvas=await render(number,!full,epoch);if(!canvas)continue;
     if(full){if(wantedPage!==null){release(canvas);continue;}for(const c of $('page-host').querySelectorAll('canvas'))release(c);canvas.setAttribute('aria-label','PDF page '+number);$('page-host').replaceChildren(canvas);currentPage=number;$('page-label').textContent='Page '+number+' / '+pdf.numPages;pageStatus('Page '+number+' displayed · '+canvas.width+' × '+canvas.height+' pixels · 300 dpi');selection();}
-    else if(visible.has(number)){thumbCanvases.set(number,canvas);$('thumb-'+number).replaceChildren(canvas);}else release(canvas);
-   }catch(error){if(!isCurrent(epoch))continue;if(error.name==='RenderingCancelledException'){if(!full&&visible.has(number))pendingThumbs.add(number);continue;}if(full)pageStatus('Unable to display page '+number+': '+error.message,true);else{failedThumbs.add(number);$('thumb-'+number).innerHTML='<span>Preview unavailable. You can still select this page.</span>';}}
+    else{
+     const width=canvas.width,height=canvas.height;let blob;
+     try{blob=await deadline(new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('Unable to create thumbnail.')),'image/png')),'Thumbnail encoding');}finally{release(canvas);}
+     if(!isCurrent(epoch))continue;
+     if(!thumbnails.has(number)){thumbnails.set(number,{url:URL.createObjectURL(blob),bytes:blob.size,width,height});thumbnailBytes+=blob.size;}
+     pendingThumbs.delete(number);showThumbnail(number);trimThumbnails();
+    }
+   }catch(error){if(!isCurrent(epoch))continue;if(error.name==='RenderingCancelledException'){if(!full&&visible.has(number))pendingThumbs.add(number);continue;}if(full)pageStatus('Unable to display page '+number+': '+error.message,true);else{failedThumbs.add(number);const host=$('thumb-'+number);if(host)host.innerHTML='<span>Preview unavailable. You can still select this page.</span>';}}
    finally{if(full&&isCurrent(epoch))$('cancel').hidden=true;}
   }
  }finally{pumping=false;if(pdf&&(wantedPage!==null||pendingThumbs.size))void pump();}
 }
 function show(number){if(!pdf||!number)return;wantedPage=number;cancelRender();void pump();}
+for(const [id,offset]of [['thumb-previous',-4],['thumb-next',4]])$(id).onclick=()=>{
+ if(!pdf)return;groupStart=Math.max(0,Math.min(Math.floor((pdf.numPages-1)/4)*4,groupStart+offset));buildThumbnails(generation);
+};
+mobileLayout.addEventListener('change',()=>{if(pdf)buildThumbnails(generation);});
 $('pdf-file').onchange=()=>{const file=$('pdf-file').files?.[0];if(file)void open(file);};
 $('clear').onclick=async()=>{await close();status('PDF closed. Choose another PDF.');details('No PDF loaded.');};
 $('clear-selection').onclick=()=>{selected.clear();for(const input of $('thumbnails').querySelectorAll('input'))input.checked=false;selection();};
